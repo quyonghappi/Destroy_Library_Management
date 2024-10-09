@@ -25,8 +25,8 @@ CREATE TABLE Users (
                        user_role ENUM('reader', 'admin') DEFAULT 'reader',
                        account_status ENUM('active', 'suspended') DEFAULT 'active',
                        join_date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                       last_login DATETIME,
-                       login_attempts INT DEFAULT 0,
+                       -- last_login DATETIME,
+                       -- login_attempts INT DEFAULT 0,
                        account_locked BOOLEAN DEFAULT FALSE,
                        PRIMARY KEY(user_id)
 );
@@ -42,8 +42,8 @@ CREATE TABLE Authors (
 CREATE TABLE Publishers (
                             publisher_id INT NOT NULL AUTO_INCREMENT,
                             name VARCHAR(255) NOT NULL UNIQUE,
-                            address TEXT NOT NULL,
-                            contact_info VARCHAR(255),
+                            -- address TEXT NOT NULL,
+                            -- contact_info VARCHAR(255),
                             PRIMARY KEY(publisher_id)
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE Publishers (
 CREATE TABLE Categories (
                             category_id INT NOT NULL AUTO_INCREMENT,
                             name VARCHAR(255) NOT NULL,
-                            description TEXT,
+                            -- description TEXT,
                             PRIMARY KEY(category_id)
 );
 
