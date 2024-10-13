@@ -12,7 +12,7 @@ public class User {
     private String email;
     private String phone;
     //private String address;
-    private String userRole;
+    private String userRole="reader";
     private String accountStatus = "active";
     private LocalDate joinDate;
     private List<String> borrowedDocuments = new ArrayList<String>();

@@ -1,14 +1,24 @@
 package com.library.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class BorrowingRecord {
     private int recordId;
     private int userId;
     private String isbn;
-    private LocalDateTime borrowDate;
-    private LocalDateTime returnDate;
-    private String status;
+    private LocalDate borrowDate;
+    private LocalDate returnDate;
+    private String status="borrowed";
+
+    public BorrowingRecord(int recordId, int userId, String isbn, LocalDate localDate, LocalDate localDate1, String status) {
+        this.recordId = recordId;
+        this.userId = userId;
+        this.isbn = isbn;
+        borrowDate = localDate;
+        returnDate = localDate1;
+        this.status = status;
+    }
 
     public int getRecordId() {
         return recordId;
@@ -28,16 +38,16 @@ public class BorrowingRecord {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-    public LocalDateTime getBorrowDate() {
+    public LocalDate getBorrowDate() {
         return borrowDate;
     }
-    public void setBorrowDate(LocalDateTime borrowDate) {
+    public void setBorrowDate(LocalDate borrowDate) {
         this.borrowDate = borrowDate;
     }
-    public LocalDateTime getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
-    public void setReturnDate(LocalDateTime returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
     public String getStatus() {
