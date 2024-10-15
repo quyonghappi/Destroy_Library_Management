@@ -36,9 +36,6 @@ public class Document {
 //        this.availableCopies = availableCopies;
         this.description = description;
         this.location = location;
-
-
-
     }
 
     public String getISBN() {
@@ -124,7 +121,7 @@ public class Document {
     }
     @Override
     public String toString() {
-        return "ISBN: " + ISBN + ", title: " + title + ", category " + categoryId;
+        return "Document [ISBN: " + ISBN + ", title: " + title + ", category: " + categoryId + "]\n";
     }
 
     public Author getAuthor() {

@@ -10,6 +10,14 @@ public class BorrowingRecord {
     private LocalDateTime returnDate;
     private String status;
 
+    public BorrowingRecord(int recordId, int userId, String isbn, LocalDateTime borrowDate, LocalDateTime returnDate, String status) {
+        this.recordId = recordId;
+        this.userId = userId;
+        this.isbn = isbn;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
+        this.status = status;
+    }
     public int getRecordId() {
         return recordId;
     }
@@ -46,5 +54,4 @@ public class BorrowingRecord {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }
