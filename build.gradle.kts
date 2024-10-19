@@ -19,6 +19,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")  //add Gson dependency
     implementation("mysql:mysql-connector-java:8.0.33") //add sql connector
 
+    implementation("com.squareup.okhttp3:okhttp:4.10.0") //updated OkHttp dependency
+    implementation("com.google.code.gson:gson:2.10.1") //Gson dependency
+    implementation("org.mindrot:jbcrypt:0.4") //check user password
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
