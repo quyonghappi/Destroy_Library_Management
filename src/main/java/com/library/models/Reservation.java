@@ -9,6 +9,17 @@ public class Reservation {
     private LocalDateTime reservationDate;
     private String status;
 
+    public Reservation() {
+
+    }
+    public Reservation(int reservationId, int userId, String isbn, LocalDateTime date, String status) {
+        this.reservationId = reservationId;
+        this.userId = userId;
+        this.isbn = isbn;
+        this.reservationDate = date;
+        this.status = status;
+    }
+
     public int getReservationId() {
         return reservationId;
     }
