@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml" fx:controller="com.library.Auth.LoginController">
+    <children>
+        <!-- Form layout -->
+        <VBox fx:id="formBox" alignment="CENTER" spacing="10" styleClass="form-box">
+            <Label text="USER LOGIN" styleClass="title"/>
+            <Label text="Please enter your details" styleClass="subtitle"/>
+            <TextField fx:id="userNameField" promptText="Username"/>
+            <PasswordField fx:id="passwordField" promptText="Password"/>
+            <CheckBox text="Remember for 30 days" fx:id="rememberMeCheckBox"/>
+            <Hyperlink text="Forgot password?" fx:id="forgotPasswordLink"/>
+            <Button fx:id="loginButton" text="Login" onAction="#login" styleClass="login-button"/>
+            <Hyperlink fx:id="signUpLink" text="Don't have an account? Sign up" onAction="#openSignUp" styleClass="hyperlink"/>
+
+        </VBox>
+    </children>
+</StackPane>

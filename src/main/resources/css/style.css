@@ -1,0 +1,123 @@
+/*#rootPane {*/
+/*    -fx-background-color: linear-gradient(to bottom, #83cda3, rgba(243, 243, 184, 0.7));*/
+/*    -fx-padding: 50px;*/
+/*}*/
+
+/*!* Form container *!*/
+/*.form-box {*/
+/*    -fx-background-color: white;*/
+/*    -fx-padding: 20px;*/
+/*    -fx-spacing: 10px;*/
+/*    -fx-background-radius: 15px;*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 15, 0, 4, 4);*/
+/*}*/
+
+/*!* Labels *!*/
+/*.title {*/
+/*    -fx-font-size: 24px;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-text-fill: #39230b; !* Use the darkest color for titles *!*/
+/*}*/
+
+/*.subtitle {*/
+/*    -fx-font-size: 14px;*/
+/*    -fx-text-fill: #84872c; !* Slightly lighter for subtitles *!*/
+/*}*/
+
+/*!* TextField and PasswordField *!*/
+/*.text-field, .password-field {*/
+/*    -fx-background-color: #f0f0f0;*/
+/*    -fx-padding: 10px;*/
+/*    -fx-border-radius: 8px;*/
+/*}*/
+
+/*!* Button styling *!*/
+/*.login-button {*/
+/*    -fx-background-color: #a5cfab; !* Light yellow for buttons *!*/
+/*    -fx-text-fill: #39230b; !* Dark brown text on the button *!*/
+/*    -fx-padding: 10px 20px;*/
+/*    -fx-border-radius: 8px;*/
+/*    -fx-max-width: Infinity;*/
+/*}*/
+
+/*.login-button:hover {*/
+/*    -fx-background-color: rgba(227, 227, 157, 0.7); !* Slightly darker on hover *!*/
+/*}*/
+
+/*!* Hyperlinks *!*/
+/*.hyperlink {*/
+/*    -fx-text-fill: #37a196; !* Soft green for links *!*/
+/*    -fx-underline: true;*/
+/*    -fx-font-size: 12px;*/
+/*}*/
+
+
+#rootPane {
+    -fx-background-color: linear-gradient(to bottom, #86a9ea, rgba(220, 220, 255, 0.7)); /* Deeper blue to light blue-white gradient */
+    -fx-padding: 50px;
+}
+
+/* Form container */
+.form-box {
+    -fx-background-color: white;
+    -fx-padding: 20px;
+    -fx-spacing: 10px;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 15, 0, 4, 4);
+}
+
+/* Labels */
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #4f73af; /* Darker, vibrant blue for titles */
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #506c9a; /* Deeper blue for subtitles */
+}
+
+/* TextField and PasswordField */
+.text-field, .password-field {
+    -fx-background-color: #bfd1f6; /* Slightly deeper blue for input fields */
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #4f73af;
+    -fx-prompt-text-fill: #506c9a;
+    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+/* Button styling */
+.login-button {
+    -fx-background-color: #88adf4; /* Richer pastel blue for buttons */
+    -fx-text-fill: #2a599e; /* Darker blue text on the button */
+    -fx-text-size: 24px;
+    -fx-font-family: "Segoe UI";
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-max-width: Infinity;
+}
+
+.login-button:hover {
+    -fx-background-color: rgba(101, 133, 197, 0.8); /* Darker blue on hover */
+}
+
+/* Hyperlinks */
+.hyperlink {
+    -fx-text-fill: #3064a3; /* Deeper blue for links */
+    -fx-underline: true;
+    -fx-font-size: 12px;
+}
+
+/* Welcome title */
+.welcome-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2a599e; /* Dark blue for the welcome title */
+    -fx-font-family: "Segoe UI";
+    -fx-padding-bottom: 10px;
+}

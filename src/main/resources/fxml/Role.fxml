@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<StackPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.library.Auth.RoleController">
+    <VBox spacing="20" alignment="CENTER" styleClass="form-box">
+        <!-- Title Label -->
+        <Label text="Welcome" styleClass="title"/>
+        <Label text="Library Management" styleClass="title"/>
+        <!-- Subtitle for choosing a role -->
+        <Label text="Please choose your role" styleClass="subtitle"/>
+
+        <!-- Buttons for selecting roles -->
+        <Button fx:id="userButton" text="User" onAction="#handleUserButtonAction" styleClass="login-button"/>
+        <Button fx:id="adminButton" text="Admin" onAction="#handleAdminButtonAction" styleClass="login-button"/>
+
+        <!-- Optional message label for feedback -->
+        <Label fx:id="messageLabel" styleClass="subtitle"/>
+    </VBox>
+</StackPane>
