@@ -7,11 +7,13 @@ public class BorrowingRecord {
     private int recordId;
     private int userId;
     private String isbn;
-    private LocalDate borrowDate;
-    private LocalDate returnDate;
+    private LocalDateTime borrowDate;
+    private LocalDateTime returnDate;
     private String status="borrowed";
 
-    public BorrowingRecord(int recordId, int userId, String isbn, LocalDate localDate, LocalDate localDate1, String status) {
+    public BorrowingRecord() {}
+
+    public BorrowingRecord(int recordId, int userId, String isbn, LocalDateTime localDate, LocalDateTime localDate1, String status) {
         this.recordId = recordId;
         this.userId = userId;
         this.isbn = isbn;
@@ -38,16 +40,16 @@ public class BorrowingRecord {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-    public LocalDate getBorrowDate() {
+    public LocalDateTime getBorrowDate() {
         return borrowDate;
     }
-    public void setBorrowDate(LocalDate borrowDate) {
+    public void setBorrowDate(LocalDateTime borrowDate) {
         this.borrowDate = borrowDate;
     }
-    public LocalDate getReturnDate() {
+    public LocalDateTime getReturnDate() {
         return returnDate;
     }
-    public void setReturnDate(LocalDate returnDate) {
+    public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
     }
     public String getStatus() {
