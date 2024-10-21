@@ -3,6 +3,8 @@ package com.library.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import static java.lang.Integer.parseInt;
+
 public class BorrowingRecord {
     private int recordId;
     private int userId;
@@ -19,6 +21,12 @@ public class BorrowingRecord {
         this.isbn = isbn;
         borrowDate = localDate;
         returnDate = localDate1;
+        this.status = status;
+    }
+    public BorrowingRecord(String userId, String isbn, LocalDateTime borrowDate, String status) {
+        this.userId = parseInt(userId);
+        this.isbn = isbn;
+        this.borrowDate = borrowDate;
         this.status = status;
     }
 

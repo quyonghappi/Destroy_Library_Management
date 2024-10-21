@@ -32,6 +32,14 @@ public class User {
         this.accountStatus = accountStatus;
         this.joinDate = joinDate;
     }
+
+    public User(String fullName, String name, String email, String passwordHash) {
+        this.fullName = fullName;
+        this.username = name;
+        this.email = email;
+        this.password = passwordHash;
+    }
+
     public int getUserId() {
         return userId;
     }
