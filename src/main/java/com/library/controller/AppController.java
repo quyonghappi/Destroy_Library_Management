@@ -1,9 +1,9 @@
-package com.library.Auth;
+package com.library.controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,11 +19,11 @@ public class AppController extends Application {
         showRoleView();
     }
 
-    public  void showRoleView() {
+    public void showRoleView() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Role.fxml"));
-            StackPane root = loader.load();
-            Scene scene = new Scene(root, 400, 600);
+            HBox root = loader.load();
+            Scene scene = new Scene(root, 400,600);
 
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
 

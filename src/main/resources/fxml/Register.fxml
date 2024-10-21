@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<StackPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.library.Auth.RegisterController">
+<StackPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.library.controller.RegisterController">
     <VBox spacing="10" alignment="CENTER" styleClass="form-box">
         <Label text="Sign Up" styleClass="title"/>
         <Label text="Create your account" styleClass="subtitle"/>

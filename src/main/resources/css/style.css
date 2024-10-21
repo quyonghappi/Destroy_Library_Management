@@ -54,7 +54,10 @@
 
 #rootPane {
     -fx-background-color: linear-gradient(to bottom, #86a9ea, rgba(220, 220, 255, 0.7)); /* Deeper blue to light blue-white gradient */
-    -fx-padding: 50px;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-fill-width: true;
+    -fx-fill-height: true;
 }
 
 /* Form container */

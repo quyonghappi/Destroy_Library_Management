@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml" fx:controller="com.library.Auth.LoginController">
-    <children>
-        <!-- Form layout -->
-        <VBox fx:id="formBox" alignment="CENTER" spacing="10" styleClass="form-box">
-            <Label text="ADMIN LOGIN" styleClass="title"/>
-            <Label text="Please enter your details" styleClass="subtitle"/>
-            <TextField fx:id="userNameField" promptText="Username"/>
-            <PasswordField fx:id="passwordField" promptText="Password"/>
-            <CheckBox text="Remember for 30 days" fx:id="rememberMeCheckBox"/>
-            <Hyperlink text="Forgot password?" fx:id="forgotPasswordLink"/>
-            <Button fx:id="loginButton" text="Login" onAction="#login" styleClass="login-button"/>
-            <Hyperlink fx:id="signUpLink" text="Don't have an account? Sign up" onAction="#openSignUp" styleClass="hyperlink"/>
-
-        </VBox>
-    </children>
-</StackPane>
+<HBox fx:id="rootPane" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.LoginController">
+   <children>
+      <VBox fx:id="formBox" alignment="CENTER" prefHeight="400.0" prefWidth="320.0" spacing="10" styleClass="form-box">
+         <children>
+            <Label styleClass="title" text="ADMIN LOGIN" />
+            <Label styleClass="subtitle" text="Please enter your details" />
+            <TextField fx:id="userNameField" promptText="Username" />
+            <PasswordField fx:id="passwordField" promptText="Password" />
+            <CheckBox fx:id="rememberMeCheckBox" text="Remember for 30 days" />
+            <Hyperlink fx:id="forgotPasswordLink" text="Forgot password?" />
+            <Button fx:id="loginButton" onAction="#login" styleClass="login-button" text="Login" />
+         </children>
+      </VBox>
+   </children>
+</HBox>

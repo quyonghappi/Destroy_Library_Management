@@ -1,11 +1,11 @@
-package com.library.Auth;
+package com.library.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
@@ -16,7 +16,7 @@ import java.util.Objects;
 public class RoleController {
 
     @FXML
-    private StackPane rootPane;
+    private HBox rootPane;
 
     @FXML
     private Button userButton;
@@ -80,13 +80,14 @@ public class RoleController {
         try {
             // Load the new scene for the given role
             FXMLLoader loader = new FXMLLoader(getClass().getResource(role.getLoginFxmlPath()));
-            StackPane root = loader.load();
+            HBox root = loader.load();
 
             // Get the current stage and set the new scene
             Stage stage = (Stage) rootPane.getScene().getWindow();
             Scene scene = new Scene(root, 400, 600);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.setTitle(role.getRoleName() + " Login");
             stage.show();
 

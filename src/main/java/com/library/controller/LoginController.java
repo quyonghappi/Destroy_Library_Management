@@ -1,4 +1,4 @@
-package com.library.Auth;
+package com.library.controller;
 
 import com.library.config.DatabaseConfig;
 import javafx.event.ActionEvent;
@@ -97,6 +97,7 @@ public class LoginController {
             Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.setTitle(title);
         } catch (IOException e) {
             e.printStackTrace();
