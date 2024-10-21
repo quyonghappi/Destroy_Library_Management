@@ -13,7 +13,6 @@ import java.util.List;
 
 public class BorrowingRecordDao {
 
-    //delete record
     public void delete(BorrowingRecord borrowingRecord) {
         String sql = "delete from borrowingrecords where record_id = ?";
         try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -30,19 +29,19 @@ public class BorrowingRecordDao {
         return getRecord(sql);
     }
 
-    //get returned to display on overview scene
+    //get returned
     public List<BorrowingRecord> getReturned() {
         String sql= "select * from borrowingrecords where status='returned'";
         return getRecord(sql);
     }
 
-    //get late to display on overview scene
+    //get late
     public List<BorrowingRecord> getLate() {
         String sql = "select * from borrowingrecords where status='late'";
         return getRecord(sql);
     }
 
-    //get lost to display on overview scene
+    //get lost
     public List<BorrowingRecord> getLost() {
         String sql = "select * from borrowingrecords where status='Lost'";
         return getRecord(sql);
@@ -59,10 +58,10 @@ public class BorrowingRecordDao {
                 String isbn = rs.getString("isbn");
 //                Timestamp borrowDate = rs.getTimestamp("borrow_date");
 //                Timestamp returnDate = rs.getTimestamp("return_date");
-                Date borrowDate=rs.getDate("borrow_date");
-                Date returnDate=rs.getDate("return_date");
+                Timestamp borrowDate=rs.getTimestamp("borrow_date");
+                Timestamp returnDate=rs.getTimestamp("return_date");
                 String status = rs.getString("status");
-                list.add(new BorrowingRecord(recordId,userId,isbn, DateFormat.toLocalDate(borrowDate), DateFormat.toLocalDate(returnDate), status));
+                list.add(new BorrowingRecord(recordId,userId,isbn, DateFormat.toLocalDateTime(borrowDate), DateFormat.toLocalDateTime(returnDate), status));
                 //list.add(new BorrowingRecord(recordId,userId,isbn, DateFormat.toLocalDate(borrowDate),DateFormat.toLocalDateTime(returnDate),status));
             }
         } catch (SQLException e) {
@@ -73,17 +72,18 @@ public class BorrowingRecordDao {
 
     //use when user want to borrow book, so we add new record
     public void add(BorrowingRecord borrowingRecord) {
-        String sql="insert into borrowingrecords(record_id, user_id, isbn, borrow_date,return_date, status) values(?,?,?,?)";
+        //String sql="insert into borrowingrecords(record_id, user_id, isbn, borrow_date,return_date, status) values(?,?,?,?)";
+        String sql="insert into borrowingrecords(user_id, isbn, borrow_date,return_date, status) values(?,?,?,?,?)";
         try(
                 Connection conn=DatabaseConfig.getConnection();
                 PreparedStatement ps=conn.prepareStatement(sql);
         ) {
-            ps.setInt(1, borrowingRecord.getRecordId());
-            ps.setInt(2, borrowingRecord.getUserId());
-            ps.setString(3, borrowingRecord.getIsbn());
-            ps.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-            ps.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
-            ps.setString(6, borrowingRecord.getStatus());
+            //  ps.setInt(1, borrowingRecord.getRecordId());
+            ps.setInt(1, borrowingRecord.getUserId());
+            ps.setString(2, borrowingRecord.getIsbn());
+            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            ps.setTimestamp(4, null);
+            ps.setString(5, borrowingRecord.getStatus());
             ps.executeUpdate();
             DocumentDao documentDao = new DocumentDao();
             documentDao.updateQuantity(borrowingRecord.getIsbn(), borrowingRecord.getStatus());
@@ -100,7 +100,7 @@ public class BorrowingRecordDao {
                 PreparedStatement ps= conn.prepareStatement(sql);
         ) {
             ps.setString(1, br.getStatus());
-            ps.setDate(2, DateFormat.toSqlDate(br.getReturnDate()));
+            ps.setTimestamp(2, DateFormat.toSqlTimestamp(br.getReturnDate()));
             ps.setInt(3, br.getRecordId());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -111,11 +111,38 @@ public class BorrowingRecordDao {
 
     public void returnDoc(BorrowingRecord br) throws SQLException {
         br.setStatus("returned");
-        br.setReturnDate(LocalDate.now());
+        br.setReturnDate(LocalDateTime.now());
         update(br);
         DocumentDao documentDao = new DocumentDao();
         documentDao.updateQuantity(br.getIsbn(), br.getStatus());
     }
 
+    public BorrowingRecord getById(int id) {
+        String sql = "SELECT * FROM BorrowingRecords WHERE record_id = ?";
+        BorrowingRecord borrowingRecord = null;
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                borrowingRecord = new BorrowingRecord();
+                borrowingRecord.setRecordId(rs.getInt("record_id"));
+                borrowingRecord.setUserId(rs.getInt("user_id"));
+                borrowingRecord.setIsbn(rs.getString("isbn"));
+                borrowingRecord.setBorrowDate(rs.getTimestamp("borrow_date").toLocalDateTime());
+                borrowingRecord.setStatus(rs.getString("status"));
+                //neu chua return thi return date bang null so we have to check
+                if (rs.getString("status").equals("returned")) {
+                    borrowingRecord.setReturnDate(rs.getTimestamp("return_date").toLocalDateTime());
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return borrowingRecord;
+    }
 
 }
