@@ -1,8 +1,11 @@
 package com.library.controller;
 
 import com.library.config.DatabaseConfig;
+import com.library.dao.UserDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -32,20 +35,33 @@ public class LoginController {
     @FXML
     protected Hyperlink signUpLink;
 
+    private final UserDao userDao = new UserDao();
+    private Parent root;
+    private Scene scene;
+    private Stage stage;
     static final int SCENE_WIDTH = 400;
     static final int SCENE_HEIGHT = 600;
 
     @FXML
-    void login(ActionEvent event) {
+    void login(ActionEvent event) throws Exception {
         String username = userNameField.getText().trim();
         String password = passwordField.getText();
 
         if (validateInput(username, password)) {
-            if (isLoginValid(username, password)) {
-                System.out.println("Login successful");
-                // navigateToDashboard();  // Un-comment this when the dashboard is ready
+            if (userDao.authenticate(username,password)) {
+                //showAlert(AlertType.INFORMATION, "Success", "Login successful!");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/adminDashboard.fxml"));
+                root = loader.load();
+                //adminDashboardController controller = loader.getController();
+                stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                scene=new Scene(root);
+                stage.setScene(scene);
+                stage.setMaximized(true);
+                stage.centerOnScreen();
+                stage.show();
             } else {
                 showAlert(AlertType.ERROR, "Login Failed", "Incorrect username or password.");
+                clearFields();
             }
         }
     }
@@ -63,30 +79,7 @@ public class LoginController {
         return true;
     }
 
-    private boolean isLoginValid(String username, String password) {
-        final String query = "SELECT password_hash FROM Users WHERE user_name = ?";
-        try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String hashedPassword = resultSet.getString("password_hash");
-                return checkPassword(password, hashedPassword);
-            } else {
-                showAlert(AlertType.ERROR, "Login Failed", "Username not found.");
-            }
-        } catch (SQLException e) {
-            showAlert(AlertType.ERROR, "Database Error", "An error occurred while accessing the database.");
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    private boolean checkPassword(String password, String hashedPassword) {
-        return BCrypt.checkpw(password, hashedPassword);
-    }
+    //already have similar method in userDao
 
     // Utility method to load new scenes
     private void loadScene(String fxmlPath, String title) {
@@ -110,6 +103,11 @@ public class LoginController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.show();
+    }
+
+    private void clearFields() {
+        userNameField.clear();
+        passwordField.clear();
     }
 
 

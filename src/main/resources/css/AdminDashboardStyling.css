@@ -1,0 +1,149 @@
+.root {
+    -fx-font-family: "Segoe UI";
+}
+
+.content {
+    -fx-background-color: white;
+}
+
+.app-title {
+    -fx-text-fill: #2b3256;
+    -fx-font-weight: bold;
+    -fx-font-size: 26px;
+}
+
+.action-button {
+    -fx-background-color: #309aee;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.action-button:hover {
+    -fx-background-color: #228cd8;
+}
+
+.sidebar {
+    -fx-background-color:white;
+    -fx-padding: 10;
+}
+
+.nav-container {
+    -fx-padding: 10;
+}
+
+#overviewContainer {
+    -fx-background-color: #e0effc;
+    -fx-text-fill:#28324D;
+    -fx-padding: 10;
+    -fx-background-radius: 0 25 25 0;
+}
+
+/*#overviewContainer:hover .label,*/
+.nav-container:hover .label
+{
+    /*-fx-background-color: #96ace4;*/
+    -fx-text-fill:#28324D;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
+.nav-container:hover {
+    /* border radius chi khi co border thoi*/
+    -fx-background-radius: 0 25px 25px 0;
+    -fx-background-color: #e0effc;
+}
+
+.small-label {
+    -fx-text-fill: #8a9199;
+}
+
+.search-box {
+    -fx-background-color: #F8FCFF;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5;
+}
+
+#searchField {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0px;
+    -fx-text-fill: #8a9199;
+    -fx-font-size: 16px;
+}
+
+
+#memNameLabel {
+    -fx-text-fill: #28324D;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.total-container {
+    -fx-background-color: #f8fcff;
+    -fx-padding: 10;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-spacing: 5;
+    -fx-border-color: #e3e9ef;
+}
+
+.stat-number {
+    -fx-text-fill: #272f54;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.stat-label {
+    -fx-text-fill: #8a9199;
+    -fx-font-size: 12px;
+}
+
+/* Section Titles */
+.section-title {
+    -fx-text-fill: #272f54;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.title-pane {
+    -fx-background-color:#F8FCFF;
+}
+
+
+.details-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #EEE8E8;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.list-view {
+    -fx-border-width: 0;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #FAFBFC;
+    /*-fx-border-color: #E0E0E0;*/
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #F0F4F8;
+}
+
+.list-view .scroll-bar {
+    -fx-background-color: #FAFBFC;
+}
+.list-view .scroll-bar .thumb {
+    -fx-background-color:#CEDFF9;
+    -fx-border-radius: 5px;
+}
+
+.list-view .scroll-bar .increment-button,
+.list-view .scroll-bar .decrement-button {
+    -fx-background-color: #FAFBFC;
+    -fx-opacity: 0;
+}

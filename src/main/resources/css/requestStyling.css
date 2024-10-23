@@ -1,0 +1,51 @@
+.root {
+    -fx-font-family: "Segoe UI";
+}
+
+#bookImage {
+    -fx-effect: dropshadow(three-pass-box, #D5D6D8 , 10, 0, 0, 5);;
+}
+
+.big-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #28324D;
+}
+
+#requestLabel {
+    -fx-font-size: 15px;
+    -fx-text-fill: #8a9199;
+}
+
+.small-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8a9199;
+    -fx-background-color: #E7F1FD;
+    -fx-background-radius: 5;
+}
+
+#approveButton, #denyButton {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+#approveButton{
+    -fx-text-fill: #3A9D88;
+    -fx-background-color: #E4F4F3;
+    -fx-background-radius: 5;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5;
+    -fx-border-color: #EEE8E8;
+}
+
+#denyButton {
+    -fx-text-fill: #CB755C;
+    -fx-background-color: #F9EBEA;
+    -fx-background-radius: 5;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5;
+    -fx-border-color: #EEE8E8;
+}
+
+
+
+
