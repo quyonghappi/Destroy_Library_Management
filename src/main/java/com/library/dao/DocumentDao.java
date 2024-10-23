@@ -86,15 +86,15 @@ public class DocumentDao {
                     doc.setISBN(resultSet.getString("isbn"));
                     doc.setTitle(resultSet.getString("title"));
                     doc.setAuthorId(resultSet.getInt("author_id"));
-                    doc.setPublisherId(resultSet.getInt("publisher_id"));  // Changed to correct field
-                    doc.setCategoryId(resultSet.getInt("category_id"));  // Changed to correct field
+                    doc.setPublisherId(resultSet.getInt("publisher_id"));
+                    doc.setCategoryId(resultSet.getInt("category_id"));
                     doc.setPublicationYear(resultSet.getInt("publication_year"));
-//                doc.setTotalCopies(resultSet.getInt("total_copies"));
-//                doc.setAvailableCopies(resultSet.getInt("available_copies"));
                     doc.setQuantity(resultSet.getInt("quantity"));
+                    doc.setPage(resultSet.getInt("pages"));  // Get number_of_pages
                     doc.setDescription(resultSet.getString("description"));
                     doc.setLocation(resultSet.getString("location"));
                     doc.setPreviewLink(resultSet.getString("preview_link"));
+                    doc.setImageLink(resultSet.getString("book_image"));  // Get book_image
                     return doc;
                 }
             }
@@ -139,7 +139,7 @@ public class DocumentDao {
             try (Connection connection = DatabaseConfig.getConnection();
                  PreparedStatement ps = connection.prepareStatement(selectSql)) {
 
-                ps.setString(1, authorName);
+                ps.setString(1, authorName.trim());
                 ResultSet resultSet = ps.executeQuery();
                 if (resultSet.next()) {
                     return resultSet.getInt("author_id");
@@ -155,11 +155,14 @@ public class DocumentDao {
             try (Connection connection = DatabaseConfig.getConnection();
                  PreparedStatement ps = connection.prepareStatement(selectSql)) {
 
-                ps.setString(1, publisherName);
+                ps.setString(1, publisherName.trim());
                 ResultSet resultSet = ps.executeQuery();
                 if (resultSet.next()) {
                     return resultSet.getInt("publisher_id");
                 }
+            } catch (SQLIntegrityConstraintViolationException e) {
+                //if found duplicate entry,re-fetch the publisherid
+                return getOrCreatePublisherId(publisherName);
             }
 
             //if publisher doesnt exist, insert
@@ -171,7 +174,7 @@ public class DocumentDao {
             try (Connection connection = DatabaseConfig.getConnection();
                  PreparedStatement ps = connection.prepareStatement(selectSql)) {
 
-                ps.setString(1, categoryName);
+                ps.setString(1, categoryName.trim());
                 ResultSet resultSet = ps.executeQuery();
                 if (resultSet.next()) {
                     return resultSet.getInt("category_id");
