@@ -111,7 +111,11 @@ public class BorrowingRecordDao {
 
     public void returnDoc(BorrowingRecord br) throws SQLException {
         br.setStatus("returned");
+<<<<<<< Updated upstream
         br.setReturnDate(LocalDateTime.now());
+=======
+        br.setReturnDate(LocalDate.now().atStartOfDay());
+>>>>>>> Stashed changes
         update(br);
         DocumentDao documentDao = new DocumentDao();
         documentDao.updateQuantity(br.getIsbn(), br.getStatus());

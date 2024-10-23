@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 import org.mindrot.jbcrypt.BCrypt;
 
-public class LoginController {
+public class LoginUserController {
 
     @FXML
     private TextField userNameField;
@@ -36,7 +36,7 @@ public class LoginController {
     static final int SCENE_HEIGHT = 600;
 
     @FXML
-    void login(ActionEvent event) {
+    public void login(ActionEvent event) {
         String username = userNameField.getText().trim();
         String password = passwordField.getText();
 
@@ -51,7 +51,7 @@ public class LoginController {
     }
 
     @FXML
-    void openSignUp(ActionEvent event) {
+    public void openSignUp(ActionEvent event) {
         loadScene("/fxml/Register.fxml", "Sign Up");
     }
 

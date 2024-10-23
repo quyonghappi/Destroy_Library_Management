@@ -1,5 +1,6 @@
 package com.library.controller;
 
+import com.library.config.PathConfig;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -31,8 +33,8 @@ public class RoleController {
 
     // Enum for Role to avoid using hardcoded strings
     public enum Role {
-        USER("/fxml/userLogin.fxml", "/fxml/register.fxml", "User"),
-        ADMIN("/fxml/adminLogin.fxml", "/fxml/register.fxml", "Admin");
+        USER(PathConfig.USER_LOGIN_FXML, PathConfig.REGISTER_FXML, "User"),
+        ADMIN(PathConfig.ADMIN_LOGIN_FXML, PathConfig.REGISTER_FXML, "Admin");
 
         private final String loginFxmlPath;
         private final String registerFxmlPath;
@@ -61,14 +63,14 @@ public class RoleController {
     @FXML
     private void handleUserButtonAction(ActionEvent event) {
         loadRoleScene(Role.USER);
-        role = "Reader";
+        role = Role.USER.getRoleName();
     }
 
     // Method that gets called when the Admin button is pressed
     @FXML
     private void handleAdminButtonAction(ActionEvent event) {
         loadRoleScene(Role.ADMIN);
-        role = "Admin";
+        role = Role.ADMIN.getRoleName();
     }
 
     /**
@@ -85,7 +87,7 @@ public class RoleController {
             // Get the current stage and set the new scene
             Stage stage = (Stage) rootPane.getScene().getWindow();
             Scene scene = new Scene(root, 400, 600);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(PathConfig.CSS_STYLE)).toExternalForm());
             stage.setScene(scene);
             stage.centerOnScreen();
             stage.setTitle(role.getRoleName() + " Login");
@@ -97,6 +99,23 @@ public class RoleController {
             // Update the message label if there is an error loading the scene
             messageLabel.setText("Error loading " + role.getRoleName() + " scene.");
             e.printStackTrace();
+
+            // Show an error dialog to inform the user
+            showErrorDialog("Error", "An error occurred while loading the scene. Please try again later.");
         }
+    }
+
+    /**
+     * Show an error dialog to notify the user in case of errors.
+     *
+     * @param title   Title of the error dialog.
+     * @param message Message content of the error dialog.
+     */
+    private void showErrorDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

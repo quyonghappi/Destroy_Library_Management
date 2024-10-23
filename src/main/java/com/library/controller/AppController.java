@@ -37,39 +37,6 @@ public class AppController extends Application {
         }
     }
 
-//    public void showLoginView() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userLogin.fxml"));
-//            StackPane root = loader.load();
-//            Scene scene = new Scene(root, 400, 600);
-//
-//            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
-//
-//            primaryStage.setTitle("Library Management - Login");
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public void showRegisterView() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Register.fxml"));
-//            StackPane root = loader.load();
-//            Scene scene = new Scene(root, 400, 600);
-//
-//            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
-//
-//            primaryStage.setTitle("Library Management - Login");
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public static void main(String[] args) {
         launch(args);
     }
