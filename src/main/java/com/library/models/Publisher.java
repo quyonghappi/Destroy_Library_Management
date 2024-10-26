@@ -4,6 +4,11 @@ public class Publisher {
     private String publisherName;
     private int publisherId;
 
+    public Publisher() {}
+    public Publisher(String publisherName, int publisherId) {
+        this.publisherName = publisherName;
+        this.publisherId = publisherId;
+    }
     public void setName(String name) {
         this.publisherName = name;
 

@@ -26,7 +26,8 @@ public class Document {
     //constructor w all field
     public Document(String ISBN, String title, int categoryId, int authorId, int publisherId,
                     int publicationYear, int quantity,
-                    String description, String location) {
+                    String description, String location,
+                    int page, String previewLink, String imageLink) {
         this.ISBN = ISBN;
         this.title = title;
         this.categoryId = categoryId;
@@ -38,7 +39,9 @@ public class Document {
 //        this.availableCopies = availableCopies;
         this.description = description;
         this.location = location;
-
+        this.page = page;
+        this.previewLink=previewLink;
+        this.imageLink=imageLink;
 
 
     }
