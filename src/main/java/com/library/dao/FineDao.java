@@ -17,11 +17,11 @@ public class FineDao {
 
     public List<Fine> getFines() {
         String sql = "select * from Fines";
-        List<Fine> fineList= new ArrayList<>();
+        List<Fine> fineList = new ArrayList<>();
 
-        try(Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Fine fine = new Fine();
                 fine.setFineId(rs.getInt(1));
                 fine.setUserId(rs.getInt(2));
@@ -38,7 +38,7 @@ public class FineDao {
         return fineList;
     }
 
-    //    //get fine details
+    //get fine details
     public Fine getFineDetailsWithRecordId(int recordId) {
         String sql = "SELECT f.user_id, f.record_id, f.fine_amount,f.due_date, f.status, br.isbn " +
                 "FROM Fines f JOIN BorrowingRecords br ON f.record_id = br.record_id";
@@ -64,9 +64,9 @@ public class FineDao {
 
     //if it was paid
     public void deleteFine(Fine fine) {
-        String sql = "delete from fines where fine_id=?";
-        try(Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)) {
-            pstm.setInt(1, fine.getFineId());
+        String sql="delete from fines where fines.record_id=?";
+        try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)) {
+            pstm.setInt(1, fine.getRecordId());
             pstm.executeUpdate();
 
         } catch (SQLException e) {

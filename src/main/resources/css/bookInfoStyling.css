@@ -1,0 +1,16 @@
+.root {
+    -fx-font-family: "Segoe UI";
+}
+.big-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #28324D;
+}
+
+.small-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #8a9199;
+}
+
+#bookImage {
+    -fx-effect: dropshadow(three-pass-box, #D5D6D8 , 10, 0, 0, 5);;
+}
