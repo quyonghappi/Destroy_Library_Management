@@ -4,9 +4,7 @@ import com.library.config.DatabaseConfig;
 import com.library.models.BorrowingRecord;
 import com.library.utils.DateFormat;
 
-import javax.print.Doc;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +46,7 @@ public class BorrowingRecordDao {
     }
 
     private List<BorrowingRecord> getRecord(String sql) {
-        List<BorrowingRecord> list = new ArrayList<BorrowingRecord>();
+        List<BorrowingRecord> list = new ArrayList<>();
         try (Connection conn= DatabaseConfig.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
 
@@ -76,17 +74,17 @@ public class BorrowingRecordDao {
         String sql="insert into borrowingrecords(user_id, isbn, borrow_date,return_date, status) values(?,?,?,?,?)";
         try(
                 Connection conn=DatabaseConfig.getConnection();
-                PreparedStatement ps=conn.prepareStatement(sql);
+                PreparedStatement ps=conn.prepareStatement(sql)
         ) {
             //  ps.setInt(1, borrowingRecord.getRecordId());
             ps.setInt(1, borrowingRecord.getUserId());
-            ps.setString(2, borrowingRecord.getIsbn());
+            ps.setString(2, borrowingRecord.getISBN());
             ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             ps.setTimestamp(4, null);
             ps.setString(5, borrowingRecord.getStatus());
             ps.executeUpdate();
             DocumentDao documentDao = new DocumentDao();
-            documentDao.updateQuantity(borrowingRecord.getIsbn(), borrowingRecord.getStatus());
+            documentDao.updateQuantity(borrowingRecord.getISBN(), borrowingRecord.getStatus());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -97,7 +95,7 @@ public class BorrowingRecordDao {
         String sql="update borrowingrecords set status=?, return_date=? where record_id=?";
         try(
                 Connection conn=DatabaseConfig.getConnection();
-                PreparedStatement ps= conn.prepareStatement(sql);
+                PreparedStatement ps= conn.prepareStatement(sql)
         ) {
             ps.setString(1, br.getStatus());
             ps.setTimestamp(2, DateFormat.toSqlTimestamp(br.getReturnDate()));
@@ -114,7 +112,7 @@ public class BorrowingRecordDao {
         br.setReturnDate(LocalDateTime.now());
         update(br);
         DocumentDao documentDao = new DocumentDao();
-        documentDao.updateQuantity(br.getIsbn(), br.getStatus());
+        documentDao.updateQuantity(br.getISBN(), br.getStatus());
     }
 
     public BorrowingRecord getById(int id) {
@@ -130,7 +128,7 @@ public class BorrowingRecordDao {
                 borrowingRecord = new BorrowingRecord();
                 borrowingRecord.setRecordId(rs.getInt("record_id"));
                 borrowingRecord.setUserId(rs.getInt("user_id"));
-                borrowingRecord.setIsbn(rs.getString("isbn"));
+                borrowingRecord.setISBN(rs.getString("isbn"));
                 borrowingRecord.setBorrowDate(rs.getTimestamp("borrow_date").toLocalDateTime());
                 borrowingRecord.setStatus(rs.getString("status"));
                 //neu chua return thi return date bang null so we have to check
