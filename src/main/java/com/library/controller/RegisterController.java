@@ -5,17 +5,12 @@ import com.library.dao.UserDao;
 import com.library.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -83,6 +78,7 @@ public class RegisterController {
 
 //        saveUserData(fullName, username, email, password, role);
         openLogin(event);
+        clearFields();
     }
 
     @FXML
@@ -95,6 +91,7 @@ public class RegisterController {
 
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             stage.centerOnScreen();
+            stage.setTitle("Login");
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,6 +138,13 @@ public class RegisterController {
 //        }
 //    }
 
+    private void clearFields() {
+        userNameField.clear();
+        passwordField.clear();
+        fullNameField.clear();
+        emailField.clear();
+        confirmPasswordField.clear();
+    }
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

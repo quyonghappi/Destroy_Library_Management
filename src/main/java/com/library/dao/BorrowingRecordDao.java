@@ -4,9 +4,7 @@ import com.library.config.DatabaseConfig;
 import com.library.models.BorrowingRecord;
 import com.library.utils.DateFormat;
 
-import javax.print.Doc;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.List;
 public class BorrowingRecordDao {
 
     public void delete(BorrowingRecord borrowingRecord) {
-        String sql = "delete from borrowingrecords where record_id = ?";
+        String sql = "delete from borrowingrecord where record_id = ?";
         try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, borrowingRecord.getRecordId());
             stmt.executeUpdate();
@@ -80,13 +78,13 @@ public class BorrowingRecordDao {
         ) {
             //  ps.setInt(1, borrowingRecord.getRecordId());
             ps.setInt(1, borrowingRecord.getUserId());
-            ps.setString(2, borrowingRecord.getIsbn());
+            ps.setString(2, borrowingRecord.getISBN());
             ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             ps.setTimestamp(4, null);
             ps.setString(5, borrowingRecord.getStatus());
             ps.executeUpdate();
             DocumentDao documentDao = new DocumentDao();
-            documentDao.updateQuantity(borrowingRecord.getIsbn(), borrowingRecord.getStatus());
+            documentDao.updateQuantity(borrowingRecord.getISBN(), borrowingRecord.getStatus());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -111,14 +109,10 @@ public class BorrowingRecordDao {
 
     public void returnDoc(BorrowingRecord br) throws SQLException {
         br.setStatus("returned");
-<<<<<<< Updated upstream
         br.setReturnDate(LocalDateTime.now());
-=======
-        br.setReturnDate(LocalDate.now().atStartOfDay());
->>>>>>> Stashed changes
         update(br);
         DocumentDao documentDao = new DocumentDao();
-        documentDao.updateQuantity(br.getIsbn(), br.getStatus());
+        documentDao.updateQuantity(br.getISBN(), br.getStatus());
     }
 
     public BorrowingRecord getById(int id) {
@@ -134,7 +128,7 @@ public class BorrowingRecordDao {
                 borrowingRecord = new BorrowingRecord();
                 borrowingRecord.setRecordId(rs.getInt("record_id"));
                 borrowingRecord.setUserId(rs.getInt("user_id"));
-                borrowingRecord.setIsbn(rs.getString("isbn"));
+                borrowingRecord.setISBN(rs.getString("isbn"));
                 borrowingRecord.setBorrowDate(rs.getTimestamp("borrow_date").toLocalDateTime());
                 borrowingRecord.setStatus(rs.getString("status"));
                 //neu chua return thi return date bang null so we have to check

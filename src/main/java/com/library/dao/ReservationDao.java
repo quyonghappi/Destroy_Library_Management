@@ -3,7 +3,6 @@ package com.library.dao;
 import com.library.config.DatabaseConfig;
 import com.library.models.Reservation;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,5 +64,21 @@ public class ReservationDao {
             throw new RuntimeException(e);
         }
         return reservation ;
+    }
+
+    public int getByISBN(String isbn) {
+        String sql="select count(*) from reservations where isbn=?";
+        int numOfReservations=0;
+        try(Connection conn=DatabaseConfig.getConnection();
+            PreparedStatement ps=conn.prepareStatement(sql)) {
+            ps.setString(1,isbn);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()) {
+                numOfReservations++;
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return numOfReservations;
     }
 }
