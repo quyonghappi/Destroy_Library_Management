@@ -1,0 +1,142 @@
+.root-pane {
+    -fx-background-color: #f0f2f5;
+}
+
+.sidebar {
+    -fx-background-color: #FF6F61;
+    -fx-padding: 10;
+}
+
+.icon-container {
+    -fx-padding: 15 0 0 0;
+}
+
+.user-avatar {
+    -fx-padding: 0 20 0 20;
+    -fx-border-radius: 50%;
+}
+
+.main-content {
+    -fx-padding: 20;
+}
+
+.header {
+    -fx-padding: 20 0 10 0;
+}
+
+.search-bar {
+    -fx-pref-width: 300px;
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dddddd;
+}
+
+.user-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #555555;
+}
+
+/* Quote Section Styling */
+.quote-section {
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10;
+    -fx-background-radius: 5px;
+}
+
+.quote-text {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
+.quote-author {
+    -fx-font-size: 14px;
+    -fx-text-fill: #777777;
+}
+
+.quote-button {
+    -fx-background-color: #79c7f0;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 5 10;
+    -fx-background-radius: 5px;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333333;
+    -fx-padding: 20 0 10 0;
+}
+
+.book-list {
+    -fx-padding: 10 0 20 0;
+}
+
+.book-card {
+    -fx-alignment: CENTER;
+    -fx-padding: 10;
+}
+
+.right-book {
+    -fx-alignment: CENTER;
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.right-book-label {
+    -fx-font-size: 14px;
+    -fx-padding: 5 0 5 0;
+    -fx-text-fill: #333333;
+}
+
+.read-today-button {
+    -fx-background-color: #FF6F61;
+    -fx-text-fill: white;
+    -fx-padding: 5 10;
+    -fx-background-radius: 5px;
+}
+
+.stats-section {
+    -fx-padding: 20 0 20 0;
+}
+
+.stats-card {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.stats-number {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333333;
+}
+
+.stats-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #777777;
+}
+
+.cta-button {
+    -fx-background-color: #79c7f0;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+ .transparent{
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+ .shadow{
+     -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0), 10, 0, 0, 10);
+ }
