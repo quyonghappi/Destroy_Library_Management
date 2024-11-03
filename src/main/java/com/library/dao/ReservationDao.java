@@ -2,11 +2,13 @@ package com.library.dao;
 
 import com.library.config.DatabaseConfig;
 import com.library.models.Reservation;
+import com.library.utils.DateFormat;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,21 @@ public class ReservationDao {
             pst.setInt(1,reservation.getReservationId());
             pst.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void add(Reservation reservation) {
+        String sql="insert into reservations(user_id, isbn, reservation_date,status) values(?,?,?,?)";
+        try (
+                Connection conn=DatabaseConfig.getConnection();
+                PreparedStatement ps=conn.prepareStatement(sql);
+        ) {
+            ps.setInt(1,reservation.getUserId());
+            ps.setString(2,reservation.getIsbn());
+            ps.setTimestamp(3, DateFormat.toSqlTimestamp(reservation.getReservationDate()));
+            ps.setString(4,"active");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

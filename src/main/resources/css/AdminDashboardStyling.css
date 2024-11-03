@@ -23,6 +23,7 @@
 
 .action-button:hover {
     -fx-background-color: #228cd8;
+    -fx-cursor: hand;
 }
 
 .sidebar {
@@ -34,24 +35,39 @@
     -fx-padding: 10;
 }
 
-#overviewContainer {
+.chosen-container {
     -fx-background-color: #e0effc;
     -fx-text-fill:#28324D;
     /*-fx-padding: 10;*/
     -fx-background-radius: 0 25 25 0;
 }
 
-#bookNavButton {
-    -fx-background-color: transparent;
-    -fx-text-fill:#28324D;
-    /*-fx-padding: 10;*/
-    -fx-background-radius: 0 25 25 0;
+#overviewContainer .image-view{
+    -fx-image: url("/ui/admindashboard/dashboard1.png");
 }
 
-/*#overviewContainer:hover .label,*/
+#booksContainer .image-view {
+    -fx-image: url("/ui/admindashboard/book.png");
+}
+
+#membersContainer .image-view {
+    -fx-image: url("/ui/admindashboard/member.png");
+}
+
+#settingContainer .image-view {
+    -fx-image: url("/ui/admindashboard/settings.png");
+}
+
+#aboutContainer .image-view{
+    -fx-image: url("/ui/admindashboard/info.png");
+}
+
+#helpContainer .image-view {
+    -fx-image: url("/ui/admindashboard/headphones.png");
+}
+
 .nav-container:hover .label
 {
-    /*-fx-background-color: #96ace4;*/
     -fx-text-fill:#28324D;
     -fx-font-weight: bold;
     -fx-font-size: 15px;
@@ -60,15 +76,33 @@
 .nav-container:hover {
     /* border radius chi khi co border thoi*/
     -fx-background-radius: 0 25px 25px 0;
-    -fx-background-color: #e0effc;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-color: #309aee;
+}
+#overviewContainer:hover .image-view{
+    -fx-image: url("/ui/admindashboard/dashboard.png");
 }
 
-.nav-container:hover .button {
-    -fx-background-color: #e0effc;
-    -fx-text-fill:#28324D;
-    -fx-font-weight: bold;
-    -fx-font-size: 15px;
+#booksContainer:hover .image-view{
+    -fx-image: url("/ui/admindashboard/book1.png");
 }
+
+#membersContainer:hover .image-view{
+    -fx-image: url("/ui/admindashboard/group.png");
+}
+
+#aboutContainer:hover .image-view{
+    -fx-image: url("/ui/admindashboard/information.png");
+}
+
+#settingContainer:hover .image-view{
+    -fx-image: url("/ui/admindashboard/gear.png");
+}
+
+#helpContainer:hover .image-view{
+    -fx-image: url("/ui/admindashboard/headphones1.png");
+}
+
 
 .small-label {
     -fx-text-fill: #8a9199;
@@ -83,12 +117,10 @@
 
 #searchField {
     -fx-background-color: transparent;
-    -fx-border-color: transparent;
     -fx-border-width: 0px;
     -fx-text-fill: #8a9199;
     -fx-font-size: 16px;
 }
-
 
 #memNameLabel {
     -fx-text-fill: #28324D;
@@ -127,7 +159,6 @@
     -fx-background-color:#F8FCFF;
 }
 
-
 .details-pane {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #EEE8E8;
@@ -162,9 +193,72 @@
     -fx-opacity: 0;
 }
 
-.tab-pane {
-    -fx-background-color: #FAFBFC;
-    -fx-border-color: #EEE8E8;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
+/*.tab-pane {*/
+/*    -fx-background-color: #FAFBFC;*/
+/*    -fx-border-color: #EEE8E8;*/
+/*    -fx-border-radius: 5;*/
+/*    -fx-background-radius: 5;*/
+/*}*/
+
+
+/* for book info*/
+.chosen-button {
+    -fx-background-color: #283055;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
 }
+
+.bar-button {
+    -fx-background-color: #F4F7FE;
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #CAD6E4;
+    -fx-text-fill: #28324D;
+}
+
+.bar-label1 {
+    -fx-text-fill: #1D69A3;
+    -fx-background-color: #D3EAFC;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.bar-box {
+    -fx-background-color: #F4F7FE;
+}
+
+.bar-box-below .label {
+    -fx-background-color: #F8FCFF;
+    -fx-text-fill: #8a9199;
+    -fx-font-size: 14px;
+}
+
+.bar-label {
+    -fx-text-fill:#28324D;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+}
+
+.bar-label-right {
+    -fx-background-color: #309AEE;
+    -fx-background-radius: 5px;
+    -fx-text-fill:white;
+    -fx-font-size: 13px;
+}
+.book-info-chosen-container {
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: #309aee;
+}
+
+.book-info-container:hover {
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: #309aee;
+}
+
+.bar-box-top {
+    -fx-background-color: #FAFBFC;
+}
+
+
+

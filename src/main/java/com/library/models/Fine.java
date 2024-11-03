@@ -2,7 +2,6 @@ package com.library.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Fine {
     private int fineId;

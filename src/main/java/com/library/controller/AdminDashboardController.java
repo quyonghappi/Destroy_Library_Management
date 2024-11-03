@@ -1,18 +1,16 @@
 package com.library.controller;
 
-
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.FineDao;
 import com.library.dao.ReservationDao;
 import com.library.dao.UserDao;
-import com.library.models.BorrowingRecord;
 import com.library.models.Fine;
 import com.library.models.Reservation;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.geometry.Rectangle2D;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -91,9 +90,11 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private Label visitorLabel;
 
-    private Parent root;
-    private Scene scene;
-    private Stage stage;
+//    private Parent root;
+//    private Scene scene;
+//    private Stage stage;
+
+    private Scene bookInfoScene;
 
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
     private UserDao userDa0=new UserDao();
@@ -105,6 +106,7 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadBookInfoSceneAsync();
         fineList=getFineList();
         reservationList=getReservationList();
         borrowedLabel.setText(String.valueOf(borrowingRecordDao.getLent().size()));
@@ -125,6 +127,9 @@ public class AdminDashboardController implements Initializable {
             return overdueCell;
         });
         overdueDetailContainer.getItems().addAll(fineList);
+
+        //add event on booksContainer
+        booksContainer.setOnMouseClicked(event -> navigateToBookInfo());
     }
 
     private List<Reservation> getReservationList() {
@@ -132,27 +137,66 @@ public class AdminDashboardController implements Initializable {
     }
 
     private List<Fine> getFineList() {
-        List<BorrowingRecord> lateList=borrowingRecordDao.getLate();
-        for (int i=0; i<lateList.size(); i++) {
-            fineDao.addFine(lateList.get(i));
-        }
-        return fineDao.getFines();
+
+//        List<BorrowingRecord> lateList=borrowingRecordDao.getLate();
+//        for (int i=0; i<lateList.size(); i++) {
+//            fineDao.addFine(lateList.get(i));
+//        }
+        return fineDao.getAll();
     }
 
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
     }
 
+//    @FXML
+//    public void navigateToBookInfo() throws IOException {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BookInfo.fxml"));
+//        root = loader.load();
+//        BookInfoController controller = loader.getController();
+//        stage=(Stage)booksContainer.getScene().getWindow();
+//        scene=new Scene(root);
+//        stage.setScene(scene);
+//        //stage.setMaximized(true);
+//        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+//        stage.setWidth(screenBounds.getWidth());
+//        stage.setHeight(screenBounds.getHeight());
+//        stage.centerOnScreen();
+////        Platform.runLater(() -> {
+////            stage.setMaximized(true);
+////            stage.centerOnScreen();
+////        });
+//        stage.setFullScreen(true);
+//        stage.show();
+//    }
+
+    private void loadBookInfoSceneAsync() {
+        new Thread(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BookInfo.fxml"));
+                Parent bookInfoRoot = loader.load();
+                bookInfoScene = new Scene(bookInfoRoot);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     @FXML
-    public void navigateToBookInfo(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BookInfo.fxml"));
-        root = loader.load();
-        BookInfoController controller = loader.getController();
-        stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-        scene=new Scene(root);
-        stage.setScene(scene);
+    public void navigateToBookInfo() {
+        if (bookInfoScene == null) {
+            System.out.println("please wait...");
+            return;
+        }
+
+        Stage stage = (Stage) booksContainer.getScene().getWindow();
+        stage.setScene(bookInfoScene);
         stage.setMaximized(true);
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setWidth(screenBounds.getWidth());
+        stage.setHeight(screenBounds.getHeight());
         stage.centerOnScreen();
-        stage.show();
+        // Delay full-screen mode to improve performance
+        //Platform.runLater(() -> stage.setFullScreen(true));
     }
 }

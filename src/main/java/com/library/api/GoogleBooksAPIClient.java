@@ -263,7 +263,7 @@ public class GoogleBooksAPIClient {
             int categoryId = documentDao.getOrCreateCategoryId(categoryName);
             doc.setCategoryId(categoryId);
 
-            documentDao.insertDocument(doc);
+            documentDao.add(doc);
             System.out.println("Book inserted successfully");
 
         } catch (Exception e) {

@@ -27,7 +27,7 @@ public class BookInfoController implements Initializable {
     private ListView<Document> bookDetailContainer;
 
     @FXML
-    private HBox booksContainer;
+    private HBox booksContainer1;
 
     @FXML
     private HBox helpContainer;
@@ -51,11 +51,7 @@ public class BookInfoController implements Initializable {
     private TextField searchField1;
 
     @FXML
-    private TextField searchField11;
-
-    @FXML
     private HBox settingContainer;
-
     private Parent root;
     private Scene scene;
     private Stage stage;
@@ -77,7 +73,7 @@ public class BookInfoController implements Initializable {
     }
 
     private List<Document> getDocumentList() {
-        return documentDao.getDocuments();
+        return documentDao.getAll();
     }
 
 

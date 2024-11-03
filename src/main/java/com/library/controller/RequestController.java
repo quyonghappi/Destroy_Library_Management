@@ -68,13 +68,13 @@ public class RequestController {
             current = reservation;
             int userId = reservation.getUserId();
             int reservationId = reservation.getReservationId();
-            User user = userDao.getUserById(userId);
+            User user = userDao.get(userId);
             if (user != null) {
                 useridLabel.setText(String.valueOf(user.getUserId()));
                 usernameLabel.setText(user.getFullName());
             }
 
-            Document doc = documentDao.findByISBN(reservation.getIsbn());
+            Document doc = documentDao.get(reservation.getIsbn());
             if (doc != null) {
                 // Set other information
                 bookNameLabel.setText(doc.getTitle());

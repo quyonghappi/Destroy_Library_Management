@@ -64,7 +64,7 @@ public class OverdueController {
 
             int recordId = fine.getRecordId();
 
-            User user = userDao.getUserById(userId);
+            User user = userDao.get(userId);
             if (user != null) {
                 useridLabel.setText(String.valueOf(user.getUserId()));
                 usernameLabel.setText(user.getFullName());
@@ -75,9 +75,9 @@ public class OverdueController {
 //            }
 
             //load borrowing record
-            BorrowingRecord borrowingRecord = borrowingRecordDao.getById(recordId);
+            BorrowingRecord borrowingRecord = borrowingRecordDao.get(recordId);
             if (borrowingRecord != null) {
-                Document document = documentDao.findByISBN(borrowingRecord.getISBN());
+                Document document = documentDao.get(borrowingRecord.getISBN());
                 if (document != null) {
                     bookNameLabel.setText(document.getTitle());
                     fineLabel.setText(String.valueOf(fine.getFineAmount())); //use fine's fine amount
@@ -127,8 +127,7 @@ public class OverdueController {
     @FXML
     private void handlePaidButtonAction(ActionEvent event) {
         try {
-            fineDao.deleteFine(fineDao.getFineDetailsWithRecordId(Integer.parseInt(recordIdLabel.getText())));
-//            BorrowingRecord borrowingRecord = borrowingRecordDao.getById(currentFine.getRecordId());
+            fineDao.delete(fineDao.get(Integer.parseInt(recordIdLabel.getText())));
             fineDao.changeFineStatus(Integer.parseInt(recordIdLabel.getText()));
 
             //remove current request from listview

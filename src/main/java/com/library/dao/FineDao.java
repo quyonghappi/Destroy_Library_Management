@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FineDao {
+public class FineDao implements DAO<Fine> {
 
-    public List<Fine> getFines() {
+    public List<Fine> getAll() {
         String sql = "select * from Fines";
-        List<Fine> fineList= new ArrayList<>();
+        List<Fine> fineList = new ArrayList<>();
 
-        try(Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Fine fine = new Fine();
                 fine.setFineId(rs.getInt(1));
                 fine.setUserId(rs.getInt(2));
@@ -38,8 +38,12 @@ public class FineDao {
         return fineList;
     }
 
-    //    //get fine details
-    public Fine getFineDetailsWithRecordId(int recordId) {
+    //get fine details with record id
+    public <U> Fine get(U id) {
+        if (!(id instanceof Integer)) {
+            throw new IllegalArgumentException("Expected an Integer for recordId");
+        }
+        int recordId = (Integer) id;
         String sql = "SELECT f.user_id, f.record_id, f.fine_amount,f.due_date, f.status, br.isbn " +
                 "FROM Fines f JOIN BorrowingRecords br ON f.record_id = br.record_id";
 
@@ -63,10 +67,10 @@ public class FineDao {
     }
 
     //if it was paid
-    public void deleteFine(Fine fine) {
-        String sql = "delete from fines where fine_id=?";
-        try(Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)) {
-            pstm.setInt(1, fine.getFineId());
+    public void delete(Fine fine) {
+        String sql="delete from fines where fines.record_id=?";
+        try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)) {
+            pstm.setInt(1, fine.getRecordId());
             pstm.executeUpdate();
 
         } catch (SQLException e) {
@@ -75,17 +79,20 @@ public class FineDao {
     }
 
     public void checkAndAddFine(BorrowingRecord br) {
-        LocalDateTime dueDate = br.getBorrowDate().plusDays(7);
+        LocalDateTime dueDate = br.getBorrowDate().plusDays(14);
         boolean getFine = br.getStatus().equals("lost");
         if (isOverdue(dueDate)) br.setStatus("late");
         if (isOverdue(dueDate) || getFine) {
-            addFine(br);
+            add(br);
         }
 
 
     }
 
-    public void addFine(BorrowingRecord record) {
+    public <U> void add(U r) {
+        if(!(r instanceof BorrowingRecord record)) {
+            throw new IllegalArgumentException("Not BorrowingRecord");
+        }
         String sql="insert into fines(user_id, record_id, fine_amount, due_date, status) values(?,?,?,?,?)";
 
         try (
@@ -106,7 +113,7 @@ public class FineDao {
 
     public double calculateFine(BorrowingRecord record) {
         //10k each day overdue
-        if (!isOverdue(record.getReturnDate())) {
+        if (!isOverdue(record.getBorrowDate())) {
             //only used for local date
             //Period period=Period.between(LocalDateTime.now(), record.getReturnDate());
             return daysOverdue(record) * 10000;

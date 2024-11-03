@@ -70,7 +70,7 @@ public class RegisterController {
             return;
         }
         try {
-            userDao.createUser(user);
+            userDao.add(user);
             showAlert(AlertType.INFORMATION,"Success", "User registered successfully!");
         } catch (Exception e) {
             showAlert(AlertType.INFORMATION,e.getMessage(), "Something went wrong");

@@ -10,11 +10,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocumentDao {
+public class DocumentDao implements DAO<Document> {
 
     //insert document into database
-    public void insertDocument(Document doc) throws SQLException {
-
+    public <U> void add(U d) throws SQLException {
+        if (!(d instanceof Document doc)) {
+            throw new SQLException("Not a Document");
+        }
         try {
             //get or create author id then insert if not exist
             int authorId = getOrCreateAuthorId(doc.getAuthor().getName());
@@ -75,14 +77,42 @@ public class DocumentDao {
         }
     }
 
-    //find a document by ISBN
-    public Document findByISBN(String isbn) throws SQLException {
+    public List<Document> getAll() {
+        String sql = "select * from documents";
+        List<Document> documents = new ArrayList<Document>();
+        try (Connection con = DatabaseConfig.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String isbn = rs.getString("isbn");
+                String title = rs.getString("title");
+                int categoryId = rs.getInt("category_id");
+                int authorId = rs.getInt("author_id");
+                int publisherId = rs.getInt("publisher_id");
+                int publicationYear = rs.getInt("publication_year");
+                int quantity = rs.getInt("quantity");
+                int page = rs.getInt("pages");
+                String description = rs.getString("description");
+                String location = rs.getString("location");
+                String imageUrl = rs.getString("book_image");
+                String previewUrl = rs.getString("preview_link");
+                documents.add(new Document(isbn, title, categoryId, authorId, publisherId, publicationYear, quantity, description, location, page, previewUrl, imageUrl));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+        return documents;
+    }
+
+
+    //get a document by ISBN
+    public <U> Document get(U isbn) throws SQLException {
         String selectSql = "SELECT * FROM documents WHERE isbn = ?";
 
         try (Connection connection = DatabaseConfig.getConnection();
              PreparedStatement ps = connection.prepareStatement(selectSql)) {
 
-            ps.setString(1, isbn);
+            ps.setString(1, (String) isbn);
             ResultSet resultSet = ps.executeQuery();
 
             if (resultSet.next()) {
@@ -244,33 +274,6 @@ public class DocumentDao {
             ResultSet resultSet = ps.executeQuery();
             return resultSet.next();
         }
-    }
-
-    public List<Document> getDocuments() {
-        String sql = "select * from documents";
-        List<Document> documents = new ArrayList<Document>();
-        try (Connection con = DatabaseConfig.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String isbn = rs.getString("isbn");
-                String title = rs.getString("title");
-                int categoryId = rs.getInt("category_id");
-                int authorId = rs.getInt("author_id");
-                int publisherId = rs.getInt("publisher_id");
-                int publicationYear = rs.getInt("publication_year");
-                int quantity = rs.getInt("quantity");
-                int page = rs.getInt("pages");
-                String description = rs.getString("description");
-                String location = rs.getString("location");
-                String imageUrl = rs.getString("book_image");
-                String previewUrl = rs.getString("preview_link");
-                documents.add(new Document(isbn, title, categoryId, authorId, publisherId, publicationYear, quantity, description, location, page, previewUrl, imageUrl));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
-        return documents;
     }
 
     public Publisher getPublisher(int id) {

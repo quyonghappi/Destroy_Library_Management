@@ -129,7 +129,7 @@ public class BookInfoCellController extends ListCell<Document> {
     @FXML
     private void handleDeleteButtonAction(ActionEvent event) {
         try {
-            documentDao.delete(documentDao.findByISBN(isbnLabel.getText()));
+            documentDao.delete(documentDao.get(isbnLabel.getText()));
             listView.getItems().remove(currentDocument);
         }
         catch (Exception e) {

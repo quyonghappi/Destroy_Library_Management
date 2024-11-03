@@ -2,6 +2,7 @@ package com.library.dao;
 
 import com.library.config.DatabaseConfig;
 import com.library.models.BorrowingRecord;
+import com.library.models.Fine;
 import com.library.utils.DateFormat;
 
 import java.sql.*;
@@ -9,10 +10,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BorrowingRecordDao {
+public class BorrowingRecordDao implements DAO<BorrowingRecord> {
 
     public void delete(BorrowingRecord borrowingRecord) {
-        String sql = "delete from borrowingrecord where record_id = ?";
+        String sql = "delete from borrowingrecords where record_id = ?";
         try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, borrowingRecord.getRecordId());
             stmt.executeUpdate();
@@ -20,6 +21,35 @@ public class BorrowingRecordDao {
             e.printStackTrace();
         }
     }
+
+    public List<BorrowingRecord> getAll() {
+        String sql = "SELECT * FROM borrowingrecords";
+        return getRecord(sql);
+    }
+
+    public <U> BorrowingRecord get(U recordId) {
+        String sql = "SELECT * FROM borrowingrecords where record_id = ?";
+        BorrowingRecord borrowingRecord = null;
+        try (Connection conn= DatabaseConfig.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, (int)recordId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String isbn = rs.getString("isbn");
+//                Timestamp borrowDate = rs.getTimestamp("borrow_date");
+//                Timestamp returnDate = rs.getTimestamp("return_date");
+                Timestamp borrowDate=rs.getTimestamp("borrow_date");
+                Timestamp returnDate=rs.getTimestamp("return_date");
+                String status = rs.getString("status");
+                borrowingRecord= new BorrowingRecord((int)recordId,userId,isbn, DateFormat.toLocalDateTime(borrowDate), DateFormat.toLocalDateTime(returnDate), status);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return borrowingRecord;
+    }
+
 
     //get lent book
     public List<BorrowingRecord> getLent() {
@@ -35,12 +65,22 @@ public class BorrowingRecordDao {
 
     //get late
     public List<BorrowingRecord> getLate() {
+        List<BorrowingRecord> list = getLent();
+        FineDao fineDao = new FineDao();
+        for (BorrowingRecord borrowingRecord : list) {
+            fineDao.checkAndAddFine(borrowingRecord);
+        }
         String sql = "select * from borrowingrecords where status='late'";
         return getRecord(sql);
     }
 
     //get lost
     public List<BorrowingRecord> getLost() {
+        List<BorrowingRecord> list = getLent();
+        FineDao fineDao = new FineDao();
+        for (BorrowingRecord borrowingRecord : list) {
+            fineDao.checkAndAddFine(borrowingRecord);
+        }
         String sql = "select * from borrowingrecords where status='Lost'";
         return getRecord(sql);
     }
@@ -69,8 +109,10 @@ public class BorrowingRecordDao {
     }
 
     //use when user want to borrow book, so we add new record
-    public void add(BorrowingRecord borrowingRecord) {
-        //String sql="insert into borrowingrecords(record_id, user_id, isbn, borrow_date,return_date, status) values(?,?,?,?)";
+    public <U> void add(U br) {
+        if (!(br instanceof BorrowingRecord borrowingRecord)) {
+            throw new IllegalArgumentException("BorrowingRecord is not a BorrowingRecord");
+        }
         String sql="insert into borrowingrecords(user_id, isbn, borrow_date,return_date, status) values(?,?,?,?,?)";
         try(
                 Connection conn=DatabaseConfig.getConnection();
@@ -115,7 +157,8 @@ public class BorrowingRecordDao {
         documentDao.updateQuantity(br.getISBN(), br.getStatus());
     }
 
-    public BorrowingRecord getById(int id) {
+    //get borrowing record by id
+    public BorrowingRecord get(int id) {
         String sql = "SELECT * FROM BorrowingRecords WHERE record_id = ?";
         BorrowingRecord borrowingRecord = null;
 
