@@ -24,8 +24,6 @@ public class SceneSwitcher {
         stage.setWidth(screenBounds.getWidth());
         stage.setHeight(screenBounds.getHeight());
         stage.centerOnScreen();
-        //delay full-screen mode to improve performance
-        Platform.runLater(() -> stage.setFullScreen(true));
     }
 
     public static CompletableFuture<Scene> loadSceneAsync(String fxmlPath) {
