@@ -98,4 +98,22 @@ public class ReservationDao {
         }
         return numOfReservations;
     }
+
+    public void updateStatus(int reservation_id, String status) {
+        String sql="update reservations set status=? where reservation_id=?";
+        try (Connection connection=DatabaseConfig.getConnection();
+            PreparedStatement ps= connection.prepareStatement(sql)) {
+            ps.setString(1,status);
+            ps.setInt(2,reservation_id);
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Reservation status updated.");
+            } else {
+                System.out.println("No reservation found.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

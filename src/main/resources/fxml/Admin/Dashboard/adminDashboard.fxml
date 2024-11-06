@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.AdminDashboardController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.dashboard.AdminDashboardController">
 
 
     <!-- Center Content -->
@@ -27,7 +27,7 @@
                             <children>
                                 <ImageView fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../ui/admindashboard/search.png" />
+                                        <Image url="@../../../ui/admindashboard/search.png" />
                                     </image>
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
@@ -44,7 +44,7 @@
                             <children>
                                 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../ui/admindashboard/bell.png" />
+                                        <Image url="@../../../ui/admindashboard/bell.png" />
                                     </image>
                                     <HBox.margin>
                                         <Insets right="15.0" />
@@ -53,7 +53,7 @@
                                 <Label fx:id="memNameLabel" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../ui/admindashboard/user.png" />
+                                        <Image url="@../../../ui/admindashboard/user.png" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -69,7 +69,7 @@
                             <children>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../ui/admindashboard/borrow.png" />
+                                        <Image url="@../../../ui/admindashboard/borrow.png" />
                                     </image>
                            <HBox.margin>
                               <Insets left="10.0" />
@@ -94,7 +94,7 @@
                             <children>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../ui/admindashboard/deadline.png" />
+                                        <Image url="@../../../ui/admindashboard/deadline.png" />
                                     </image>
                            <HBox.margin>
                               <Insets left="10.0" />
@@ -116,7 +116,7 @@
                             <children>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../ui/admindashboard/visitor.png" />
+                                        <Image url="@../../../ui/admindashboard/visitor.png" />
                                     </image>
                            <HBox.margin>
                               <Insets left="10.0" />
@@ -152,7 +152,7 @@
                                     <children>
                               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../ui/admindashboard/clock.png" />
+                                    <Image url="@../../../ui/admindashboard/clock.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
@@ -166,7 +166,7 @@
                                         <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                         <ImageView fx:id="overdueNav" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../ui/admindashboard/next.png" />
+                                                <Image url="@../../../ui/admindashboard/next.png" />
                                             </image>
                                         </ImageView>
                                     </children>
@@ -185,7 +185,7 @@
                                     <children>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../ui/admindashboard/hand.png" />
+                                    <Image url="@../../../ui/admindashboard/hand.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
@@ -199,7 +199,7 @@
                                         <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                         <ImageView fx:id="requestNav" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../ui/admindashboard/next.png" />
+                                                <Image url="@../../../ui/admindashboard/next.png" />
                                             </image>
                                         </ImageView>
                                     </children>
@@ -230,7 +230,7 @@
                             <children>
                                 <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                     <image>
-                                        <Image url="@../ui/admindashboard/cloud-library.png" />
+                                        <Image url="@../../../ui/admindashboard/cloud-library.png" />
                                     </image>
                                 </ImageView>
                         <Label styleClass="app-title" text="Library">
@@ -251,7 +251,7 @@
                     <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../ui/admindashboard/dashboard.png" />
+                                <Image url="@../../../ui/admindashboard/dashboard.png" />
                             </image>
                         </ImageView>
                         <Label prefHeight="18.0" prefWidth="137.0" text="Overview" textFill="#28324d">
@@ -272,7 +272,7 @@
                     <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../ui/admindashboard/book.png" />
+                                <Image url="@../../../ui/admindashboard/book.png" />
                             </image>
                         </ImageView>
                   <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Books">
@@ -289,7 +289,7 @@
                     <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../ui/admindashboard/member.png" />
+                                <Image url="@../../../ui/admindashboard/member.png" />
                             </image>
                         </ImageView>
                   <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Members">
@@ -306,7 +306,7 @@
                     <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../ui/admindashboard/settings.png" />
+                                <Image url="@../../../ui/admindashboard/settings.png" />
                             </image>
                         </ImageView>
                         <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Setting">
@@ -323,7 +323,7 @@
                     <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../ui/admindashboard/info.png" />
+                                <Image url="@../../../ui/admindashboard/info.png" />
                             </image>
                         </ImageView>
                         <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="About">
@@ -340,7 +340,7 @@
                     <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../ui/admindashboard/headphones.png" />
+                                <Image url="@../../../ui/admindashboard/headphones.png" />
                             </image>
                         </ImageView>
                         <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Help and support">

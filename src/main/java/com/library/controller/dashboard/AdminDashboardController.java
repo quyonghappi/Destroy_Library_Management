@@ -1,4 +1,4 @@
-package com.library.controller;
+package com.library.controller.dashboard;
 
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.FineDao;
@@ -173,7 +173,7 @@ public class AdminDashboardController implements Initializable {
     private void loadBookInfoSceneAsync() {
         new Thread(() -> {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BookInfo.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Books/BookInfo.fxml"));
                 Parent bookInfoRoot = loader.load();
                 bookInfoScene = new Scene(bookInfoRoot);
             } catch (IOException e) {

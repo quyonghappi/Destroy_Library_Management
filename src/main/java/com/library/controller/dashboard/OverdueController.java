@@ -1,4 +1,4 @@
-package com.library.controller;
+package com.library.controller.dashboard;
 
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;

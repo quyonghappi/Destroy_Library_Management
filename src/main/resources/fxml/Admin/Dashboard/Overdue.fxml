@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" stylesheets="@/css/overdueStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.OverdueController">
+<HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" stylesheets="@/css/overdueStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.dashboard.OverdueController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
          <children>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../ui/admindashboard/member.png" />
+                  <Image url="@../../../ui/admindashboard/member.png" />
                </image>
                <HBox.margin>
                   <Insets left="5.0" />
@@ -33,7 +33,7 @@
          <children>
             <ImageView id="bookImage" fx:id="bookImage" fitHeight="60.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../ui/admindashboard/bookcover.png" />
+                  <Image url="@../../../ui/admindashboard/bookcover.png" />
                </image></ImageView>
             <VBox alignment="CENTER" prefHeight="40.0" prefWidth="100.0">
                <children>

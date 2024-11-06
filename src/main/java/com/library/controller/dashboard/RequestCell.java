@@ -1,4 +1,4 @@
-package com.library.controller;
+package com.library.controller.dashboard;
 
 import com.library.models.Reservation;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ public class RequestCell extends ListCell<Reservation> {
 
     public RequestCell() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Request.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Dashboard/Request.fxml"));
             requestCellBox = loader.load();
             requestController = loader.getController();
         } catch (Exception e) {

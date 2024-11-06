@@ -1,22 +1,17 @@
-package com.library.controller;
+package com.library.controller.books;
 
 import com.library.dao.DocumentDao;
 import com.library.dao.ReservationDao;
 import com.library.models.Author;
 import com.library.models.Document;
 import com.library.models.Publisher;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.util.HashMap;
-import java.util.Map;
+import static com.library.utils.LoadImage.loadImageLazy;
 
 public class BookInfoCellController extends ListCell<Document> {
     @FXML
@@ -57,8 +52,7 @@ public class BookInfoCellController extends ListCell<Document> {
     private Publisher publisher=new Publisher();
     private Author author = new Author();
 
-
-    private static final Map<String, Image> imageCache = new HashMap<String, Image>();
+//    private static final Map<String, Image> imageCache = new HashMap<String, Image>();
 
     public void setListView(ListView<Document> listView) {
         this.listView = listView;
@@ -84,32 +78,36 @@ public class BookInfoCellController extends ListCell<Document> {
         }
     }
 
-    private void loadImageLazy(String imageUrl, ImageView imageView) {
-        //check if image is already cached
-        if (imageCache.containsKey(imageUrl)) {
-            imageView.setImage(imageCache.get(imageUrl));
-            return;
-        }
-        Task<Image> loadImageTask = new Task<>() {
-            @Override
-            protected Image call() throws Exception {
-                return new Image(imageUrl, 45, 55, true, true);
-            }
-        };
-
-        loadImageTask.setOnSucceeded(event -> {
-            Image image = loadImageTask.getValue();
-            imageCache.put(imageUrl, image);  //cache the image
-            Platform.runLater(() -> imageView.setImage(image));
-        });
-
-        loadImageTask.setOnFailed(event -> {
-            System.out.println("Failed to load image from URL: " + imageUrl);
-
-        });
-
-        new Thread(loadImageTask).start();  //run the task on a background thread
-    }
+//    private void loadImageLazy(String imageUrl, ImageView imageView) {
+//        imageView.setFitWidth(50);
+//        imageView.setFitHeight(60);
+//        imageView.setPreserveRatio(false); //disable aspect ratio to fill exact size
+//        //check if image is already cached
+//        if (imageCache.containsKey(imageUrl)) {
+//            imageView.setImage(imageCache.get(imageUrl));
+//            return;
+//        }
+//        Task<Image> loadImageTask = new Task<>() {
+//            @Override
+//            protected Image call() throws Exception {
+//                return new Image(imageUrl, 50, 60, false, true);
+//            }
+//        };
+//        //preserveRatio = false, smooth = true
+//
+//        loadImageTask.setOnSucceeded(event -> {
+//            Image image = loadImageTask.getValue();
+//            imageCache.put(imageUrl, image);  //cache the image
+//            Platform.runLater(() -> imageView.setImage(image));
+//        });
+//
+//        loadImageTask.setOnFailed(event -> {
+//            System.out.println("Failed to load image from URL: " + imageUrl);
+//
+//        });
+//
+//        new Thread(loadImageTask).start();  //run the task on a background thread
+//    }
 
     @FXML
     private void handleEditButtonAction(ActionEvent event) {

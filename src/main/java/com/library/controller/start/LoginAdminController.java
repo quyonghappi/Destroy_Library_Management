@@ -1,24 +1,19 @@
-package com.library.controller;
+package com.library.controller.start;
 
 import com.library.config.DatabaseConfig;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
+
 import org.mindrot.jbcrypt.BCrypt;
 
-public class LoginUserController {
+public class LoginAdminController {
 
     @FXML
     private TextField userNameField;
@@ -29,14 +24,14 @@ public class LoginUserController {
     @FXML
     private Button loginButton;
 
-    @FXML
-    protected Hyperlink signUpLink;
+//    @FXML
+//    protected Hyperlink signUpLink;
 
-    static final int SCENE_WIDTH = 400;
-    static final int SCENE_HEIGHT = 600;
+//    static final int SCENE_WIDTH = 400;
+//    static final int SCENE_HEIGHT = 600;
 
     @FXML
-    public void login(ActionEvent event) {
+    void login(ActionEvent event) {
         String username = userNameField.getText().trim();
         String password = passwordField.getText();
 
@@ -50,10 +45,10 @@ public class LoginUserController {
         }
     }
 
-    @FXML
-    public void openSignUp(ActionEvent event) {
-        loadScene("/fxml/Register.fxml", "Sign Up");
-    }
+//    @FXML
+//    void openSignUp(ActionEvent event) {
+//        loadScene("/fxml/Register.fxml", "Sign Up");
+//    }
 
     private boolean validateInput(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
@@ -89,21 +84,20 @@ public class LoginUserController {
     }
 
     // Utility method to load new scenes
-    private void loadScene(String fxmlPath, String title) {
-        try {
-            Stage stage = (Stage) signUpLink.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
-            StackPane root = fxmlLoader.load();
-            Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setTitle(title);
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(AlertType.ERROR, "Loading Error", "Unable to load the " + title + " page.");
-        }
-    }
+//    private void loadScene(String fxmlPath, String title) {
+//        try {
+//            Stage stage = (Stage) signUpLink.getScene().getWindow();
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+//            StackPane root = fxmlLoader.load();
+//            Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+//            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+//            stage.setScene(scene);
+//            stage.setTitle(title);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            showAlert(AlertType.ERROR, "Loading Error", "Unable to load the " + title + " page.");
+//        }
+//    }
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

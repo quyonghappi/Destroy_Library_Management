@@ -7,7 +7,7 @@ public class Reservation {
     private int userId;
     private String isbn;
     private LocalDateTime reservationDate;
-    private String status;
+    private String status="active";
 
     public Reservation() {
 
@@ -58,6 +58,10 @@ public class Reservation {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String toString() {
+        return reservationId + " " + userId + " " + isbn + " " + reservationDate + " " + status;
     }
 
 }

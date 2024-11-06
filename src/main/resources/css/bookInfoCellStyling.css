@@ -1,10 +1,9 @@
 .root {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Bevan Condensed";
 }
 
 .label {
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
+    -fx-font-size: 14px;
 }
 .big-label {
     -fx-text-fill: #28324D;
@@ -14,11 +13,11 @@
     -fx-text-fill: #8a9199;
 }
 
-/*lam the nao de avai 1 mau va borrowed 1 mau*/
+/*lam the nao de available 1 mau va borrowed 1 mau*/
 
 #statusLabel {
-    -fx-text-fill: #3A9D88;
-    -fx-background-color: #E4F4F3;
+    -fx-text-fill:  #1D69A3;
+    -fx-background-color: #CEDFF9;
     -fx-background-radius: 5;
     -fx-border-width: 1px;
     -fx-border-radius: 5;
@@ -33,3 +32,38 @@
 #bookImage {
     -fx-effect: dropshadow(three-pass-box, #D5D6D8 , 10, 0, 0, 5);
 }
+
+#approveButton, #denyButton {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+#approveButton{
+    -fx-text-fill: #3A9D88;
+    -fx-background-color: #E4F4F3;
+    -fx-background-radius: 5;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5;
+    -fx-border-color: #EEE8E8;
+}
+
+#approveButton:hover {
+    -fx-background-color: #ddfdfc;
+}
+
+#denyButton:hover {
+    -fx-background-color: #f8dcda;
+}
+
+#denyButton {
+    -fx-text-fill: #CB755C;
+    -fx-background-color: #F9EBEA;
+    -fx-background-radius: 5;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5;
+    -fx-border-color: #EEE8E8;
+}
+
+
+
+

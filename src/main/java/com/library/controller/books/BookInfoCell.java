@@ -1,4 +1,4 @@
-package com.library.controller;
+package com.library.controller.books;
 
 import com.library.models.Document;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ public class BookInfoCell extends ListCell<Document> {
 
     public BookInfoCell() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/bookInfoCell.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Books/bookInfoCell.fxml"));
             bookInfoBox = loader.load();
             bookInfoCellController = loader.getController();
         } catch (Exception e) {

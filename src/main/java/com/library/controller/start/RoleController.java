@@ -1,16 +1,16 @@
-package com.library.controller;
+package com.library.controller.start;
 
-import com.library.config.PathConfig;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -33,8 +33,8 @@ public class RoleController {
 
     // Enum for Role to avoid using hardcoded strings
     public enum Role {
-        USER(PathConfig.USER_LOGIN_FXML, PathConfig.REGISTER_FXML, "User"),
-        ADMIN(PathConfig.ADMIN_LOGIN_FXML, PathConfig.REGISTER_FXML, "Admin");
+        USER("/fxml/userLogin.fxml", "/fxml/register.fxml", "User"),
+        ADMIN("/fxml/adminLogin.fxml", "/fxml/register.fxml", "Admin");
 
         private final String loginFxmlPath;
         private final String registerFxmlPath;
@@ -63,14 +63,14 @@ public class RoleController {
     @FXML
     private void handleUserButtonAction(ActionEvent event) {
         loadRoleScene(Role.USER);
-        role = Role.USER.getRoleName();
+        role = "Reader";
     }
 
     // Method that gets called when the Admin button is pressed
     @FXML
     private void handleAdminButtonAction(ActionEvent event) {
         loadRoleScene(Role.ADMIN);
-        role = Role.ADMIN.getRoleName();
+        role = "Admin";
     }
 
     /**
@@ -86,9 +86,13 @@ public class RoleController {
 
             // Get the current stage and set the new scene
             Stage stage = (Stage) rootPane.getScene().getWindow();
-            Scene scene = new Scene(root, 400, 600);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(PathConfig.CSS_STYLE)).toExternalForm());
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             stage.setScene(scene);
+            stage.setMaximized(true);
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setWidth(screenBounds.getWidth());
+            stage.setHeight(screenBounds.getHeight());
             stage.centerOnScreen();
             stage.setTitle(role.getRoleName() + " Login");
             stage.show();
@@ -99,12 +103,8 @@ public class RoleController {
             // Update the message label if there is an error loading the scene
             messageLabel.setText("Error loading " + role.getRoleName() + " scene.");
             e.printStackTrace();
-
-            // Show an error dialog to inform the user
-            showErrorDialog("Error", "An error occurred while loading the scene. Please try again later.");
         }
     }
-
     /**
      * Show an error dialog to notify the user in case of errors.
      *
@@ -119,3 +119,4 @@ public class RoleController {
         alert.showAndWait();
     }
 }
+

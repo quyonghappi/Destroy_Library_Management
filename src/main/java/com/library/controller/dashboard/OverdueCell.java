@@ -1,4 +1,4 @@
-package com.library.controller;
+package com.library.controller.dashboard;
 
 import com.library.models.Fine;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,7 @@ public class OverdueCell extends ListCell<Fine> {
 
     public OverdueCell() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Overdue.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Dashboard/Overdue.fxml"));
             overdueCellBox = loader.load();
             overdueController = loader.getController();
         } catch (Exception e) {

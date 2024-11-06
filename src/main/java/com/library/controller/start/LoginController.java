@@ -1,16 +1,19 @@
-package com.library.controller;
+package com.library.controller.start;
 
+import com.library.controller.dashboard.AdminDashboardController;
 import com.library.dao.UserDao;
 import com.library.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -45,7 +48,7 @@ public class LoginController {
         if (validateInput(username, password)) {
             if (userDao.authenticate(username,password)) {
                 //showAlert(AlertType.INFORMATION, "Success", "Login successful!");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/adminDashboard.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Dashboard/adminDashboard.fxml"));
                 root = loader.load();
                 AdminDashboardController controller = loader.getController();
                 controller.setUserFullName(getUserFullName());
@@ -53,6 +56,9 @@ public class LoginController {
                 scene=new Scene(root);
                 stage.setScene(scene);
                 stage.setMaximized(true);
+                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+                stage.setWidth(screenBounds.getWidth());
+                stage.setHeight(screenBounds.getHeight());
                 stage.centerOnScreen();
                 stage.show();
             } else {
@@ -86,6 +92,7 @@ public class LoginController {
             Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             stage.setScene(scene);
+            stage.setMaximized(true);
             stage.centerOnScreen();
             stage.setTitle(title);
         } catch (IOException e) {
