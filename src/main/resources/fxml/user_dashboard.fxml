@@ -1,195 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="826.0" prefWidth="1466.0" styleClass="root-pane" stylesheets="@../css/styling.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.UserDashboard.Controller.UserDashboardController">
+<AnchorPane prefHeight="700" prefWidth="1466" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.UserDashboard.Controller.UserDashboardController">
 
-    <!-- Sidebar with Icons -->
-    <VBox layoutX="0.0" layoutY="0.0" prefHeight="825.0" prefWidth="149.0" styleClass="sidebar">
-        <VBox alignment="TOP_CENTER" prefHeight="850.0" prefWidth="130.0" spacing="20" stylesheets="@../css/styling.css">
-         <ImageView fitHeight="99.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../icons/library_icon.png" />
-            </image>
-         </ImageView>
-            <Label fx:id="iconHome" styleClass="icon-label" />
-         <VBox prefHeight="137.0" prefWidth="129.0" />
-         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
-            <children>
-               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../icons/home_icon.png" />
-                  </image>
-               </ImageView>
-               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../icons/favorites_icon.png" />
-                  </image>
-               </ImageView>
-               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../icons/category_icon.png" />
-                  </image>
-               </ImageView>
-               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../icons/settings_icon.png" />
-                  </image>
-               </ImageView>
-            </children>
-         </VBox>
-         <VBox prefHeight="171.0" prefWidth="129.0" />
-         <VBox alignment="CENTER" prefHeight="119.0" prefWidth="129.0">
-            <children>
-               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../icons/logout_icon.png" />
-                  </image>
-               </ImageView>
-            </children>
-         </VBox>
-         <styleClass>
-            <String fx:value="icon-container" />
-            <String fx:value="header" />
-         </styleClass>
-        </VBox>
+                   <!-- Left Sidebar -->
+    <VBox alignment="CENTER" prefHeight="700.0" prefWidth="82.0" styleClass="sidebar" stylesheets="@../css/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+        <Button mnemonicParsing="false" styleClass="sidebar-button">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
+                    <Image url="@../icons/home_icon.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button mnemonicParsing="false" styleClass="sidebar-button">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
+                    <Image url="@../icons/library_icon.png" />
+                </ImageView>
+            </graphic>
+        </Button>
     </VBox>
 
     <!-- Main Content Area -->
-    <VBox layoutX="160.0" layoutY="103.0" prefHeight="722.0" prefWidth="797.0" spacing="20" styleClass="main-content">
-
-        <!-- Quote Section -->
-        <AnchorPane layoutX="180.0" layoutY="80.0" prefHeight="200.0" prefWidth="480.0" styleClass="quote-section">
-            <!-- Quote Text -->
-            <Label layoutX="20.0" layoutY="40.0" styleClass="quote-text" text="&quot;I have always imagined that Paradise will be a kind of library.&quot;" wrapText="true" />
-
-            <!-- Author Text -->
-            <Label layoutX="20.0" layoutY="100.0" styleClass="quote-author" text="- Jorge Luis Borges" />
-
-            <!-- Quote Today Button -->
-            <Button layoutX="20.0" layoutY="140.0" styleClass="quote-button" text="Quote Today" />
-        </AnchorPane>
-
-        <!-- Continue Reading Section -->
-        <Label prefHeight="33.0" prefWidth="142.0" styleClass="section-title" text="Continue Reading">
-         <font>
-            <Font name="Baskerville Old Face" size="12.0" />
-         </font></Label>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0">
-         <content>
-            <HBox fx:id="cardLayout" prefHeight="187.0" prefWidth="1252.0" stylesheets="@../css/styling.css" />
-         </content>
-      </ScrollPane>
-
-        <!-- Stats Section -->
-        <HBox alignment="CENTER" prefHeight="98.0" prefWidth="590.0" spacing="80.0" styleClass="stats-section">
-            <VBox prefHeight="75.0" prefWidth="110.0" styleClass="stats-card">
-                <Label styleClass="stats-number" text="25" />
-                <Label styleClass="stats-label" text="Read Books" />
-            </VBox>
-            <VBox prefHeight="75.0" prefWidth="110.0" styleClass="stats-card">
-                <Label styleClass="stats-number" text="20" />
-                <Label styleClass="stats-label" text="Read Authors" />
-            </VBox>
-            <VBox prefHeight="75.0" prefWidth="111.0" styleClass="stats-card">
-                <Label styleClass="stats-number" text="7" />
-                <Label styleClass="stats-label" text="Reading" />
-            </VBox>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
+    <VBox layoutX="86.4" prefHeight="600.0" prefWidth="1380.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" prefHeight="346.0" prefWidth="1380.0" spacing="20" styleClass="header" stylesheets="@../css/styling.css">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+         <VBox prefHeight="260.0" prefWidth="450.0">
+            <children>
+               <Label prefHeight="31.0" prefWidth="450.0" />
+                  <VBox prefHeight="276.0" prefWidth="520.0" spacing="5.0">
+                      <Label prefHeight="116.0" prefWidth="350.0" styleClass="header-title" text="Happy reading, &#10;Harvey">
+                     <font>
+                        <Font name="Poor Richard" size="47.0" />
+                     </font>
+                  </Label>
+                      <Label prefHeight="70.0" prefWidth="448.0" styleClass="header-subtitle" text="Wow! You've delved deep into the wizarding world's secrets. &#10;As you turn each page, you find yourself immersed in a realm of magic...&#10;Get reading now!">
+                     <font>
+                        <Font name="Rockwell" size="13.0" />
+                     </font>
+                  </Label>
+                      <Button prefHeight="34.0" prefWidth="199.0" styleClass="start-reading-btn" stylesheets="@../css/styling.css" text="Start reading" textFill="WHITE" />
+                  <VBox.margin>
+                     <Insets left="15.0" />
+                  </VBox.margin>
+                  </VBox>
+            </children>
+            <HBox.margin>
+               <Insets top="5.0" />
+            </HBox.margin>
+         </VBox>
+         <VBox prefHeight="344.0" prefWidth="846.0" spacing="10.0">
+            <children>
+               <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="391.0" spacing="10.0">
+                  <children>
+                     <ImageView fitHeight="30.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../icons/noti_icon.png" />
+                        </image>
+                     </ImageView>
+                     <Label prefHeight="39.0" prefWidth="327.0" styleClass="search-bar" stylesheets="@../css/styling.css" text="What interests you?" textFill="#8e8c8c" />
+                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../icons/profile_icon.png" />
+                        </image>
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </ImageView>
+                  </children>
+                  <VBox.margin>
+                     <Insets right="10.0" />
+                  </VBox.margin>
+               </HBox>
+                  <!-- Book Cover Display -->
+                  <HBox alignment="TOP_RIGHT" prefHeight="258.0" prefWidth="811.0" spacing="35.0" stylesheets="@../css/styling.css">
+                      <ImageView fx:id="bookImageView" fitHeight="258.0" fitWidth="235.0" preserveRatio="true">
+                          <!-- Image url="@../images/book-stack.png" /-->
+                          <Image url="@../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                      </ImageView>
+                  <VBox prefHeight="258.0" prefWidth="278.0">
+                     <children>
+                        <Label prefHeight="116.0" prefWidth="350.0" styleClass="header-title" text="The Adventures of&#10;Tom Sawyer">
+                           <font>
+                              <Font name="Poor Richard" size="36.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="85.0" prefWidth="278.0" styleClass="header-subtitle" text="An imaginative and mischievous boy&#10;named Tom Sawyer lives with his Aunt &#10;Polly and his half-brother, Sid, &#10;in the Mississippi ...">
+                           <font>
+                              <Font name="Rockwell" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="44.0" prefWidth="265.0" text="- Mark Twain" textAlignment="RIGHT">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children></VBox>
+                  <VBox prefHeight="258.0" prefWidth="79.0" />
+                  <VBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </VBox.margin>
+                  </HBox>
+            </children></VBox>
         </HBox>
+      <Pane prefHeight="355.0" prefWidth="1380.0" stylesheets="@../css/styling.css">
+         <children>
+            <VBox layoutX="44.0" prefHeight="355.0" prefWidth="684.0" spacing="10.0">
+               <children>
+                  <Label text="Your Library">
+                     <font>
+                        <Font name="Rockwell" size="16.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane prefHeight="268.0" prefWidth="684.0" styleClass="series-container" stylesheets="@../css/styling.css" />
+               </children>
+            </VBox>
+         </children>
+      </Pane>
 
+        <!-- Center Book Display -->
+<!--        <StackPane styleClass="book-display" stylesheets="@../css/styling.css" VBox.vgrow="ALWAYS">-->
+<!--            <ImageView fx:id="bookImageView" fitHeight="400" preserveRatio="true">-->
+<!--                Image url="@/images/Adventures_of_Tom_Sawyer_cover.jpg" />-->
+<!--            </ImageView>-->
+<!--         <VBox.margin>-->
+<!--            <Insets top="5.0" />-->
+<!--         </VBox.margin>-->
+<!--        </StackPane>-->
     </VBox>
 
-     <!-- Additional Book in the Right Corner -->
-     <VBox layoutX="996.0" layoutY="120.0" prefHeight="275.0" prefWidth="418.0" styleClass="right-book">
-      <children>
-         <HBox alignment="CENTER" prefHeight="230.0" prefWidth="396.0">
-            <children>
-               <ImageView fitHeight="199.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../images/Dune_cover.jpg" />
-                  </image>
-                  <HBox.margin>
-                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                  </HBox.margin>
-               </ImageView>
-               <VBox alignment="CENTER" prefHeight="203.0" prefWidth="234.0" spacing="20.0">
-                  <children>
-                     <Label alignment="TOP_LEFT" lineSpacing="12.0" prefHeight="130.0" prefWidth="208.0" text="Have you read&#10;DUNE&#10;by Frank &#10;Herbert ?">
-                        <font>
-                           <Font name="Baskerville Old Face" size="20.0" />
-                        </font>
-                     </Label>
-                        <Button prefHeight="46.0" prefWidth="150.0" styleClass="read-today-button" text="Read Today">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </Button>
-                  </children>
-               </VBox>
-            </children>
-            <VBox.margin>
-               <Insets bottom="2.0" />
-            </VBox.margin>
-         </HBox>
-      </children>
-     </VBox>
-
-     <!-- Call-to-Action Button -->
-     <Button layoutX="1002.0" layoutY="722.0" prefHeight="42.0" prefWidth="418.0" styleClass="cta-button" text="Explore your taste?">
-      <font>
-         <Font size="15.0" />
-      </font>
-   </Button>
-   <HBox layoutX="150.0" prefHeight="113.0" prefWidth="1319.0">
-      <children>
-         <HBox prefHeight="100.0" prefWidth="200.0" />
-         <HBox alignment="CENTER" prefHeight="86.0" prefWidth="332.0">
-            <children>
-               <TextField prefHeight="31.0" prefWidth="536.0" promptText="Search..." styleClass="search-bar" />
-            </children>
-         </HBox>
-         <ImageView fitHeight="115.0" fitWidth="381.0" pickOnBounds="true" preserveRatio="true" />
-         <HBox alignment="CENTER" prefHeight="115.0" prefWidth="334.0" spacing="10.0">
-            <children>
-               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../icons/noti_icon.png" />
-                  </image>
-               </ImageView>
-               <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../icons/profile_icon.png" />
-                  </image>
-               </ImageView>
-               <Label text="Welcome back, Puca!">
-                  <font>
-                     <Font size="15.0" />
-                  </font>
-               </Label>
-               <MenuButton mnemonicParsing="false">
-                 <items>
-                   <MenuItem mnemonicParsing="false" text="Action 1" />
-                   <MenuItem mnemonicParsing="false" text="Action 2" />
-                 </items>
-               </MenuButton>
-            </children>
-         </HBox>
-      </children>
-   </HBox>
 </AnchorPane>
