@@ -10,9 +10,11 @@ public class Document {
     //    private int totalCopies;
 //    private int availableCopies;
     private int quantity = 1;
+    private int page=1;
     private String description;
     private String location = "com/library";
     private String previewLink;
+    private String imageLink;
 
     private Author author;
     private Publisher publisher;
@@ -24,7 +26,8 @@ public class Document {
     //constructor w all field
     public Document(String ISBN, String title, int categoryId, int authorId, int publisherId,
                     int publicationYear, int quantity,
-                    String description, String location) {
+                    String description, String location,
+                    int page, String previewLink, String imageLink) {
         this.ISBN = ISBN;
         this.title = title;
         this.categoryId = categoryId;
@@ -36,7 +39,9 @@ public class Document {
 //        this.availableCopies = availableCopies;
         this.description = description;
         this.location = location;
-
+        this.page = page;
+        this.previewLink=previewLink;
+        this.imageLink=imageLink;
 
 
     }
@@ -83,18 +88,6 @@ public class Document {
     public void setPublicationYear(int publicationYear) {
         this.publicationYear = publicationYear;
     }
-//    public int getTotalCopies() {
-//        return totalCopies;
-//    }
-//    public void setTotalCopies(int totalCopies) {
-//        this.totalCopies = totalCopies;
-//    }
-//    public int getAvailableCopies() {
-//        return availableCopies;
-//    }
-//    public void setAvailableCopies(int availableCopies) {
-//        this.availableCopies = availableCopies;
-    //}
 
     public int getQuantity() {
         return quantity;
@@ -122,6 +115,15 @@ public class Document {
     public String getPreviewLink() {
         return previewLink;
     }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
     @Override
     public String toString() {
         return "ISBN: " + ISBN + ", title: " + title + ", category " + categoryId;
@@ -151,4 +153,11 @@ public class Document {
         this.category = category;
     }
 
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 }

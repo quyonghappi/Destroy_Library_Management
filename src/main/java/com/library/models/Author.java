@@ -6,6 +6,10 @@ public class Author {
 
 
     public Author() {}
+    public Author(int authorId, String name) {
+        this.authorId = authorId;
+        this.name = name;
+    }
     public int getAuthorId() {
         return authorId;
     }

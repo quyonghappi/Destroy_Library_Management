@@ -25,8 +25,8 @@ CREATE TABLE Users (
                        user_role ENUM('reader', 'admin') DEFAULT 'reader',
                        account_status ENUM('active', 'suspended') DEFAULT 'active',
                        join_date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                       -- last_login DATETIME,
-                       -- login_attempts INT DEFAULT 0,
+    -- last_login DATETIME,
+    -- login_attempts INT DEFAULT 0,
                        account_locked BOOLEAN DEFAULT FALSE,
                        PRIMARY KEY(user_id)
 );
@@ -42,8 +42,8 @@ CREATE TABLE Authors (
 CREATE TABLE Publishers (
                             publisher_id INT NOT NULL AUTO_INCREMENT,
                             name VARCHAR(255) NOT NULL UNIQUE,
-                            -- address TEXT NOT NULL,
-                            -- contact_info VARCHAR(255),
+    -- address TEXT NOT NULL,
+    -- contact_info VARCHAR(255),
                             PRIMARY KEY(publisher_id)
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE Publishers (
 CREATE TABLE Categories (
                             category_id INT NOT NULL AUTO_INCREMENT,
                             name VARCHAR(255) NOT NULL,
-                            -- description TEXT,
+    -- description TEXT,
                             PRIMARY KEY(category_id)
 );
 
@@ -64,11 +64,14 @@ CREATE TABLE Documents (
                            category_id INT NOT NULL,
                            publication_year INT CHECK (publication_year BETWEEN 1500 AND 2024),
                            quantity INT NOT NULL,
+                           pages int not null,
                            description TEXT,
                            location VARCHAR(255) NOT NULL,
-                           FOREIGN KEY (author_id) REFERENCES Authors(author_id),
-                           FOREIGN KEY (publisher_id) REFERENCES Publishers(publisher_id),
-                           FOREIGN KEY (category_id) REFERENCES Categories(category_id)
+                           preview_link TEXT,
+                           book_image TEXT,
+                           FOREIGN KEY (author_id) REFERENCES Authors(author_id) ON DELETE  RESTRICT ON UPDATE CASCADE,
+                           FOREIGN KEY (publisher_id) REFERENCES Publishers(publisher_id) ON DELETE  RESTRICT ON UPDATE CASCADE,
+                           FOREIGN KEY (category_id) REFERENCES Categories(category_id) ON DELETE  RESTRICT ON UPDATE CASCADE
 );
 
 -- Table for recording borrowing transactions
@@ -80,7 +83,7 @@ CREATE TABLE BorrowingRecords (
                                   return_date DATETIME, -- Can be NULL if the document has not been returned
                                   status ENUM('borrowed', 'returned', 'late', 'lost') DEFAULT 'borrowed',
                                   PRIMARY KEY(record_id),
-                                  FOREIGN KEY (user_id) REFERENCES Users(user_id),
+                                  FOREIGN KEY (user_id) REFERENCES Users(user_id) ,
                                   FOREIGN KEY (isbn) REFERENCES Documents(isbn)
 );
 
@@ -92,7 +95,7 @@ CREATE TABLE Reservations (
                               reservation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
                               status ENUM('active', 'fulfilled', 'cancelled') DEFAULT 'active',
                               PRIMARY KEY(reservation_id),
-                              FOREIGN KEY (user_id) REFERENCES Users(user_id),
+                              FOREIGN KEY (user_id) REFERENCES Users(user_id) ,
                               FOREIGN KEY (isbn) REFERENCES Documents(isbn)
 );
 
@@ -105,7 +108,7 @@ CREATE TABLE Reviews (
                          comment TEXT,
                          review_date DATETIME DEFAULT CURRENT_TIMESTAMP,
                          PRIMARY KEY(review_id),
-                         FOREIGN KEY (user_id) REFERENCES Users(user_id),
+                         FOREIGN KEY (user_id) REFERENCES Users(user_id) ,
                          FOREIGN KEY (isbn) REFERENCES Documents(isbn)
 );
 
@@ -115,7 +118,7 @@ CREATE TABLE Admins (
                         user_id INT NOT NULL,
                         assigned_date DATETIME DEFAULT CURRENT_TIMESTAMP,
                         PRIMARY KEY(admin_id),
-                        FOREIGN KEY (user_id) REFERENCES Users(user_id)
+                        FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE RESTRICT ON UPDATE  CASCADE
 );
 
 -- Table for recording admin actions
@@ -123,7 +126,7 @@ CREATE TABLE AdminActions (
                               action_id INT NOT NULL AUTO_INCREMENT,
                               admin_id INT NOT NULL,
                               action_type ENUM('add_user', 'remove_user', 'update_user', 'add_document', 'remove_document', 'update_document', 'other') NOT NULL,
-                              action_description TEXT,
+    -- action_description TEXT,
                               action_date DATETIME DEFAULT CURRENT_TIMESTAMP,
                               target_id INT,
                               PRIMARY KEY(action_id),
@@ -141,3 +144,18 @@ CREATE TABLE Fines (
                        FOREIGN KEY (user_id) REFERENCES Users(user_id),
                        FOREIGN KEY (record_id) REFERENCES BorrowingRecords(record_id)
 );
+
+-- insert data if user_role is admin
+DELIMITER //
+
+CREATE TRIGGER after_user_insert
+    AFTER INSERT ON Users
+    FOR EACH ROW
+BEGIN
+    IF NEW.user_role = 'admin' THEN
+        INSERT INTO Admins (user_id, assigned_date)
+        VALUES (NEW.user_id, NEW.join_date);
+    END IF;
+END;
+
+// DELIMITER ;

@@ -12,7 +12,7 @@ public class User {
     private String email;
     private String phone;
     //private String address;
-    private String userRole;
+    private String userRole="reader";
     private String accountStatus = "active";
     private LocalDate joinDate;
     private List<String> borrowedDocuments = new ArrayList<String>();
@@ -32,6 +32,14 @@ public class User {
         this.accountStatus = accountStatus;
         this.joinDate = joinDate;
     }
+
+    public User(String fullName, String name, String email, String passwordHash) {
+        this.fullName = fullName;
+        this.username = name;
+        this.email = email;
+        this.password = passwordHash;
+    }
+
     public int getUserId() {
         return userId;
     }

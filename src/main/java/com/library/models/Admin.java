@@ -2,9 +2,9 @@ package com.library.models;
 
 import java.time.LocalDateTime;
 
-public class Admin {
+public class Admin extends User {
     private int adminId;
-    private int userId;
+    //private int userId;
     private LocalDateTime assignedDate;
 
     public int getAdminId() {
@@ -13,14 +13,6 @@ public class Admin {
 
     public void setAdminId(int adminId) {
         this.adminId = adminId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public LocalDateTime getAssignedDate() {
