@@ -220,9 +220,15 @@ public class UserDao implements DAO<User> {
 //    }
 
     //authenticate user using username and password
-    public boolean authenticate(String username, String password) throws Exception {
+    public boolean authenticateAdmin(String username, String password) throws Exception {
         User user = findUserByName(username);
         if (user == null) return false;
-        return BCrypt.checkpw(password, user.getPassword());
+        return BCrypt.checkpw(password, user.getPassword()) && user.getUserRole().equals("admin");
+    }
+
+    public boolean authenticateUser(String username, String password) throws Exception {
+        User user = findUserByName(username);
+        if (user == null) return false;
+        return BCrypt.checkpw(password, user.getPassword()) && user.getUserRole().equals("reader");
     }
 }

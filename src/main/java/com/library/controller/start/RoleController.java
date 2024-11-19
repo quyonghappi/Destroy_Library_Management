@@ -7,7 +7,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -26,23 +25,18 @@ public class RoleController {
     @FXML
     private Button adminButton;
 
-    @FXML
-    private Label messageLabel;
-
     public static String role;
 
-    // Enum for Role to avoid using hardcoded strings
+    // Enum to define roles with associated FXML paths for login screens
     public enum Role {
-        USER("/fxml/userLogin.fxml", "/fxml/register.fxml", "User"),
-        ADMIN("/fxml/adminLogin.fxml", "/fxml/register.fxml", "Admin");
+        USER("/fxml/Start/userLogin.fxml", "User"),
+        ADMIN("/fxml/Start/adminLogin.fxml", "Admin");
 
         private final String loginFxmlPath;
-        private final String registerFxmlPath;
         private final String roleName;
 
-        Role(String loginFxmlPath, String registerFxmlPath, String roleName) {
+        Role(String loginFxmlPath, String roleName) {
             this.loginFxmlPath = loginFxmlPath;
-            this.registerFxmlPath = registerFxmlPath;
             this.roleName = roleName;
         }
 
@@ -50,27 +44,36 @@ public class RoleController {
             return loginFxmlPath;
         }
 
-        public String getRegisterFxmlPath() {
-            return registerFxmlPath;
-        }
-
         public String getRoleName() {
             return roleName;
         }
     }
 
-    // Method that gets called when the User button is pressed
+    /**
+     * Method called when the User button is pressed
+     */
     @FXML
     private void handleUserButtonAction(ActionEvent event) {
-        loadRoleScene(Role.USER);
-        role = "Reader";
+        chooseRole(Role.USER);
     }
 
-    // Method that gets called when the Admin button is pressed
+    /**
+     * Method called when the Admin button is pressed
+     */
     @FXML
     private void handleAdminButtonAction(ActionEvent event) {
-        loadRoleScene(Role.ADMIN);
-        role = "Admin";
+        chooseRole(Role.ADMIN);
+    }
+
+    /**
+     * This method sets the role based on the button clicked
+     * and loads the appropriate login screen.
+     *
+     * @param selectedRole The selected role (User or Admin)
+     */
+    private void chooseRole(Role selectedRole) {
+        role = selectedRole.getRoleName(); // Set the role name globally for other parts of the app
+        loadRoleScene(selectedRole); // Load the login scene based on selected role
     }
 
     /**
@@ -80,14 +83,15 @@ public class RoleController {
      */
     private void loadRoleScene(Role role) {
         try {
-            // Load the new scene for the given role
             FXMLLoader loader = new FXMLLoader(getClass().getResource(role.getLoginFxmlPath()));
             HBox root = loader.load();
 
             // Get the current stage and set the new scene
             Stage stage = (Stage) rootPane.getScene().getWindow();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+
+            // add css
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/UserLogin.css")).toExternalForm());
             stage.setScene(scene);
             stage.setMaximized(true);
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
@@ -96,15 +100,12 @@ public class RoleController {
             stage.centerOnScreen();
             stage.setTitle(role.getRoleName() + " Login");
             stage.show();
-
-            // Optionally, update message label
-            messageLabel.setText(role.getRoleName() + " role selected. Please log in.");
         } catch (IOException e) {
-            // Update the message label if there is an error loading the scene
-            messageLabel.setText("Error loading " + role.getRoleName() + " scene.");
+            showErrorDialog("Error", "Failed to load " + role.getRoleName() + " login screen.");
             e.printStackTrace();
         }
     }
+
     /**
      * Show an error dialog to notify the user in case of errors.
      *
@@ -118,5 +119,24 @@ public class RoleController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-}
 
+    @FXML
+    public void showRoleView(Stage primaryStage) {
+        try {
+
+//            displayViewWithAnimation()
+            FXMLLoader loader = new FXMLLoader(RoleController.class.getResource("/fxml/Start/Role.fxml"));
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Role.css")).toExternalForm());
+            primaryStage.setTitle("Library Management");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+}
