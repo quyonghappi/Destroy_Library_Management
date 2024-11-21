@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="memInfoRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.members.MemInfoController">
+<StackPane fx:id="memInfoRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.members.MemInfoController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" StackPane.alignment="CENTER">
          <center>
@@ -208,7 +208,7 @@
                         </ImageView>
                         <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Books" textFill="#28324d">
                            <font>
-                              <Font name="System Bold" size="15.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>

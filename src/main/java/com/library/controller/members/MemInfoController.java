@@ -4,7 +4,6 @@ import com.library.controller.books.BookInfoController;
 import com.library.controller.dashboard.AdminDashboardController;
 import com.library.dao.UserDao;
 import com.library.models.User;
-import com.library.utils.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,9 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.application.Platform;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +28,7 @@ public class MemInfoController implements Initializable {
 
     @FXML
     StackPane memInfoRoot;
+
     @FXML
     private HBox aboutContainer;
 

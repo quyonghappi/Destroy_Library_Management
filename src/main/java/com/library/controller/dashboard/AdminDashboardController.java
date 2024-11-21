@@ -89,9 +89,11 @@ public class AdminDashboardController implements Initializable {
         {
             RequestCell requestCell = new RequestCell();
             requestCell.setListView(requestDetailContainer);
+            requestCell.setParentController(this);
             return requestCell;
         });
         requestDetailContainer.getItems().addAll(reservationList);
+        sortListView();
 
         overdueDetailContainer.setCellFactory(param-> {
             OverdueCell overdueCell=new OverdueCell();
@@ -100,7 +102,7 @@ public class AdminDashboardController implements Initializable {
         });
         overdueDetailContainer.getItems().addAll(fineList);
 
-        //add event on Container to switch scene
+        //add event on Container
         booksContainer.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
             BookInfoController controller= navigateToScene("/fxml/Admin/Books/BookInfo.fxml", booksContainer);
@@ -130,6 +132,17 @@ public class AdminDashboardController implements Initializable {
 //            fineDao.addFine(lateList.get(i));
 //        }
         return fineDao.getAll();
+    }
+
+    void sortListView() {
+        requestDetailContainer.getItems().sort((r1, r2) -> {
+            if ("active".equals(r1.getStatus()) && !"active".equals(r2.getStatus())) {
+                return -1;
+            } else if (!"active".equals(r1.getStatus()) && "active".equals(r2.getStatus())) {
+                return 1;
+            }
+            return 0;
+        });
     }
 
     public void setUserFullName(String userFullName) {

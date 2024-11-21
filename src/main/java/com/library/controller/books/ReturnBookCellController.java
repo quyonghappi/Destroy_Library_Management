@@ -36,7 +36,7 @@ public class ReturnBookCellController {
     private Label isbnLabel;
 
     @FXML
-    private Label returnDateLabel;
+    private Label returndateLabel;
 
     @FXML
     private Label userIdLabel;
@@ -68,7 +68,7 @@ public class ReturnBookCellController {
 
             brdateLabel.setText(String.valueOf(br.getBorrowDate()));
             duedateLabel.setText(String.valueOf(br.getBorrowDate().plusDays(14)));
-            returnDateLabel.setText(String.valueOf(br.getReturnDate()));
+            returndateLabel.setText(String.valueOf(br.getReturnDate()));
 
             if (!doc.getImageLink().equals("N/A")) {
                 loadImageLazy(doc.getImageLink(), bookImage);

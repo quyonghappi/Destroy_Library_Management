@@ -1,4 +1,5 @@
 package com.library.controller.dashboard;
+import com.library.controller.books.RequestBookController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.dao.ReservationDao;
@@ -37,6 +38,9 @@ public class RequestController {
     private Label isbnLabel;
 
     @FXML
+    private Label statusLabel;
+
+    @FXML
     private Label requestDateLabel;
 
     @FXML
@@ -54,7 +58,11 @@ public class RequestController {
     private DocumentDao documentDao = new DocumentDao();
     private UserDao userDao = new UserDao();
     private ReservationDao reservationDao = new ReservationDao();
-    //private static final Map<String, Image> imageCache = new HashMap<>();
+    private AdminDashboardController parentController;
+
+    public void setParentController(AdminDashboardController parentController) {
+        this.parentController = parentController; // Set the parent controller
+    }
 
     public void setListView(ListView<Reservation> lv) {
         this.lv = lv;
@@ -83,64 +91,74 @@ public class RequestController {
                     loadImageLazy(doc.getImageLink(), bookImage);
                 }
             }
+            updateButtonVisibility(reservation.getStatus());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    private void updateButtonVisibility(String status) {
+        switch (status) {
+            case "active":
+                approveButton.setVisible(true);
+                denyButton.setVisible(true);
+                statusLabel.setVisible(false);
+                statusLabel.setPrefSize(0,7);
+                break;
+            case "fulfilled":
+                approveButton.setVisible(false);
+                denyButton.setVisible(false);
+                statusLabel.setText("Fulfilled");
+                statusLabel.setPrefSize(110,30);
+                statusLabel.setVisible(true);
+                break;
+            case "cancelled":
+                approveButton.setVisible(false);
+                denyButton.setVisible(false);
+                statusLabel.setText("Cancelled");
+                statusLabel.setPrefSize(110,30);
+                statusLabel.setVisible(true);
+                break;
+        }
+    }
     @FXML
     private void handleApproveButtonAction(ActionEvent event) {
         try {
-            //reservationDao.delete(reservationDao.getById(Integer.parseInt(requestIdLabel.getText())));
-            BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
-            //System.out.println(isbnLabel.getText());
-            BorrowingRecord borrowingRecord=new BorrowingRecord(useridLabel.getText(), isbnLabel.getText(),now(),"borrowed");
+            BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
+            BorrowingRecord borrowingRecord = new BorrowingRecord(useridLabel.getText(), isbnLabel.getText(), now(), "borrowed");
             borrowingRecordDao.add(borrowingRecord);
-
-            current.setStatus("Fulfilled");
+            current.setStatus("fulfilled");
+            reservationDao.updateStatus(current.getReservationId(), "fulfilled");
+            updateButtonVisibility("fulfilled");
             lv.refresh();
-
-            sortListView();
-//            approveButton.setVisible(false);
-//            denyButton.setVisible(false);
-//            statusLabel.setText("Fulfilled");
-//            statusLabel.setVisible(true);
-            //remove current request from listview
-            //lv.getItems().remove(current);
+            if (parentController != null) {
+                parentController.sortListView();
+            }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace(); //debug
         }
-
     }
 
     @FXML
     private void handleDenyButtonAction(ActionEvent event) {
         try {
             //reservationDao.delete(reservationDao.getById(Integer.parseInt(requestIdLabel.getText())));
-//            approveButton.setVisible(false);
-//            denyButton.setVisible(false);
-//            statusLabel.setText("Canceled");
-//            statusLabel.setVisible(true);
             //lv.getItems().remove(current);
-            current.setStatus("Cancelled");
+            current.setStatus("cancelled");
+            System.out.println(current.getReservationId());
+            reservationDao.updateStatus(current.getReservationId(), "cancelled");
+            updateButtonVisibility("cancelled");
+            // lv.getItems().remove(current);
             lv.refresh();
-            sortListView();
+            if (parentController != null) {
+                parentController.sortListView();
+            }
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void sortListView() {
-        lv.getItems().sort((r1, r2) -> {
-            //if r1 pending and r2 != pending return -1 then r1 will appear first
-            if ("active".equals(r1.getStatus()) && !"Pending".equals(r2.getStatus())) {
-                return -1;
-            }
-            else if(!"active".equals(r1.getStatus()) && "Pending".equals(r2.getStatus())) {
-                return 1;
-            } else return 0;
-        });
-    }
+
 
 }

@@ -14,7 +14,7 @@ public class ReturnBookCell extends ListCell<BorrowingRecord> {
 
     public ReturnBookCell() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Books/LentInfoCell.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Books/ReturnBookCell.fxml"));
             returnBox = loader.load();
             returnBookCellController = loader.getController();
         } catch (Exception e) {

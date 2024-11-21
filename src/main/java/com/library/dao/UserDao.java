@@ -183,7 +183,7 @@ public class UserDao implements DAO<User> {
         String sql = "SELECT * FROM users WHERE user_name = ?";
         try (
                 Connection cn = DatabaseConfig.getConnection();
-                PreparedStatement ps = cn.prepareStatement(sql);
+                PreparedStatement ps = cn.prepareStatement(sql)
         ) {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();

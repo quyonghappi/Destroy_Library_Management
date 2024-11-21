@@ -271,9 +271,6 @@ public class GoogleBooksAPIClient {
         }
     }
 
-
-
-
     public static void main(String[] args) {
         String file = "src/main/java/com/library/api/programming_books.txt";
         GoogleBooksAPIClient newClient = new GoogleBooksAPIClient();

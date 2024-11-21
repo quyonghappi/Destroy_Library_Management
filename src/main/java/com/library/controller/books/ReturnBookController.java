@@ -85,9 +85,9 @@ public class ReturnBookController implements Initializable {
         brList=getBrList();
         returnDetailContainer.setCellFactory(param ->
         {
-            LentBookCell lentBookCell=new LentBookCell();
-            lentBookCell.setListView(returnDetailContainer);
-            return lentBookCell;
+            ReturnBookCell returnBookCell=new ReturnBookCell();
+            returnBookCell.setListView(returnDetailContainer);
+            return returnBookCell;
         });
         returnDetailContainer.getItems().setAll(brList);
 

@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="returnedBookRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.books.ReturnBookController">
+<StackPane fx:id="returnedBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.books.ReturnBookController">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
+      <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" StackPane.alignment="CENTER">
          <left>
             <VBox prefHeight="700.0" prefWidth="263.2" styleClass="sidebar" BorderPane.alignment="CENTER">
                <children>
@@ -211,7 +211,7 @@
                      <children>
                         <HBox prefHeight="50.0" prefWidth="200.0" styleClass="bar-box-top">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
+                              <HBox fx:id="allNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="bar-label" text="All books" />
                                     <Label text="Label" HBox.hgrow="ALWAYS" />

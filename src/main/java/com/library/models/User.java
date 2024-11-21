@@ -16,12 +16,10 @@ public class User {
     private String accountStatus = "active";
     private LocalDate joinDate=LocalDate.now();
     private LocalDate lastLoginDate=LocalDate.now();
-    private List<String> borrowedDocuments = new ArrayList<String>();
+    private List<String> borrowedDocuments = new ArrayList<>();
     private boolean active = true;//check if account is locked
 
-
     public User() {
-
     }
     public User(int userId, String fullName, String name, String email, String passwordHash, String userRole, String accountStatus, LocalDate joinDate) {
         this.userId = userId;

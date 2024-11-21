@@ -4,7 +4,6 @@ import com.library.dao.FineDao;
 import com.library.dao.UserDao;
 import com.library.models.Fine;
 import com.library.models.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -40,7 +39,7 @@ public class MemInfoCellController {
 
     private ListView<User> listView;
     private User currentUser;
-    private UserDao userDao;
+    private UserDao userDao = new UserDao();
     private FineDao fineDao=new FineDao();
 
     public void initialize() {
@@ -55,7 +54,7 @@ public class MemInfoCellController {
         currentUser = user;
         fullnameLabel.setText(currentUser.getFullName());
         emailLabel.setText(currentUser.getEmail());
-        idLabel.setText(String.valueOf("#"+currentUser.getUserId()));
+        idLabel.setText("#"+currentUser.getUserId());
         lastLoginLabel.setText(String.valueOf(currentUser.getLastLoginDate()));
         List<Fine> fineList=fineDao.getFinesByUserId(user.getUserId());
         BigDecimal amount=new BigDecimal(0);
