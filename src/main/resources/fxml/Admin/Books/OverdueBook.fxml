@@ -13,312 +13,325 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.books.OverdueBookController">
-   <left>
-      <VBox prefHeight="700.0" prefWidth="263.2" styleClass="sidebar" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="TOP_CENTER" prefHeight="181.0" prefWidth="242.0">
+<StackPane fx:id="overdueRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.books.OverdueBookController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
+         <left>
+            <VBox prefHeight="700.0" prefWidth="263.2" styleClass="sidebar" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" prefHeight="73.0" prefWidth="200.0" spacing="10.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="181.0" prefWidth="242.0">
                      <children>
-                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="73.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@../../../ui/admindashboard/cloud-library.png" />
+                                 </image>
+                              </ImageView>
+                              <Label styleClass="app-title" text="Library">
+                                 <font>
+                                    <Font size="40.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="30.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <Button fx:id="lendButton" mnemonicParsing="false" styleClass="action-button" text="LEND BOOK" />
+                     </children>
+                  </VBox>
+                  <HBox id="overviewContainer" fx:id="overviewContainer" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="200.0" spacing="25.0" styleClass="nav-container">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../ui/admindashboard/cloud-library.png" />
+                              <Image url="@../../../ui/admindashboard/dashboard1.png" />
                            </image>
                         </ImageView>
-                        <Label styleClass="app-title" text="Library">
+                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Overview">
                            <font>
-                              <Font size="40.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
                      <padding>
-                        <Insets bottom="30.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-                  <Button fx:id="lendButton" mnemonicParsing="false" styleClass="action-button" text="LEND/RETURN" />
-               </children>
-            </VBox>
-            <HBox id="overviewContainer" fx:id="overviewContainer" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="200.0" spacing="25.0" styleClass="nav-container">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../ui/admindashboard/dashboard1.png" />
-                     </image>
-                  </ImageView>
-                  <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Overview">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </padding>
-            </HBox>
-            <HBox fx:id="booksContainer1" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../ui/admindashboard/book1.png" />
-                     </image>
-                  </ImageView>
-                  <Label prefHeight="18.0" prefWidth="137.0" text="Books" textFill="#28324d">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </padding>
-               <styleClass>
-                  <String fx:value="nav-container" />
-                  <String fx:value="chosen-container" />
-               </styleClass>
-            </HBox>
-            <HBox id="membersContainer" fx:id="membersContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../ui/admindashboard/member.png" />
-                     </image>
-                  </ImageView>
-                  <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Members">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </padding>
-            </HBox>
-            <HBox id="settingContainer" fx:id="settingContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../ui/admindashboard/settings.png" />
-                     </image>
-                  </ImageView>
-                  <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Setting">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </padding>
-            </HBox>
-            <HBox id="aboutContainer" fx:id="aboutContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../ui/admindashboard/info.png" />
-                     </image>
-                  </ImageView>
-                  <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="About">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </padding>
-            </HBox>
-            <HBox id="helpContainer" fx:id="helpContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../ui/admindashboard/headphones.png" />
-                     </image>
-                  </ImageView>
-                  <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Help and support">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
-            </HBox>
-         </children>
-         <BorderPane.margin>
-            <Insets left="-10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="850.0">
-               <children>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="304.0" styleClass="search-box" HBox.hgrow="ALWAYS">
+                  <HBox fx:id="booksContainer1" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0">
                      <children>
-                        <ImageView fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../ui/admindashboard/search.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <TextField id="searchField" fx:id="searchField" prefHeight="19.0" prefWidth="424.0" promptText="Search" HBox.hgrow="ALWAYS" />
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </HBox>
-                  <Pane prefHeight="43.0" prefWidth="177.0" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../ui/admindashboard/bell.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="memNameLabel" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../ui/admindashboard/user.png" />
+                              <Image url="@../../../ui/admindashboard/book1.png" />
                            </image>
                         </ImageView>
+                        <Label prefHeight="18.0" prefWidth="137.0" text="Books" textFill="#28324d">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
                      </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="nav-container" />
+                        <String fx:value="chosen-container" />
+                     </styleClass>
+                  </HBox>
+                  <HBox id="membersContainer" fx:id="membersContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../ui/admindashboard/member.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Members">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox id="settingContainer" fx:id="settingContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../ui/admindashboard/settings.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Setting">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox id="aboutContainer" fx:id="aboutContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../ui/admindashboard/info.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="About">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox id="helpContainer" fx:id="helpContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../ui/admindashboard/headphones.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Help and support">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
                   </HBox>
                </children>
-            </HBox>
-            <VBox prefHeight="630.0" prefWidth="1116.0" styleClass="details-pane" VBox.vgrow="ALWAYS">
+               <BorderPane.margin>
+                  <Insets left="-10.0" />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="50.0" prefWidth="200.0" styleClass="bar-box-top">
+                  <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="850.0">
                      <children>
-                        <HBox fx:id="allNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="304.0" styleClass="search-box" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="bar-label" text="All books" />
-                              <Label text="Label" HBox.hgrow="ALWAYS" />
+                              <ImageView fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../ui/admindashboard/search.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <TextField id="searchField" fx:id="searchField" prefHeight="19.0" prefWidth="424.0" promptText="Search" HBox.hgrow="ALWAYS" />
+                              <ImageView fx:id="filter" fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../ui/admindashboard/setting.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
                            </children>
                            <HBox.margin>
-                              <Insets right="5.0" />
+                              <Insets />
                            </HBox.margin>
                         </HBox>
-                        <HBox fx:id="lentNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
+                        <Pane prefHeight="43.0" prefWidth="177.0" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                            <children>
-                              <Label styleClass="bar-label" text="Lent" />
-                              <Label text="Label" HBox.hgrow="ALWAYS" />
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../ui/admindashboard/bell.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="memNameLabel" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../ui/admindashboard/user.png" />
+                                 </image>
+                              </ImageView>
                            </children>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
                         </HBox>
-                        <HBox fx:id="returnNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label styleClass="bar-label" text="Returned" />
-                              <Label text="Label" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </HBox>
-                        <HBox fx:id="overdueNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label styleClass="bar-label" text="Overdue" />
-                              <Label styleClass="bar-label-right" text="Label" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                           <styleClass>
-                              <String fx:value="book-info-container" />
-                              <String fx:value="book-info-chosen-container" />
-                           </styleClass>
-                        </HBox>
-                        <HBox fx:id="requestNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label styleClass="bar-label" text="Requests" />
-                              <Label text="Label" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </HBox>
-                        <DatePicker prefHeight="50.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets left="100.0" />
-                           </HBox.margin>
-                        </DatePicker>
-                        <Label fx:id="addBookButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="120.0" styleClass="bar-label1" text="+ ADD BOOK" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <VBox prefHeight="0.0" prefWidth="1116.0" VBox.vgrow="ALWAYS">
+                  <VBox prefHeight="630.0" prefWidth="1116.0" styleClass="details-pane" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox minHeight="-Infinity" prefHeight="42.0" prefWidth="200.0" styleClass="bar-box">
+                        <HBox prefHeight="50.0" prefWidth="200.0" styleClass="bar-box-top">
                            <children>
-                              <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="42.0" prefWidth="304.0" styleClass="bar-box" HBox.hgrow="ALWAYS">
+                              <HBox fx:id="allNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                                       <image>
-                                          <Image url="@../../../ui/admindashboard/search.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets left="10.0" right="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <TextField id="searchField" fx:id="searchField1" prefHeight="19.0" prefWidth="300.0" promptText="Search" HBox.hgrow="ALWAYS" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="42.0" prefWidth="607.0" spacing="20.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="40.0" styleClass="chosen-button" text="All" HBox.hgrow="ALWAYS">
-                                       <HBox.margin>
-                                          <Insets left="50.0" />
-                                       </HBox.margin>
-                                    </ToggleButton>
-                                    <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="70.0" styleClass="bar-button" text="Avaiable" HBox.hgrow="ALWAYS">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </ToggleButton>
-                                    <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="50.0" styleClass="bar-button" text="Lost" HBox.hgrow="ALWAYS">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </ToggleButton>
+                                    <Label styleClass="bar-label" text="All books" />
+                                    <Label text="Label" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets right="5.0" />
                                  </HBox.margin>
                               </HBox>
+                              <HBox fx:id="lentNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="bar-label" text="Lent" />
+                                    <Label text="Label" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </HBox>
+                              <HBox fx:id="returnNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="bar-label" text="Returned" />
+                                    <Label text="Label" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </HBox>
+                              <HBox fx:id="overdueNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="bar-label" text="Overdue" />
+                                    <Label styleClass="bar-label-right" text="Label" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="book-info-container" />
+                                    <String fx:value="book-info-chosen-container" />
+                                 </styleClass>
+                              </HBox>
+                              <HBox fx:id="requestNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="bar-label" text="Requests" />
+                                    <Label text="Label" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </HBox>
+                              <DatePicker prefHeight="50.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets left="100.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                              <Label fx:id="addBookButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="120.0" styleClass="bar-label1" text="+ ADD BOOK" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1116.0" styleClass="bar-box-below">
+                        <VBox prefHeight="0.0" prefWidth="1116.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" text="Thumbnail" HBox.hgrow="ALWAYS" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="Publisher" HBox.hgrow="ALWAYS" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="ISBN" HBox.hgrow="ALWAYS" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="160.0" text="Status" HBox.hgrow="ALWAYS" />
-                              <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" prefHeight="40.0" prefWidth="140.0" text="Location" HBox.hgrow="ALWAYS" />
-                              <Label alignment="CENTER" layoutX="612.0" layoutY="10.0" prefHeight="40.0" prefWidth="150.0" text="Request" HBox.hgrow="ALWAYS" />
-                              <Label alignment="CENTER" layoutX="762.0" layoutY="10.0" prefHeight="40.0" prefWidth="220.0" text="Action" HBox.hgrow="ALWAYS" />
+                              <HBox minHeight="-Infinity" prefHeight="42.0" prefWidth="200.0" styleClass="bar-box">
+                                 <children>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="42.0" prefWidth="304.0" styleClass="bar-box" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                             <image>
+                                                <Image url="@../../../ui/admindashboard/search.png" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </HBox.margin>
+                                          </ImageView>
+                                          <TextField id="searchField" fx:id="searchField1" prefHeight="19.0" prefWidth="300.0" promptText="Search" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="42.0" prefWidth="607.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="40.0" styleClass="chosen-button" text="All" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets left="50.0" />
+                                             </HBox.margin>
+                                          </ToggleButton>
+                                          <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="70.0" styleClass="bar-button" text="Avaiable" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </ToggleButton>
+                                          <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="50.0" styleClass="bar-button" text="Lost" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </ToggleButton>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1116.0" styleClass="bar-box-below">
+                                 <children>
+                                    <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" text="Thumbnail" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="Publisher" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="ISBN" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="160.0" text="Status" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" prefHeight="40.0" prefWidth="140.0" text="Location" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" layoutX="612.0" layoutY="10.0" prefHeight="40.0" prefWidth="150.0" text="Request" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" layoutX="762.0" layoutY="10.0" prefHeight="40.0" prefWidth="220.0" text="Action" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <ListView fx:id="overdueDetailContainer" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="490.0" prefWidth="1116.0" VBox.vgrow="ALWAYS" />
                            </children>
-                        </HBox>
-                        <ListView fx:id="overdueDetailContainer" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="490.0" prefWidth="1116.0" VBox.vgrow="ALWAYS" />
+                        </VBox>
                      </children>
                   </VBox>
                </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="20.0" top="20.0" />
+               </padding>
             </VBox>
-         </children>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="10.0" />
-         </padding>
-      </VBox>
-   </center>
-</BorderPane>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>

@@ -1,10 +1,15 @@
 package com.library.utils;
 
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -26,19 +31,40 @@ public class SceneSwitcher {
         stage.centerOnScreen();
     }
 
-    public static CompletableFuture<Scene> loadSceneAsync(String fxmlPath) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlPath));
-                Parent root = loader.load();
-                //System.out.println("Loaded scene: " + fxmlPath); //debug
-                return new Scene(root);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Failed to load scene: " + fxmlPath); //debug
-                return null;
-            }
-        });
+    public static <T> T navigateToScene(String path, HBox container) {
+        try {
+            Stage stage = (Stage) container.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(path));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            switchScene(stage, scene);
+            return loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to load scene: " + path);
+            return null;
+        }
+
     }
 
+    public static void showLendBookScene(StackPane root) {
+        try {
+
+            Rectangle darkBackground = new Rectangle();
+            darkBackground.setFill(Color.color(0, 0, 0, 0.7)); //black with 70% opacity
+            darkBackground.widthProperty().bind(root.widthProperty());
+            darkBackground.heightProperty().bind(root.heightProperty());
+            FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/fxml/Admin/Dashboard/LendBook.fxml"));
+            StackPane lendBookScene = loader.load();
+            lendBookScene.setStyle("-fx-background-color: #F8FCFF");
+            root.getChildren().addAll(darkBackground,lendBookScene);
+
+            lendBookScene.lookup("#cancelButton").setOnMouseClicked(event -> {
+                root.getChildren().removeAll(darkBackground, lendBookScene);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("fail to load lend book scene");
+        }
+    }
 }

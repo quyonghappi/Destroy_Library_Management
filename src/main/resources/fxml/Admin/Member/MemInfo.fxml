@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="bookInfoRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.books.BookInfoController">
+<StackPane fx:id="memInfoRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.members.MemInfoController">
    <children>
-      <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
+      <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" StackPane.alignment="CENTER">
          <center>
-            <VBox prefWidth="1148.0" spacing="20.0" styleClass="content" VBox.vgrow="ALWAYS">
+            <VBox prefHeight="700.0" prefWidth="1148.0" spacing="20.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="850.0">
                      <children>
@@ -74,9 +74,13 @@
                      <children>
                         <HBox prefHeight="50.0" prefWidth="200.0" styleClass="bar-box-top">
                            <children>
-                              <HBox fx:id="allNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                              <HBox fx:id="studentNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0">
                                  <children>
-                                    <Label styleClass="bar-label" text="All books" />
+                                    <Label styleClass="bar-label" text="Students">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
                                     <Label styleClass="bar-label-right" text="Label" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <styleClass>
@@ -87,48 +91,13 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </HBox>
-                              <HBox fx:id="lentNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label styleClass="bar-label" text="Lent" />
-                                    <Label text="Label" HBox.hgrow="ALWAYS" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </HBox>
-                              <HBox fx:id="returnNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label styleClass="bar-label" text="Returned" />
-                                    <Label text="Label" HBox.hgrow="ALWAYS" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </HBox>
-                              <HBox fx:id="overdueNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label styleClass="bar-label" text="Overdue" />
-                                    <Label text="Label" HBox.hgrow="ALWAYS" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </HBox>
-                              <HBox fx:id="requestNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label styleClass="bar-label" text="Requests" />
-                                    <Label text="Label" HBox.hgrow="ALWAYS" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </HBox>
+                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                               <DatePicker prefHeight="50.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets left="100.0" />
                                  </HBox.margin>
                               </DatePicker>
-                              <Label fx:id="addBookButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="120.0" styleClass="bar-label1" text="+ ADD BOOK" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="addMem" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="120.0" styleClass="bar-label1" text="+ ADD MEMBER" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <VBox prefHeight="0.0" prefWidth="1116.0" VBox.vgrow="ALWAYS">
@@ -155,12 +124,7 @@
                                                 <Insets left="50.0" />
                                              </HBox.margin>
                                           </ToggleButton>
-                                          <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="70.0" styleClass="bar-button" text="Avaiable" HBox.hgrow="ALWAYS">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                          </ToggleButton>
-                                          <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="50.0" styleClass="bar-button" text="Lost" HBox.hgrow="ALWAYS">
+                                          <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="70.0" styleClass="bar-button" text="Fine" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>
@@ -174,17 +138,15 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1116.0" styleClass="bar-box-below">
                                  <children>
-                                    <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" text="Thumbnail" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="Publisher" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="ISBN" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="160.0" text="Status" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" prefHeight="40.0" prefWidth="140.0" text="Location" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" layoutX="612.0" layoutY="10.0" prefHeight="40.0" prefWidth="150.0" text="Request" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" text="Name" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Email" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="170.0" text="Member ID" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Last login" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" prefHeight="40.0" prefWidth="140.0" text="Fine due" HBox.hgrow="ALWAYS" />
                                     <Label alignment="CENTER" layoutX="762.0" layoutY="10.0" prefHeight="40.0" prefWidth="220.0" text="Action" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
-                              <ListView fx:id="bookDetailContainer" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="490.0" prefWidth="1116.0" VBox.vgrow="ALWAYS" />
+                              <ListView fx:id="memDetailContainer" editable="true" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="490.0" prefWidth="1116.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
@@ -193,17 +155,14 @@
                <padding>
                   <Insets bottom="20.0" left="15.0" right="20.0" top="20.0" />
                </padding>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
             </VBox>
          </center>
          <left>
-            <VBox styleClass="sidebar" BorderPane.alignment="CENTER">
+            <VBox prefHeight="700.0" prefWidth="263.2" styleClass="sidebar" BorderPane.alignment="CENTER">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="181.0" prefWidth="242.0">
                      <children>
-                        <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="73.0" prefWidth="200.0" spacing="10.0">
+                        <HBox alignment="CENTER" prefHeight="73.0" prefWidth="200.0" spacing="10.0">
                            <children>
                               <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
@@ -223,7 +182,7 @@
                         <Button fx:id="lendButton" mnemonicParsing="false" styleClass="action-button" text="LEND BOOK" />
                      </children>
                   </VBox>
-                  <HBox id="overviewContainer" fx:id="overviewContainer" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="200.0" spacing="25.0" styleClass="nav-container">
+                  <HBox fx:id="overviewContainer" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="200.0" spacing="25.0" styleClass="nav-container">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -240,14 +199,31 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-                  <HBox fx:id="booksContainer1" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0">
+                  <HBox fx:id="booksContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../ui/admindashboard/book1.png" />
+                              <Image url="@../../../ui/admindashboard/book.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="18.0" prefWidth="137.0" text="Books" textFill="#28324d">
+                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Books" textFill="#28324d">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox fx:id="membersContainer1" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../ui/admindashboard/group.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="18.0" prefWidth="137.0" text="Members" textFill="#28324d">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -261,24 +237,7 @@
                         <String fx:value="chosen-container" />
                      </styleClass>
                   </HBox>
-                  <HBox id="membersContainer" fx:id="membersContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../ui/admindashboard/member.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Members">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox id="settingContainer" fx:id="settingContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
+                  <HBox fx:id="settingContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -295,7 +254,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-                  <HBox id="aboutContainer" fx:id="aboutContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
+                  <HBox fx:id="aboutContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -312,7 +271,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-                  <HBox id="helpContainer" fx:id="helpContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
+                  <HBox fx:id="helpContainer" alignment="CENTER_LEFT" prefHeight="40.0" spacing="25.0" styleClass="nav-container">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>

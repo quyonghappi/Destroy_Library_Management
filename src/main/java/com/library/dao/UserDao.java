@@ -124,6 +124,20 @@ public class UserDao implements DAO<User> {
         }
     }
 
+    public void updateLastLogin(User user) {
+        String sql = "UPDATE users SET last_login=? WHERE user_name = ?";
+        try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setDate(1, DateFormat.toSqlDate(user.getLastLoginDate()));
+
+            //stmt.setInt(8, user.getLoginAttempts());
+            stmt.setString(2, user.getUsername());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void delete(User user) {
         String sql = "DELETE FROM users WHERE user_id = ?";
         try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -165,7 +179,7 @@ public class UserDao implements DAO<User> {
     }
 
     // Find a user by username for login check
-    public User findUserByName(String username) throws Exception {
+    public User findUserByName(String username) throws SQLException {
         String sql = "SELECT * FROM users WHERE user_name = ?";
         try (
                 Connection cn = DatabaseConfig.getConnection();

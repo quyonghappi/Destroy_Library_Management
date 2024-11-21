@@ -98,7 +98,7 @@ public class OverdueController {
     }
 
     private void loadImageLazy(String imageUrl, ImageView imageView) {
-        //check if image is already cached
+        //Check if image is already cached
         if (imageCache.containsKey(imageUrl)) {
             imageView.setImage(imageCache.get(imageUrl));
             return;

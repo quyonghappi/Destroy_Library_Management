@@ -1,10 +1,10 @@
 package com.library.controller.books;
 
+import com.library.controller.dashboard.AdminDashboardController;
 import com.library.controller.dashboard.RequestCell;
+import com.library.controller.members.MemInfoController;
 import com.library.dao.ReservationDao;
 import com.library.models.Reservation;
-import com.library.utils.SceneSwitcher;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,14 +12,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.library.utils.SceneSwitcher.navigateToScene;
+import static com.library.utils.SceneSwitcher.showLendBookScene;
+
 public class RequestBookController implements Initializable {
+
+    @FXML
+    StackPane requestRoot;
     @FXML
     private HBox aboutContainer;
 
@@ -31,12 +37,6 @@ public class RequestBookController implements Initializable {
 
     @FXML
     private ListView<Reservation> requestDetailContainer;
-
-    @FXML
-    private HBox booksContainer1;
-
-    @FXML
-    private HBox helpContainer;
 
     @FXML
     private Button lendButton;
@@ -57,9 +57,6 @@ public class RequestBookController implements Initializable {
     private HBox overviewContainer;
 
     @FXML
-    private HBox requestNav;
-
-    @FXML
     private HBox returnNav;
 
     @FXML
@@ -67,9 +64,6 @@ public class RequestBookController implements Initializable {
 
     @FXML
     private TextField searchField1;
-
-    @FXML
-    private HBox settingContainer;
 
     private ReservationDao reservationDao=new ReservationDao();
     List<Reservation> reservations=new ArrayList<Reservation>();
@@ -86,10 +80,49 @@ public class RequestBookController implements Initializable {
         requestDetailContainer.getItems().setAll(reservations);
         sortListView();
 
-        allNav.setOnMouseClicked(event -> navigateToBookInfo());
-        overdueNav.setOnMouseClicked(event -> navigateToOverdueBookInfo());
-        lentNav.setOnMouseClicked(event -> navigateToLentBookInfo());
-        returnNav.setOnMouseClicked(event -> navigateToReturnBookInfo());
+        allNav.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            BookInfoController controller = navigateToScene("/fxml/Admin/Books/BookInfo.fxml", allNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        returnNav.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            ReturnBookController controller=navigateToScene("/fxml/Admin/Books/ReturnedBook.fxml", returnNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        lentNav.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            LentBookController controller = navigateToScene("/fxml/Admin/Books/LentBook.fxml", lentNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        overdueNav.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            OverdueBookController controller=navigateToScene("/fxml/Admin/Books/OverdueBook.fxml", overdueNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        overviewContainer.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            AdminDashboardController controller= navigateToScene("/fxml/Admin/Dashboard/adminDashboard.fxml", overviewContainer);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        membersContainer.setOnMouseClicked(event-> {
+            String userFullName=memNameLabel.getText();
+            MemInfoController controller= navigateToScene("/fxml/Admin/Member/MemInfo.fxml", membersContainer);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        lendButton.setOnMouseClicked(event->showLendBookScene(requestRoot));
     }
 
 
@@ -108,61 +141,7 @@ public class RequestBookController implements Initializable {
         });
     }
 
-    @FXML
-    public void navigateToBookInfo() {
-        SceneSwitcher.loadSceneAsync("/fxml/Admin/Books/BookInfo.fxml").thenAccept(scene -> {
-            if (scene != null) {
-                Platform.runLater(() -> {
-                    Stage stage = (Stage) allNav.getScene().getWindow();
-                    SceneSwitcher.switchScene(stage, scene);
-                });
-            } else {
-                System.out.println("Failed to load LentBook scene.");
-            }
-        });
-        //Platform.runLater(() -> stage.setFullScreen(true));
-    }
-
-    @FXML
-    public void navigateToReturnBookInfo() {
-        SceneSwitcher.loadSceneAsync("/fxml/Admin/Books/ReturnedBook.fxml").thenAccept(scene -> {
-            if (scene != null) {
-                Platform.runLater(() -> {
-                    Stage stage = (Stage) returnNav.getScene().getWindow();
-                    SceneSwitcher.switchScene(stage, scene);
-                });
-            } else {
-                System.out.println("Failed to load ReturnBook scene.");
-            }
-        });
-
-    }
-
-    @FXML
-    public void navigateToOverdueBookInfo() {
-        SceneSwitcher.loadSceneAsync("/fxml/Admin/Books/OverdueBook.fxml").thenAccept(scene -> {
-            if (scene != null) {
-                Platform.runLater(() -> {
-                    Stage stage = (Stage) overdueNav.getScene().getWindow();
-                    SceneSwitcher.switchScene(stage, scene);
-                });
-            } else {
-                System.out.println("Failed to load overdueBook scene.");
-            }
-        });
-    }
-
-    @FXML
-    public void navigateToLentBookInfo() {
-        SceneSwitcher.loadSceneAsync("/fxml/Admin/Books/LentBook.fxml").thenAccept(scene -> {
-            if (scene != null) {
-                Platform.runLater(() -> {
-                    Stage stage = (Stage) requestNav.getScene().getWindow();
-                    SceneSwitcher.switchScene(stage, scene);
-                });
-            } else {
-                System.out.println("Failed to load requestBook scene.");
-            }
-        });
+    public void setUserFullName(String userFullName) {
+        memNameLabel.setText(userFullName);
     }
 }

@@ -148,4 +148,27 @@ public class FineDao implements DAO<Fine> {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Fine> getFinesByUserId(int userId) {
+        List<Fine> fines = new ArrayList<>();
+        String sql = "SELECT * FROM fines WHERE user_id=?";
+        try (Connection conn=DatabaseConfig.getConnection();
+             PreparedStatement ps=conn.prepareStatement(sql)) {
+            ps.setInt(1,userId);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {
+                Fine fine = new Fine();
+                fine.setUserId(rs.getInt("user_id"));
+                fine.setRecordId(rs.getInt("record_id"));
+                fine.setDueDate(rs.getDate("due_date").toLocalDate());
+                fine.setStatus(rs.getString("status"));
+                fine.setFineAmount(rs.getBigDecimal("fine_amount"));
+                fine.setFineId(rs.getInt("fine_id"));
+                fines.add(fine);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return fines;
+    }
 }
