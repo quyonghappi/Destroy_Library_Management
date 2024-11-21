@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-image: url(&quot;file:/D:/Java_App/Destroy_Library_Management/src/main/resources/images/background.jpg&quot;);">
+   <children>
+      <HBox alignment="CENTER" prefHeight="606.0" prefWidth="853.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30px;">
+         <children>
+            <VBox fx:id="formBox" alignment="CENTER" prefHeight="555.0" prefWidth="679.0" spacing="10" styleClass="form-box">
+               <children>
+                  <Label alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="74.0" prefWidth="316.0" styleClass="title" text="USER LOGIN" textAlignment="CENTER" textFill="#4f73af">
+                     <font>
+                        <Font name="Segoe UI Black" size="48.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <Label styleClass="subtitle" text="Please enter your details" textFill="#4f73af">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="322.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 25px;">
+                     <children>
+                        <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="284.0" promptText="username" style="-fx-background-color: #bfd1f6; -fx-border-radius: 20px; -fx-background-radius: 20px; -fx-text-fill: #4f73af; -fx-prompt-text-fill: #506c9a;" stylesheets="@../../css/UserLogin.css">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <ImageView fitHeight="27.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/user-line.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets top="12.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="324.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 25px; fx-prompt-text-fill: #506c9a;">
+                     <children>
+                        <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="284.0" promptText="password" style="-fx-background-radius: 20px;" stylesheets="@../../css/UserLogin.css" />
+                        <ImageView fitHeight="34.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/lock-line.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets top="12.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <CheckBox fx:id="rememberMeCheckBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="225.0" text="Remember for 30 days" textFill="#2a599e">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </CheckBox>
+                  <Hyperlink fx:id="forgotPasswordLink" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Forgot password?">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Hyperlink>
+                  <Button fx:id="loginButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#login" prefHeight="46.0" prefWidth="267.0" style="-fx-background-color: #88adf4; -fx-padding: 10px 20px; -fx-background-radius: 15px;" styleClass="login-button" stylesheets="@../../css/UserLogin.css" text="Login" textFill="#2a599e">
+                     <font>
+                        <Font name="Segoe UI Historic" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Hyperlink fx:id="signUpLink" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openSignUp" styleClass="hyperlink" text="Don't have an account? Sign up">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </Hyperlink>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="40.0" left="20.0" top="40.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="616.0" prefWidth="458.0">
+               <children>
+                  <ImageView fitHeight="546.0" fitWidth="443.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/registration-form-1.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="30.0" right="30.0" top="30.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</StackPane>
