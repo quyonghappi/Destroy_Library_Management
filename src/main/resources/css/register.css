@@ -21,35 +21,58 @@
     -fx-background-radius: 10px;
 }
 
-
-
-
-.register-button:hover {
-    -fx-background-color: #6e9edb;
-}
-
-.register-button:pressed {
-    -fx-scale-x: 0.95;
-    -fx-scale-y: 0.95;
-    -fx-background-color: #5c8cc0;
-}
 .register-button {
-    -fx-background-color: #88adf4;
-    -fx-text-fill: #2a599e;
-    -fx-padding: 10px 20px;
-    -fx-background-radius: 15px;
+    -fx-background-color: linear-gradient(to bottom, #88adf4, #6e9edb); /* Thêm gradient */
+    -fx-text-fill: #ffffff; /* Màu chữ trắng để nổi bật */
+    -fx-padding: 12px 25px; /* Tăng padding để nút dễ nhấn */
+    -fx-background-radius: 20px; /* Góc bo mềm hơn */
     -fx-font-size: 18px;
+    -fx-font-weight: bold; /* Làm chữ nổi bật */
     -fx-cursor: hand;
     -fx-scale-x: 1;
     -fx-scale-y: 1;
-    -fx-effect: dropshadow(gaussian, rgb(28, 52, 87), 10, 0.2, 2, 2);
-    -fx-transition: all 0.2s ease;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 12, 0.5, 2, 2); /* Đổ bóng nhẹ */
+    -fx-transition: all 0.3s ease; /* Mượt hơn với thời gian dài hơn */
+}
+
+.register-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #6e9edb, #88adf4); /* Đổi ngược gradient */
+    -fx-text-fill: #ffffff; /* Giữ màu chữ */
+    -fx-scale-x: 1.05; /* Phóng to nhẹ */
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0.5, 2, 2); /* Đổ bóng mạnh hơn */
 }
 
 
+/*.register-button:hover {*/
+/*    -fx-background-color: #6e9edb;*/
+/*}*/
+
+
+.register-button:pressed {
+    -fx-background-color: #5c8cc0; /* Màu tối hơn khi bấm */
+    -fx-scale-x: 0.95; /* Co nhỏ khi nhấn */
+    -fx-scale-y: 0.95;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0.5, 1, 1); /* Bóng nhẹ lại */
+}
+/*.register-button {*/
+/*    -fx-background-color: #88adf4;*/
+/*    -fx-text-fill: #2a599e;*/
+/*    -fx-padding: 10px 20px;*/
+/*    -fx-background-radius: 15px;*/
+/*    -fx-font-size: 18px;*/
+/*    -fx-cursor: hand;*/
+/*    -fx-scale-x: 1;*/
+/*    -fx-scale-y: 1;*/
+/*    -fx-effect: dropshadow(gaussian, rgb(28, 52, 87), 10, 0.2, 2, 2);*/
+/*    -fx-transition: all 0.2s ease;*/
+/*}*/
+
+
 /* Hyperlinks */
-.hyperlink {
-    -fx-text-fill: #3064a3; /* Deeper blue for links */
+.hyperlink:hover {
+    -fx-text-fill: linear-gradient(to right, #4f73af, #2a599e);
     -fx-underline: true;
-    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-transition: all 0.3s ease;
 }

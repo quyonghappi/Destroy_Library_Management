@@ -62,7 +62,7 @@ public class RegisterController {
             return;
         }
 
-        if (isEmailExists(email)) {
+        if (isEmailExists(email) || !check.isValidEmail(email)) {
             showAlert(AlertType.ERROR, "Error", "Email already exists");
             return;
         }

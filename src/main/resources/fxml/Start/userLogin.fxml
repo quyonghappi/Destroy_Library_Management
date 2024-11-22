@@ -37,7 +37,7 @@
                   </Label>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="322.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 25px;">
                      <children>
-                        <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="284.0" promptText="username" style="-fx-background-color: #bfd1f6; -fx-border-radius: 20px; -fx-background-radius: 20px; -fx-text-fill: #4f73af; -fx-prompt-text-fill: #506c9a;" stylesheets="@../../css/UserLogin.css">
+                        <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="284.0" promptText="username" style="-fx-background-radius: 20px; -fx-text-fill: #4f73af; -fx-prompt-text-fill: #506c9a;" stylesheets="@../../css/UserLogin.css">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -57,7 +57,10 @@
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="324.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 25px; fx-prompt-text-fill: #506c9a;">
                      <children>
-                        <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="284.0" promptText="password" style="-fx-background-radius: 20px;" stylesheets="@../../css/UserLogin.css" />
+                        <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="284.0" promptText="password" style="-fx-background-radius: 20px;" stylesheets="@../../css/UserLogin.css">
+                           <font>
+                              <Font size="16.0" />
+                           </font></PasswordField>
                         <ImageView fitHeight="34.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../images/lock-line.png" />
