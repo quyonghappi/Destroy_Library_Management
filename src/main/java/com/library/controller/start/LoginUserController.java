@@ -1,28 +1,18 @@
 package com.library.controller.start;
 
-import com.library.config.DatabaseConfig;
-import com.library.controller.dashboard.AdminDashboardController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import com.library.dao.UserDao;
 import com.library.models.User;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import static com.library.controller.start.LoadView.displayViewWithAnimation;
-import static com.library.controller.start.LoadView.showAlert;
+import static com.library.controller.start.LoadView.loadView;
+import static com.library.controller.start.ShowView.showAlert;
+import static com.library.controller.start.ShowView.showView;
 
 public class LoginUserController {
 
@@ -64,24 +54,28 @@ public class LoginUserController {
         if (validateInput(username, password)) {
             if (userDao.authenticateUser(username, password)) {
 //                hlinh them user de lien ket nha
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/Dashboard/userDashboard.fxml"));
-//                root = loader.load();
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/Dashboard/userDashboard.fxml"));
+////                root = loader.load();
+//
+////                UserDashboardController controller = loader.getController();
+////                controller.setUserFullName(userDao.getUserFullName(username));
+//
+//                AdminDashboardController controller = loader.getController();
+//                controller.setUserFullName(getUserFullName());
+//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                scene = new Scene(root);
+//                stage.setScene(scene);
+//                stage.setMaximized(true);
+//
+//                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+//                stage.setWidth(screenBounds.getWidth());
+//                stage.setHeight(screenBounds.getHeight());
+//                stage.centerOnScreen();
+//                stage.show();
+                loadView(stage, "/fxml/User/Dashboard/userDashboard.fxml", "User Dashboard", "/css/userDashboard.css", "slideright", root);
+                showView(stage, "/fxml/User/Dashboard/userDashboard.fxml", "User Dashboard", "/css/userDashboard.css");
 
-//                UserDashboardController controller = loader.getController();
-//                controller.setUserFullName(userDao.getUserFullName(username));
 
-                AdminDashboardController controller = loader.getController();
-                controller.setUserFullName(getUserFullName());
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setMaximized(true);
-
-                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-                stage.setWidth(screenBounds.getWidth());
-                stage.setHeight(screenBounds.getHeight());
-                stage.centerOnScreen();
-                stage.show();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect username or password.");
                 clearFields();
@@ -105,7 +99,8 @@ public class LoginUserController {
     @FXML
     private void openSignUp(ActionEvent event) {
         Stage stage = (Stage) signUpLink.getScene().getWindow();
-        displayViewWithAnimation(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/register.css", rootPane);
+        loadView(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/register.css", "slideleft", root);
+        showView(stage, "/fxml/Start/Register.fxml", "Login", "/css/register.css");
     }
 
     /**

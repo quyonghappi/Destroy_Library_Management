@@ -1,5 +1,6 @@
 package com.library.controller.start;
 
+import com.library.config.DatabaseConfig;
 import com.library.controller.dashboard.AdminDashboardController;
 import com.library.dao.UserDao;
 import com.library.models.User;
@@ -12,10 +13,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
+
+import static com.library.controller.start.LoadView.showAlert;
+import static com.library.controller.start.check.checkPassword;
+import static com.library.controller.start.check.validateInput;
 
 public class LoginAdminController {
 
@@ -36,8 +45,7 @@ public class LoginAdminController {
     private Scene scene;
     private Stage stage;
 
-    //good good :3
-    //to tach thanh login cua admin -> chuyen sang man hinh admin
+    // to tach thanh login cua admin -> chuyen sang man hinh admin
     @FXML
     void login(ActionEvent event) throws Exception {
         String username = userNameField.getText().trim();
@@ -45,6 +53,8 @@ public class LoginAdminController {
 
         if (validateInput(username, password)) {
             if (userDao.authenticateAdmin(username,password)) {
+
+//                showAlert(AlertType.INFORMATION, "Success", "Login successful!");
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Dashboard/adminDashboard.fxml"));
                 root = loader.load();
                 AdminDashboardController controller = loader.getController();
@@ -80,16 +90,15 @@ public class LoginAdminController {
         return true;
     }
 
-    //already have this function in authenticateUser and Admin
-//    /**
-//     * Check password.
-//     * @param password p
-//     * @param hashedPassword hp
-//     * @return Check
-//     */
-//    private boolean checkPassword(String password, String hashedPassword) {
-//        return BCrypt.checkpw(password, hashedPassword);
-//    }
+    /**
+     * check password.
+     * @param password p
+     * @param hashedPassword hp
+     * @return check
+     */
+    private boolean checkPassword(String password, String hashedPassword) {
+        return BCrypt.checkpw(password, hashedPassword);
+    }
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
