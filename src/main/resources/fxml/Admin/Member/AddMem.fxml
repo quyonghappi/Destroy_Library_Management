@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../css/addMemStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.members.AddMemController">
+   <children>
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="5.0">
+         <children>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="100.0">
+               <children>
+                  <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="45.0" prefWidth="170.0" styleClass="chosen-box">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../../ui/admindashboard/group.png" />
+                           </image>
+                        </ImageView>
+                        <Label minHeight="-Infinity" prefHeight="40.0" text="Add member" textFill="#28324d">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox prefHeight="74.0" prefWidth="600.0" spacing="7.0">
+               <children>
+                  <Label text="Member's email" />
+                  <TextField fx:id="emailField" minHeight="-Infinity" prefHeight="35.0" prefWidth="250.0" promptText="Email" styleClass="text-field" />
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="74.0" prefWidth="600.0" spacing="7.0">
+               <children>
+                  <Label text="Member's full name" />
+                  <TextField fx:id="fullnameField" minHeight="-Infinity" prefHeight="35.0" promptText="Full name" styleClass="text-field" />
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="74.0" prefWidth="600.0" spacing="7.0">
+               <children>
+                  <Label text="Member's username" />
+                  <TextField fx:id="usernameField" minHeight="-Infinity" prefHeight="35.0" promptText="Username" styleClass="text-field" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+            <Button fx:id="confirmButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addMem" prefHeight="35.0" prefWidth="560.0" styleClass="confirm-button" text="Confirm" textFill="#e2f6ff">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancelButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="560.0" styleClass="cancel-button" text="Cancel" textFill="#d1effe">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

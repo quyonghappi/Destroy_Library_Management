@@ -1,34 +1,36 @@
 package com.library.controller.books;
 
+import com.library.controller.dashboard.AdminDashboardController;
+import com.library.controller.members.MemInfoController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.models.BorrowingRecord;
-import com.library.utils.SceneSwitcher;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.library.utils.SceneSwitcher.navigateToScene;
+import static com.library.utils.SceneSwitcher.showLendBookScene;
+
 public class LentBookController implements Initializable {
+
+    @FXML
+    StackPane lentBookRoot;
 
     @FXML
     private Label addBookButton;
 
     @FXML
     private Label allCountLabel;
-
-    @FXML
-    private HBox booksContainer1;
 
     @FXML
     private Button lendButton;
@@ -72,9 +74,6 @@ public class LentBookController implements Initializable {
     @FXML
     private TextField searchField;
 
-    @FXML
-    private TextField searchField1;
-
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
     List<BorrowingRecord> brList=new ArrayList<>();
 
@@ -90,72 +89,57 @@ public class LentBookController implements Initializable {
         });
         lentDetailContainer.getItems().setAll(brList);
 
-        allNav.setOnMouseClicked(event -> navigateToBookInfo());
-        overdueNav.setOnMouseClicked(event -> navigateToOverdueBookInfo());
-        requestNav.setOnMouseClicked(event -> navigateToRequestBookInfo());
-        returnNav.setOnMouseClicked(event -> navigateToReturnBookInfo());
+        allNav.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            BookInfoController controller = navigateToScene("/fxml/Admin/Books/BookInfo.fxml", allNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        overdueNav.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            OverdueBookController controller=navigateToScene("/fxml/Admin/Books/OverdueBook.fxml", overdueNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        requestNav.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            RequestBookController controller=navigateToScene("/fxml/Admin/Books/RequestBook.fxml", requestNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        returnNav.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            ReturnBookController controller=navigateToScene("/fxml/Admin/Books/ReturnedBook.fxml", returnNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        overviewContainer.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            AdminDashboardController controller= navigateToScene("/fxml/Admin/Dashboard/adminDashboard.fxml", overviewContainer);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        membersContainer.setOnMouseClicked(event-> {
+            String userFullName=memNameLabel.getText();
+            MemInfoController controller= navigateToScene("/fxml/Admin/Member/MemInfo.fxml", membersContainer);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
+        lendButton.setOnMouseClicked(event->showLendBookScene(lentBookRoot));
     }
 
     private List<BorrowingRecord> getBrList() {
         return borrowingRecordDao.getAll();
-
     }
 
-
-    @FXML
-    public void navigateToBookInfo() {
-        SceneSwitcher.loadSceneAsync("/fxml/Admin/Books/BookInfo.fxml").thenAccept(scene -> {
-            if (scene != null) {
-                Platform.runLater(() -> {
-                    Stage stage = (Stage) allNav.getScene().getWindow();
-                    SceneSwitcher.switchScene(stage, scene);
-                });
-            } else {
-                System.out.println("Failed to load LentBook scene.");
-            }
-        });
+    public void setUserFullName(String userFullName) {
+        memNameLabel.setText(userFullName);
     }
 
-    @FXML
-    public void navigateToReturnBookInfo() {
-        SceneSwitcher.loadSceneAsync("/fxml/Admin/Books/ReturnedBook.fxml").thenAccept(scene -> {
-            if (scene != null) {
-                Platform.runLater(() -> {
-                    Stage stage = (Stage) returnNav.getScene().getWindow();
-                    SceneSwitcher.switchScene(stage, scene);
-                });
-            } else {
-                System.out.println("Failed to load ReturnBook scene.");
-            }
-        });
-
-    }
-
-    @FXML
-    public void navigateToOverdueBookInfo() {
-        SceneSwitcher.loadSceneAsync("/fxml/Admin/Books/OverdueBook.fxml").thenAccept(scene -> {
-            if (scene != null) {
-                Platform.runLater(() -> {
-                    Stage stage = (Stage) overdueNav.getScene().getWindow();
-                    SceneSwitcher.switchScene(stage, scene);
-                });
-            } else {
-                System.out.println("Failed to load overdueBook scene.");
-            }
-        });
-    }
-
-    @FXML
-    public void navigateToRequestBookInfo() {
-        SceneSwitcher.loadSceneAsync("/fxml/Admin/Books/RequestBook.fxml").thenAccept(scene -> {
-            if (scene != null) {
-                Platform.runLater(() -> {
-                    Stage stage = (Stage) requestNav.getScene().getWindow();
-                    SceneSwitcher.switchScene(stage, scene);
-                });
-            } else {
-                System.out.println("Failed to load requestBook scene.");
-            }
-        });
-    }
 }

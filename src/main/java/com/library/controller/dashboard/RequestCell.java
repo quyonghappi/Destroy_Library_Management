@@ -1,5 +1,6 @@
 package com.library.controller.dashboard;
 
+import com.library.controller.books.RequestBookController;
 import com.library.models.Reservation;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
@@ -23,6 +24,12 @@ public class RequestCell extends ListCell<Reservation> {
     public void setListView(ListView<Reservation> listView) {
         if(requestController!=null) {
             requestController.setListView(listView);
+        }
+    }
+
+    public void setParentController(AdminDashboardController parentController) {
+        if (requestController != null) {
+            requestController.setParentController(parentController);
         }
     }
 

@@ -17,7 +17,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Objects;
+
+import static com.library.controller.start.LoadView.showAlert;
+import static com.library.controller.start.RoleController.role;
 
 
 public class RegisterController {
@@ -76,20 +80,28 @@ public class RegisterController {
             showAlert(AlertType.INFORMATION,e.getMessage(), "Something went wrong");
         }
 
-//        saveUserData(fullName, username, email, password, role);
+        saveUserData(fullName, username, email, password, role);
         openLogin(event);
         clearFields();
     }
 
+//    @FXML
+//    public void openLogin(ActionEvent event) {
+//        Stage stage = (Stage) loginLink.getScene().getWindow();
+//        Node currentRoot = stage.getScene().getRoot();
+//        displayViewWithAnimation(stage, "/fxml/Start/Register.fxml", "Login", "/css/register.css", currentRoot);
+//    }
+
     @FXML
     void openLogin(ActionEvent event) {
+
         try {
             Stage stage = (Stage) loginLink.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/userLogin.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Start/userLogin.fxml"));
             HBox root = (HBox) fxmlLoader.load();
-            Scene scene = new Scene(root, 400, 600);
+            Scene scene = new Scene(root);
 
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/UserLogin.css")).toExternalForm());
             stage.centerOnScreen();
             stage.setTitle("Login");
             stage.setScene(scene);
@@ -116,27 +128,31 @@ public class RegisterController {
     }
 
 
-//    private void saveUserData(String fullName, String username, String email, String password, String role) {
-//        String insertUserSQL = "INSERT INTO Users (full_name, user_name, email, password_hash, user_role) VALUES (?, ?, ?, ?, ?)";
-//
-//        try (Connection connection = DatabaseConfig.getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(insertUserSQL)) {
-//
-//            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-//            preparedStatement.setString(1, fullName);
-//            preparedStatement.setString(2, username);
-//            preparedStatement.setString(3, email);
-//            preparedStatement.setString(4, hashedPassword);
-//            preparedStatement.setString(5, role); // Save role to database
-//
-//            int rowsAffected = preparedStatement.executeUpdate();
-//            if (rowsAffected > 0) {
-//                System.out.println("User saved successfully.");
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void saveUserData(String fullName, String username, String email, String password, String role) {
+
+        try {
+            User user = new User(fullName, username, email, password);
+            user.setUserRole("reader");
+            user.setJoinDate(LocalDate.now());
+            user.setAccountStatus("Active");
+            user.setActive(true);
+            if (userDao.findUserByName(username) != null) {
+                System.out.println("User already exists. Please choose a different username.");
+                return;
+            }
+
+            try {
+                userDao.add(user);
+                System.out.println("User created successfully!");
+            } catch (Exception e) {
+                System.err.println("Error creating user: " + e.getMessage());
+                e.printStackTrace(); // Optional: Print stack trace for debugging
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void clearFields() {
         userNameField.clear();
@@ -145,14 +161,20 @@ public class RegisterController {
         emailField.clear();
         confirmPasswordField.clear();
     }
-    private void showAlert(AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.show();
+//    private void showAlert(AlertType alertType, String title, String message) {
+//        Alert alert = new Alert(alertType);
+//        alert.setTitle(title);
+//        alert.setContentText(message);
+//        alert.show();
+//    }
+
+
+    public Button getSignUpButton() {
+        return signUpButton;
     }
 
-
-
+    public void setSignUpButton(Button signUpButton) {
+        this.signUpButton = signUpButton;
+    }
 }
 

@@ -56,13 +56,14 @@
             <Label fx:id="requestIdLabel" styleClass="small-label" text="Label" />
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="7.0" HBox.hgrow="ALWAYS">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
          <children>
             <Button fx:id="approveButton" mnemonicParsing="false" onAction="#handleApproveButtonAction" text="Approve">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </Button>
+            <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="7.0" prefWidth="32.0" styleClass="big-label" text="Label" visible="false" />
             <Button fx:id="denyButton" mnemonicParsing="false" onAction="#handleDenyButtonAction" text="Deny" />
          </children>
       </VBox>

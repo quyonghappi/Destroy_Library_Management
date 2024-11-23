@@ -10,24 +10,23 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String phone;
+    //private String phone;
     //private String address;
     private String userRole="reader";
     private String accountStatus = "active";
-    private LocalDate joinDate;
-    private List<String> borrowedDocuments = new ArrayList<String>();
+    private LocalDate joinDate=LocalDate.now();
+    private LocalDate lastLoginDate=LocalDate.now();
+    private List<String> borrowedDocuments = new ArrayList<>();
     private boolean active = true;//check if account is locked
 
-
     public User() {
-
     }
-    public User(int userId, String fullName, String name, String email, String passwordHash, String phone, String userRole, String accountStatus, LocalDate joinDate) {
+    public User(int userId, String fullName, String name, String email, String passwordHash, String userRole, String accountStatus, LocalDate joinDate) {
         this.userId = userId;
         this.username = name;
         this.email = email;
         this.password = passwordHash;
-        this.phone = phone;
+        //this.phone = phone;
         this.userRole = userRole;
         this.accountStatus = accountStatus;
         this.joinDate = joinDate;
@@ -40,6 +39,12 @@ public class User {
         this.password = passwordHash;
     }
 
+    public LocalDate getLastLoginDate() {
+        return lastLoginDate;
+    }
+    public void setLastLoginDate(LocalDate lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
     public int getUserId() {
         return userId;
     }
@@ -70,12 +75,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getPhone() {
-        return phone;
-    }
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    //    public String getPhone() {
+//        return phone;
+//    }
+//    public void setPhone(String phone) {
+//        this.phone = phone;
+//    }
     public String getUserRole() {
         return userRole;
     }

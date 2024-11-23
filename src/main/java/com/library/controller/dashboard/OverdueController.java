@@ -21,6 +21,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.library.utils.LoadImage.loadImageLazy;
+
 public class OverdueController {
 
     @FXML
@@ -82,7 +84,7 @@ public class OverdueController {
                     bookNameLabel.setText(document.getTitle());
                     fineLabel.setText(String.valueOf(fine.getFineAmount())); //use fine's fine amount
                     recordIdLabel.setText(String.valueOf(recordId));
-                    overdueLabel.setText(String.valueOf(fineDao.daysOverdue(borrowingRecord))+ " days");
+                    overdueLabel.setText(fineDao.daysOverdue(borrowingRecord)+ " days");
 
                     if (!document.getImageLink().equals("N/A")) {
                         loadImageLazy(document.getImageLink(), bookImage);
@@ -95,33 +97,6 @@ public class OverdueController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private void loadImageLazy(String imageUrl, ImageView imageView) {
-        //check if image is already cached
-        if (imageCache.containsKey(imageUrl)) {
-            imageView.setImage(imageCache.get(imageUrl));
-            return;
-        }
-        Task<Image> loadImageTask = new Task<>() {
-            @Override
-            protected Image call() throws Exception {
-                return new Image(imageUrl, 45, 55, true, true);
-            }
-        };
-
-        loadImageTask.setOnSucceeded(event -> {
-            Image image = loadImageTask.getValue();
-            imageCache.put(imageUrl, image);  //cache the image
-            Platform.runLater(() -> imageView.setImage(image));
-        });
-
-        loadImageTask.setOnFailed(event -> {
-            System.out.println("Failed to load image from URL: " + imageUrl);
-
-        });
-
-        new Thread(loadImageTask).start();  //run the task on a background thread
     }
 
     @FXML

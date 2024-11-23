@@ -1,0 +1,47 @@
+.root {
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: #F8FCFF;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0, 0, 0);
+    -fx-font-family: "Segoe UI";
+}
+
+.small-label {
+    -fx-text-fill: #272f54;
+    -fx-font-size: 14px
+}
+
+.text-field {
+    -fx-border-radius: 10;
+    -fx-border-width: 1px;
+    -fx-border-color: #E2E5EA;
+    -fx-background-color: #E2E5EA;
+    -fx-text-fill: #272f54;
+}
+
+.confirm-button {
+    -fx-border-radius: 15;
+    -fx-background-color: #506c9a;
+}
+
+.cancel-button {
+    -fx-border-radius: 15;
+    -fx-background-color: #E7F1FD;
+    -fx-text-fill: #717783;
+}
+
+.confirm-button:hover {
+    -fx-background-color:#136CB0;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #bad4ed;
+}
+
+.chosen-box {
+    -fx-background-color: #F3F8FE;
+}
+
+.box{
+    -fx-background-color: #E0E3E8;
+}

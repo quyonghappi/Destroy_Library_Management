@@ -25,7 +25,7 @@ CREATE TABLE Users (
                        user_role ENUM('reader', 'admin') DEFAULT 'reader',
                        account_status ENUM('active', 'suspended') DEFAULT 'active',
                        join_date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    -- last_login DATETIME,
+                       last_login DATETIME,
     -- login_attempts INT DEFAULT 0,
                        account_locked BOOLEAN DEFAULT FALSE,
                        PRIMARY KEY(user_id)
