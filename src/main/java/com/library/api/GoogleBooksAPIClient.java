@@ -140,7 +140,22 @@ public class GoogleBooksAPIClient {
                 String authorName = volumeInfo.has("authors") ? volumeInfo.get("authors").getAsJsonArray().get(0).getAsString() : "Unknown";
                 String publisherName = volumeInfo.has("publisher") ? volumeInfo.get("publisher").getAsString() : "Unknown";
                 String categoryName = volumeInfo.has("categories") ? volumeInfo.get("categories").getAsJsonArray().get(0).getAsString() : "General";
-                int publicationYear = volumeInfo.has("publishedDate") ? Integer.parseInt(volumeInfo.get("publishedDate").getAsString().substring(0, 4)) : 0;
+                //int publicationYear = volumeInfo.has("publishedDate") ? Integer.parseInt(volumeInfo.get("publishedDate").getAsString().substring(0, 4)) : 0;
+                int publicationYear = 1900;
+                if (volumeInfo.has("publishedDate")) {
+                    String publishedDate = volumeInfo.get("publishedDate").getAsString();
+                    try {
+                        // Chỉ lấy các ký tự đầu tiên nếu là số (dạng năm)
+                        if (publishedDate.matches("\\d{4}")) { // Kiểm tra chuỗi có đúng định dạng 4 chữ số
+                            publicationYear = Integer.parseInt(publishedDate);
+                        } else {
+                            System.out.println("Invalid publication year: " + publishedDate);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error parsing publication year: " + publishedDate);
+                    }
+                }
+
                 String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : "N/A";
 
                 int pages = volumeInfo.has("pageCount") ? volumeInfo.get("pageCount").getAsInt() : 0;
@@ -274,14 +289,17 @@ public class GoogleBooksAPIClient {
 
 
 
-    public static void main(String[] args) {
-        String file = "src/main/java/com/library/api/programming_books.txt";
+    public static void main(String[] args) throws Exception {
+        //String file = "src/main/java/com/library/api/programming_books.txt";
         GoogleBooksAPIClient newClient = new GoogleBooksAPIClient();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String bookName;
-            while ((bookName = br.readLine()) != null) {
-                if (!bookName.trim().isEmpty()) newClient.getBookData(bookName.trim());
-            }
+        //try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+//            String bookName;
+//            while ((bookName = br.readLine()) != null) {
+//                if (!bookName.trim().isEmpty()) newClient.getBookData(bookName.trim());
+//            }
+        try {
+        String bookName ="art";
+        newClient.getBookData(bookName);
 
         } catch (Exception e) {
             e.printStackTrace();

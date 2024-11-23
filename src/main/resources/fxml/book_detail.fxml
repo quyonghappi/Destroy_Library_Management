@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="439.0" prefWidth="456.0" stylesheets="/css/styling.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.UserDashboard.Controller.BookDetailController">
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="20" styleClass="book-detail-container" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+        <!-- Book Details Section -->
+        <HBox alignment="TOP_CENTER" spacing="20" styleClass="book-detail-content">
+            <!-- Book Cover -->
+            <ImageView fx:id="bookCover" fitHeight="300" fitWidth="200" preserveRatio="true" styleClass="book-cover-image" />
+
+            <!-- Book Information -->
+            <VBox alignment="TOP_LEFT" spacing="10" styleClass="book-details">
+                <Label fx:id="bookTitle" styleClass="book-title" text="Book Title" />
+                <Label fx:id="bookAuthor" styleClass="book-author" text="Author(s): Unknown" />
+                <Label fx:id="bookDescription" styleClass="book-description" text="Description not available." wrapText="true" />
+                <Label fx:id="bookPages" styleClass="book-pages" text="320 pages" />
+                <Label fx:id="bookPublishedDate" styleClass="book-date" text="Published Date: N/A" />
+                <Label fx:id="bookPublisher" styleClass="book-publisher" text="Publisher: Unknown" />
+            </VBox>
+        </HBox>
+
+        <!-- Back Button -->
+        <Button fx:id="backButton" onAction="#onBackClicked" styleClass="back-button" text="BACK" />
+    </VBox>
+</AnchorPane>

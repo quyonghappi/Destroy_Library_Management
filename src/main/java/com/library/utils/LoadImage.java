@@ -11,8 +11,8 @@ import java.util.Map;
 public class LoadImage {
     private static final Map<String, Image> imageCache = new HashMap<String, Image>();
     public static void loadImageLazy(String imageUrl, ImageView imageView) {
-        imageView.setFitWidth(50);
-        imageView.setFitHeight(60);
+        //imageView.setFitWidth(50);
+        //imageView.setFitHeight(60);
         imageView.setPreserveRatio(false); //disable aspect ratio to fill exact size
         //check if image is already cached
         if (imageCache.containsKey(imageUrl)) {
@@ -22,7 +22,7 @@ public class LoadImage {
         Task<Image> loadImageTask = new Task<>() {
             @Override
             protected Image call() throws Exception {
-                return new Image(imageUrl, 50, 60, false, true);
+                return new Image(imageUrl, 100, 150, true, false);
             }
         };
         //preserveRatio = false, smooth = true

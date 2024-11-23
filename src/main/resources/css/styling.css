@@ -219,3 +219,336 @@
 .start-reading:hover {
     -fx-background-color: #4b4b4b; /* Lighter shade for hover */
 }
+
+/* Main content styles */
+.main-content {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Top bar styles */
+.top-bar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 4);
+}
+
+.search-bar {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 20;
+    -fx-padding: 8;
+}
+
+/* Book content styles */
+/*.book-content {*/
+/*    -fx-background-color: white;*/
+/*    -fx-background-radius: 10;*/
+/*    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 0);*/
+/*}*/
+
+.book-cover-container {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0, 0, 0);
+    -fx-background-radius: 10;
+}
+
+.book-cover-container {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.book-title {
+    -fx-font-size: 32px; /* Font size */
+    -fx-font-family: "Poor Richard"; /* Font family */
+    -fx-text-fill: #000; /* Text color */
+    -fx-wrap-text: true; /* Enable multiline mode */
+    -fx-alignment: top-left; /* Align text at the top */
+}
+
+.author-name {
+    -fx-font-size: 15px; /* Font size */
+    -fx-font-family: "System"; /* Font family */
+    -fx-font-weight: bold; /* Bold font style */
+    -fx-text-fill: #666; /* Text color */
+}
+
+.description-text {
+    -fx-font-size: 12px; /* Font size */
+    -fx-font-family: "Rockwell"; /* Font family */
+    -fx-text-fill: #555; /* Text color */
+    -fx-wrap-text: true; /* Enable multiline mode */
+    -fx-alignment: top-left; /* Align text at the top */
+    -fx-line-spacing: 1.2; /* Adjust line spacing for readability */
+}
+
+.section-title {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+
+.start-reading-btn:hover {
+    -fx-background-color: #1557b0;
+}
+
+.bookmark-btn, .share-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+}
+
+.bookmark-btn:hover, .share-btn:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Sidebar styles (keeping consistent with your dashboard) */
+.sidebar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 4);
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+
+
+
+/*FOR THE MTF BOOKVIEWER WOHOO*/
+
+.action-button {
+    -fx-background-color: #000; /* Green color */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #4b4b4b; /* Darker green on hover */
+}
+
+.books-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+.books-container {
+    -fx-background-color: white;
+    -fx-spacing: 50;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.book-item {
+    -fx-background-color: white;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.book-item:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+
+.language-text {
+    -fx-font-size: 13px; /* Font size */
+    -fx-font-family: "Rockwell"; /* Font family */
+    -fx-text-fill: #6db5e1; /* Text color */
+    -fx-wrap-text: true; /* Enable multiline mode */
+    -fx-alignment: top-left; /* Align text at the top */
+    -fx-line-spacing: 1.2; /* Adjust line spacing for readability */
+}
+
+.similar-book-title {
+    -fx-font-size: 18px; /* Font size */
+    -fx-font-family: "System"; /* Font family */
+    -fx-text-fill: #000; /* Text color */
+    -fx-wrap-text: true; /* Enable multiline mode */
+    -fx-alignment: top-left; /* Align text at the top */
+}
+
+/* Style for the search box */
+.search-box {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-color: transparent;
+    -fx-padding: 5;
+}
+
+/* Style for the search icon button */
+.search-icon-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: #f4f4f4;
+    -fx-padding: 10;
+}
+
+.sidebar-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.sidebar Button {
+    -fx-pref-width: 150;
+    -fx-font-size: 14px;
+}
+
+/* Top Bar */
+.top-bar {
+    -fx-background-color: #333;
+    -fx-padding: 10;
+}
+
+.top-bar TextField {
+    -fx-pref-width: 300;
+    -fx-padding: 5;
+}
+
+/* Book List Container */
+.book-list-container {
+    -fx-padding: 20;
+}
+
+.book-card {
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-background-color: #fff;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 0);
+}
+
+
+/* Book Detail Pane */
+
+/*.book-detail-pane {*/
+/*    -fx-background-color: rgba(0, 0, 0, 0.8); !* Background overlay *!*/
+/*    -fx-padding: 20;*/
+/*}*/
+
+/*.book-detail-container {*/
+/*    -fx-background-color: #ffffff;*/
+/*    -fx-border-radius: 10;*/
+/*    -fx-padding: 20;*/
+/*    -fx-spacing: 20;*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.5, 0, 0);*/
+/*}*/
+
+/*!* Book Content *!*/
+/*.book-detail-content {*/
+/*    -fx-spacing: 20;*/
+/*}*/
+
+/*.book-details {*/
+/*    -fx-spacing: 10;*/
+/*}*/
+
+/*.book-title {*/
+/*    -fx-font-size: 24px;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-text-fill: #333;*/
+/*}*/
+
+/*.book-author, .book-description, .book-pages, .book-date, .book-publisher {*/
+/*    -fx-font-size: 14px;*/
+/*    -fx-text-fill: #555;*/
+/*}*/
+
+/*!* Back Button *!*/
+/*.back-button {*/
+/*    -fx-background-color: #333;*/
+/*    -fx-text-fill: #fff;*/
+/*    -fx-font-size: 14px;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-padding: 10 20;*/
+/*    -fx-border-radius: 5;*/
+/*    -fx-background-radius: 5;*/
+/*}*/
+
+/*.back-button:hover {*/
+/*    -fx-background-color: #555;*/
+/*}*/
+
+/* Book Detail Pane */
+.book-detail-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.8); /* Transparent black background overlay */
+    -fx-padding: 20; /* Padding around the whole pane */
+    -fx-alignment: center; /* Center the content in the pane */
+}
+
+/* Container for the book details */
+.book-detail-container {
+    -fx-background-color: #ffffff; /* White background for the details container */
+    -fx-border-radius: 10; /* Rounded corners */
+    -fx-padding: 20; /* Padding inside the container */
+    -fx-spacing: 20; /* Spacing between elements inside the container */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.5, 0, 0); /* Shadow effect */
+}
+
+/* Book Content (holds image and details) */
+.book-detail-content {
+    -fx-spacing: 20; /* Vertical spacing between book cover and details */
+    -fx-alignment: center; /* Center content horizontally */
+}
+
+/* Container for the details part of the book (text) */
+.book-details {
+    -fx-spacing: 10; /* Spacing between each label */
+}
+
+/* Styling for Book Title */
+.book-title {
+    -fx-font-size: 24px; /* Larger font size for the title */
+    -fx-font-weight: bold; /* Bold font for the title */
+    -fx-text-fill: #333; /* Dark grey color for the title */
+    -fx-text-alignment: center; /* Center align the title text */
+}
+
+/* Styling for Author, Description, Pages, Date, Publisher */
+.book-author, .book-description, .book-pages, .book-date, .book-publisher {
+    -fx-font-size: 14px; /* Standard font size for these labels */
+    -fx-text-fill: #555; /* Medium grey color */
+    -fx-wrap-text: true; /* Wrap text to avoid overflow */
+}
+
+/* Book Description */
+.book-description {
+    -fx-font-size: 12px; /* Smaller font for description */
+    -fx-text-fill: #777; /* Lighter grey for description */
+    -fx-line-spacing: 1.5; /* Increase line spacing for readability */
+    -fx-max-width: 300px; /* Limit the width to avoid overly long lines */
+}
+
+/* Styling for the Back Button */
+.back-button {
+    -fx-background-color: #333; /* Dark background for the button */
+    -fx-text-fill: #fff; /* White text for contrast */
+    -fx-font-size: 14px; /* Medium font size */
+    -fx-font-weight: bold; /* Bold text for emphasis */
+    -fx-padding: 10 20; /* Padding inside the button */
+    -fx-border-radius: 5; /* Rounded corners for the button */
+    -fx-background-radius: 5; /* Rounded background corners */
+    -fx-cursor: hand; /* Cursor changes to hand on hover */
+}
+
+/* Hover Effect for Back Button */
+.back-button:hover {
+    -fx-background-color: #555; /* Darken background when hovered */
+}
+
+
+
+

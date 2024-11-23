@@ -1,32 +1,32 @@
 package com.library.UserDashboard.model;
 
 public class Book {
-    private String name;
-    private String ImageSrc;
-    private String author;
 
-    public String getAuthor() {
-        return author;
+    private String title;
+    private String authors;
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(String authors) {
+        this.authors = authors;
     }
 
-
-    public String getName() {
-        return name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    private String description;
+
+    public Book(String title, String authors, String description) {
+        this.title = title;
+        this.authors = authors;
+        this.description = description;
     }
 
-    public String getImageSrc() {
-        return ImageSrc;
-    }
-
-    public void setImageSrc(String imageSrc) {
-        ImageSrc = imageSrc;
-    }
+    // Getters
+    public String getTitle() { return title; }
+    public String getAuthors() { return authors; }
+    public String getDescription() { return description; }
 }
