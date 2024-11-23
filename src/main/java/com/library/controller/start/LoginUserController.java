@@ -51,7 +51,7 @@ public class LoginUserController {
         String username = userNameField.getText().trim();
         String password = passwordField.getText();
 
-        if (validateInput(username, password)) {
+        if (validateInput(username, password) && check.isValidUsername(username)) {
             if (userDao.authenticateUser(username, password)) {
 //                hlinh them user de lien ket nha
 //                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/Dashboard/userDashboard.fxml"));
@@ -72,9 +72,8 @@ public class LoginUserController {
 //                stage.setHeight(screenBounds.getHeight());
 //                stage.centerOnScreen();
 //                stage.show();
-                loadView(stage, "/fxml/User/Dashboard/userDashboard.fxml", "User Dashboard", "/css/userDashboard.css", "slideright", root);
+                loadView(stage, "/fxml/User/Dashboard/userDashboard.fxml", "User Dashboard", "/css/userDashboard.css");
                 showView(stage, "/fxml/User/Dashboard/userDashboard.fxml", "User Dashboard", "/css/userDashboard.css");
-
 
             } else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect username or password.");
@@ -99,7 +98,7 @@ public class LoginUserController {
     @FXML
     private void openSignUp(ActionEvent event) {
         Stage stage = (Stage) signUpLink.getScene().getWindow();
-        loadView(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/register.css", "slideleft", root);
+        loadView(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/register.css");
         showView(stage, "/fxml/Start/Register.fxml", "Login", "/css/register.css");
     }
 

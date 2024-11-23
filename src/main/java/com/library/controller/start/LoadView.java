@@ -21,9 +21,9 @@ public interface LoadView {
      * @param fxmlPath     Đường dẫn FXML của màn hình cần tải.
      * @param title        Tiêu đề cửa sổ.
      * @param stylesheets  Đường dẫn đến stylesheet (nếu có).
-     * @param transitionType Loại hiệu ứng chuyển cảnh (Fade, Zoom, Slide).
+//     * @param transitionType Loại hiệu ứng chuyển cảnh (Fade, Zoom, Slide).
      */
-    static void loadView(Stage stage, String fxmlPath, String title, String stylesheets, String transitionType, Parent rootPane) {
+    static void loadView(Stage stage, String fxmlPath, String title, String stylesheets) {
         try {
             // Tải FXML
             FXMLLoader fxmlLoader = new FXMLLoader(LoadView.class.getResource(fxmlPath));
@@ -40,7 +40,7 @@ public interface LoadView {
             stage.setScene(scene);
 
             // Áp dụng hiệu ứng chuyển cảnh dựa trên kiểu
-            applyTransition(root, transitionType, rootPane);
+//            applyTransition(root, transitionType, rootPane);
 
             // Hiển thị Stage
             stage.centerOnScreen();
@@ -113,7 +113,7 @@ public interface LoadView {
      * @param title     Tiêu đề của thông báo.
      * @param message   Nội dung của thông báo.
      */
-    private static void showAlert(Alert.AlertType alertType, String title, String message) {
+    static void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setContentText(message);

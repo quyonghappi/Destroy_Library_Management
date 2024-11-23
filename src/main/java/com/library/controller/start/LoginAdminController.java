@@ -22,7 +22,9 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 
+import static com.library.controller.start.LoadView.loadView;
 import static com.library.controller.start.LoadView.showAlert;
+import static com.library.controller.start.ShowView.showView;
 import static com.library.controller.start.check.checkPassword;
 import static com.library.controller.start.check.validateInput;
 
@@ -51,26 +53,30 @@ public class LoginAdminController {
         String username = userNameField.getText().trim();
         String password = passwordField.getText();
 
-        if (validateInput(username, password)) {
+        if (validateInput(username, password) && check.isValidUsername(username)) {
             if (userDao.authenticateAdmin(username,password)) {
 
 //                showAlert(AlertType.INFORMATION, "Success", "Login successful!");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Dashboard/adminDashboard.fxml"));
-                root = loader.load();
-                AdminDashboardController controller = loader.getController();
-                controller.setUserFullName(getUserFullName());
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Dashboard/adminDashboard.fxml"));
+//                root = loader.load();
+//                AdminDashboardController controller = loader.getController();
+//                controller.setUserFullName(getUserFullName());
                 stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-                scene=new Scene(root);
-                stage.setScene(scene);
-                stage.setMaximized(true);
-                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-                stage.setWidth(screenBounds.getWidth());
-                stage.setHeight(screenBounds.getHeight());
-                stage.centerOnScreen();
-                stage.show();
-            } else {
+//                scene=new Scene(root);
+//                stage.setScene(scene);
+//                stage.setMaximized(true);
+//                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+//                stage.setWidth(screenBounds.getWidth());
+//                stage.setHeight(screenBounds.getHeight());
+//                stage.centerOnScreen();
+//                stage.show();
+                loadView(stage,"/fxml/Admin/Dashboard/adminDashboard.fxml", "Admin Dashboard", "/css/adminDashboard.css");
+                showView(stage,"/fxml/Admin/Dashboard/adminDashboard.fxml", "Admin Dashboard", "/css/adminDashboard.css");
+            } else if (!check.isValidUsername(username)) {
                 showAlert(AlertType.ERROR, "Login Failed", "Incorrect username or password.");
                 clearFields();
+            } else if (check.isValidUsername(username)) {
+                showAlert(AlertType.ERROR, "Login Failed", "username is already taken.");
             }
         }
     }

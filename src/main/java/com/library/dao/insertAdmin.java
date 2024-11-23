@@ -1,5 +1,6 @@
 package com.library.dao;
 
+import com.library.controller.start.check;
 import com.library.models.User;
 
 import java.time.LocalDate;
@@ -8,16 +9,19 @@ public class insertAdmin {
     private static UserDao userDao = new UserDao();
     public static void main(String[] args) {
         try {
-            String fullName = "Nguyen Thuy Linh";
-            String username = "Thuy Linh Nguyen";
-            String email = "23021610@vnu.edu.vn";
+            String fullName = "Hoang Duong";
+            String username = "duongg";
+            String email = "duongnn241@gmail.com";
             String password = "123456";
             User user = new User(fullName, username, email, password);
-            user.setUserRole("User");
+            user.setUserRole("Admin");
             user.setJoinDate(LocalDate.now());
             user.setAccountStatus("Active");
             user.setActive(true);
-            if (userDao.findUserByName(username) != null) {
+            if (userDao.findUserByName(username) != null
+                    || !check.isValidUsername(username)
+                    || !check.isValidEmail(email)
+                    || !check.isValidFullName(fullName)) {
                 System.out.println("User already exists. Please choose a different username.");
                 return;
             }

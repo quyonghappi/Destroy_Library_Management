@@ -28,7 +28,7 @@ public class GoogleBooksAPIClient {
     private static final long time=600; //one min to ms
     private List<Long> requestTimestamp=new ArrayList<>();
 
-    private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=%s&key=%s";
+    private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=isbn%s&key=%s";
 
     private final OkHttpClient client;
     //parse json response into java object
@@ -94,24 +94,6 @@ public class GoogleBooksAPIClient {
             });
         //HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-
-        // JSON
-//        JsonObject jsonObject = JsonParser.parseString(response.body()).getAsJsonObject();
-//        if (jsonObject.has("items")) {
-//            JsonArray items = jsonObject.getAsJsonArray("items");
-//
-//            if (items.size() > 0) {
-//                JsonObject volumeInfo = items.get(0).getAsJsonObject().getAsJsonObject("volumeInfo");
-//                System.out.println("Volume Info: " + volumeInfo);
-//                return volumeInfo;
-//            } else {
-//                System.out.println("No items found for ISBN: " + isbn);
-//            }
-//        } else {
-//            System.out.println("No 'items' field found in API response for ISBN: " + isbn);
-//        }
-//
-//        return null;
     }
 
     private void printApiResponse(String jsonData) {
@@ -140,6 +122,7 @@ public class GoogleBooksAPIClient {
                 String authorName = volumeInfo.has("authors") ? volumeInfo.get("authors").getAsJsonArray().get(0).getAsString() : "Unknown";
                 String publisherName = volumeInfo.has("publisher") ? volumeInfo.get("publisher").getAsString() : "Unknown";
                 String categoryName = volumeInfo.has("categories") ? volumeInfo.get("categories").getAsJsonArray().get(0).getAsString() : "General";
+//                String s = volumeInfo.has("publishedDate") ? volumeInfo.get("publishedDate").getAsString().substring(0, 4) + "";
                 int publicationYear = volumeInfo.has("publishedDate") ? Integer.parseInt(volumeInfo.get("publishedDate").getAsString().substring(0, 4)) : 0;
                 String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : "N/A";
 
@@ -274,15 +257,23 @@ public class GoogleBooksAPIClient {
     public static void main(String[] args) {
         String file = "src/main/java/com/library/api/programming_books.txt";
         GoogleBooksAPIClient newClient = new GoogleBooksAPIClient();
+        String isbn;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String bookName;
-            while ((bookName = br.readLine()) != null) {
-                if (!bookName.trim().isEmpty()) newClient.getBookData(bookName.trim());
+
+            while ((isbn = br.readLine()) != null) {
+                isbn = isbn.substring(2, isbn.length() - 3);
+                if (!isbn.trim().isEmpty()) newClient.getBookData(isbn.trim());
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        try {
+//            String isbn = "9780132350884";
+//            newClient.getBookData(isbn.trim());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 }

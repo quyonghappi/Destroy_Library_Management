@@ -66,7 +66,11 @@ public class RegisterController {
 
         User user = new User(fullName, username, email, password);
 
-        if (userDao.findUserByName(username) != null) {
+        // check data valid
+        if (userDao.findUserByName(username) != null
+                || !check.isValidEmail(email)
+                || !check.isValidUsername(username)
+                || !check.isValidFullName(fullName)) {
             showAlert(AlertType.ERROR,"Error", "Username already exists. Please choose a different username.");
             return;
         }
@@ -85,7 +89,7 @@ public class RegisterController {
     @FXML
     void openLogin(ActionEvent event) {
         Stage stage = (Stage) loginLink.getScene().getWindow();
-        loadView(stage, "/fxml/Start/UserLogin.fxml", "Login", "/css/UserLogin.css", "slideright", root);
+        loadView(stage, "/fxml/Start/UserLogin.fxml", "Login", "/css/UserLogin.css");
         showView(stage, "/fxml/Start/UserLogin.fxml", "Login", "/css/UserLogin.css");
     }
 

@@ -62,7 +62,7 @@ CREATE TABLE Documents (
                            publisher_id INT NOT NULL,
                            isbn VARCHAR(13) UNIQUE NOT NULL,
                            category_id INT NOT NULL,
-                           publication_year INT CHECK (publication_year BETWEEN 1500 AND 2024),
+                           publication_year INT CHECK (publication_year BETWEEN 1900 AND 2024),
                            quantity INT NOT NULL,
                            pages int not null,
                            description TEXT,

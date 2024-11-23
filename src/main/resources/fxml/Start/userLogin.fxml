@@ -32,7 +32,7 @@
                         <Font size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets />
                      </VBox.margin>
                   </Label>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="322.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 25px;">
