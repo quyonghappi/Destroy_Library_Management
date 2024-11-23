@@ -1,8 +1,5 @@
 package com.library.UserDashboard.Controller;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.library.GoogleBooks.GoogleBooksAPIClient;
 import com.library.dao.*;
 import com.library.models.Author;
 import com.library.models.Document;
@@ -21,15 +18,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.library.utils.LoadImage.loadImageLazy;
 
 public class UserDashboardController {
 
@@ -54,7 +47,7 @@ public class UserDashboardController {
         // Opens BookView (existing feature)
         private void openBookView() {
                 try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/book_viewer.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/book_viewer.fxml"));
                         Parent bookView = loader.load();
 
                         Stage stage = (Stage) libraryButton.getScene().getWindow();

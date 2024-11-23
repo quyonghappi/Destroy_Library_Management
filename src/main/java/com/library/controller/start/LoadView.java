@@ -15,13 +15,12 @@ import java.io.IOException;
 public interface LoadView {
 
     /**
-     * Tải và hiển thị màn hình với hiệu ứng chuyển cảnh (Fade, Zoom, Slide...).
+     * hiệu ứng (chưa áp dụng đươc)
      *
      * @param stage        Stage hiện tại, nơi màn hình mới sẽ được hiển thị.
      * @param fxmlPath     Đường dẫn FXML của màn hình cần tải.
      * @param title        Tiêu đề cửa sổ.
      * @param stylesheets  Đường dẫn đến stylesheet (nếu có).
-//     * @param transitionType Loại hiệu ứng chuyển cảnh (Fade, Zoom, Slide).
      */
     static void loadView(Stage stage, String fxmlPath, String title, String stylesheets) {
         try {
@@ -29,25 +28,18 @@ public interface LoadView {
             FXMLLoader fxmlLoader = new FXMLLoader(LoadView.class.getResource(fxmlPath));
             Parent root = fxmlLoader.load();
 
-            // Tạo Scene mới và thiết lập stylesheet nếu có
             Scene scene = new Scene(root);
             if (stylesheets != null && !stylesheets.isEmpty()) {
                 scene.getStylesheets().add(stylesheets);
             }
 
-            // Thiết lập Scene và Stage
             stage.setTitle(title);
             stage.setScene(scene);
 
-            // Áp dụng hiệu ứng chuyển cảnh dựa trên kiểu
-//            applyTransition(root, transitionType, rootPane);
-
-            // Hiển thị Stage
             stage.centerOnScreen();
             stage.show();
 
         } catch (IOException e) {
-            // In lỗi nếu không thể tải màn hình
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the view: " + e.getMessage());
         }
@@ -63,7 +55,6 @@ public interface LoadView {
     private static void applyTransition(Parent root, String transitionType, Parent rootPane) {
         switch (transitionType.toLowerCase()) {
             case "fade":
-                // Hiệu ứng Fade-in
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
                 fadeIn.setFromValue(0);
                 fadeIn.setToValue(1);
@@ -72,15 +63,12 @@ public interface LoadView {
                 fadeIn.play();
                 break;
             case "slideleft":
-                // Hiệu ứng Slide từ trái sang phải cho HBox và ảnh
                 slideTransition(rootPane, 0, -500);  // Di chuyển ra ngoài màn hình từ bên trái
                 break;
             case "slideright":
-                // Hiệu ứng Slide từ phải sang trái cho HBox và ảnh
                 slideTransition(rootPane, 0, 500);  // Di chuyển ra ngoài màn hình từ bên phải
                 break;
             default:
-                // Nếu không có hiệu ứng hợp lệ, mặc định sẽ là fade
                 FadeTransition defaultFade = new FadeTransition(Duration.millis(500), root);
                 defaultFade.setFromValue(0);
                 defaultFade.setToValue(1);

@@ -64,7 +64,7 @@
                 <children>
                     <ImageView fitHeight="613.0" fitWidth="406.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../../images/registration-form-1.jpg" />
+                            <Image url="@../../ui/start/backgr.jpg" />
                         </image>
                     </ImageView>
                 </children>

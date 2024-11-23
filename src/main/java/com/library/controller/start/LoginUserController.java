@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import com.library.dao.UserDao;
 import com.library.models.User;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -53,27 +54,10 @@ public class LoginUserController {
 
         if (validateInput(username, password) && check.isValidUsername(username)) {
             if (userDao.authenticateUser(username, password)) {
-//                hlinh them user de lien ket nha
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/Dashboard/userDashboard.fxml"));
-////                root = loader.load();
-//
-////                UserDashboardController controller = loader.getController();
-////                controller.setUserFullName(userDao.getUserFullName(username));
-//
-//                AdminDashboardController controller = loader.getController();
-//                controller.setUserFullName(getUserFullName());
-//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                scene = new Scene(root);
-//                stage.setScene(scene);
-//                stage.setMaximized(true);
-//
-//                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-//                stage.setWidth(screenBounds.getWidth());
-//                stage.setHeight(screenBounds.getHeight());
-//                stage.centerOnScreen();
-//                stage.show();
-                loadView(stage, "/fxml/User/Dashboard/userDashboard.fxml", "User Dashboard", "/css/userDashboard.css");
-                showView(stage, "/fxml/User/Dashboard/userDashboard.fxml", "User Dashboard", "/css/userDashboard.css");
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                loadView(stage, "/fxml/User/user_dashboard.fxml", "User Dashboard", "");
+                showView(stage, "/fxml/User/user_dashboard.fxml", "User Dashboard", "");
+
 
             } else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect username or password.");
@@ -98,8 +82,8 @@ public class LoginUserController {
     @FXML
     private void openSignUp(ActionEvent event) {
         Stage stage = (Stage) signUpLink.getScene().getWindow();
-        loadView(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/register.css");
-        showView(stage, "/fxml/Start/Register.fxml", "Login", "/css/register.css");
+        loadView(stage, "/fxml/Start/StartUser.fxml", "Sign Up", "/css/register.css");
+        showView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/register.css");
     }
 
     /**

@@ -1,10 +1,17 @@
-#rootPane {
-    -fx-background-image: url("file:/D:/Java_App/Destroy_Library_Management/src/main/resources/ui/start/background.jpg");
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-    -fx-background-position: center center;
+/* Áp dụng cho HBox ngoài */
+.hbox-outer {
+    /*-fx-background-color: #FAE6E9; !* Màu nền *!*/
+    -fx-background-color: #d7e6ef;
+    -fx-background-radius: 40px; /* Bo góc */
+    -fx-effect: dropshadow(gaussian, rgb(186, 211, 237), 15, 0.5, 0, 6)
 }
 
+/* Áp dụng cho HBox trong */
+.hbox-inner {
+    -fx-background-color: #FFFFFF; /* Màu nền */
+    -fx-background-radius: 40px; /* Bo góc */
+    -fx-effect: dropshadow(gaussian, rgb(185, 211, 239), 15, 0.5, 0, 6)
+}
 
 .login-button {
     -fx-background-radius: 10px;

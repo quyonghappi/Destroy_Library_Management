@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,25 +55,26 @@ public class LoginAdminController {
         String username = userNameField.getText().trim();
         String password = passwordField.getText();
 
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/book_viewer.fxml"));
+//            Parent bookView = loader.load();
+//
+//            Stage stage = (Stage) libraryButton.getScene().getWindow();
+//            Scene scene = new Scene(bookView, 1466, 700);
+//            scene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
+//
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+
         if (validateInput(username, password) && check.isValidUsername(username)) {
             if (userDao.authenticateAdmin(username,password)) {
-
-//                showAlert(AlertType.INFORMATION, "Success", "Login successful!");
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Dashboard/adminDashboard.fxml"));
-//                root = loader.load();
-//                AdminDashboardController controller = loader.getController();
-//                controller.setUserFullName(getUserFullName());
                 stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-//                scene=new Scene(root);
-//                stage.setScene(scene);
-//                stage.setMaximized(true);
-//                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-//                stage.setWidth(screenBounds.getWidth());
-//                stage.setHeight(screenBounds.getHeight());
-//                stage.centerOnScreen();
-//                stage.show();
-                loadView(stage,"/fxml/Admin/Dashboard/adminDashboard.fxml", "Admin Dashboard", "/css/adminDashboard.css");
-                showView(stage,"/fxml/Admin/Dashboard/adminDashboard.fxml", "Admin Dashboard", "/css/adminDashboard.css");
+                loadView(stage,"/fxml/Admin/Dashboard/adminDashboard.fxml", "Admin Dashboard", "/css/AdminDashboardStyling.css");
+                showView(stage,"/fxml/Admin/Dashboard/adminDashboard.fxml", "Admin Dashboard", "/css/AdminDashboardStyling.css");
             } else if (!check.isValidUsername(username)) {
                 showAlert(AlertType.ERROR, "Login Failed", "Incorrect username or password.");
                 clearFields();

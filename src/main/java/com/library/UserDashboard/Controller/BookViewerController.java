@@ -24,7 +24,7 @@ public class BookViewerController {
 
     private void openDashBoard() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user_dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/user_dashboard.fxml"));
             Parent bookView = loader.load();
 
             Stage stage = (Stage) homeButton.getScene().getWindow();
