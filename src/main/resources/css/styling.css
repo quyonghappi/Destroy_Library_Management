@@ -511,10 +511,12 @@
 
 /* Styling for Book Title */
 .book-title {
-    -fx-font-size: 24px; /* Larger font size for the title */
+    -fx-font-size: 30px; /* Larger font size for the title */
     -fx-font-weight: bold; /* Bold font for the title */
     -fx-text-fill: #333; /* Dark grey color for the title */
-    -fx-text-alignment: center; /* Center align the title text */
+    -fx-text-alignment: left center; /* Center align the title text */
+    -fx-max-width: 500px; /* Limit the width to avoid overly long lines */
+/*can dep hon*/
 }
 
 /* Styling for Author, Description, Pages, Date, Publisher */
@@ -529,7 +531,7 @@
     -fx-font-size: 12px; /* Smaller font for description */
     -fx-text-fill: #777; /* Lighter grey for description */
     -fx-line-spacing: 1.5; /* Increase line spacing for readability */
-    -fx-max-width: 300px; /* Limit the width to avoid overly long lines */
+    -fx-max-width: 500px; /* Limit the width to avoid overly long lines */
 }
 
 /* Styling for the Back Button */

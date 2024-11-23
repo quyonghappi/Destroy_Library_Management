@@ -145,12 +145,13 @@ public class GoogleBooksAPIClient {
                 if (volumeInfo.has("publishedDate")) {
                     String publishedDate = volumeInfo.get("publishedDate").getAsString();
                     try {
-                        // Chỉ lấy các ký tự đầu tiên nếu là số (dạng năm)
-                        if (publishedDate.matches("\\d{4}")) { // Kiểm tra chuỗi có đúng định dạng 4 chữ số
-                            publicationYear = Integer.parseInt(publishedDate);
-                        } else {
-                            System.out.println("Invalid publication year: " + publishedDate);
-                        }
+                        publicationYear = Integer.parseInt(publishedDate.substring(0,4));
+//                        // Chỉ lấy các ký tự đầu tiên nếu là số (dạng năm)
+//                        if (publishedDate.matches("\\d{4}")) { // Kiểm tra chuỗi có đúng định dạng 4 chữ số
+//                            publicationYear = Integer.parseInt(publishedDate.substring(0,4));
+//                        } else {
+//                            System.out.println("Invalid publication year: " + publishedDate);
+//                        }
                     } catch (NumberFormatException e) {
                         System.out.println("Error parsing publication year: " + publishedDate);
                     }
@@ -298,7 +299,7 @@ public class GoogleBooksAPIClient {
 //                if (!bookName.trim().isEmpty()) newClient.getBookData(bookName.trim());
 //            }
         try {
-        String bookName ="art";
+        String bookName ="fiction";
         newClient.getBookData(bookName);
 
         } catch (Exception e) {

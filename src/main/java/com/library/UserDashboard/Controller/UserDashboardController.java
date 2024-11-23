@@ -4,19 +4,25 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.library.GoogleBooks.GoogleBooksAPIClient;
 import com.library.dao.*;
+import com.library.models.Author;
 import com.library.models.Document;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -188,83 +194,88 @@ public class UserDashboardController {
 
 
 
-        // Displays book details (You can customize this method to open a modal or a detailed view)
-        /*
-        private void showBookDetails(JsonObject book) {
-                try {
-                        System.out.println("showBookDetails invoked for book: " + book); // Debug message
-
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/book_detail.fxml"));
-                        Parent root = loader.load();
-
-                        // Pass book data to the detail controller
-                        BookDetailController controller = loader.getController();
-                        controller.loadBookDetails(book);
-
-                        // Open the Book Detail Screen as a modal
-                        Stage modalStage = new Stage();
-                        Scene scene = new Scene(root);
-                        scene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
-                        modalStage.setScene(scene);
-                        modalStage.setTitle("Book Details");
-                        modalStage.initModality(Modality.APPLICATION_MODAL); // Make it modal
-                        modalStage.showAndWait();
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-        }
-
-         */
-
+        // Displays book details (You can customize this method to open a modal or a detailed view
 
         private void showBookDetails(Document document) {
                 // Tạo cửa sổ chi tiết
                 Stage detailStage = new Stage();
                 detailStage.setTitle("Book Details");
 
-                // Tạo VBox và áp dụng class CSS
-                VBox detailContainer = new VBox();
+                // Tạo GridPane cho bố cục
+                GridPane detailContainer = new GridPane();
                 detailContainer.getStyleClass().add("detail-container");
+                detailContainer.setHgap(10);
+                detailContainer.setVgap(10);
+                detailContainer.setPadding(new Insets(20));
 
-                // Tạo các Label và áp dụng các class CSS tương ứng
-                Label titleLabel = new Label("Title: " + (document.getTitle() != null ? document.getTitle() : "Unknown"));
-                titleLabel.getStyleClass().add("book-title");
+                // Tạo ImageView để hiển thị bìa sách
+                ImageView bookCover = new ImageView();
+                bookCover.setFitWidth(150);
+                bookCover.setFitHeight(200);
+                bookCover.setPreserveRatio(true);
+                if (document.getImageLink() != null && !document.getImageLink().isEmpty()) {
+                        bookCover.setImage(new Image(document.getImageLink(), true));
+                } else {
+                        bookCover.setImage(new Image("/ui/admindashboard/book1.png")); // Ảnh mặc định nếu không có
+                }
 
-                Label authorLabel = new Label("Author ID: " + document.getAuthorId());
-                authorLabel.getStyleClass().add("book-author");
+                // Tạo các nhãn hiển thị thông tin
+                Label titleValue = new Label(document.getTitle() != null ? document.getTitle() : "Unknown");
+                titleValue.getStyleClass().add("book-title");
+                titleValue.setWrapText(true); // Enable wrapping
 
-                Label publisherLabel = new Label("Publisher ID: " + document.getPublisherId());
-                publisherLabel.getStyleClass().add("book-publisher");
+                // Lấy tên tác giả từ DocumentDao
+                DocumentDao documentDao = new DocumentDao();
+                Author author = documentDao.getAuthor(document.getAuthorId());
+                String authorName = (author != null) ? author.getName() : "Unknown Author";
 
-                Label yearLabel = new Label("Publication Year: " + document.getPublicationYear());
-                yearLabel.getStyleClass().add("book-date");
+                Label authorValue = new Label(authorName);
+                authorValue.getStyleClass().add("book-author");
 
-                Label pageLabel = new Label("Pages: " + document.getPage());
-                pageLabel.getStyleClass().add("book-pages");
+                Label yearValue = new Label(String.valueOf(document.getPublicationYear()));
+                yearValue.getStyleClass().add("book-date");
 
-                Label descriptionLabel = new Label("Description: " + (document.getDescription() != null ? document.getDescription() : "No description available"));
-                descriptionLabel.getStyleClass().add("book-description");
+                Label descriptionValue = new Label(document.getDescription() != null ? document.getDescription() : "No description available");
+                descriptionValue.getStyleClass().add("book-description");
+                descriptionValue.setWrapText(true);
 
-                // Tạo nút "Back" và áp dụng class CSS
+                // Tạo nút Back
                 Button backButton = new Button("Back");
                 backButton.getStyleClass().add("back-button");
                 backButton.setOnAction(e -> detailStage.close());
 
-                // Thêm các phần tử vào VBox
-                detailContainer.getChildren().addAll(titleLabel, authorLabel, publisherLabel, yearLabel, pageLabel, descriptionLabel, backButton);
+                // Đặt các phần tử vào GridPane
+                detailContainer.add(bookCover, 0, 0, 1, 6); // Ảnh bìa chiếm 6 dòng
+                detailContainer.add(titleValue, 2, 0);
+                detailContainer.add(authorValue, 2, 1);
+                detailContainer.add(yearValue, 2, 3);
+                detailContainer.add(descriptionValue, 2, 5);
+                detailContainer.add(backButton, 2, 6);
 
-                // Tạo và hiển thị Scene
-                Scene detailScene = new Scene(detailContainer, 500, 400);
-                detailScene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm()); // Thêm CSS vào Scene
+                // Tạo StackPane để căn giữa nội dung
+                StackPane root = new StackPane(detailContainer);
+                root.setAlignment(Pos.CENTER); // Căn giữa nội dung
+                root.setPadding(new Insets(10)); // Padding nếu cần
+
+                // Tạo Scene và thêm CSS
+                Scene detailScene = new Scene(root, 715, 590);
+                detailScene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
+
+                // Set Scene cho Stage
                 detailStage.setScene(detailScene);
+
+                // Đảm bảo Stage hiển thị ở giữa màn hình
+                detailStage.setOnShown(event -> {
+                        // Tính toán kích thước màn hình
+                        javafx.geometry.Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+                        // Đặt vị trí chính giữa
+                        detailStage.setX((screenBounds.getWidth() - detailStage.getWidth()) / 2);
+                        detailStage.setY((screenBounds.getHeight() - detailStage.getHeight()) / 2);
+                });
+
+                // Hiển thị cửa sổ
                 detailStage.show();
         }
-
-
-
-
-
-
-
 
 }
