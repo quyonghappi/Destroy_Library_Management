@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1466.0" styleClass="start-bg" stylesheets="@../css/styling.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.UserDashboard.Controller.StartController">
+    <children>
+        <VBox alignment="CENTER" layoutX="674.0" layoutY="219.0" spacing="60.0">
+            <children>
+                <HBox alignment="CENTER" spacing="30.0" />
+                <VBox alignment="CENTER" spacing="30.0" />
+            </children>
+        </VBox>
+            <HBox alignment="CENTER" layoutX="918.0" layoutY="548.0" spacing="40.0" />
+              <Button fx:id="librarianButton" layoutX="801.0" layoutY="383.0" prefHeight="156.0" prefWidth="195.0" styleClass="role-button" text="Librarian" textFill="#a13333" />
+              <Button fx:id="guestButton" layoutX="539.0" layoutY="390.0" prefHeight="152.0" prefWidth="158.0" styleClass="role-button" text="Guest">
+         <font>
+            <Font name="SimSun" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="504.0" layoutY="146.0" prefHeight="164.0" prefWidth="545.0" text="Welcome back!">
+         <font>
+            <Font name="Sitka Display Bold" size="80.0" />
+         </font>
+      </Label>
+      <Label layoutX="695.0" layoutY="309.0" prefHeight="75.0" prefWidth="153.0" text="Who are you? ">
+         <font>
+            <Font name="SimSun" size="21.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

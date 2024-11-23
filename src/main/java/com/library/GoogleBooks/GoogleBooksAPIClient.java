@@ -1,10 +1,15 @@
 package com.library.GoogleBooks;
 
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Scanner;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -72,5 +77,38 @@ public class GoogleBooksAPIClient {
             e.printStackTrace();
         }
     }
+
+
+
+    // Add getBook for user dashboard!!!!!!
+    public static JsonArray getBooks(String query) {
+        String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + query.replace(" ", "+") + "&key=" + GOOGLE_BOOKS_API_KEY;
+
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode != 200) {
+                throw new IOException("HTTP response code: " + responseCode);
+            }
+
+            Scanner scanner = new Scanner(url.openStream());
+            StringBuilder inline = new StringBuilder();
+            while (scanner.hasNext()) {
+                inline.append(scanner.nextLine());
+            }
+            scanner.close();
+
+            JsonObject response = JsonParser.parseString(inline.toString()).getAsJsonObject();
+            return response.getAsJsonArray("items");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
 

@@ -42,8 +42,6 @@ public class Document {
         this.page = page;
         this.previewLink=previewLink;
         this.imageLink=imageLink;
-
-
     }
 
     public String getISBN() {

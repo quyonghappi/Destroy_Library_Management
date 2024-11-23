@@ -136,6 +136,51 @@ public class DocumentDao implements DAO<Document> {
         return null;
     }
 
+    //search book by title
+    public List<Document> searchByTitle(String title) {
+        List<Document> documents = new ArrayList<>();
+        String sql = "SELECT * FROM documents";
+
+        // Nếu có từ khóa tìm kiếm, thêm điều kiện vào câu SQL
+        if (title != null && !title.trim().isEmpty()) {
+            sql += " WHERE title LIKE ?";
+        }
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // Nếu có từ khóa tìm kiếm, gán giá trị vào placeholder
+            if (title != null && !title.trim().isEmpty()) {
+                ps.setString(1, "%" + title.trim() + "%");
+            }
+
+            try (ResultSet resultSet = ps.executeQuery()) {
+                while (resultSet.next()) {
+                    Document doc = new Document();
+                    doc.setISBN(resultSet.getString("isbn"));
+                    doc.setTitle(resultSet.getString("title"));
+                    doc.setAuthorId(resultSet.getInt("author_id"));
+                    doc.setPublisherId(resultSet.getInt("publisher_id"));
+                    doc.setCategoryId(resultSet.getInt("category_id"));
+                    doc.setPublicationYear(resultSet.getInt("publication_year"));
+                    doc.setQuantity(resultSet.getInt("quantity"));
+                    doc.setPage(resultSet.getInt("pages"));
+                    doc.setDescription(resultSet.getString("description"));
+                    doc.setLocation(resultSet.getString("location"));
+                    doc.setPreviewLink(resultSet.getString("preview_link"));
+                    doc.setImageLink(resultSet.getString("book_image"));
+                    documents.add(doc);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return documents;
+    }
+
+
+
     //delete doc
     public void delete(Document doc) throws SQLException {
         Connection conn = DatabaseConfig.getConnection();
