@@ -170,7 +170,13 @@ public class UserDashboardController {
                                 Label titleLabel = new Label(document.getTitle() != null ? document.getTitle() : "Unknown Title");
                                 titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
-                                Label authorLabel = new Label("Author ID: " + document.getAuthorId());
+                                //Label authorLabel = new Label("Author ID: " + document.getAuthorId());
+                                //DocumentDao documentDao = new DocumentDao();
+                                Author author = documentDao.getAuthor(document.getAuthorId());
+                                String authorName = (author != null) ? author.getName() : "Unknown Author";
+
+                                Label authorLabel = new Label(authorName);
+                                authorLabel.getStyleClass().add("book-author");
 
                                 Label pageLabel = new Label(document.getPage() > 0 ? document.getPage() + " pages" : "Page count not available");
 
