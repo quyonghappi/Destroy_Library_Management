@@ -10,35 +10,45 @@ import java.util.Map;
 
 public class LoadImage {
     private static final Map<String, Image> imageCache = new HashMap<String, Image>();
-    public static void loadImageLazy(String imageUrl, ImageView imageView) {
-        //imageView.setFitWidth(50);
-        //imageView.setFitHeight(60);
-        imageView.setPreserveRatio(false); //disable aspect ratio to fill exact size
-        //check if image is already cached
+
+    public static void loadImageLazy(String imageUrl, ImageView imageView, double w, double h) {
+        imageView.setPreserveRatio(false);
+        imageView.setSmooth(true);
+
+        //kiểm tra cache
         if (imageCache.containsKey(imageUrl)) {
             imageView.setImage(imageCache.get(imageUrl));
             return;
         }
+
         Task<Image> loadImageTask = new Task<>() {
             @Override
             protected Image call() throws Exception {
-                return new Image(imageUrl, 100, 150, true, false);
+                //Tải ảnh ở kích thước lớn hơn (2x hoặc 3x kích thước mong muốn)
+                // //then giảm kích thước trong ImageView giúp ảnh trông sắc nét hơn
+                double scaledWidth = w * 2;
+                double scaledHeight = h * 2;
+                return new Image(imageUrl, scaledWidth, scaledHeight, false, true); // smooth = true
             }
         };
-        //preserveRatio = false, smooth = true
 
         loadImageTask.setOnSucceeded(event -> {
             Image image = loadImageTask.getValue();
-            imageCache.put(imageUrl, image);  //cache the image
-            Platform.runLater(() -> imageView.setImage(image));
+            imageCache.put(imageUrl, image); // Cache ảnh
+            Platform.runLater(() -> {
+                imageView.setImage(image);
+                imageView.setFitWidth(w); // Giảm kích thước trong ImageView
+                imageView.setFitHeight(h);
+            });
         });
 
         loadImageTask.setOnFailed(event -> {
-            System.out.println("Failed to load image from URL: " + imageUrl);
-
+            System.err.println("Failed to load image from URL: " + imageUrl);
+            Platform.runLater(() -> imageView.setImage(new Image("file:placeholder.png")));
         });
 
-        new Thread(loadImageTask).start();  //run the task on a background thread
+        new Thread(loadImageTask).start();
     }
+
 
 }

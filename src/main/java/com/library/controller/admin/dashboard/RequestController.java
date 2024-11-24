@@ -1,29 +1,28 @@
-package com.library.controller.books;
-
+package com.library.controller.admin.dashboard;
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.dao.ReservationDao;
 import com.library.dao.UserDao;
-import com.library.models.*;
+import com.library.models.BorrowingRecord;
+import com.library.models.Document;
+import com.library.models.Reservation;
+import com.library.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 import static java.time.LocalDateTime.now;
 
-public class RequestBookCellController {
-    @FXML
-    private Button approveButton;
+public class RequestController {
 
     @FXML
-    private Label authorLabel;
+    private Button approveButton;
 
     @FXML
     private ImageView bookImage;
@@ -32,42 +31,41 @@ public class RequestBookCellController {
     private Label bookNameLabel;
 
     @FXML
-    private Label dateLabel;
-
-    @FXML
     private Button denyButton;
 
     @FXML
     private Label isbnLabel;
 
     @FXML
-    private Label requestIdLabel;
-
-    @FXML
     private Label statusLabel;
 
     @FXML
-    private Label userIdLabel;
+    private Label requestDateLabel;
 
     @FXML
-    private Label userLabel;
+    private Label requestIdLabel;
+
+    @FXML
+    private Label useridLabel;
+
+    @FXML
+    private Label usernameLabel;
 
     private ListView<Reservation> lv;
     private Reservation current;
-    private RequestBookController parentController;
 
     private DocumentDao documentDao = new DocumentDao();
     private UserDao userDao = new UserDao();
     private ReservationDao reservationDao = new ReservationDao();
+    private AdminDashboardController parentController;
+
+    public void setParentController(AdminDashboardController parentController) {
+        this.parentController = parentController; // Set the parent controller
+    }
 
     public void setListView(ListView<Reservation> lv) {
         this.lv = lv;
     }
-
-    public void setParentController(RequestBookController parentController) {
-        this.parentController = parentController; // Set the parent controller
-    }
-
     public void loadReservation(Reservation reservation) {
         try {
             current = reservation;
@@ -75,25 +73,23 @@ public class RequestBookCellController {
             int reservationId = reservation.getReservationId();
             User user = userDao.get(userId);
             if (user != null) {
-                userIdLabel.setText(String.valueOf(user.getUserId()));
-                userLabel.setText(user.getFullName());
+                useridLabel.setText(String.valueOf(user.getUserId()));
+                usernameLabel.setText(user.getFullName());
             }
 
             Document doc = documentDao.get(reservation.getIsbn());
             if (doc != null) {
+                // Set other information
                 bookNameLabel.setText(doc.getTitle());
                 isbnLabel.setText(reservation.getIsbn());
-                dateLabel.setText(reservation.getReservationDate().toString());
+                requestDateLabel.setText(reservation.getReservationDate().toString());
                 requestIdLabel.setText(String.valueOf(reservation.getReservationId()));
-                Author author=doc.getAuthor();
-                if(author==null) authorLabel.setText("Unknown");
-                else authorLabel.setText(author.getName());
 
+                // Load the image using lazy loading
                 if (!doc.getImageLink().equals("N/A")) {
-                    loadImageLazy(doc.getImageLink(), bookImage);
+                    loadImageLazy(doc.getImageLink(), bookImage, 50, 60);
                 }
             }
-
             updateButtonVisibility(reservation.getStatus());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -128,7 +124,7 @@ public class RequestBookCellController {
     private void handleApproveButtonAction(ActionEvent event) {
         try {
             BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
-            BorrowingRecord borrowingRecord = new BorrowingRecord(userIdLabel.getText(), isbnLabel.getText(), now(), "borrowed");
+            BorrowingRecord borrowingRecord = new BorrowingRecord(useridLabel.getText(), isbnLabel.getText(), now(), "borrowed");
             borrowingRecordDao.add(borrowingRecord);
             current.setStatus("fulfilled");
             reservationDao.updateStatus(current.getReservationId(), "fulfilled");
@@ -151,7 +147,7 @@ public class RequestBookCellController {
             System.out.println(current.getReservationId());
             reservationDao.updateStatus(current.getReservationId(), "cancelled");
             updateButtonVisibility("cancelled");
-           // lv.getItems().remove(current);
+            // lv.getItems().remove(current);
             lv.refresh();
             if (parentController != null) {
                 parentController.sortListView();
@@ -161,5 +157,7 @@ public class RequestBookCellController {
             throw new RuntimeException(e);
         }
     }
+
+
 
 }

@@ -1,14 +1,16 @@
-package com.library.controller.books;
-import com.library.controller.dashboard.AdminDashboardController;
-import com.library.controller.members.MemInfoController;
-import com.library.dao.DocumentDao;
-import com.library.models.Document;
+package com.library.controller.admin.books;
+
+import com.library.controller.admin.dashboard.AdminDashboardController;
+import com.library.controller.admin.members.MemInfoController;
+import com.library.dao.BorrowingRecordDao;
+import com.library.models.BorrowingRecord;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -17,28 +19,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static com.library.utils.SceneSwitcher.navigateToScene;
-import static com.library.utils.SceneSwitcher.showLendBookScene;
+import static com.library.utils.FilterPopup.showPopup;
+import static com.library.utils.SceneSwitcher.*;
 
-public class BookInfoController implements Initializable {
-
-    @FXML
-    StackPane bookInfoRoot;
+public class ReturnBookController implements Initializable {
 
     @FXML
-    private HBox aboutContainer;
-
+    StackPane returnedBookRoot;
     @FXML
     private Label addBookButton;
 
     @FXML
-    private ListView<Document> bookDetailContainer;
+    private Label allCountLabel;
+
+    @FXML
+    private HBox booksContainer1;
 
     @FXML
     private Button lendButton;
 
     @FXML
-    private HBox lentNav;
+    private Label lentCountLabel;
+
+    @FXML
+    private ListView<BorrowingRecord> returnDetailContainer;
+
+    @FXML
+    private HBox allNav;
 
     @FXML
     private Label memNameLabel;
@@ -47,37 +54,54 @@ public class BookInfoController implements Initializable {
     private HBox membersContainer;
 
     @FXML
+    private Label overdueCountLabel;
+
+    @FXML
     private HBox overdueNav;
 
     @FXML
     private HBox overviewContainer;
 
     @FXML
+    private Label requestCountLabel;
+
+    @FXML
     private HBox requestNav;
 
     @FXML
-    private HBox returnNav;
+    private HBox lentNav;
+
+    @FXML
+    private ImageView filter;
+
+    @FXML
+    private Label returnedCountLabel;
 
     @FXML
     private TextField searchField;
 
-    @FXML
-    private TextField searchField1;
-
-    private DocumentDao documentDao=new DocumentDao();
-    List<Document> documentList=new ArrayList<>();
+    private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
+    List<BorrowingRecord> brList=new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        documentList=getDocumentList();
-        bookDetailContainer.setCellFactory(param ->
-        {
-            BookInfoCell bookInfoCell=new BookInfoCell();
-            bookInfoCell.setListView(bookDetailContainer);
-            return bookInfoCell;
-        });
-        bookDetailContainer.getItems().setAll(documentList);
 
+        brList=getBrList();
+        returnDetailContainer.setCellFactory(param ->
+        {
+            ReturnBookCell returnBookCell=new ReturnBookCell();
+            returnBookCell.setListView(returnDetailContainer);
+            return returnBookCell;
+        });
+        returnDetailContainer.getItems().setAll(brList);
+
+        allNav.setOnMouseClicked(event -> {
+            String userFullName=memNameLabel.getText();
+            BookInfoController controller = navigateToScene("/fxml/Admin/Books/BookInfo.fxml", allNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+            }
+        });
         lentNav.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
             LentBookController controller = navigateToScene("/fxml/Admin/Books/LentBook.fxml", lentNav);
@@ -99,16 +123,9 @@ public class BookInfoController implements Initializable {
                 controller.setUserFullName(userFullName);
             }
         });
-        returnNav.setOnMouseClicked(event -> {
-            String userFullName=memNameLabel.getText();
-            ReturnBookController controller=navigateToScene("/fxml/Admin/Books/ReturnBook.fxml", returnNav);
-            if (controller != null) {
-                controller.setUserFullName(userFullName);
-            }
-        });
         overviewContainer.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
-            AdminDashboardController controller= navigateToScene("/fxml/Admin/Dashboard/adminDashboard.fxml", overviewContainer);
+            AdminDashboardController controller= navigateToScene("/fxml/Admin//BookInfo.fxml", membersContainer);
             if (controller != null) {
                 controller.setUserFullName(userFullName);
             }
@@ -120,16 +137,19 @@ public class BookInfoController implements Initializable {
                 controller.setUserFullName(userFullName);
             }
         });
-        lendButton.setOnAction(event -> showLendBookScene(bookInfoRoot));
-
+        lendButton.setOnMouseClicked(event-> showLendBookScene(returnedBookRoot));
+        filter.setOnMouseClicked(event->showPopup(filter, event));
+        addBookButton.setOnMouseClicked(event->showAddBookScene(returnedBookRoot));
     }
 
-    private List<Document> getDocumentList() {
-        return documentDao.getAll();
+    private List<BorrowingRecord> getBrList() {
+        return borrowingRecordDao.getReturned();
+
     }
 
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
     }
+
 
 }

@@ -1,7 +1,7 @@
-package com.library.controller.members;
+package com.library.controller.admin.members;
 
-import com.library.controller.books.BookInfoController;
-import com.library.controller.dashboard.AdminDashboardController;
+import com.library.controller.admin.books.BookInfoController;
+import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.dao.UserDao;
 import com.library.models.User;
 import javafx.fxml.FXML;
@@ -11,16 +11,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -57,6 +60,9 @@ public class MemInfoController implements Initializable {
     private HBox overviewContainer;
 
     @FXML
+    private ImageView filter;
+
+    @FXML
     private TextField searchField;
 
     @FXML
@@ -64,9 +70,6 @@ public class MemInfoController implements Initializable {
 
     @FXML
     private HBox settingContainer;
-
-    @FXML
-    private HBox studentNav;
 
     private UserDao userDao=new UserDao();
     List<User> userList=new ArrayList<>();
@@ -98,7 +101,7 @@ public class MemInfoController implements Initializable {
         });
         addMem.setOnMouseClicked(event->showAddMemScene());
         lendButton.setOnAction(event -> showLendBookScene(memInfoRoot));
-
+        filter.setOnMouseClicked(event->showPopup(filter, event));
     }
 
     public List<User> getUserList(){

@@ -104,38 +104,6 @@ public class DocumentDao implements DAO<Document> {
         return documents;
     }
 
-
-    //get a document by ISBN
-    public <U> Document get(U isbn) throws SQLException {
-        String selectSql = "SELECT * FROM documents WHERE isbn = ?";
-
-        try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement ps = connection.prepareStatement(selectSql)) {
-
-            ps.setString(1, (String) isbn);
-            ResultSet resultSet = ps.executeQuery();
-
-            if (resultSet.next()) {
-                Document doc = new Document();
-                doc.setISBN(resultSet.getString("isbn"));
-                doc.setTitle(resultSet.getString("title"));
-                doc.setAuthorId(resultSet.getInt("author_id"));
-                doc.setPublisherId(resultSet.getInt("publisher_id"));
-                doc.setCategoryId(resultSet.getInt("category_id"));
-                doc.setPublicationYear(resultSet.getInt("publication_year"));
-                doc.setQuantity(resultSet.getInt("quantity"));
-                doc.setPage(resultSet.getInt("pages"));  // Get number_of_pages
-                doc.setDescription(resultSet.getString("description"));
-                doc.setLocation(resultSet.getString("location"));
-                doc.setPreviewLink(resultSet.getString("preview_link"));
-                doc.setImageLink(resultSet.getString("book_image"));  // Get book_image
-                return doc;
-            }
-        }
-
-        return null;
-    }
-
     //search book by title
     public List<Document> searchByTitle(String title) {
         List<Document> documents = new ArrayList<>();
@@ -179,7 +147,95 @@ public class DocumentDao implements DAO<Document> {
         return documents;
     }
 
+    //get list of available books
+    public List<Document> getAvailableList() {
+        String sql = "select * from documents where quantity > 0";
+        List<Document> documents = new ArrayList<>();
+        try(Connection conn=DatabaseConfig.getConnection();
+        PreparedStatement ps=conn.prepareStatement(sql);
+        ResultSet rs=ps.executeQuery()) {
+            while (rs.next()) {
+                String isbn = rs.getString("isbn");
+                String title = rs.getString("title");
+                int categoryId = rs.getInt("category_id");
+                int authorId = rs.getInt("author_id");
+                int publisherId = rs.getInt("publisher_id");
+                int publicationYear = rs.getInt("publication_year");
+                int quantity = rs.getInt("quantity");
+                int page = rs.getInt("pages");
+                String description = rs.getString("description");
+                String location = rs.getString("location");
+                String imageUrl = rs.getString("book_image");
+                String previewUrl = rs.getString("preview_link");
+                documents.add(new Document(isbn, title, categoryId, authorId, publisherId, publicationYear, quantity, description, location, page, previewUrl, imageUrl));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+        return documents;
+    }
 
+    //get list of lost books
+    public List<Document> getLostList() {
+        String sql = "select * from documents d\n"
+                + "join borrowingrecords b on b.isbn=d.isbn\n"
+                + "where b.status = 'Lost'";
+        List<Document> documents = new ArrayList<>();
+        try(Connection conn=DatabaseConfig.getConnection();
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery()) {
+            while (rs.next()) {
+                String isbn = rs.getString("isbn");
+                String title = rs.getString("title");
+                int categoryId = rs.getInt("category_id");
+                int authorId = rs.getInt("author_id");
+                int publisherId = rs.getInt("publisher_id");
+                int publicationYear = rs.getInt("publication_year");
+                int quantity = rs.getInt("quantity");
+                int page = rs.getInt("pages");
+                String description = rs.getString("description");
+                String location = rs.getString("location");
+                String imageUrl = rs.getString("book_image");
+                String previewUrl = rs.getString("preview_link");
+                documents.add(new Document(isbn, title, categoryId, authorId, publisherId, publicationYear, quantity, description, location, page, previewUrl, imageUrl));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+        return documents;
+    }
+
+
+    //get a document by ISBN
+    public <U> Document get(U isbn) throws SQLException {
+        String selectSql = "SELECT * FROM documents WHERE isbn = ?";
+
+        try (Connection connection = DatabaseConfig.getConnection();
+             PreparedStatement ps = connection.prepareStatement(selectSql)) {
+
+            ps.setString(1, (String) isbn);
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                Document doc = new Document();
+                doc.setISBN(resultSet.getString("isbn"));
+                doc.setTitle(resultSet.getString("title"));
+                doc.setAuthorId(resultSet.getInt("author_id"));
+                doc.setPublisherId(resultSet.getInt("publisher_id"));
+                doc.setCategoryId(resultSet.getInt("category_id"));
+                doc.setPublicationYear(resultSet.getInt("publication_year"));
+                doc.setQuantity(resultSet.getInt("quantity"));
+                doc.setPage(resultSet.getInt("pages"));  // Get number_of_pages
+                doc.setDescription(resultSet.getString("description"));
+                doc.setLocation(resultSet.getString("location"));
+                doc.setPreviewLink(resultSet.getString("preview_link"));
+                doc.setImageLink(resultSet.getString("book_image"));  // Get book_image
+                return doc;
+            }
+        }
+
+        return null;
+    }
 
     //delete doc
     public void delete(Document doc) throws SQLException {

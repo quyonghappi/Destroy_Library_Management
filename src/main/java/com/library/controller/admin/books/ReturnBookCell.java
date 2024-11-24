@@ -1,4 +1,4 @@
-package com.library.controller.books;
+package com.library.controller.admin.books;
 
 import com.library.models.BorrowingRecord;
 import javafx.fxml.FXMLLoader;
@@ -8,23 +8,23 @@ import javafx.scene.layout.HBox;
 
 import java.sql.SQLException;
 
-public class LentBookCell extends ListCell<BorrowingRecord> {
-    private HBox lentBox;
-    private LentBookCellController lentBookCellController;
+public class ReturnBookCell extends ListCell<BorrowingRecord> {
+    private HBox returnBox;
+    private ReturnBookCellController returnBookCellController;
 
-    public LentBookCell() {
+    public ReturnBookCell() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Books/LentInfoCell.fxml"));
-            lentBox = loader.load();
-            lentBookCellController = loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Books/ReturnBookCell.fxml"));
+            returnBox = loader.load();
+            returnBookCellController = loader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void setListView(ListView<BorrowingRecord> listView) {
-        if(lentBox != null) {
-            lentBookCellController.setListView(listView);
+        if(returnBox != null) {
+            returnBookCellController.setListView(listView);
         }
     }
 
@@ -37,8 +37,8 @@ public class LentBookCell extends ListCell<BorrowingRecord> {
         }
         else {
             try {
-                lentBookCellController.loadLentBook(item);
-                setGraphic(lentBox);
+                returnBookCellController.loadReturnedBook(item);
+                setGraphic(returnBox);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

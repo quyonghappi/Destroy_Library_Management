@@ -1,7 +1,5 @@
 package com.library.utils;
 
-import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -14,7 +12,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 
 public class SceneSwitcher {
     public static void switchScene(Stage stage, Scene newScene) {
@@ -47,9 +44,9 @@ public class SceneSwitcher {
 
     }
 
+    //navigate to lend book scene by lend book button in sidebar
     public static void showLendBookScene(StackPane root) {
         try {
-
             Rectangle darkBackground = new Rectangle();
             darkBackground.setFill(Color.color(0, 0, 0, 0.7)); //black with 70% opacity
             darkBackground.widthProperty().bind(root.widthProperty());
@@ -65,6 +62,29 @@ public class SceneSwitcher {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("fail to load lend book scene");
+        }
+    }
+
+    /*navigate to add book scene by clicking on
+    add book label in all scenes about books
+     */
+    public static void showAddBookScene(StackPane root) {
+        //create dark layer overlay previous scene to emphasize new scene
+        try {
+            Rectangle darkBackground = new Rectangle();
+            darkBackground.setFill(Color.color(0, 0, 0, 0.7)); //black with 70% opacity
+            darkBackground.widthProperty().bind(root.widthProperty());
+            darkBackground.heightProperty().bind(root.heightProperty());
+            FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/fxml/Admin/Books/AddBook.fxml"));
+            StackPane addBookScene = loader.load();
+            addBookScene.setStyle("-fx-background-color: #F8FCFF");
+            root.getChildren().addAll(darkBackground, addBookScene);
+            addBookScene.lookup("#cancelButton").setOnMouseClicked(event -> {
+                root.getChildren().removeAll(darkBackground, addBookScene);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("fail to load add book scene");
         }
     }
 }

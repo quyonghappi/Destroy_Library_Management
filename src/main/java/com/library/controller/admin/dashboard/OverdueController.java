@@ -1,4 +1,4 @@
-package com.library.controller.dashboard;
+package com.library.controller.admin.dashboard;
 
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
@@ -8,18 +8,13 @@ import com.library.models.BorrowingRecord;
 import com.library.models.Document;
 import com.library.models.Fine;
 import com.library.models.User;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 
@@ -50,7 +45,6 @@ public class OverdueController {
     private UserDao userDao=new UserDao();
     private FineDao fineDao=new FineDao();
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
-    private static final Map<String, Image> imageCache = new HashMap<>();
 
     private ListView<Fine> lv;
     private Fine currentFine;
@@ -87,7 +81,7 @@ public class OverdueController {
                     overdueLabel.setText(fineDao.daysOverdue(borrowingRecord)+ " days");
 
                     if (!document.getImageLink().equals("N/A")) {
-                        loadImageLazy(document.getImageLink(), bookImage);
+                        loadImageLazy(document.getImageLink(), bookImage, 50, 60);
                     }
                 } else {
                     bookNameLabel.setText("N/A");

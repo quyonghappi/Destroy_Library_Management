@@ -1,4 +1,4 @@
-package com.library.controller.members;
+package com.library.controller.admin.members;
 
 import com.library.dao.UserDao;
 import com.library.models.User;
@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
@@ -37,7 +38,18 @@ public class AddMemController {
         String username = usernameField.getText();
 
         if (validateInput(email, fullName, username)) {
-            userDao.add(new User(email, fullName, username, username));
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirm Add Member");
+            confirmationAlert.setHeaderText("Confirm Member Details");
+            confirmationAlert.setContentText("Are you sure you want to add this member: \n\n" +
+                    "Email: " + email + "\n" +
+                    "Full name: " + fullName + "\n" +
+                    "username: " + username);
+            confirmationAlert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    userDao.add(new User(email, fullName, username, username));
+                }
+            });
         }
     }
 

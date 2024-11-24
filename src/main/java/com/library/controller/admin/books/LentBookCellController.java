@@ -1,4 +1,4 @@
-package com.library.controller.books;
+package com.library.controller.admin.books;
 
 import com.library.dao.DocumentDao;
 import com.library.dao.UserDao;
@@ -15,8 +15,7 @@ import java.sql.SQLException;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 
-public class ReturnBookCellController {
-
+public class LentBookCellController {
     @FXML
     private Label authorLabel;
 
@@ -36,7 +35,13 @@ public class ReturnBookCellController {
     private Label isbnLabel;
 
     @FXML
-    private Label returndateLabel;
+    private ImageView lostImage;
+
+    @FXML
+    private ImageView returnImage;
+
+    @FXML
+    private Label statusLabel;
 
     @FXML
     private Label userIdLabel;
@@ -46,6 +51,7 @@ public class ReturnBookCellController {
 
     private ListView<BorrowingRecord> listView;
     private BorrowingRecord currentBr;
+
     private DocumentDao documentDao = new DocumentDao();
     private UserDao userDao = new UserDao();
 
@@ -53,26 +59,26 @@ public class ReturnBookCellController {
         this.listView = listView;
     }
 
-    public void loadReturnedBook(BorrowingRecord br) throws SQLException {
-        if (br != null) {
+    public void loadLentBook(BorrowingRecord br) throws SQLException {
+        if (br!=null) {
             currentBr = br;
-            Document doc = documentDao.get(br.getISBN());
-            Author author = documentDao.getAuthor(doc.getAuthorId());
+            Document doc=documentDao.get(br.getISBN());
+            Author author=documentDao.getAuthor(doc.getAuthorId());
             authorLabel.setText(author.getName());
             isbnLabel.setText(doc.getISBN());
             bookNameLabel.setText(doc.getTitle());
 
-            User user = userDao.get(br.getUserId());
+            User user= userDao.get(br.getUserId());
             userIdLabel.setText(String.valueOf(user.getUserId()));
             userLabel.setText(user.getFullName());
 
             brdateLabel.setText(String.valueOf(br.getBorrowDate()));
             duedateLabel.setText(String.valueOf(br.getBorrowDate().plusDays(14)));
-            returndateLabel.setText(String.valueOf(br.getReturnDate()));
 
             if (!doc.getImageLink().equals("N/A")) {
-                loadImageLazy(doc.getImageLink(), bookImage);
+                loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());
             }
         }
+
     }
 }

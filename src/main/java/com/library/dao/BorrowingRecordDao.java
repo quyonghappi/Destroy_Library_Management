@@ -2,11 +2,9 @@ package com.library.dao;
 
 import com.library.config.DatabaseConfig;
 import com.library.models.BorrowingRecord;
-import com.library.models.Fine;
 import com.library.utils.DateFormat;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,27 +61,28 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         return getRecord(sql);
     }
 
-    //get late
-    public List<BorrowingRecord> getLate() {
-        List<BorrowingRecord> list = getLent();
-        FineDao fineDao = new FineDao();
-        for (BorrowingRecord borrowingRecord : list) {
-            fineDao.checkAndAddFine(borrowingRecord);
-        }
-        String sql = "select * from borrowingrecords where status='late'";
-        return getRecord(sql);
-    }
+//    //get late
+//    public List<BorrowingRecord> getLate() {
+//        List<BorrowingRecord> list = getLent();
+//        FineDao fineDao = new FineDao();
+//        for (BorrowingRecord borrowingRecord : list) {
+//            fineDao.checkAndAddFine(borrowingRecord);
+//        }
+//        String sql = "select * from borrowingrecords where status='late'";
+//        List<BorrowingRecord> lateList = getRecord(sql);
+//        return lateList;
+//    }
 
-    //get lost
-    public List<BorrowingRecord> getLost() {
-        List<BorrowingRecord> list = getLent();
-        FineDao fineDao = new FineDao();
-        for (BorrowingRecord borrowingRecord : list) {
-            fineDao.checkAndAddFine(borrowingRecord);
-        }
-        String sql = "select * from borrowingrecords where status='Lost'";
-        return getRecord(sql);
-    }
+//    //get lost, already have this in doc dao
+//    public List<BorrowingRecord> getLost() {
+//        List<BorrowingRecord> list = getLent();
+//        FineDao fineDao = new FineDao();
+//        for (BorrowingRecord borrowingRecord : list) {
+//            fineDao.checkAndAddFine(borrowingRecord);
+//        }
+//        String sql = "select * from borrowingrecords where status='Lost'";
+//        return getRecord(sql);
+//    }
 
     private List<BorrowingRecord> getRecord(String sql) {
         List<BorrowingRecord> list = new ArrayList<BorrowingRecord>();
@@ -132,8 +131,8 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         }
     }
 
-    //update when user return book or otherwise
-    public void update(BorrowingRecord br) throws SQLException {
+    //update when user return book or a borrow is overdue
+    public void update(BorrowingRecord br) {
         String sql="update borrowingrecords set status=?, return_date=? where record_id=?";
         try(
                 Connection conn=DatabaseConfig.getConnection();
@@ -149,13 +148,13 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
     }
 
 
-    public void returnDoc(BorrowingRecord br) throws SQLException {
-        br.setStatus("returned");
-        br.setReturnDate(LocalDateTime.now());
-        update(br);
-        DocumentDao documentDao = new DocumentDao();
-        documentDao.updateQuantity(br.getISBN(), br.getStatus());
-    }
+//    public void returnDoc(BorrowingRecord br) throws SQLException {
+//        br.setStatus("returned");
+//        br.setReturnDate(LocalDateTime.now());
+//        update(br);
+//        DocumentDao documentDao = new DocumentDao();
+//        documentDao.updateQuantity(br.getISBN(), br.getStatus());
+//    }
 
     //get borrowing record by id
     public BorrowingRecord get(int id) {
@@ -174,7 +173,7 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
                 borrowingRecord.setISBN(rs.getString("isbn"));
                 borrowingRecord.setBorrowDate(rs.getTimestamp("borrow_date").toLocalDateTime());
                 borrowingRecord.setStatus(rs.getString("status"));
-                //neu chua return thi return date bang null so we have to check
+                //neu chua return thi return date bang null so we have to Check
                 if (rs.getString("status").equals("returned")) {
                     borrowingRecord.setReturnDate(rs.getTimestamp("return_date").toLocalDateTime());
                 }

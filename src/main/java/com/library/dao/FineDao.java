@@ -15,7 +15,13 @@ import java.util.List;
 
 public class FineDao implements DAO<Fine> {
 
+    //get all fines in db
     public List<Fine> getAll() {
+        List<BorrowingRecord> br = new BorrowingRecordDao().getLent();
+        for (BorrowingRecord brr : br) {
+            checkAndAddFine(brr);
+        }
+
         String sql = "select * from Fines";
         List<Fine> fineList = new ArrayList<>();
 
@@ -38,7 +44,55 @@ public class FineDao implements DAO<Fine> {
         return fineList;
     }
 
-    //get fine details with record id
+    //get list of paid fines
+    public List<Fine> getPaid() {
+        List<Fine> paidList = new ArrayList<>();
+        String sql="select * from Fines where status = 'PAIN'";
+        try(Connection conn= DatabaseConfig.getConnection();
+        PreparedStatement ps=conn.prepareStatement(sql);
+        ResultSet rs=ps.executeQuery();
+        ) {
+            while (rs.next()) {
+                Fine fine = new Fine();
+                fine.setFineId(rs.getInt(1));
+                fine.setUserId(rs.getInt(2));
+                fine.setRecordId(rs.getInt(3));
+                fine.setFineAmount(rs.getBigDecimal(4));
+                fine.setDueDate(rs.getDate(5).toLocalDate());
+                fine.setStatus(rs.getString(6));
+                paidList.add(fine);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return paidList;
+    }
+
+    //get list of unpaid fines
+    public List<Fine> getUnpaid() {
+        List<Fine> unpaidList = new ArrayList<>();
+        String sql="select * from Fines where status = 'UNPAID'";
+        try(Connection conn= DatabaseConfig.getConnection();
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+        ) {
+            while (rs.next()) {
+                Fine fine = new Fine();
+                fine.setFineId(rs.getInt(1));
+                fine.setUserId(rs.getInt(2));
+                fine.setRecordId(rs.getInt(3));
+                fine.setFineAmount(rs.getBigDecimal(4));
+                fine.setDueDate(rs.getDate(5).toLocalDate());
+                fine.setStatus(rs.getString(6));
+                unpaidList.add(fine);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return unpaidList;
+    }
+
+    //get fine details with borrowing record id
     public <U> Fine get(U id) {
         if (!(id instanceof Integer)) {
             throw new IllegalArgumentException("Expected an Integer for recordId");
@@ -66,7 +120,7 @@ public class FineDao implements DAO<Fine> {
         return fine;
     }
 
-    //if it was paid
+    //truong hop user gia han sau khi fine duoc tao thi minh delete
     public void delete(Fine fine) {
         String sql="delete from fines where fines.record_id=?";
         try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)) {
@@ -81,12 +135,16 @@ public class FineDao implements DAO<Fine> {
     public void checkAndAddFine(BorrowingRecord br) {
         LocalDateTime dueDate = br.getBorrowDate().plusDays(14);
         boolean getFine = br.getStatus().equals("lost");
-        if (isOverdue(dueDate)) br.setStatus("late");
+        if (isOverdue(dueDate)) {
+            br.setStatus("late");
+            BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
+            //System.out.println("Updating status to 'late' for record ID: " + br.getRecordId());
+            borrowingRecordDao.update(br);
+        }
         if (isOverdue(dueDate) || getFine) {
+            System.out.println("Adding fine for record ID: " + br.getRecordId());
             add(br);
         }
-
-
     }
 
     public <U> void add(U r) {
@@ -104,10 +162,11 @@ public class FineDao implements DAO<Fine> {
             ps.setDouble(3,calculateFine(record));
             ps.setObject(4,LocalDate.now().plusDays(7));
             ps.setString(5,"UNPAID");
+
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 
@@ -132,6 +191,7 @@ public class FineDao implements DAO<Fine> {
         return LocalDateTime.now().isAfter(dueDate);
     }
 
+    //change fine status if it was paid
     public void changeFineStatus(int recordId) {
         String sql = "UPDATE fines SET status=? WHERE record_id=?";
         try (Connection conn = DatabaseConfig.getConnection();
@@ -139,16 +199,13 @@ public class FineDao implements DAO<Fine> {
         ) {
             ps.setString(1,"PAID");
             ps.setInt(2, recordId);
-//            int rowsAffected=ps.executeUpdate();
-//            if (rowsAffected>0) {
-//
-//            }
-
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    //get fine information by user id
     public List<Fine> getFinesByUserId(int userId) {
         List<Fine> fines = new ArrayList<>();
         String sql = "SELECT * FROM fines WHERE user_id=?";

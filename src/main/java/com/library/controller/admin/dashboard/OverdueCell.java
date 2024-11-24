@@ -1,4 +1,4 @@
-package com.library.controller.dashboard;
+package com.library.controller.admin.dashboard;
 
 import com.library.models.Fine;
 import javafx.fxml.FXMLLoader;

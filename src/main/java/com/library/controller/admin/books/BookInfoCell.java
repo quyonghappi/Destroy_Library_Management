@@ -1,4 +1,4 @@
-package com.library.controller.books;
+package com.library.controller.admin.books;
 
 import com.library.models.Document;
 import javafx.fxml.FXMLLoader;

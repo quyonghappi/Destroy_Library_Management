@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="rootPane" alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../../css/adminLogin.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.start.LoginAdminController">
+<HBox fx:id="rootPane" alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../../css/AdminLogin.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.start.LoginAdminController">
    <children>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="419.0">
          <children>
@@ -37,7 +37,7 @@
                         <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="308.0" promptText="Username" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;" />
                         <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../ui/start/user.png" />
+                              <Image url="@../../images/user-line.png" />
                            </image>
                            <HBox.margin>
                               <Insets top="10.0" />
@@ -50,10 +50,10 @@
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;">
                      <children>
-                        <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="309.0" promptText="Password" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;" stylesheets="@../../css/adminLogin.css" />
+                        <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="309.0" promptText="Password" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;" stylesheets="@../../css/AdminLogin.css" />
                         <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../ui/start/user.png" />
+                              <Image url="@../../images/lock-line.png" />
                            </image>
                            <HBox.margin>
                               <Insets top="10.0" />

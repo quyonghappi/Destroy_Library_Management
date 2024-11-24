@@ -28,16 +28,18 @@
 }
 
 .sidebar {
-    -fx-background-color:white;
+    /*white will start at 25% of bar*/
+    -fx-background-color: linear-gradient(to right, #283055 25%, white 25%);
     -fx-padding: 10;
 }
 
 .nav-container {
-    -fx-padding: 10;
+    -fx-padding: 10 10 10 17;
+    -fx-spacing: 35;
 }
 
 .chosen-container {
-    -fx-background-color: #e0effc;
+    -fx-background-color: linear-gradient(to right, #293A65 26.3%, #e0effc 26.3%);
     -fx-text-fill:#28324D;
     /*-fx-padding: 10;*/
     -fx-background-radius: 0 25 25 0;
@@ -77,7 +79,7 @@
 .nav-container:hover {
     /* border radius chi khi co border thoi*/
     -fx-background-radius: 0 25px 25px 0;
-    -fx-border-width: 0 0 0 4;
+    -fx-border-width: 0 0 0 5;
     -fx-border-color: #309aee;
 }
 #overviewContainer:hover .image-view{
@@ -107,6 +109,7 @@
 
 .small-label {
     -fx-text-fill: #8a9199;
+    -fx-font-size: 14px;
 }
 
 .search-box {
@@ -248,12 +251,12 @@
     -fx-font-size: 13px;
 }
 .book-info-chosen-container {
-    -fx-border-width: 0 0 4 0;
+    -fx-border-width: 0 0 5 0;
     -fx-border-color: #309aee;
 }
 
 .book-info-container:hover {
-    -fx-border-width: 0 0 4 0;
+    -fx-border-width: 0 0 5 0;
     -fx-border-color: #309aee;
 }
 
@@ -261,5 +264,24 @@
     -fx-background-color: #FAFBFC;
 }
 
+#filter:pressed {
+    -fx-scale-x: 1.1 ;
+    -fx-scale-y: 1.1 ;
+}
 
+.popup-listview {
+    -fx-border-radius: 5;
+    -fx-font-size: 13px;
+    -fx-border-color: #CAD6E4;
+    -fx-border-width: 1px;
+    -fx-font-family: "Segoe UI";
+}
+
+.popup-listview .list-cell {
+    -fx-background-color: #F8FCFF;
+}
+
+.popup-listview .list-cell:hover {
+    -fx-background-color: #F3F6FD;
+}
 

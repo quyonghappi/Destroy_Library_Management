@@ -8,12 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservationDao {
+public class ReservationDao  {
     //use for denying or approving reservation, when approve thi phai add new record vao borrowing
     public void delete(Reservation reservation) {
         String sql="delete from reservations where reservation_id=?";
@@ -45,6 +44,48 @@ public class ReservationDao {
     //get reservation list
     public List<Reservation> getReservations() {
         String sql="select * from reservations";
+        List<Reservation> reservations = new ArrayList<Reservation>();
+        try(Connection con= DatabaseConfig.getConnection();
+            PreparedStatement ps=con.prepareStatement(sql)) {
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()) {
+                int reservation_id=rs.getInt("reservation_id");
+                int user_id=rs.getInt("user_id");
+                String isbn=rs.getString("isbn");
+                LocalDateTime date=rs.getTimestamp("reservation_date").toLocalDateTime();
+                String status=rs.getString("status");
+                reservations.add(new Reservation(reservation_id,user_id,isbn,date,status));
+            }
+        } catch(SQLException e){
+            throw new RuntimeException();
+        }
+        return reservations;
+    }
+
+    //get fulfilled list
+    public List<Reservation> getFulfilledReservations() {
+        String sql="select * from reservations where status = 'fulfilled' ";
+        List<Reservation> reservations = new ArrayList<Reservation>();
+        try(Connection con= DatabaseConfig.getConnection();
+            PreparedStatement ps=con.prepareStatement(sql)) {
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()) {
+                int reservation_id=rs.getInt("reservation_id");
+                int user_id=rs.getInt("user_id");
+                String isbn=rs.getString("isbn");
+                LocalDateTime date=rs.getTimestamp("reservation_date").toLocalDateTime();
+                String status=rs.getString("status");
+                reservations.add(new Reservation(reservation_id,user_id,isbn,date,status));
+            }
+        } catch(SQLException e){
+            throw new RuntimeException();
+        }
+        return reservations;
+    }
+
+    //get cancelled reservation
+    public List<Reservation> getCancelledReservations() {
+        String sql="select * from reservations where status = 'cancelled' ";
         List<Reservation> reservations = new ArrayList<Reservation>();
         try(Connection con= DatabaseConfig.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)) {

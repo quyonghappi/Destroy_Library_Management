@@ -1,4 +1,4 @@
-package com.library.controller.books;
+package com.library.controller.admin.books;
 
 import com.library.dao.DocumentDao;
 import com.library.dao.ReservationDao;
@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+
 import static com.library.utils.LoadImage.loadImageLazy;
 
 public class BookInfoCellController extends ListCell<Document> {
@@ -52,26 +53,29 @@ public class BookInfoCellController extends ListCell<Document> {
     private Publisher publisher=new Publisher();
     private Author author = new Author();
 
+//    private static final Map<String, Image> imageCache = new HashMap<String, Image>();
+
     public void setListView(ListView<Document> listView) {
         this.listView = listView;
     }
     public void loadDocument(Document document) {
         if (document != null) {
-        currentDocument = document;
-        isbnLabel.setText(document.getISBN());
-        bookNameLabel.setText(document.getTitle());
-        locationLabel.setText(document.getLocation());
-        publisher=documentDao.getPublisher(document.getPublisherId());
-        author=documentDao.getAuthor(document.getAuthorId());
-        if (publisher.getName() != null) {
-            publisherLabel.setText(publisher.getName());
-        } else publisherLabel.setText("N/A");
-        authorLabel.setText(author.getName());
-        requestLabel.setText(String.valueOf(reservationDao.getByISBN(document.getISBN())));
+            currentDocument = document;
+            isbnLabel.setText(document.getISBN());
+            bookNameLabel.setText(document.getTitle());
+            locationLabel.setText(document.getLocation());
+            publisher=documentDao.getPublisher(document.getPublisherId());
+            author=documentDao.getAuthor(document.getAuthorId());
+            if (publisher.getName() != null) {
+                publisherLabel.setText(publisher.getName());
+            } else publisherLabel.setText("N/A");
+            authorLabel.setText(author.getName());
+            //get num of request for this book
+            requestLabel.setText(String.valueOf(reservationDao.getByISBN(document.getISBN())));
 
-        // Load the image using lazy loading
+            // Load the image using lazy loading
             if (!document.getImageLink().equals("N/A")) {
-                loadImageLazy(document.getImageLink(), bookImage);
+                loadImageLazy(document.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());
             }
         }
     }

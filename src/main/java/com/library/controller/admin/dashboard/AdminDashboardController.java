@@ -1,7 +1,7 @@
-package com.library.controller.dashboard;
+package com.library.controller.admin.dashboard;
 
-import com.library.controller.books.BookInfoController;
-import com.library.controller.members.MemInfoController;
+import com.library.controller.admin.books.BookInfoController;
+import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.FineDao;
 import com.library.dao.ReservationDao;
@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -61,6 +62,9 @@ public class AdminDashboardController implements Initializable {
     private ListView<Reservation> requestDetailContainer;
 
     @FXML
+    private ImageView filter;
+
+    @FXML
     private HBox searchContainer;
 
     @FXML
@@ -82,7 +86,7 @@ public class AdminDashboardController implements Initializable {
         fineList=getFineList();
         reservationList=getReservationList();
         borrowedLabel.setText(String.valueOf(borrowingRecordDao.getLent().size()));
-        overdueBookLabel.setText(String.valueOf(borrowingRecordDao.getLate().size()));
+        overdueBookLabel.setText(String.valueOf(fineList.size()));
         visitorLabel.setText(String.valueOf(userDa0.getAll().size()));
 
         requestDetailContainer.setCellFactory(param ->
@@ -120,6 +124,7 @@ public class AdminDashboardController implements Initializable {
         overdueNav.setOnMouseClicked(event -> navigateToScene("/fxml/Admin/Books/OverdueBook.fxml", overdueNav));
         requestNav.setOnMouseClicked(event -> navigateToScene("/fxml/Admin/Books/RequestBook.fxml", requestNav));
         lendButton.setOnMouseClicked(event->showLendBookScene(dashboardRoot));
+        filter.setOnMouseClicked(event->showPopup(filter, event));
     }
 
     private List<Reservation> getReservationList() {

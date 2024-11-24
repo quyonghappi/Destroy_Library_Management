@@ -9,17 +9,9 @@ import com.library.models.Author;
 import com.library.models.Category;
 import com.library.models.Document;
 import com.library.models.Publisher;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URLEncoder;
-//import java.awt.List;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +35,7 @@ public class GoogleBooksAPIClient {
 
     //get book data, minh nen search bang ten sach vi viec collect isbn kho hon so voi viec collect ten sach
     //to khong de static duoc vi requestTimestamp nonstatic
-    public void getBookData(String term) throws Exception {
+    public void getBookData(String term, int quantity) throws Exception {
         //solve call limit per minute, tai vi limit 100 calls/min
         long currentTime = System.currentTimeMillis();
         requestTimestamp.removeIf(timestamp -> currentTime - timestamp > 60000);
@@ -59,41 +51,38 @@ public class GoogleBooksAPIClient {
             }
         }
 
-            String url = String.format(API_URL, term, APIConfig.GOOGLE_BOOKS_API_KEY);
+        String url = String.format(API_URL, term, APIConfig.GOOGLE_BOOKS_API_KEY);
 //        HttpClient client = HttpClient.newHttpClient();
 //        HttpRequest request = HttpRequest.newBuilder()
 //                .uri(URI.create(API_URL))
 //                .build();
 
-            //okhttp nhanh hon
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
+        //okhttp nhanh hon
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
 
-            client.newCall(request).enqueue(new Callback() {
+        client.newCall(request).enqueue(new Callback() {
 
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    System.err.println("Request failed: " + e.getMessage());
-                    e.printStackTrace();
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.err.println("Request failed: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String jsonData = response.body().string();
+                    printApiResponse(jsonData);
+                    parseBooks(jsonData, quantity);
+                } else {
+                    String errorBody = response.body().string(); //read the error body for more details
+                    System.out.println("Error: " + response.code() + " - " + response.message());
+                    System.out.println("Error Body: " + errorBody); //print the error message from api
                 }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if (response.isSuccessful()) {
-                        String jsonData = response.body().string();
-                        printApiResponse(jsonData);
-                        parseBooks(jsonData);
-                    } else {
-                        String errorBody = response.body().string(); //read the error body for more details
-                        System.out.println("Error: " + response.code() + " - " + response.message());
-                        System.out.println("Error Body: " + errorBody); //print the error message from api
-                    }
-                }
-
-            });
-        //HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+            }
+        });
     }
 
     private void printApiResponse(String jsonData) {
@@ -104,7 +93,7 @@ public class GoogleBooksAPIClient {
     }
 
 
-    private void parseBooks(String jsonData) {
+    private void parseBooks(String jsonData, int quantity) {
         //convert json string into a json object
         //to interact with the data
         JsonObject jsonObject = gson.fromJson(jsonData, JsonObject.class);
@@ -122,7 +111,6 @@ public class GoogleBooksAPIClient {
                 String authorName = volumeInfo.has("authors") ? volumeInfo.get("authors").getAsJsonArray().get(0).getAsString() : "Unknown";
                 String publisherName = volumeInfo.has("publisher") ? volumeInfo.get("publisher").getAsString() : "Unknown";
                 String categoryName = volumeInfo.has("categories") ? volumeInfo.get("categories").getAsJsonArray().get(0).getAsString() : "General";
-//                String s = volumeInfo.has("publishedDate") ? volumeInfo.get("publishedDate").getAsString().substring(0, 4) + "";
                 int publicationYear = volumeInfo.has("publishedDate") ? Integer.parseInt(volumeInfo.get("publishedDate").getAsString().substring(0, 4)) : 0;
                 String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : "N/A";
 
@@ -145,7 +133,6 @@ public class GoogleBooksAPIClient {
                     previewLink = volumeInfo.has("previewLink") ? volumeInfo.get("previewLink").getAsString() : "N/A";
                 }
 
-
                 Document doc = new Document();
                 doc.setTitle(title + " " + subtitle);
                 doc.setISBN(isbn);
@@ -153,6 +140,7 @@ public class GoogleBooksAPIClient {
                 doc.setDescription(description);
                 doc.setPreviewLink(previewLink);
                 doc.setPage(pages);
+                doc.setQuantity(quantity);
                 doc.setImageLink(imageLink);  //set imageLink in document
 //
 //                if ("N/A".equals(title)) {
@@ -255,25 +243,24 @@ public class GoogleBooksAPIClient {
     }
 
     public static void main(String[] args) {
-        String file = "src/main/java/com/library/api/programming_books.txt";
+        //String file = "src/main/java/com/library/api/programming_books.txt";
         GoogleBooksAPIClient newClient = new GoogleBooksAPIClient();
-        String isbn;
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-
-            while ((isbn = br.readLine()) != null) {
-                isbn = isbn.substring(2, isbn.length() - 3);
-                if (!isbn.trim().isEmpty()) newClient.getBookData(isbn.trim());
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        try {
-//            String isbn = "9780132350884";
-//            newClient.getBookData(isbn.trim());
+//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+//            String bookName;
+//            while ((bookName = br.readLine()) != null) {
+//                if (!bookName.trim().isEmpty()) newClient.getBookData(bookName.trim());
+//            }
+//
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+        String isbn="9780735636972";
+        int quantity=10;
+        try {
+            newClient.getBookData(isbn.trim(),quantity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
