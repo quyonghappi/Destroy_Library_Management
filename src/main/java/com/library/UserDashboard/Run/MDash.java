@@ -12,7 +12,7 @@ public class MDash extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             // Load FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/user_dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/search_screen.fxml"));
             Parent root = loader.load();
 
             // Create scene with root node

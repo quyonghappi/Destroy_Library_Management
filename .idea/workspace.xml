@@ -36,8 +36,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="module-info" />
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -163,7 +163,7 @@
       <workItem from="1730938437224" duration="13070000" />
       <workItem from="1731055092881" duration="52000" />
       <workItem from="1731860552163" duration="24629000" />
-      <workItem from="1732163909934" duration="48996000" />
+      <workItem from="1732163909934" duration="51557000" />
     </task>
     <task id="LOCAL-00001" summary="User Dashboard update, no books added yet">
       <option name="closed" value="true" />

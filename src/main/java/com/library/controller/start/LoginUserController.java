@@ -55,8 +55,8 @@ public class LoginUserController {
         if (validateInput(username, password) && check.isValidUsername(username)) {
             if (userDao.authenticateUser(username, password)) {
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                loadView(stage, "/fxml/User/user_dashboard.fxml", "User Dashboard", "styling.css");
-                showView(stage, "/fxml/User/user_dashboard.fxml", "User Dashboard", "styling.css");
+                loadView(stage, "/fxml/User/search_screen.fxml", "User Dashboard", "styling.css");
+                showView(stage, "/fxml/User/search_screen.fxml", "User Dashboard", "styling.css");
 
 
             } else {

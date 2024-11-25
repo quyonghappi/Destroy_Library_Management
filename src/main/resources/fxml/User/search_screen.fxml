@@ -9,7 +9,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="750.0" prefWidth="1466.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.library.UserDashboard.Controller.UserDashboardController">
+<AnchorPane prefHeight="750.0" prefWidth="1466.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22.0.2" fx:controller="com.library.UserDashboard.Controller.SearchScreenController">
 
     <!-- Left Sidebar -->
     <VBox alignment="CENTER" prefHeight="700.0" prefWidth="82.0" styleClass="sidebar" stylesheets="@/css/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
@@ -23,7 +23,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="homeButton" mnemonicParsing="false" styleClass="sidebar-button">
+        <Button fx:id="searchScreenButton" mnemonicParsing="false" styleClass="sidebar-button">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
                     <Image url="/icons/search_icon.png" />
@@ -57,7 +57,8 @@
         </Button>
     </VBox>
 
-    <VBox alignment="TOP_CENTER" layoutX="106.0" layoutY="13.0" prefHeight="962.0" prefWidth="1302.0" spacing="10" AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="13.0">
+    <VBox alignment="TOP_CENTER" layoutX="106.0" layoutY="13.0" prefHeight="962.0" prefWidth="1327.0" spacing="10"
+          AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="13.0">
 
         <!-- Search Bar -->
         <HBox alignment="CENTER" spacing="10">

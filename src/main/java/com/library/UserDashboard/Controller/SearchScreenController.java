@@ -25,7 +25,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
-public class UserDashboardController {
+// THIS IS A SEARCH SCREEN PAY ATTENTION
+
+public class SearchScreenController {
 
         @FXML
         private Button libraryButton; // Preserved for opening BookView
