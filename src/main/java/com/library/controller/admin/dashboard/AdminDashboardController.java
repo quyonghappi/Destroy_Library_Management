@@ -22,7 +22,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -124,7 +123,6 @@ public class AdminDashboardController implements Initializable {
         overdueNav.setOnMouseClicked(event -> navigateToScene("/fxml/Admin/Books/OverdueBook.fxml", overdueNav));
         requestNav.setOnMouseClicked(event -> navigateToScene("/fxml/Admin/Books/RequestBook.fxml", requestNav));
         lendButton.setOnMouseClicked(event->showLendBookScene(dashboardRoot));
-        filter.setOnMouseClicked(event->showPopup(filter, event));
     }
 
     private List<Reservation> getReservationList() {

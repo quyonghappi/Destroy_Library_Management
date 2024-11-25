@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -101,7 +100,6 @@ public class MemInfoController implements Initializable {
         });
         addMem.setOnMouseClicked(event->showAddMemScene());
         lendButton.setOnAction(event -> showLendBookScene(memInfoRoot));
-        filter.setOnMouseClicked(event->showPopup(filter, event));
     }
 
     public List<User> getUserList(){
