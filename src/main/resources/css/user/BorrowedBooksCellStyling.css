@@ -1,0 +1,25 @@
+/*
+{
+    -fx-background-color: #DCD4BC;
+    -fx-font-family: "Rockwell";
+    -fx-font-size: 13px;
+    -fx-border-width: 0px;
+    -fx-background-radius: 7px;
+    -fx-border-radius: 7px;
+}*/
+
+#bookImage {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+#bookImage:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
+#statusLabel {
+    /*-fx-background-color: #BACFBF;*/
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-text-fill: #274236;
+}
