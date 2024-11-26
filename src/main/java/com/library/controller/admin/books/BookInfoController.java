@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//import static com.library.utils.FilterPopup.showPopup;
+import static com.library.dao.DocumentDao.*;
 import static com.library.utils.SceneSwitcher.*;
 
 public class BookInfoController implements Initializable {
@@ -124,6 +126,7 @@ public class BookInfoController implements Initializable {
             }
         });
         lendButton.setOnAction(event -> showLendBookScene(bookInfoRoot));
+//        filter.setOnMouseClicked(event->showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(bookInfoRoot));
 
     }
@@ -179,7 +182,7 @@ public class BookInfoController implements Initializable {
     @FXML
     private void allFilter(ActionEvent event) {
         updateButtonStyles(allButton,availableButton,lostButton);
-        applyFilter(()->documentDao.getAll());
+        applyFilter(()-> documentDao.getAll());
     }
 
     @FXML

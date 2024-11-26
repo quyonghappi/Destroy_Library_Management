@@ -7,55 +7,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<!--<AnchorPane prefHeight="439.0" prefWidth="456.0" stylesheets="/css/styling.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.UserDashboard.Controller.BookDetailController">-->
-<!--    &lt;!&ndash; Main Content &ndash;&gt;-->
-<!--    <VBox alignment="CENTER" spacing="20" styleClass="book-detail-container" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">-->
-<!--        &lt;!&ndash; Book Details Section &ndash;&gt;-->
-<!--        <HBox alignment="TOP_CENTER" spacing="20" styleClass="book-detail-content">-->
-<!--            &lt;!&ndash; Book Cover &ndash;&gt;-->
-<!--            <ImageView fx:id="bookCover" fitHeight="300" fitWidth="200" preserveRatio="true" styleClass="book-cover-image" />-->
+<AnchorPane prefHeight="439.0" prefWidth="456.0" stylesheets="/css/styling.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.UserDashboard.Controller.BookDetailController">
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="20" styleClass="book-detail-container" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+        <!-- Book Details Section -->
+        <HBox alignment="TOP_CENTER" spacing="20" styleClass="book-detail-content">
+            <!-- Book Cover -->
+            <ImageView fx:id="bookCover" fitHeight="300" fitWidth="200" preserveRatio="true" styleClass="book-cover-image" />
 
-<!--            &lt;!&ndash; Book Information &ndash;&gt;-->
-<!--            <VBox alignment="TOP_LEFT" spacing="10" styleClass="book-details">-->
-<!--                <Label fx:id="bookTitle" styleClass="book-title" text="Book Title" />-->
-<!--                <Label fx:id="bookAuthor" styleClass="book-author" text="Author(s): Unknown" />-->
-<!--                <Label fx:id="bookDescription" styleClass="book-description" text="Description not available." wrapText="true" />-->
-<!--                <Label fx:id="bookPages" styleClass="book-pages" text="320 pages" />-->
-<!--                <Label fx:id="bookPublishedDate" styleClass="book-date" text="Published Date: N/A" />-->
-<!--                <Label fx:id="bookPublisher" styleClass="book-publisher" text="Publisher: Unknown" />-->
-<!--            </VBox>-->
-<!--        </HBox>-->
-
-<!--        &lt;!&ndash; Back Button &ndash;&gt;-->
-<!--        <Button fx:id="backButton" onAction="#onBackClicked" styleClass="back-button" text="BACK" />-->
-<!--    </VBox>-->
-<!--</AnchorPane>-->
-
-
-<!--        <?xml version="1.0" encoding="UTF-8"?>-->
-<!--        <?import javafx.scene.image.ImageView?>-->
-<!--        <?import javafx.scene.layout.StackPane?>-->
-<!--        <?import javafx.scene.layout.VBox?>-->
-<!--        <?import javafx.scene.control.Label?>-->
-<!--        <?import javafx.scene.control.Button?>-->
-<!--        <?import javafx.geometry.Insets?>-->
-
-<?import javafx.scene.layout.StackPane?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bookDetailPaneSmall" fx:controller="com.library.controller.user.BookDetailController">
-    <VBox spacing="10" alignment="CENTER" style="-fx-background-color: #f4f4f4; -fx-padding: 20;">
-        <!-- Book Cover -->
-        <ImageView fx:id="bookCover" fitWidth="100" fitHeight="150" />
-
-        <!-- Book Title -->
-        <Label fx:id="bookTitle" text="Book Title" style="-fx-font-weight: bold;"/>
-
-        <!-- Book Author -->
-        <Label fx:id="bookAuthor" text="Author: Unknown" style="-fx-font-style: italic;"/>
-
-        <!-- Book Description -->
-        <Label fx:id="bookDescription" text="Book description here..." wrapText="true" style="-fx-text-alignment: justify;"/>
+            <!-- Book Information -->
+            <VBox alignment="TOP_LEFT" spacing="10" styleClass="book-details">
+                <Label fx:id="bookTitle" styleClass="book-title" text="Book Title" />
+                <Label fx:id="bookAuthor" styleClass="book-author" text="Author(s): Unknown" />
+                <Label fx:id="bookDescription" styleClass="book-description" text="Description not available." wrapText="true" />
+                <Label fx:id="bookPages" styleClass="book-pages" text="320 pages" />
+                <Label fx:id="bookPublishedDate" styleClass="book-date" text="Published Date: N/A" />
+                <Label fx:id="bookPublisher" styleClass="book-publisher" text="Publisher: Unknown" />
+            </VBox>
+        </HBox>
 
         <!-- Back Button -->
-        <Button text="Back" fx:id="backButton" onAction="#onBackClicked" style="-fx-background-color: #f44336; -fx-text-fill: white;" />
+        <Button fx:id="backButton" onAction="#onBackClicked" styleClass="back-button" text="BACK" />
     </VBox>
-</StackPane>
+</AnchorPane>

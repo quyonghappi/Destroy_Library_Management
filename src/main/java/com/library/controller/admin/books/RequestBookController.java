@@ -228,6 +228,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.*;
 
 public class RequestBookController implements Initializable {
@@ -336,6 +337,7 @@ public class RequestBookController implements Initializable {
             }
         });
         lendButton.setOnMouseClicked(event->showLendBookScene(requestBookRoot));
+//        filter.setOnMouseClicked(event->showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(requestBookRoot));
     }
 
