@@ -441,7 +441,7 @@ public class DocumentDao implements DAO<Document> {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int category_id = resultSet.getInt("category_id");
-                String category_name = resultSet.getString("category_name");
+                String category_name = resultSet.getString("name");
                 return new Category(category_id,category_name);
             }
         } catch (SQLException e) {

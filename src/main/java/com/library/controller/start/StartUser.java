@@ -27,8 +27,8 @@ public class StartUser {
 
     public void handleLoginButtonAction(ActionEvent actionEvent) {
         stage = (Stage) loginButton.getScene().getWindow();
-        loadView(stage, "/fxml/Start/UserLogin.fxml", "Login", "/css/UserLogin.css");
-        showView(stage, "/fxml/Start/UserLogin.fxml", "Login", "/css/UserLogin.css");
+        loadView(stage, "/fxml/Start/UserLogin.fxml", "Login", "/css/start/UserLogin.css");
+        showView(stage, "/fxml/Start/UserLogin.fxml", "Login", "/css/start/UserLogin.css");
     }
 
     public void handleSignUpButtonAction(ActionEvent actionEvent) {

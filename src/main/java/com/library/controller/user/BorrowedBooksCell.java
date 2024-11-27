@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class BorrowedBooksCell extends ListCell<BorrowingRecord> {
     private HBox borrowedBooksBox;
-    private BorrrowedBooksCellController borrowedBooksCellController;
+    private BorrowedBooksCellController borrowedBooksCellController;
 
     public BorrowedBooksCell() {
         try {

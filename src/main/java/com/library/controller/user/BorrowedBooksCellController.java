@@ -1,6 +1,5 @@
 package com.library.controller.user;
 
-import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.models.Author;
 import com.library.models.BorrowingRecord;
@@ -15,7 +14,7 @@ import java.sql.SQLException;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 
-public class BorrrowedBooksCellController {
+public class BorrowedBooksCellController {
 
     @FXML
     private Label authorLabel;
@@ -46,7 +45,6 @@ public class BorrrowedBooksCellController {
 
     private ListView<BorrowingRecord> listView;
     private BorrowingRecord borrowedBook;
-    private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
     private DocumentDao documentDao=new DocumentDao();
 
     public void setListView(ListView<BorrowingRecord> lv){

@@ -206,6 +206,36 @@ public class UserDao implements DAO<User> {
         return null;
     }
 
+    /**
+     * get a list of all users having fines
+     * @return list of users having fines
+     */
+    public List<User> getUserHasFine() {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users u\n"
+                +"join fines f on u.user_id = f.user_id\n";
+        try (Connection conn = DatabaseConfig.getConnection(); Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setFullName(rs.getString("full_name"));
+                user.setUsername(rs.getString("user_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password_hash"));
+                user.setUserRole(rs.getString("user_role"));
+                user.setAccountStatus(rs.getString("account_status"));
+
+                user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
+                user.setActive(rs.getBoolean("account_locked"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
 //    public User findUserById(int id) throws Exception {
 //        String sql = "SELECT * FROM users WHERE user_id = ?";
 //        try (

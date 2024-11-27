@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="rootPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../../css/UserLogin.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.start.LoginUserController">
+<HBox fx:id="rootPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../../css/start/UserLogin.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.start.LoginUserController">
    <children>
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="950.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30px;">
          <children>
@@ -37,7 +37,7 @@
                   </Label>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="322.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 25px;">
                      <children>
-                        <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="284.0" promptText="Username" style="-fx-background-radius: 20px; -fx-text-fill: #4f73af; -fx-prompt-text-fill: #506c9a;" stylesheets="@../../css/UserLogin.css">
+                        <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="284.0" promptText="Username" style="-fx-background-radius: 20px; -fx-text-fill: #4f73af; -fx-prompt-text-fill: #506c9a;" stylesheets="@../../css/start/UserLogin.css">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -57,7 +57,7 @@
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="324.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 25px; fx-prompt-text-fill: #506c9a;">
                      <children>
-                        <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="284.0" promptText="Password" style="-fx-background-radius: 20px;" stylesheets="@../../css/UserLogin.css">
+                        <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="284.0" promptText="Password" style="-fx-background-radius: 20px;" stylesheets="@../../css/start/UserLogin.css">
                            <font>
                               <Font size="16.0" />
                            </font></PasswordField>
@@ -90,7 +90,7 @@
                         <Insets />
                      </VBox.margin>
                   </Hyperlink>
-                  <Button fx:id="loginButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#login" prefHeight="46.0" prefWidth="267.0" style="-fx-background-color: #88adf4; -fx-padding: 10px 20px; -fx-background-radius: 15px;" styleClass="login-button" stylesheets="@../../css/UserLogin.css" text="Login" textFill="#2a599e">
+                  <Button fx:id="loginButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#login" prefHeight="46.0" prefWidth="267.0" style="-fx-background-color: #88adf4; -fx-padding: 10px 20px; -fx-background-radius: 15px;" styleClass="login-button" stylesheets="@../../css/start/UserLogin.css" text="Login" textFill="#2a599e">
                      <font>
                         <Font name="Segoe UI Historic" size="18.0" />
                      </font>

@@ -15,6 +15,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import static com.library.controller.start.Check.validateInput;
+
 public class LoginAdminController {
 
     @FXML
@@ -68,26 +70,6 @@ public class LoginAdminController {
         User user=userDao.findUserByName(userNameField.getText());
         return user.getFullName();
     }
-
-
-    private boolean validateInput(String adminName, String password) {
-        if (adminName.isEmpty() || password.isEmpty()) {
-            showAlert(AlertType.ERROR, "Input Error", "Please enter both username and password.");
-            return false;
-        }
-        return true;
-    }
-
-    //already have this function in authenticateUser and admin
-//    /**
-//     * Check password.
-//     * @param password p
-//     * @param hashedPassword hp
-//     * @return Check
-//     */
-//    private boolean checkPassword(String password, String hashedPassword) {
-//        return BCrypt.checkpw(password, hashedPassword);
-//    }
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

@@ -124,6 +124,10 @@ public class ReservationDao  {
         return reservation ;
     }
 
+    /**
+     *
+     * @return num of requests corresponding to book's isbn
+     */
     public int getByISBN(String isbn) {
         String sql="select count(*) from reservations where isbn=?";
         int numOfReservations=0;
@@ -157,4 +161,41 @@ public class ReservationDao  {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Reservation> getByUserName(String username) {
+        String userIdQuery = "SELECT user_id FROM users WHERE user_name = ?";
+        String sql = "SELECT * FROM reservations WHERE user_id = ?";
+        List<Reservation> reservations = new ArrayList<>();
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement userIdPs = conn.prepareStatement(userIdQuery)) {
+
+            userIdPs.setString(1, username);
+            try (ResultSet userIdRs = userIdPs.executeQuery()) {
+                if (userIdRs.next()) {
+                    int userId = userIdRs.getInt("user_id");
+
+                    //get reservations for the user_id
+                    try (PreparedStatement reservationPs = conn.prepareStatement(sql)) {
+                        reservationPs.setInt(1, userId);
+                        try (ResultSet reservationRs = reservationPs.executeQuery()) {
+                            while (reservationRs.next()) {
+                                int reservationId = reservationRs.getInt("reservation_id");
+                                String isbn = reservationRs.getString("isbn");
+                                LocalDateTime date = reservationRs.getTimestamp("reservation_date").toLocalDateTime();
+                                String status = reservationRs.getString("status");
+                                reservations.add(new Reservation(reservationId, userId, isbn, date, status));
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching reservations for username: " + username, e);
+        }
+
+        return reservations;
+    }
+
+
 }
