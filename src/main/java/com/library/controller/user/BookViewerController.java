@@ -1,4 +1,4 @@
-package com.library.UserDashboard.Controller;
+package com.library.controller.user;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

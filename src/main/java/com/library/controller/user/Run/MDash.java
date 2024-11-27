@@ -1,4 +1,4 @@
-package com.library.UserDashboard.Run;
+package com.library.controller.user.Run;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class MDash extends Application {
             Scene scene = new Scene(root, 1466, 750);
 
             // Add CSS styling
-            scene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
 
             // Configure primary stage
             primaryStage.setTitle("OnlyPipe ;D");

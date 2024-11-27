@@ -3,14 +3,10 @@ package com.library.controller.start;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -43,8 +39,8 @@ public class RoleController {
 //        chooseRole(Role.USER);
         role = "reader";
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        loadView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/StartUser.css");
-        showView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/StartUser.css");
+        loadView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/start/StartUser.css");
+        showView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/start/StartUser.css");
     }
 
     /**
@@ -66,7 +62,7 @@ public class RoleController {
 //            displayViewWithAnimation()
             FXMLLoader loader = new FXMLLoader(RoleController.class.getResource("/fxml/Start/Role.fxml"));
             Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Role.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/start/Role.css")).toExternalForm());
             primaryStage.setTitle("Library Management");
             primaryStage.setScene(scene);
             primaryStage.show();

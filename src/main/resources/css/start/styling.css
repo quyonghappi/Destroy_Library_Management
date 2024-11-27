@@ -551,63 +551,49 @@
     -fx-background-color: #555; /* Darken background when hovered */
 }
 
-/*!* Tạo kiểu cho nút trong suốt *!*/
-/*.transparent-button {*/
-/*    -fx-background-color: transparent; !* Nền trong suốt *!*/
-/*    -fx-border-width: 0;              !* Không có viền *!*/
-/*    -fx-padding: 5px;                 !* Khoảng cách bên trong *!*/
-/*    -fx-cursor: hand;                 !* Con trỏ tay khi hover *!*/
-/*}*/
 
-/*!* Tùy chọn: Hiệu ứng hover *!*/
-/*.transparent-button:hover {*/
-/*    -fx-opacity: 0.8; !* Giảm độ trong suốt khi hover *!*/
-/*}*/
-
-/* Tạo thanh tìm kiếm trong suốt với gạch chân */
+/* Transparent Search Box */
 .transparent-search-box {
-    -fx-background-color: transparent; /* Nền trong suốt */
-    -fx-border-width: 0;               /* Xóa viền mặc định */
-    -fx-border-bottom-width: 2px;     /* Tạo đường gạch chân */
-    -fx-border-color: #000000;        /* Màu đường gạch chân (đen) */
-    -fx-prompt-text-fill: #aaaaaa;    /* Màu gợi ý (placeholder) */
-    -fx-text-fill: #000000;           /* Màu văn bản */
-    -fx-padding: 5 0 5 0;             /* Khoảng cách trên dưới */
-    -fx-font-size: 14px;              /* Kích thước chữ */
+    background-color: transparent;   /* Removes the background */
+    border: 2px solid #ccc;          /* Light border to define edges */
+    border-radius: 5px;              /* Rounded corners */
+    padding: 10px 15px;              /* Padding for spacing */
+    font-size: 16px;                 /* Font size */
+    color: #333;                     /* Text color */
+    width: 100%;                     /* Full width */
+    box-sizing: border-box;          /* Ensure padding is included in width */
+    transition: border-color 0.3s ease;  /* Smooth transition for focus effect */
 }
 
-/* Hiệu ứng khi người dùng tập trung vào thanh tìm kiếm */
-.transparent-search-box:focused {
-    -fx-border-color: #0078D7;        /* Màu gạch chân khi được chọn (xanh lam) */
+
+
+/* Transparent Search Box - No Border */
+.transparent-search-box {
+    background-color: transparent;   /* No background color */
+    border: none;                    /* No border */
+    padding: 10px 15px;              /* Padding for spacing */
+    font-size: 16px;                 /* Font size */
+    color: #333;                     /* Text color */
+    width: 100%;                     /* Full width */
+    box-sizing: border-box;          /* Ensure padding is included in width */
+    outline: none;                   /* Remove outline when focused */
 }
 
-/* Tùy chỉnh nút trong suốt */
+/* Transparent Button - No Border */
 .transparent-button {
-    -fx-background-color: transparent; /* Nút trong suốt */
-    -fx-border-width: 0;
-    -fx-padding: 5px;
-    -fx-cursor: hand;
+    background-color: transparent;  /* No background */
+    border: none;                   /* No border */
+    color: #007BFF;                 /* Text color */
+    padding: 10px 20px;              /* Padding for button */
+    font-size: 16px;                 /* Font size for button text */
+    cursor: pointer;                /* Cursor indicates clickable */
+    transition: color 0.3s ease;     /* Smooth transition for color */
 }
 
-/* Thay đổi kích thước biểu tượng nếu cần */
-.transparent-button > .graphic {
-    -fx-fit-width: 15px; /* Độ rộng icon */
-    -fx-fit-height: 15px; /* Độ cao icon */
+/* Hover effect for the button */
+.transparent-button:hover {
+    color: #0056b3;                 /* Darker blue on hover */
 }
-
-.add-to-favorites-label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #007BFF;
-    -fx-cursor: hand;
-}
-
-.add-to-favorites-label:hover {
-    -fx-text-fill: #0056b3;
-}
-
-
-
-
 
 
 

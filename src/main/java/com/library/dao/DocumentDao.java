@@ -1,11 +1,10 @@
 package com.library.dao;
 
 import com.library.config.DatabaseConfig;
-import com.library.models.Author;
-import com.library.models.Category;
-import com.library.models.Document;
-import com.library.models.Publisher;
+import com.library.models.*;
+import com.library.utils.DateFormat;
 
+import javax.print.Doc;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,6 +145,46 @@ public class DocumentDao implements DAO<Document> {
 
         return documents;
     }
+
+    public static Document searchByIsbn(String isbn) {
+        Document document = null;
+        String sql = "SELECT * FROM documents";
+
+        if (isbn != null && !isbn.trim().isEmpty()) {
+            sql += " WHERE isbn = ?";
+        }
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            if (isbn != null && !isbn.trim().isEmpty()) {
+                ps.setString(1, isbn.trim());
+            }
+
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    document = new Document();
+                    document.setISBN(resultSet.getString("isbn"));
+                    document.setTitle(resultSet.getString("title"));
+                    document.setAuthorId(resultSet.getInt("author_id"));
+                    document.setPublisherId(resultSet.getInt("publisher_id"));
+                    document.setCategoryId(resultSet.getInt("category_id"));
+                    document.setPublicationYear(resultSet.getInt("publication_year"));
+                    document.setQuantity(resultSet.getInt("quantity"));
+                    document.setPage(resultSet.getInt("pages"));
+                    document.setDescription(resultSet.getString("description"));
+                    document.setLocation(resultSet.getString("location"));
+                    document.setPreviewLink(resultSet.getString("preview_link"));
+                    document.setImageLink(resultSet.getString("book_image"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return document;
+    }
+
 
     //get list of available books
     public List<Document> getAvailableList() {

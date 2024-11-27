@@ -1,4 +1,4 @@
-package com.library.UserDashboard.Controller;
+package com.library.controller.user;
 
 import com.google.gson.JsonObject;
 import com.library.dao.DocumentDao;

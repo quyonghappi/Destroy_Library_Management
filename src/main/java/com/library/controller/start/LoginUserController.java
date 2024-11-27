@@ -55,8 +55,8 @@ public class LoginUserController {
         if (validateInput(username, password) && check.isValidUsername(username)) {
             if (userDao.authenticateUser(username, password)) {
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                loadView(stage, "/fxml/User/search_screen.fxml", "User Dashboard", "styling.css");
-                showView(stage, "/fxml/User/search_screen.fxml", "User Dashboard", "styling.css");
+                loadView(stage, "/fxml/User/user_dashboard.fxml", "User Dashboard", "");
+                showView(stage, "/fxml/User/user_dashboard.fxml", "User Dashboard", "");
 
 
             } else {
@@ -82,8 +82,8 @@ public class LoginUserController {
     @FXML
     private void openSignUp(ActionEvent event) {
         Stage stage = (Stage) signUpLink.getScene().getWindow();
-        loadView(stage, "/fxml/Start/StartUser.fxml", "Sign Up", "/css/register.css");
-        showView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/register.css");
+        loadView(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/register.css");
+        showView(stage, "/fxml/Start/Register.fxml", "Login", "/css/register.css");
     }
 
     /**
