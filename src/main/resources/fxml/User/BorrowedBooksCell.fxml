@@ -12,7 +12,7 @@
    <children>
       <ImageView fx:id="bookImage" fitHeight="80.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../library_management/src/main/resources/ui/admindashboard/bookcover.png" />
+            <Image url="/ui/admindashboard/bookcover.png" />
          </image>
          <HBox.margin>
             <Insets />

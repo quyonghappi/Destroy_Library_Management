@@ -12,14 +12,14 @@ public class MDash extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             // Load FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/search_screen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/home_user_dashboard.fxml"));
             Parent root = loader.load();
 
             // Create scene with root node
             Scene scene = new Scene(root, 1466, 750);
 
             // Add CSS styling
-            scene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
 
             // Configure primary stage
             primaryStage.setTitle("OnlyPipe ;D");

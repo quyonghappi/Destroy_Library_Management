@@ -1,6 +1,7 @@
 package com.library.controller.admin.books;
 
 import com.library.api.GoogleBooksAPIClient;
+import com.library.dao.DocumentDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -37,6 +38,17 @@ public class AddBookController {
         int quantity;
         try {
             quantity = Integer.parseInt(bookQuantity);
+
+            //isbn 13
+            if (isbn.length() != 13) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "please enter a valid ISBN number");
+                return;
+            }
+
+            if (DocumentDao.searchByIsbn(isbn) != null) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Book already exists.");
+                return;
+            }
             if (quantity <= 0) {
                 showAlert(Alert.AlertType.ERROR, "Validation Error", "Quantity must be a positive number.");
                 return;
@@ -57,6 +69,11 @@ public class AddBookController {
             if (response == ButtonType.OK) {
                 GoogleBooksAPIClient client = new GoogleBooksAPIClient();
                 try {
+                    // document not exists
+                    if (!client.isBookAvailable(isbn)) {
+                        showAlert(Alert.AlertType.ERROR, "Validation Error", "Book is not available");
+                        return;
+                    }
                     client.getBookData(isbn, quantity);
                     showAlert(Alert.AlertType.INFORMATION, "Success", "Book added successfully.");
 

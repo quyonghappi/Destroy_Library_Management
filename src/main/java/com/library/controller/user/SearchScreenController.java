@@ -32,6 +32,10 @@ public class SearchScreenController {
         @FXML
         private Button libraryButton; // Preserved for opening BookView
 
+
+        @FXML
+        private Button homeButton;
+
         @FXML
         private TextField searchField; // Search input field for book queries
 
@@ -54,6 +58,22 @@ public class SearchScreenController {
                         Parent bookView = loader.load();
 
                         Stage stage = (Stage) libraryButton.getScene().getWindow();
+                        Scene scene = new Scene(bookView, 1466, 750);
+                        scene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
+
+                        stage.setScene(scene);
+                        stage.show();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+        }
+
+        private void openHomeScreen() {
+                try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/home_user_dashboard.fxml"));
+                        Parent bookView = loader.load();
+
+                        Stage stage = (Stage) homeButton.getScene().getWindow();
                         Scene scene = new Scene(bookView, 1466, 750);
                         scene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
 

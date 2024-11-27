@@ -552,5 +552,50 @@
 }
 
 
+/* Transparent Search Box */
+.transparent-search-box {
+    background-color: transparent;   /* Removes the background */
+    border: 2px solid #ccc;          /* Light border to define edges */
+    border-radius: 5px;              /* Rounded corners */
+    padding: 10px 15px;              /* Padding for spacing */
+    font-size: 16px;                 /* Font size */
+    color: #333;                     /* Text color */
+    width: 100%;                     /* Full width */
+    box-sizing: border-box;          /* Ensure padding is included in width */
+    transition: border-color 0.3s ease;  /* Smooth transition for focus effect */
+}
+
+
+
+/* Transparent Search Box - No Border */
+.transparent-search-box {
+    background-color: transparent;   /* No background color */
+    border: none;                    /* No border */
+    padding: 10px 15px;              /* Padding for spacing */
+    font-size: 16px;                 /* Font size */
+    color: #333;                     /* Text color */
+    width: 100%;                     /* Full width */
+    box-sizing: border-box;          /* Ensure padding is included in width */
+    outline: none;                   /* Remove outline when focused */
+}
+
+/* Transparent Button - No Border */
+.transparent-button {
+    background-color: transparent;  /* No background */
+    border: none;                   /* No border */
+    color: #007BFF;                 /* Text color */
+    padding: 10px 20px;              /* Padding for button */
+    font-size: 16px;                 /* Font size for button text */
+    cursor: pointer;                /* Cursor indicates clickable */
+    transition: color 0.3s ease;     /* Smooth transition for color */
+}
+
+/* Hover effect for the button */
+.transparent-button:hover {
+    color: #0056b3;                 /* Darker blue on hover */
+}
+
+
+
 
 

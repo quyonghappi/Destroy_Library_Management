@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -17,7 +18,7 @@
    <children>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="419.0">
          <children>
-            <VBox fx:id="formBox" alignment="CENTER" prefHeight="700.0" prefWidth="461.0" spacing="10" styleClass="form-box">
+            <VBox fx:id="formBox" alignment="CENTER" prefHeight="617.0" prefWidth="428.0" spacing="10" styleClass="form-box">
                <children>
                   <Label styleClass="title" text="ADMIN LOGIN" textFill="#4f73af">
                      <font>
@@ -34,10 +35,10 @@
                   </Label>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;">
                      <children>
-                        <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="308.0" promptText="Username" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;" />
+                        <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="308.0" promptText="Username" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;" stylesheets="@../../css/AdminLogin.css" />
                         <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../images/user-line.png" />
+                              <Image url="@../../ui/start/user.png" />
                            </image>
                            <HBox.margin>
                               <Insets top="10.0" />
@@ -53,7 +54,7 @@
                         <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="309.0" promptText="Password" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;" stylesheets="@../../css/AdminLogin.css" />
                         <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../images/lock-line.png" />
+                              <Image url="@../../ui/start/lock.png" />
                            </image>
                            <HBox.margin>
                               <Insets top="10.0" />
@@ -75,6 +76,10 @@
             </VBox>
          </children>
       </HBox>
-      <VBox prefHeight="700.0" prefWidth="791.0" style="-fx-background-color: linear-gradient(to bottom, #86a9ea, rgba(220, 220, 255, 0.7));" />
+      <StackPane prefHeight="700.0" prefWidth="784.0" style="-fx-background-color: linear-gradient(to bottom, #86a9ea, rgba(220, 220, 255, 0.7));">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </StackPane>
    </children>
 </HBox>

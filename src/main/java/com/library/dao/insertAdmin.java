@@ -1,6 +1,6 @@
 package com.library.dao;
 
-import com.library.controller.start.Check;
+import com.library.controller.start.check;
 import com.library.models.User;
 
 import java.time.LocalDate;
@@ -19,9 +19,9 @@ public class insertAdmin {
             user.setAccountStatus("Active");
             user.setActive(true);
             if (userDao.findUserByName(username) != null
-                    || !Check.isValidUsername(username)
-                    || !Check.isValidEmail(email)
-                    || !Check.isValidFullName(fullName)) {
+                    || !check.isValidUsername(username)
+                    || !check.isValidEmail(email)
+                    || !check.isValidFullName(fullName)) {
                 System.out.println("User already exists. Please choose a different username.");
                 return;
             }

@@ -1,5 +1,4 @@
-package com.library.controller.user;
-
+package com.library.UserDashboard.Controller;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -112,10 +111,10 @@ public class HomeDashboardController {
 //          loadMyBooks();
 //
 //        // Load a random book as "Best Book"
-        loadBestBook();
+          loadBestBook();
 //
 //        // Populate the "Popular Books" grid
-        loadPopularBooks();
+       loadPopularBooks();
 
         searchScreenButton.setOnAction(event -> {
             System.out.println("Search button clicked!");
