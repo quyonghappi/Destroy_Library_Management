@@ -65,45 +65,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.MainUserDashboard.executor": "Run",
-    "Gradle.Destroy_Library_Management [:GoogleBooksAPIClient.main()].executor": "Run",
-    "Gradle.Destroy_Library_Management [:com.library.Control.Dashboard.main()].executor": "Run",
-    "Gradle.Destroy_Library_Management [:com.library.Control.Login.main()].executor": "Run",
-    "Gradle.Destroy_Library_Management [:com.library.Dashboard.Dashboard.main()].executor": "Run",
-    "Gradle.Destroy_Library_Management [:com.library.Dashboard.Main.main()].executor": "Run",
-    "Gradle.Destroy_Library_Management [:com.library.UserDashboard.Main.MainUserDashboard.main()].executor": "Run",
-    "Gradle.Destroy_Library_Management [:com.library.UserDashboard.Run.MDash.main()].executor": "Run",
-    "Gradle.Destroy_Library_Management [:com.library.api.GoogleBooksAPIClient.main()].executor": "Run",
-    "Gradle.Destroy_Library_Management [:com.library.controller.start.AppController.main()].executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/admin/IdeaProjects/Destroy_Library_Management/src/main/resources/assets",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/admin/IdeaProjects/Destroy_Library_Management/src/main/resource/src/Main.java",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.MainUserDashboard.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Destroy_Library_Management [:GoogleBooksAPIClient.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Destroy_Library_Management [:com.library.Control.Dashboard.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Destroy_Library_Management [:com.library.Control.Login.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Destroy_Library_Management [:com.library.Dashboard.Dashboard.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Destroy_Library_Management [:com.library.Dashboard.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Destroy_Library_Management [:com.library.UserDashboard.Main.MainUserDashboard.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Destroy_Library_Management [:com.library.UserDashboard.Run.MDash.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Destroy_Library_Management [:com.library.api.GoogleBooksAPIClient.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Destroy_Library_Management [:com.library.controller.start.AppController.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/admin/IdeaProjects/Destroy_Library_Management/src/main/resources/assets&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/admin/IdeaProjects/Destroy_Library_Management/src/main/resource/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory",
-      "module"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;
     ],
-    "DatabaseDriversLRU": [
-      "mysql_aurora"
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql_aurora&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\admin\IdeaProjects\Destroy_Library_Management\src\main\resources\assets" />
@@ -118,7 +118,17 @@
       <recent name="C:\Users\admin\IdeaProjects\Destroy_Library_Management\src\main\resource" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.MDash">
+    <configuration name="AppController" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.library.controller.start.AppController" />
+      <module name="repo.main" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;D:\javafx-sdk-22.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MDash" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.library.UserDashboard.Run.MDash" />
       <module name="repo.main" />
@@ -133,6 +143,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.AppController" />
+      <item itemvalue="Application.MDash" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.MDash" />
@@ -163,7 +177,8 @@
       <workItem from="1730938437224" duration="13070000" />
       <workItem from="1731055092881" duration="52000" />
       <workItem from="1731860552163" duration="24629000" />
-      <workItem from="1732163909934" duration="51557000" />
+      <workItem from="1732163909934" duration="56485000" />
+      <workItem from="1732669939765" duration="11089000" />
     </task>
     <task id="LOCAL-00001" summary="User Dashboard update, no books added yet">
       <option name="closed" value="true" />

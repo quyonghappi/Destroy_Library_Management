@@ -23,7 +23,10 @@ public class BookDetailController {
     @FXML
     private Label bookTitle, bookAuthor, bookDescription, bookPages, bookPublishedDate, bookPublisher;
 
-    /*
+    @FXML
+    private Hyperlink previewLink;
+
+
     public void loadBookDetails(JsonObject book) {
         if (book != null) {
             JsonObject volumeInfo = book.has("volumeInfo") ? book.getAsJsonObject("volumeInfo") : null;
@@ -53,7 +56,9 @@ public class BookDetailController {
             System.out.println("Book object is null!"); // Debugging
         }
     }
-    */
+
+
+
 
     public void loadBookDetails(Document document) {
         if (document != null) {
@@ -109,6 +114,7 @@ public class BookDetailController {
             bookCover.setImage(null); // Xóa ảnh
         }
     }
+
 
 
 

@@ -14,7 +14,7 @@
     <!-- Left Sidebar -->
     <VBox alignment="CENTER" prefHeight="700.0" prefWidth="82.0" styleClass="sidebar" stylesheets="@/css/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
         <VBox prefHeight="200.0" prefWidth="100.0" />
-        <Button fx:id="homeButton2" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/styling.css">
+        <Button fx:id="homeButton" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/styling.css">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
                     <image>

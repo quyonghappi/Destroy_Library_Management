@@ -11,6 +11,8 @@ import com.library.models.Document;
 import com.library.models.Publisher;
 import okhttp3.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -243,25 +245,48 @@ public class GoogleBooksAPIClient {
     }
 
     public static void main(String[] args) {
-        //String file = "src/main/java/com/library/api/programming_books.txt";
+        String file = "src/main/java/com/library/api/sci-fi_books.txt";
         GoogleBooksAPIClient newClient = new GoogleBooksAPIClient();
-//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-//            String bookName;
-//            while ((bookName = br.readLine()) != null) {
-//                if (!bookName.trim().isEmpty()) newClient.getBookData(bookName.trim());
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        String isbn="9780735636972";
-        int quantity=10;
-        try {
-            newClient.getBookData(isbn.trim(),quantity);
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String isbn;
+            int quantity = 10;
+            while ((isbn = br.readLine()) != null) {
+                if (!isbn.trim().isEmpty()) newClient.getBookData(isbn.trim(), quantity);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        String isbn="9780735636972";
+//        int quantity=10;
+//        try {
+//            newClient.getBookData(isbn.trim(),quantity);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
+
+    public static JsonArray getBooks(String query) {
+        String url = "https://www.googleapis.com/books/v1/volumes?q=" + query ;
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                String responseBody = response.body().string();
+                JsonObject jsonResponse = new Gson().fromJson(responseBody, JsonObject.class);
+                return jsonResponse.getAsJsonArray("items");  // Get the books array
+            } else {
+                System.err.println("Error fetching data: " + response.message());
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
+
+
 

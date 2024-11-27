@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.openjfx:javafx-controls:23.0.1") //JavaFX version, adjust if needed
+    implementation("org.openjfx:javafx-controls:22.0.2") //JavaFX version, adjust if needed
     implementation("org.openjfx:javafx-fxml:22.0.2")    // using FXML
     implementation("com.google.code.gson:gson:2.10.1")  //add Gson dependency
     implementation("mysql:mysql-connector-java:8.0.33") //add sql connector
