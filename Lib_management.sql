@@ -145,6 +145,15 @@ CREATE TABLE Fines (
                        FOREIGN KEY (record_id) REFERENCES BorrowingRecords(record_id)
 );
 
+-- table to save favourite books
+create table FavouriteBooks (
+                        favourite_id int auto_increment primary key,
+                        user_id int not null,
+                        isbn VARCHAR(13) NOT NULL,
+                        FOREIGN KEY (user_id) REFERENCES Users(user_id),
+                        FOREIGN KEY (isbn) REFERENCES Documents(isbn)
+);
+
 -- insert data if user_role is admin
 DELIMITER //
 

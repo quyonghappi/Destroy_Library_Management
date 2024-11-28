@@ -57,8 +57,8 @@ public class BorrowedBooksController implements Initializable {
         this.username = username;
         System.out.println("Username set: " + username);
 
-        //borrowedBooks=borrowingRecordDao.getByUserName(username);
-        System.out.println(borrowedBooks.toString());
+        borrowedBooks=borrowingRecordDao.getByUserName(username);
+        //System.out.println(borrowedBooks.toString());
         borrowListContainer.setCellFactory(param ->
         {
             BorrowedBooksCell borrowedBooksCell=new BorrowedBooksCell();

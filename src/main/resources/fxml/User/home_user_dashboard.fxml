@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1466.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22.0.2" fx:controller="com.library.UserDashboard.Controller.HomeDashboardController">
+<AnchorPane prefHeight="750.0" prefWidth="1466.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22.0.2" fx:controller="com.library.controller.user.HomeDashboardController">
 
     <!-- Left Sidebar -->
     <VBox alignment="CENTER" prefHeight="700.0" prefWidth="82.0" styleClass="sidebar" stylesheets="@/css/start/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">

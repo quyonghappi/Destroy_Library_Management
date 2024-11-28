@@ -1,14 +1,13 @@
 package com.library.controller.start;
 
 import javafx.scene.control.Alert;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.regex.Pattern;
 
 import static com.library.controller.start.ShowView.showAlert;
 //import static com.library.controller.start.ViewLoader.showAlert;
 
-public interface check {
+public interface Check {
 
 
     static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@(gmail\\.com|[a-zA-Z0-9.-]+\\.edu.vn)$"; // gamil sv hoac gmail thuong
@@ -17,7 +16,7 @@ public interface check {
 
 
     /**
-     * check email
+     * Check email
      * @param email email
      */
     public static boolean isValidEmail(String email) {
@@ -28,7 +27,7 @@ public interface check {
     }
 
     /**
-     * check fullName
+     * Check fullName
      * @param fullName ten nguoi dung
      * @return true or false
      */
@@ -40,7 +39,7 @@ public interface check {
     }
 
     /**
-     * check userName
+     * Check userName
      * @param username user
      * @return
      */
@@ -59,9 +58,4 @@ public interface check {
         }
         return true;
     }
-
-    static boolean checkPassword(String password, String hashedPassword) {
-        return BCrypt.checkpw(password, hashedPassword);
-    }
-
 }

@@ -1,16 +1,21 @@
 package com.library.controller.start;
 
+import com.library.controller.user.UserRequestController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import com.library.dao.UserDao;
 import com.library.models.User;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.mindrot.jbcrypt.BCrypt;
+
+import static com.library.controller.start.Check.validateInput;
 import static com.library.controller.start.LoadView.loadView;
 import static com.library.controller.start.ShowView.showAlert;
 import static com.library.controller.start.ShowView.showView;
@@ -52,11 +57,26 @@ public class LoginUserController {
         String username = userNameField.getText().trim();
         String password = passwordField.getText();
 
-        if (validateInput(username, password) && check.isValidUsername(username)) {
+        if (validateInput(username, password) && Check.isValidUsername(username)) {
             if (userDao.authenticateUser(username, password)) {
+                userDao.updateLastLogin(username);
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                loadView(stage, "/fxml/User/user_dashboard.fxml", "User Dashboard", "");
-                showView(stage, "/fxml/User/user_dashboard.fxml", "User Dashboard", "");
+//                loadView(stage, "/fxml/User/home_user_dashboard.fxml", "User Dashboard", "");
+//                showView(stage, "/fxml/User/home_user_dashboard.fxml", "User Dashboard", "");
+                FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/User/user_request.fxml"));
+                root = loader.load();
+                UserRequestController controller = loader.getController();
+                controller.setUserFullName(getUserFullName());
+                controller.setUsername(username);
+                stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                scene=new Scene(root);
+                stage.setScene(scene);
+                stage.setMaximized(true);
+                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+                stage.setWidth(screenBounds.getWidth());
+                stage.setHeight(screenBounds.getHeight());
+                stage.centerOnScreen();
+                stage.show();
 
 
             } else {
@@ -82,25 +102,7 @@ public class LoginUserController {
     @FXML
     private void openSignUp(ActionEvent event) {
         Stage stage = (Stage) signUpLink.getScene().getWindow();
-        loadView(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/register.css");
-        showView(stage, "/fxml/Start/Register.fxml", "Login", "/css/register.css");
-    }
-
-    /**
-     * Xử lý kiểm tra thông tin nhập
-     */
-    private boolean validateInput(String username, String password) {
-        if (username.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Input Error", "Please enter both username and password.");
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Check password
-     */
-    private boolean checkPassword(String password, String hashedPassword) {
-        return BCrypt.checkpw(password, hashedPassword);
+        loadView(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/start/register.css");
+        showView(stage, "/fxml/Start/Register.fxml", "Login", "/css/start/register.css");
     }
 }

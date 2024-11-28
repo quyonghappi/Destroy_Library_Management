@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="memInfoRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.members.MemInfoController">
+<StackPane fx:id="memInfoRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.members.MemInfoController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" StackPane.alignment="CENTER">
          <center>
@@ -119,12 +119,12 @@
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="42.0" prefWidth="607.0" spacing="20.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="40.0" styleClass="chosen-button" text="All" HBox.hgrow="ALWAYS">
+                                          <ToggleButton fx:id="allButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#allFilter" prefWidth="40.0" styleClass="chosen-button" text="All" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
                                                 <Insets left="50.0" />
                                              </HBox.margin>
                                           </ToggleButton>
-                                          <ToggleButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="70.0" styleClass="bar-button" text="Fine" HBox.hgrow="ALWAYS">
+                                          <ToggleButton fx:id="fineButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#fineFilter" prefWidth="70.0" styleClass="bar-button" text="Fine" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>

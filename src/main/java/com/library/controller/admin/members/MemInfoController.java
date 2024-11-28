@@ -1,16 +1,15 @@
 package com.library.controller.admin.members;
-
 import com.library.controller.admin.books.BookInfoController;
 import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.dao.UserDao;
+import com.library.models.Document;
 import com.library.models.User;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -19,10 +18,10 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -32,16 +31,10 @@ public class MemInfoController implements Initializable {
     StackPane memInfoRoot;
 
     @FXML
-    private HBox aboutContainer;
-
-    @FXML
     private Label addMem;
 
     @FXML
     private HBox booksContainer;
-
-    @FXML
-    private HBox helpContainer;
 
     @FXML
     private Button lendButton;
@@ -54,6 +47,12 @@ public class MemInfoController implements Initializable {
 
     @FXML
     private HBox membersContainer;
+
+    @FXML
+    private ToggleButton allButton;
+
+    @FXML
+    private ToggleButton fineButton;
 
     @FXML
     private HBox overviewContainer;
@@ -71,19 +70,10 @@ public class MemInfoController implements Initializable {
     private HBox settingContainer;
 
     private UserDao userDao=new UserDao();
-    List<User> userList=new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userList=getUserList();
-        memDetailContainer.setCellFactory(param ->
-        {
-            MemInfoCell memInfoCell=new MemInfoCell();
-            memInfoCell.setListView(memDetailContainer);
-            return memInfoCell;
-        });
-        memDetailContainer.getItems().setAll(userList);
-
+        loadMemList();
         booksContainer.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
             BookInfoController controller= navigateToScene("/fxml/Admin/Books/BookInfo.fxml", booksContainer);
@@ -100,10 +90,80 @@ public class MemInfoController implements Initializable {
         });
         addMem.setOnMouseClicked(event->showAddMemScene());
         lendButton.setOnAction(event -> showLendBookScene(memInfoRoot));
+        filter.setOnMouseClicked(event->showPopup(filter, event));
     }
 
-    public List<User> getUserList(){
-        return userDao.getAll();
+    private void loadMemList() {
+        Task<List<User>> loadTask = new Task<>() {
+            @Override
+            protected List<User> call() {
+                return userDao.getAll();
+            }
+        };
+
+        loadTask.setOnSucceeded(event -> {
+            refreshListView(loadTask.getValue());
+        });
+        loadTask.setOnFailed(event -> {
+            System.out.println("fail to load mem info" + loadTask.getException());
+        });
+        new Thread(loadTask).start();
+    }
+
+    private void refreshListView(List<User> users) {
+        memDetailContainer.setCellFactory(param->
+        {
+            MemInfoCell cell = new MemInfoCell();
+            cell.setListView(memDetailContainer);
+            return cell;
+        });
+        memDetailContainer.getItems().setAll(users);
+    }
+
+    private void applyFilter(DataLoader loader) {
+        Task<List<User>> applyTask = new Task<>() {
+            @Override
+            protected List<User> call() {
+                return loader.load();
+            }
+        };
+        applyTask.setOnSucceeded(event -> {
+            List<User> filteredDoc = applyTask.getValue();
+            if (filteredDoc.isEmpty()) {
+                memDetailContainer.getItems().clear();
+            } else {
+                refreshListView(filteredDoc);
+            }
+        });
+        applyTask.setOnFailed(event -> {
+            System.out.println("fail to load book info" + applyTask.getException());
+        });
+        new Thread(applyTask).start();
+    }
+
+    @FXML
+    private void allFilter(ActionEvent event) {
+        updateButtonStyles(allButton,fineButton);
+        applyFilter(()->userDao.getAll());
+    }
+
+    @FXML
+    private void fineFilter(ActionEvent event) {
+        updateButtonStyles(fineButton, allButton);
+        applyFilter(()->userDao.getUserHasFine());
+    }
+
+    private void updateButtonStyles(ToggleButton selectedButton, ToggleButton other) {
+        selectedButton.getStyleClass().removeAll("chosen-button", "bar-button");
+        other.getStyleClass().removeAll("chosen-button", "bar-button");
+
+        selectedButton.getStyleClass().add("chosen-button");
+        other.getStyleClass().add("bar-button");
+    }
+
+    @FunctionalInterface
+    interface DataLoader {
+        List<User> load();
     }
 
     @FXML

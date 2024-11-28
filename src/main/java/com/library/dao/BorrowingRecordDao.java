@@ -25,6 +25,7 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         return getRecord(sql);
     }
 
+    //get record by its id
     public <U> BorrowingRecord get(U recordId) {
         String sql = "SELECT * FROM borrowingrecords where record_id = ?";
         BorrowingRecord borrowingRecord = null;
@@ -147,42 +148,37 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         }
     }
 
-
-//    public void returnDoc(BorrowingRecord br) throws SQLException {
-//        br.setStatus("returned");
-//        br.setReturnDate(LocalDateTime.now());
-//        update(br);
-//        DocumentDao documentDao = new DocumentDao();
-//        documentDao.updateQuantity(br.getISBN(), br.getStatus());
-//    }
-
-    //get borrowing record by id
-    public BorrowingRecord get(int id) {
-        String sql = "SELECT * FROM BorrowingRecords WHERE record_id = ?";
-        BorrowingRecord borrowingRecord = null;
-
+    public List<BorrowingRecord> getByUserName(String userName) {
+        String userIdQuery = "select user_id from users where user_name = ?";
+        String sql = "select * from borrowingrecords where user_id=?";
+        List<BorrowingRecord> list = new ArrayList<>();
         try (Connection conn = DatabaseConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-
+             PreparedStatement ps = conn.prepareStatement(userIdQuery)) {
+            ps.setString(1, userName);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                borrowingRecord = new BorrowingRecord();
-                borrowingRecord.setRecordId(rs.getInt("record_id"));
-                borrowingRecord.setUserId(rs.getInt("user_id"));
-                borrowingRecord.setISBN(rs.getString("isbn"));
-                borrowingRecord.setBorrowDate(rs.getTimestamp("borrow_date").toLocalDateTime());
-                borrowingRecord.setStatus(rs.getString("status"));
-                //neu chua return thi return date bang null so we have to Check
-                if (rs.getString("status").equals("returned")) {
-                    borrowingRecord.setReturnDate(rs.getTimestamp("return_date").toLocalDateTime());
+                int userId = rs.getInt("user_id");
+
+                try (PreparedStatement recordStmt = conn.prepareStatement(sql)) {
+                    recordStmt.setInt(1, userId);
+                    ResultSet recordRs = recordStmt.executeQuery();
+                    while (recordRs.next()) {
+                        int recordId = recordRs.getInt("record_id");
+                        String isbn = recordRs.getString("isbn");
+                        Timestamp borrowDate = recordRs.getTimestamp("borrow_date");
+                        Timestamp returnDate = recordRs.getTimestamp("return_date");
+                        String status = recordRs.getString("status");
+                        list.add(new BorrowingRecord(
+                                recordId, userId, isbn,
+                                DateFormat.toLocalDateTime(borrowDate),
+                                DateFormat.toLocalDateTime(returnDate),
+                                status));
+                    }
                 }
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("cannot retrieve borrowing records for username: " + userName, e);
         }
-        return borrowingRecord;
+        return list;
     }
-
 }

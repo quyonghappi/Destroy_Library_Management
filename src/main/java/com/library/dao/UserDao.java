@@ -6,6 +6,7 @@ import com.library.utils.DateFormat;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,10 +76,9 @@ public class UserDao implements DAO<User> {
         return users;
     }
 
-//    public void addUser(User user) {
-//        String sql = "INSERT INTO users (full_name, user_name, email, password_hash, user_role, account_status, join_date, account_locked) " +
-//                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-//        try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+//    public void update(User user) {
+//        String sql = "UPDATE users SET full_name = ?, user_name = ?, email = ?, password_hash = ?, user_role = ?, account_status = ?, account_locked = ? WHERE user_id = ?";
+//        try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
 //            stmt.setString(1, user.getFullName());
 //            stmt.setString(2, user.getUsername());
 //            stmt.setString(3, user.getEmail());
@@ -86,14 +86,12 @@ public class UserDao implements DAO<User> {
 //            stmt.setString(5, user.getUserRole());
 //            stmt.setString(6, user.getAccountStatus());
 //
-//            // Use DateFormat to convert LocalDate to SQL Date
-//            stmt.setDate(7, DateFormat.toSqlDate(user.getJoinDate()));
-//
 //            // Use DateFormat to convert LocalDateTime to SQL Timestamp
-//            //stmt.setTimestamp(8, DateFormat.toSqlTimestamp(user.getLastLogin()));
+//            //stmt.setTimestamp(7, DateFormat.toSqlTimestamp(user.getLastLogin()));
 //
-//            //stmt.setInt(9, user.getLoginAttempts());
-//            stmt.setBoolean(8, user.isActive());
+//            //stmt.setInt(8, user.getLoginAttempts());
+//            stmt.setBoolean(9, user.isActive());
+//            stmt.setInt(10, user.getUserId());
 //
 //            stmt.executeUpdate();
 //        } catch (SQLException e) {
@@ -101,36 +99,13 @@ public class UserDao implements DAO<User> {
 //        }
 //    }
 
-    public void update(User user) {
-        String sql = "UPDATE users SET full_name = ?, user_name = ?, email = ?, password_hash = ?, user_role = ?, account_status = ?, account_locked = ? WHERE user_id = ?";
-        try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, user.getFullName());
-            stmt.setString(2, user.getUsername());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getPassword());
-            stmt.setString(5, user.getUserRole());
-            stmt.setString(6, user.getAccountStatus());
-
-            // Use DateFormat to convert LocalDateTime to SQL Timestamp
-            //stmt.setTimestamp(7, DateFormat.toSqlTimestamp(user.getLastLogin()));
-
-            //stmt.setInt(8, user.getLoginAttempts());
-            stmt.setBoolean(9, user.isActive());
-            stmt.setInt(10, user.getUserId());
-
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateLastLogin(User user) {
+    public void updateLastLogin(String username) {
         String sql = "UPDATE users SET last_login=? WHERE user_name = ?";
         try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setDate(1, DateFormat.toSqlDate(user.getLastLoginDate()));
+            stmt.setDate(1, DateFormat.toSqlDate(LocalDate.now()));
 
             //stmt.setInt(8, user.getLoginAttempts());
-            stmt.setString(2, user.getUsername());
+            stmt.setString(2, username);
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -157,7 +132,7 @@ public class UserDao implements DAO<User> {
 
         try (
                 Connection conn = DatabaseConfig.getConnection();
-                PreparedStatement ps = conn.prepareStatement(insert);
+                PreparedStatement ps = conn.prepareStatement(insert)
         ) {
             //hash password using BCrypt
             String hashedPass = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
@@ -179,7 +154,7 @@ public class UserDao implements DAO<User> {
     }
 
     // Find a user by username for login check
-    public User findUserByName(String username) throws SQLException {
+    public static User findUserByName(String username) throws SQLException {
         String sql = "SELECT * FROM users WHERE user_name = ?";
         try (
                 Connection cn = DatabaseConfig.getConnection();
@@ -204,6 +179,36 @@ public class UserDao implements DAO<User> {
             throw new SQLException("This username doesn't exist!" + e.getMessage());
         }
         return null;
+    }
+
+    /**
+     * get a list of all users having fines
+     * @return list of users having fines
+     */
+    public List<User> getUserHasFine() {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users u\n"
+                +"join fines f on u.user_id = f.user_id\n";
+        try (Connection conn = DatabaseConfig.getConnection(); Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setFullName(rs.getString("full_name"));
+                user.setUsername(rs.getString("user_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password_hash"));
+                user.setUserRole(rs.getString("user_role"));
+                user.setAccountStatus(rs.getString("account_status"));
+
+                user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
+                user.setActive(rs.getBoolean("account_locked"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
 //    public User findUserById(int id) throws Exception {

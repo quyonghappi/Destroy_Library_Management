@@ -132,15 +132,15 @@
                   </HBox>
                   <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1116.0" spacing="15.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="My Borrowed Books" textFill="#483b28">
+                        <Label text="Your Reading Journey" textFill="#483b28">
                            <font>
-                              <Font name="Rockwell Bold" size="26.0" />
+                              <Font name="Rockwell Bold" size="30.0" />
                            </font></Label>
                         <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="1150.0" style="-fx-background-color: #364c84; -fx-background-radius: 8; -fx-rotate: -5;" VBox.vgrow="ALWAYS">
                            <children>
                               <ListView fx:id="borrowListContainer" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="1116.0" style="-fx-rotate: 5;" styleClass="list-cell" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
-                                    <Insets bottom="7.0" />
+                                    <Insets bottom="15.0" />
                                  </HBox.margin>
                               </ListView>
                            </children>

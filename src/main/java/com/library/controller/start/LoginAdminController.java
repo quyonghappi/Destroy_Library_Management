@@ -15,6 +15,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import static com.library.controller.start.Check.validateInput;
+import static com.library.controller.start.ShowView.showAlert;
+import static com.library.dao.UserDao.findUserByName;
+
 public class LoginAdminController {
 
     @FXML
@@ -43,6 +47,7 @@ public class LoginAdminController {
 
         if (validateInput(username, password)) {
             if (userDao.authenticateAdmin(username,password)) {
+                userDao.updateLastLogin(username);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Dashboard/adminDashboard.fxml"));
                 root = loader.load();
                 AdminDashboardController controller = loader.getController();
@@ -65,35 +70,9 @@ public class LoginAdminController {
 
 
     public String getUserFullName() throws Exception {
-        User user=userDao.findUserByName(userNameField.getText());
+        User user = findUserByName(userNameField.getText());
+        assert user != null;
         return user.getFullName();
-    }
-
-
-    private boolean validateInput(String adminName, String password) {
-        if (adminName.isEmpty() || password.isEmpty()) {
-            showAlert(AlertType.ERROR, "Input Error", "Please enter both username and password.");
-            return false;
-        }
-        return true;
-    }
-
-    //already have this function in authenticateUser and admin
-//    /**
-//     * Check password.
-//     * @param password p
-//     * @param hashedPassword hp
-//     * @return Check
-//     */
-//    private boolean checkPassword(String password, String hashedPassword) {
-//        return BCrypt.checkpw(password, hashedPassword);
-//    }
-
-    private void showAlert(AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.show();
     }
 
     private void clearFields() {

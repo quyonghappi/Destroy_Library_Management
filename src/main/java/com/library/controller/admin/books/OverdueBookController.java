@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.*;
 
 public class OverdueBookController implements Initializable {
@@ -188,6 +189,7 @@ public class OverdueBookController implements Initializable {
         setupNavigation();
 
         lendButton.setOnMouseClicked(event -> showLendBookScene(overdueRoot));
+//        filter.setOnMouseClicked(event -> showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(overdueRoot));
     }
 
