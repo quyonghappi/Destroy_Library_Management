@@ -104,7 +104,7 @@ public class DocumentDao implements DAO<Document> {
     }
 
     //search book by title
-    public List<Document> searchByTitle(String title) {
+    public static List<Document> searchByTitle(String title) {
         List<Document> documents = new ArrayList<>();
         String sql = "SELECT * FROM documents";
 
@@ -146,45 +146,130 @@ public class DocumentDao implements DAO<Document> {
         return documents;
     }
 
-    public static Document searchByIsbn(String isbn) {
-        Document document = null;
+    public static List<Document> searchByIsbn(String isbn) {
+        List<Document> documents = new ArrayList<>();
         String sql = "SELECT * FROM documents";
 
         if (isbn != null && !isbn.trim().isEmpty()) {
-            sql += " WHERE isbn = ?";
+            sql += " WHERE isbn LIKE ?";
         }
 
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             if (isbn != null && !isbn.trim().isEmpty()) {
-                ps.setString(1, isbn.trim());
+                ps.setString(1, "%" + isbn.trim() + "%");
             }
 
             try (ResultSet resultSet = ps.executeQuery()) {
-                if (resultSet.next()) {
-                    document = new Document();
-                    document.setISBN(resultSet.getString("isbn"));
-                    document.setTitle(resultSet.getString("title"));
-                    document.setAuthorId(resultSet.getInt("author_id"));
-                    document.setPublisherId(resultSet.getInt("publisher_id"));
-                    document.setCategoryId(resultSet.getInt("category_id"));
-                    document.setPublicationYear(resultSet.getInt("publication_year"));
-                    document.setQuantity(resultSet.getInt("quantity"));
-                    document.setPage(resultSet.getInt("pages"));
-                    document.setDescription(resultSet.getString("description"));
-                    document.setLocation(resultSet.getString("location"));
-                    document.setPreviewLink(resultSet.getString("preview_link"));
-                    document.setImageLink(resultSet.getString("book_image"));
+                while (resultSet.next()) {
+                    Document doc = new Document();
+                    doc = new Document();
+                    doc.setISBN(resultSet.getString("isbn"));
+                    doc.setTitle(resultSet.getString("title"));
+                    doc.setAuthorId(resultSet.getInt("author_id"));
+                    doc.setPublisherId(resultSet.getInt("publisher_id"));
+                    doc.setCategoryId(resultSet.getInt("category_id"));
+                    doc.setPublicationYear(resultSet.getInt("publication_year"));
+                    doc.setQuantity(resultSet.getInt("quantity"));
+                    doc.setPage(resultSet.getInt("pages"));
+                    doc.setDescription(resultSet.getString("description"));
+                    doc.setLocation(resultSet.getString("location"));
+                    doc.setPreviewLink(resultSet.getString("preview_link"));
+                    doc.setImageLink(resultSet.getString("book_image"));
+                    documents.add(doc);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return document;
+        return documents;
     }
 
+    public static List<Document> searchByAuthor(String author) throws SQLException {
+        List<Document> documents = new ArrayList<>();
+        String sql = """
+        SELECT d.*
+        FROM documents d
+        JOIN authors a ON d.author_id = a.author_id
+        """;
+
+        if (author != null && !author.trim().isEmpty()) {
+            sql += " WHERE a.name LIKE ?";
+            try (Connection conn = DatabaseConfig.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                if (author != null && !author.trim().isEmpty()) {
+                    ps.setString(1, "%" + author.trim() + "%");
+                }
+
+                try (ResultSet resultSet = ps.executeQuery()) {
+                    while (resultSet.next()) {
+                        Document doc = new Document();
+                        doc = new Document();
+                        doc.setISBN(resultSet.getString("isbn"));
+                        doc.setTitle(resultSet.getString("title"));
+                        doc.setAuthorId(resultSet.getInt("author_id"));
+                        doc.setPublisherId(resultSet.getInt("publisher_id"));
+                        doc.setCategoryId(resultSet.getInt("category_id"));
+                        doc.setPublicationYear(resultSet.getInt("publication_year"));
+                        doc.setQuantity(resultSet.getInt("quantity"));
+                        doc.setPage(resultSet.getInt("pages"));
+                        doc.setDescription(resultSet.getString("description"));
+                        doc.setLocation(resultSet.getString("location"));
+                        doc.setPreviewLink(resultSet.getString("preview_link"));
+                        doc.setImageLink(resultSet.getString("book_image"));
+                        documents.add(doc);
+                    }
+                }
+
+            }
+        }
+        return documents;
+    }
+
+    public static List<Document> searchByCategory(String category) throws SQLException {
+        List<Document> documents = new ArrayList<>();
+        String sql = """
+        SELECT d.*
+        FROM documents d
+        JOIN categories a ON d.category_id = a.category_id
+        """;
+
+        if (category != null && !category.trim().isEmpty()) {
+            sql += " WHERE a.name LIKE ?";
+            try (Connection conn = DatabaseConfig.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                if (category != null && !category.trim().isEmpty()) {
+                    ps.setString(1, "%" + category.trim() + "%");
+                }
+
+                try (ResultSet resultSet = ps.executeQuery()) {
+                    while (resultSet.next()) {
+                        Document doc = new Document();
+                        doc = new Document();
+                        doc.setISBN(resultSet.getString("isbn"));
+                        doc.setTitle(resultSet.getString("title"));
+                        doc.setAuthorId(resultSet.getInt("author_id"));
+                        doc.setPublisherId(resultSet.getInt("publisher_id"));
+                        doc.setCategoryId(resultSet.getInt("category_id"));
+                        doc.setPublicationYear(resultSet.getInt("publication_year"));
+                        doc.setQuantity(resultSet.getInt("quantity"));
+                        doc.setPage(resultSet.getInt("pages"));
+                        doc.setDescription(resultSet.getString("description"));
+                        doc.setLocation(resultSet.getString("location"));
+                        doc.setPreviewLink(resultSet.getString("preview_link"));
+                        doc.setImageLink(resultSet.getString("book_image"));
+                        documents.add(doc);
+                    }
+                }
+
+            }
+        }
+        return documents;
+    }
 
     //get list of available books
     public List<Document> getAvailableList() {

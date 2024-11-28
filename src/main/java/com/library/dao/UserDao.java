@@ -179,7 +179,7 @@ public class UserDao implements DAO<User> {
     }
 
     // Find a user by username for login check
-    public User findUserByName(String username) throws SQLException {
+    public static User findUserByName(String username) throws SQLException {
         String sql = "SELECT * FROM users WHERE user_name = ?";
         try (
                 Connection cn = DatabaseConfig.getConnection();

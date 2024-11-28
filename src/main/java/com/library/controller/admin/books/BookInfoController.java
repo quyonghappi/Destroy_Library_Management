@@ -13,12 +13,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 //import static com.library.utils.FilterPopup.showPopup;
-import static com.library.dao.DocumentDao.*;
+import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.*;
 
 public class BookInfoController implements Initializable {
@@ -77,11 +78,19 @@ public class BookInfoController implements Initializable {
     @FXML
     private TextField searchField1;
 
+    @FXML
+    private ComboBox<String> SearchComboBox = new ComboBox<>();
+
     private DocumentDao documentDao=new DocumentDao();
     List<Document> documentList=new ArrayList<>();
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        SearchComboBox.getItems().addAll("Title", "ISBN", "Author", "Category");
+
         loadBookList();
         lentNav.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
@@ -126,8 +135,16 @@ public class BookInfoController implements Initializable {
             }
         });
         lendButton.setOnAction(event -> showLendBookScene(bookInfoRoot));
-//        filter.setOnMouseClicked(event->showPopup(filter, event));
+        filter.setOnMouseClicked(event->showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(bookInfoRoot));
+
+        SearchComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            SearchBookCell.handleSearch(bookDetailContainer, searchField1.getText(), newValue);
+        });
+
+        searchField1.textProperty().addListener((observable, oldValue, newValue) -> {
+            SearchBookCell.handleSearch(bookDetailContainer, newValue, SearchComboBox.getValue());
+        });
 
     }
 
@@ -140,22 +157,12 @@ public class BookInfoController implements Initializable {
         };
 
         loadTask.setOnSucceeded(event -> {
-            refreshListView(loadTask.getValue());
+            SearchBookCell.refreshListView(bookDetailContainer, loadTask.getValue());
         });
         loadTask.setOnFailed(event -> {
             System.out.println("fail to load book info" + loadTask.getException());
         });
         new Thread(loadTask).start();
-    }
-
-    private void refreshListView(List<Document> documentList) {
-        bookDetailContainer.setCellFactory(param->
-        {
-            BookInfoCell cell = new BookInfoCell();
-            cell.setListView(bookDetailContainer);
-            return cell;
-        });
-        bookDetailContainer.getItems().setAll(documentList);
     }
 
     private void applyFilter(DataLoader loader) {
@@ -170,7 +177,7 @@ public class BookInfoController implements Initializable {
             if (filteredDoc.isEmpty()) {
                 bookDetailContainer.getItems().clear();
             } else {
-                refreshListView(filteredDoc);
+                SearchBookCell.refreshListView(bookDetailContainer, filteredDoc);
             }
         });
         applyTask.setOnFailed(event -> {
@@ -214,6 +221,14 @@ public class BookInfoController implements Initializable {
 
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
+    }
+
+    public TextField getSearchField1() {
+        return searchField1;
+    }
+
+    public void setSearchField1(TextField searchField1) {
+        this.searchField1 = searchField1;
     }
 
 }
