@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1466.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.library.controller.UserDashboard.Controller.UserDashboardController">
+    <VBox alignment="TOP_CENTER" prefHeight="751.0" prefWidth="1466.0" spacing="10" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+        <!-- Existing Library Button -->
+        <Button fx:id="libraryButton" text="Open Library" />
+
+        <!-- Search Bar -->
+        <HBox alignment="CENTER" spacing="10">
+            <TextField fx:id="searchField" promptText="Search books..." />
+            <Button onAction="#onSearchBooks" text="Search" />
+        </HBox>
+
+        <!-- Search Results -->
+        <ScrollPane fitToHeight="true" fitToWidth="true">
+            <VBox fx:id="searchResultsContainer" spacing="10" style="-fx-padding: 10;" />
+        </ScrollPane>
+    </VBox>
+</AnchorPane>

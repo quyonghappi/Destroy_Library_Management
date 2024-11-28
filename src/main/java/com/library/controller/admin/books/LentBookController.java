@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.*;
 
 public class LentBookController implements Initializable {
@@ -135,6 +136,7 @@ public class LentBookController implements Initializable {
             }
         });
         lendButton.setOnMouseClicked(event->showLendBookScene(lentBookRoot));
+//        filter.setOnMouseClicked(event->showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(lentBookRoot));
     }
 

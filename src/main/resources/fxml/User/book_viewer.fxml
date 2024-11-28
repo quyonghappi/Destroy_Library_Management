@@ -1,83 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="750.0" prefWidth="1466.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22.0.2" fx:controller="com.library.controller.user.BookViewerController">
+<AnchorPane prefHeight="754.0" prefWidth="1466" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.UserDashboard.Controller.BookViewerController">
 
     <!-- Left Sidebar -->
-    <VBox alignment="CENTER" prefHeight="700.0" prefWidth="82.0" styleClass="sidebar" stylesheets="@/css/start/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
-        <VBox prefHeight="200.0" prefWidth="100.0" />
-        <Button fx:id="homeButton2" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/start/styling.css">
+    <VBox alignment="CENTER" prefHeight="700.0" prefWidth="82.0" styleClass="sidebar" stylesheets="@../../css/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+        <Button fx:id="homeButton" mnemonicParsing="false" styleClass="sidebar-button">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
-                    <image>
-                        <Image url="/icons/home_icon.png" />
-                    </image>
+                    <Image url="@../../icons/home_icon.png" />
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="searchScreenButton" mnemonicParsing="false" styleClass="sidebar-button">
+        <Button fx:id="libraryButton" mnemonicParsing="false" styleClass="sidebar-button">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
-                    <Image url="/icons/search_icon.png" />
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="libraryButton" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/start/styling.css">
-            <graphic>
-                <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
-                    <Image url="/icons/favorites_icon.png" />
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="homeButton1" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/start/styling.css">
-            <graphic>
-                <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
-                    <image>
-                        <Image url="/icons/requested_icon.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="homeButton21" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/start/styling.css">
-            <graphic>
-                <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
-                    <image>
-                        <Image url="/icons/library_icon.png" />
-                    </image>
+                    <Image url="@../../icons/library_icon.png" />
                 </ImageView>
             </graphic>
         </Button>
     </VBox>
 
-    <!--    <VBox alignment="TOP_CENTER" layoutX="106.0" layoutY="13.0" prefHeight="962.0" prefWidth="1327.0" spacing="10"-->
-    <!--          AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="13.0">-->
+    <!-- Main Content Area - Centered book cover with hover cursor -->
+<!--    <AnchorPane layoutX="45.0" prefHeight="200.0" prefWidth="700.0">-->
+<!--        <ImageView fx:id="bookCover" fitHeight="500.0" fitWidth="350.0" layoutX="517.0" layoutY="100.0"-->
+<!--                   preserveRatio="true" style="-fx-cursor: hand;">-->
+<!--            <Image url="@../images/Adventures_of_Tom_Sawyer_cover.jpg" />-->
+<!--        </ImageView>-->
+<!--    </AnchorPane>-->
 
-    <!--        &lt;!&ndash; Search Bar &ndash;&gt;-->
-    <!--        <HBox alignment="CENTER" spacing="10">-->
-    <!--            <TextField fx:id="searchField" promptText="Search books..." styleClass="transparent-search-box"  />-->
-    <!--            &lt;!&ndash;            <Button onAction="#onSearchBooks" text="Search" />&ndash;&gt;-->
-    <!--            <Button onAction="#onSearchBooks" styleClass="transparent-button">-->
-    <!--                <graphic>-->
-    <!--                    <ImageView>-->
-    <!--                        <image>-->
-    <!--                            <Image url="@/icons/search_icon.png" />-->
-    <!--                        </image>-->
-    <!--                    </ImageView>-->
-    <!--                </graphic>-->
-    <!--            </Button>-->
-    <!--        </HBox>-->
+    <HBox alignment="CENTER" layoutX="100.0" layoutY="50.0" spacing="35.0" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="0">
+        <!-- Book Cover Section -->
+        <VBox alignment="CENTER" spacing="20">
+            <!-- Book Cover -->
+            <ImageView fx:id="bookCover" fitHeight="300.0" fitWidth="250.0" preserveRatio="true" styleClass="book-cover-container">
+                <Image url="@../../images/Half_blood_prince_cover.jpg" />
+            </ImageView>
+        </VBox>
 
-    <!--        &lt;!&ndash; Search Results &ndash;&gt;-->
-    <!--        <ScrollPane fitToHeight="true" fitToWidth="true">-->
-    <!--            <VBox fx:id="searchResultsContainer" spacing="10" style="-fx-padding: 10;" />-->
-    <!--        </ScrollPane>-->
-    <!--    </VBox>-->
+        <!-- Book Details Section -->
+        <VBox spacing="30.0">
+            <Label fx:id="bookTitle" styleClass="book-title" stylesheets="@../../css/styling.css" text="Harry Potter: Half Blood Prince" />
+            <Label fx:id="authorName" styleClass="author-name" stylesheets="@../../css/styling.css" text="JK Rowling" />
+            <Label fx:id="shortDescription" styleClass="language-text" stylesheets="@../../css/styling.css" text="ENG" textFill="#6db5e1" wrapText="true" />
+            <HBox spacing="30.0">
+                <Button styleClass="start-reading-btn" stylesheets="@../../css/styling.css" text="Free Sample" />
+               <Button fx:id="startReadingButton" styleClass="start-reading-btn" stylesheets="@../../css/styling.css" text="Start Reading" />
+            </HBox>
+
+            <!-- Summary Section -->
+            <VBox prefHeight="145.0" prefWidth="418.0" spacing="10.0" stylesheets="@../../css/styling.css">
+                <Label fx:id="summaryLabel" styleClass="section-title" stylesheets="@../../css/styling.css" text="Book Summary" />
+                <Label fx:id="bookSummary" styleClass="description-text" text="Uncover the darkest secrets of Voldemort's past as &#10;Harry teams up with Dumbledore to prepare for the ultimate battle. With a mysterious Half-Blood Prince's spells in hand, danger lurks at every turn, and betrayal threatens to destroy everything. &#10;The wizarding world will never be the same!&#10;" wrapText="true" />
+            </VBox>
+        </VBox>
+    </HBox>
+
+
+    <!-- Similar Books Section -->
+    <VBox layoutX="256.0" prefHeight="226.0" prefWidth="1056.0" spacing="20" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="154.0">
+        <Label styleClass="section-title" text="Similar Books" />
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="books-scroll-pane" vbarPolicy="NEVER">
+            <HBox prefHeight="187.0" prefWidth="1314.0" spacing="40" styleClass="books-container">
+                <!-- Dynamically load books here -->
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="100" preserveRatio="true" styleClass="book-item">
+                        <Image url="@../../images/Adventures_of_Tom_Sawyer_cover.jpg" />
+                    </ImageView>
+                    <Label styleClass="similar-book-title" text="Book Title 2" />
+                </VBox>
+            </HBox>
+        </ScrollPane>
+    </VBox>
+
 </AnchorPane>
