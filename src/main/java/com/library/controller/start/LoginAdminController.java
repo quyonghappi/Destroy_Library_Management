@@ -16,6 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import static com.library.controller.start.Check.validateInput;
+import static com.library.controller.start.ShowView.showAlert;
 
 public class LoginAdminController {
 
@@ -45,6 +46,7 @@ public class LoginAdminController {
 
         if (validateInput(username, password)) {
             if (userDao.authenticateAdmin(username,password)) {
+                userDao.updateLastLogin(username);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Dashboard/adminDashboard.fxml"));
                 root = loader.load();
                 AdminDashboardController controller = loader.getController();
@@ -69,13 +71,6 @@ public class LoginAdminController {
     public String getUserFullName() throws Exception {
         User user=userDao.findUserByName(userNameField.getText());
         return user.getFullName();
-    }
-
-    private void showAlert(AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.show();
     }
 
     private void clearFields() {

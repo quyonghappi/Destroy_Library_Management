@@ -30,7 +30,7 @@ public class ReservationDao  {
         String sql="insert into reservations(user_id, isbn, reservation_date,status) values(?,?,?,?)";
         try (
                 Connection conn=DatabaseConfig.getConnection();
-                PreparedStatement ps=conn.prepareStatement(sql);
+                PreparedStatement ps=conn.prepareStatement(sql)
         ) {
             ps.setInt(1,reservation.getUserId());
             ps.setString(2,reservation.getIsbn());
@@ -44,7 +44,7 @@ public class ReservationDao  {
     //get reservation list
     public List<Reservation> getReservations() {
         String sql="select * from reservations";
-        List<Reservation> reservations = new ArrayList<Reservation>();
+        List<Reservation> reservations = new ArrayList<>();
         try(Connection con= DatabaseConfig.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)) {
             ResultSet rs=ps.executeQuery();
@@ -65,7 +65,7 @@ public class ReservationDao  {
     //get fulfilled list
     public List<Reservation> getFulfilledReservations() {
         String sql="select * from reservations where status = 'fulfilled' ";
-        List<Reservation> reservations = new ArrayList<Reservation>();
+        List<Reservation> reservations = new ArrayList<>();
         try(Connection con= DatabaseConfig.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)) {
             ResultSet rs=ps.executeQuery();
@@ -86,7 +86,7 @@ public class ReservationDao  {
     //get cancelled reservation
     public List<Reservation> getCancelledReservations() {
         String sql="select * from reservations where status = 'cancelled' ";
-        List<Reservation> reservations = new ArrayList<Reservation>();
+        List<Reservation> reservations = new ArrayList<>();
         try(Connection con= DatabaseConfig.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)) {
             ResultSet rs=ps.executeQuery();

@@ -2,12 +2,8 @@ package com.library.controller.start;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-
-import java.awt.*;
 
 import static com.library.controller.start.LoadView.loadView;
 import static com.library.controller.start.ShowView.showView;
@@ -21,9 +17,6 @@ public class StartUser {
     private Button registerButton;
 
     private static Stage stage;
-    private static Scene scene;
-    private static Parent root;
-
 
     public void handleLoginButtonAction(ActionEvent actionEvent) {
         stage = (Stage) loginButton.getScene().getWindow();

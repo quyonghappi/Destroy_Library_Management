@@ -55,6 +55,7 @@ public class LoginUserController {
 
         if (validateInput(username, password) && Check.isValidUsername(username)) {
             if (userDao.authenticateUser(username, password)) {
+                userDao.updateLastLogin(username);
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 loadView(stage, "/fxml/User/home_user_dashboard.fxml", "User Dashboard", "");
                 showView(stage, "/fxml/User/home_user_dashboard.fxml", "User Dashboard", "");

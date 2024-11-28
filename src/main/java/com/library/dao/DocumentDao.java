@@ -2,9 +2,6 @@ package com.library.dao;
 
 import com.library.config.DatabaseConfig;
 import com.library.models.*;
-import com.library.utils.DateFormat;
-
-import javax.print.Doc;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +75,7 @@ public class DocumentDao implements DAO<Document> {
 
     public List<Document> getAll() {
         String sql = "select * from documents";
-        List<Document> documents = new ArrayList<Document>();
+        List<Document> documents = new ArrayList<>();
         try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -405,21 +402,10 @@ public class DocumentDao implements DAO<Document> {
         return -1;
     }
 
-    private boolean checkIfExists(String table, String column, String value) throws SQLException {
-        String selectSql = "SELECT 1 FROM " + table + " WHERE " + column + " = ?";
-        try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement ps = connection.prepareStatement(selectSql)) {
-
-            ps.setString(1, value);
-            ResultSet resultSet = ps.executeQuery();
-            return resultSet.next();
-        }
-    }
-
     public Publisher getPublisher(int id) {
         String sql = "select * from publishers where publisher_id =?";
         try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -436,7 +422,7 @@ public class DocumentDao implements DAO<Document> {
     public Category getCategory(int id) {
         String sql = "select * from categories where category_id =?" ;
         try (Connection connection= DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -453,7 +439,7 @@ public class DocumentDao implements DAO<Document> {
     public Author getAuthor(int id) {
         String sql = "select * from authors where author_id =?" ;
         try (Connection connection= DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
