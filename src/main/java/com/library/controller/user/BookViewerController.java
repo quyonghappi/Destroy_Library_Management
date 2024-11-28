@@ -20,18 +20,18 @@ public class BookViewerController {
     @FXML
     public void initialize() {
         // Add event handler for library button
-        searchScreenButton.setOnAction(event -> openDashBoard());
+        searchScreenButton.setOnAction(event -> openSearchScreen());
         homeButton.setOnAction(event -> openHomeScreen());
     }
 
-    private void openDashBoard() {
+    private void openSearchScreen() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/search_screen.fxml"));
             Parent bookView = loader.load();
 
             Stage stage = (Stage) searchScreenButton.getScene().getWindow();
             Scene scene = new Scene(bookView, 1466, 750);
-            scene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
 
             stage.setScene(scene);
             stage.show();
@@ -47,7 +47,7 @@ public class BookViewerController {
 
             Stage stage = (Stage) homeButton.getScene().getWindow();
             Scene scene = new Scene(bookView, 1466, 750);
-            scene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
 
             stage.setScene(scene);
             stage.show();

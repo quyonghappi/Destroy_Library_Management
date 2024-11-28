@@ -322,7 +322,7 @@ public class GoogleBooksAPIClient {
     private static final long TIME_WINDOW_MS = 60000; // Time window in ms
     private final Queue<Long> requestTimestamps = new LinkedList<>();
 
-    private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=isbn:%s&key=%s";
+    private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=isbn%s&key=%s";
 
     private final OkHttpClient client;
     private final Gson gson;

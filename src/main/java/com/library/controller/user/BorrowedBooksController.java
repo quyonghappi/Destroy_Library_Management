@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.library.utils.SceneSwitcher.navigateToScene;
+
 public class BorrowedBooksController implements Initializable {
 
     @FXML
@@ -78,6 +80,34 @@ public class BorrowedBooksController implements Initializable {
                     //tu hoan thanh o phan book detail
                     //controller.setBookDetails(selectedRecord);
                 }
+            }
+        });
+
+        homeNav.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            HomeScreenController controller = navigateToScene("/fxml/User/home_screen.fxml", homeNav);
+            if (controller != null) {
+                controller.setUsername(userFullName);
+            }
+        });
+
+        //navigateToScene("/fxml/User/home_screen.fxml", homeNav1);
+
+        searchNav.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            SearchBooksScreenController controller = navigateToScene("/fxml/User/search_books_screen.fxml", searchNav);
+            if (controller != null) {
+                controller.setUsername(userFullName);
+            }
+        });
+
+        //SceneSwitcher.navigateToScene("/fxml/User/search_books_screen.fxml", searchNav);
+
+        brNav1.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            BorrowedBooksController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav1);
+            if (controller != null) {
+                controller.setUsername(userFullName);
             }
         });
     }

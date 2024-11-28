@@ -79,52 +79,44 @@
             </Button>
         </HBox>
 
-        <!-- My Books -->
-        <VBox spacing="10">
-            <Label text="My Books" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-            <ScrollPane fx:id="myBooksScrollPane" fitToHeight="false" fitToWidth="true" hbarPolicy="ALWAYS" vbarPolicy="NEVER">
-                <HBox fx:id="myBooksContainer" spacing="10" />
-            </ScrollPane>
+
+        <VBox spacing="20" AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="13.0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+            <!-- Welcome Text (phần chào mừng ở trên) -->
+            <Text fx:id="welcomeText" text="Welcome back!" style="-fx-font-family: 'Poor Richard';-fx-font-size: 40px; -fx-font-weight: bold; " />
+
+            <!-- HBox chứa "My Books" và "Best Book" nằm cạnh nhau -->
+            <HBox spacing="60" alignment="TOP_LEFT">
+                <!-- My Books Section -->
+                <VBox spacing="10" prefWidth="700.0" styleClass="section-box2">
+                    <Label text="My Books" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                    <ScrollPane fx:id="myBooksScrollPane" fitToHeight="false" fitToWidth="true" hbarPolicy="ALWAYS" vbarPolicy="NEVER">
+                        <HBox fx:id="myBooksContainer" spacing="10" />
+                    </ScrollPane>
+                </VBox>
+
+                <!-- Best Book Section -->
+                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="300.0" spacing="20" styleClass="section-box2">
+                    <Label text="Best Book" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                    <HBox spacing="20" alignment="CENTER_RIGHT">
+                        <ImageView fx:id="bestBookImage" fitWidth="150" fitHeight="200" />
+                        <VBox spacing="5">
+                            <Label fx:id="bestBookTitle" text="Example Book Title" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+                            <Label fx:id="bestBookAuthor" text="Author Name" style="-fx-font-size: 14px;" />
+                            <Text fx:id="bestBookDescription" wrappingWidth="300" text="This is an example description for the best book." />
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </HBox>
         </VBox>
 
-        <!-- Best Book -->
-<!--        <VBox spacing="10">-->
-<!--            <Label text="Best Book" style="-fx-font-size: 18px; -fx-font-weight: bold;" />-->
-<!--            <HBox spacing="20" alignment="CENTER_LEFT">-->
-<!--                <ImageView fx:id="bestBookImage" fitWidth="150" fitHeight="200" />-->
-<!--                <VBox spacing="5">-->
-<!--                    <Label fx:id="bestBookTitle" text="Example Book Title" style="-fx-font-size: 16px; -fx-font-weight: bold;" />-->
-<!--                    <Label fx:id="bestBookAuthor" text="Author Name" style="-fx-font-size: 14px;" />-->
-<!--                    <Text fx:id="bestBookDescription" wrappingWidth="300" text="This is an example description for the best book." />-->
-<!--                </VBox>-->
-<!--            </HBox>-->
-<!--        </VBox>-->
 
-        <HBox alignment="CENTER" spacing="20" AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="13.0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
-            <!-- Left Section (Happy Reading) -->
-            <VBox alignment="TOP_LEFT" prefWidth="600.0" spacing="20"> <!-- Reduced width -->
-                <Text fx:id="welcomeText" text="Welcome back!" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-                <!-- <Button fx:id="startReadingButton" text="Start Reading" onAction="#onStartReading" styleClass="start-button" /> -->
-            </VBox>
 
-            <!-- Right Section (Best Book) -->
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" spacing="20"> <!-- Reduced width -->
-                <Label text="Best Book" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-                <HBox spacing="20" alignment="CENTER_RIGHT">
-                    <ImageView fx:id="bestBookImage" fitWidth="150" fitHeight="200" />
-                    <VBox spacing="5">
-                        <Label fx:id="bestBookTitle" text="Example Book Title" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
-                        <Label fx:id="bestBookAuthor" text="Author Name" style="-fx-font-size: 14px;" />
-                        <Text fx:id="bestBookDescription" wrappingWidth="300" text="This is an example description for the best book." />
-                    </VBox>
-                </HBox>
-            </VBox>
-        </HBox>
+
 
 
         <!-- Popular Books -->
-        <VBox spacing="10">
-            <Label text="Popular Books" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <VBox spacing="10" styleClass="section-box1">
+            <Label text="Popular Books" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-fill: #435991;" />
             <ScrollPane fx:id="popularBooksScrollPane" fitToHeight="false" fitToWidth="true" hbarPolicy="ALWAYS" vbarPolicy="NEVER">
                 <HBox fx:id="popularBooksContainer" spacing="10" />
             </ScrollPane>

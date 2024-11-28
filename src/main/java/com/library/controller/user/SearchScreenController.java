@@ -46,7 +46,7 @@ public class SearchScreenController {
         public void initialize() {
                 // Add event handler for the library button (existing feature)
                 libraryButton.setOnAction(event -> openBookView());
-
+                homeButton.setOnAction(event -> openHomeScreen());
                 // Add listener for the search input field
                 searchField.setOnAction(event -> onSearchBooks());
         }
@@ -59,7 +59,7 @@ public class SearchScreenController {
 
                         Stage stage = (Stage) libraryButton.getScene().getWindow();
                         Scene scene = new Scene(bookView, 1466, 750);
-                        scene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
+                        scene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
 
                         stage.setScene(scene);
                         stage.show();
@@ -495,7 +495,7 @@ public class SearchScreenController {
 
                 // Tạo Scene và thêm CSS
                 Scene detailScene = new Scene(root, 715, 590);
-                detailScene.getStylesheets().add(getClass().getResource("/css/styling.css").toExternalForm());
+                detailScene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
 
                 // Set Scene cho Stage
                 detailStage.setScene(detailScene);

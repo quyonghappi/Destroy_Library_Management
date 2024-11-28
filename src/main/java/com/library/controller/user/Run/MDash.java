@@ -5,33 +5,47 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+
+import java.io.IOException;
 
 public class MDash extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            // Load FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/home_user_dashboard.fxml"));
+            // Load FXML file for the initial scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/home_screen.fxml"));
             Parent root = loader.load();
 
-            // Create scene with root node
+            // Create the scene with the root node loaded from FXML
             Scene scene = new Scene(root, 1466, 750);
 
-            // Add CSS styling
+            // Add the external CSS stylesheet to style the UI
             scene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
 
-            // Configure primary stage
-            primaryStage.setTitle("OnlyPipe ;D");
+            // Set the scene and stage properties
+            primaryStage.setTitle("OnlyPipe ;D");  // Set the window title
+            //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));  // Optional: Add an icon
             primaryStage.setScene(scene);
+
+            // Show the stage (window)
             primaryStage.show();
-        } catch (Exception e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading FXML or initializing primary stage.");
+            showErrorAndExit(primaryStage);
         }
     }
 
+    private void showErrorAndExit(Stage primaryStage) {
+        // Optionally, show an error message or a pop-up before closing
+        System.err.println("Critical error: Could not load the application. Exiting...");
+        primaryStage.close();  // Close the primary stage if loading fails
+    }
+
     public static void main(String[] args) {
-        launch(args); // Launch JavaFX application
+        launch(args);  // Launch the JavaFX application
     }
 }

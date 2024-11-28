@@ -541,8 +541,8 @@
     -fx-font-size: 14px; /* Medium font size */
     -fx-font-weight: bold; /* Bold text for emphasis */
     -fx-padding: 10 20; /* Padding inside the button */
-    -fx-border-radius: 5; /* Rounded corners for the button */
-    -fx-background-radius: 5; /* Rounded background corners */
+    -fx-border-radius: 20; /* Rounded corners for the button */
+    -fx-background-radius: 20; /* Rounded background corners */
     -fx-cursor: hand; /* Cursor changes to hand on hover */
 }
 
@@ -581,18 +581,70 @@
 
 /* Transparent Button - No Border */
 .transparent-button {
-    background-color: transparent;  /* No background */
-    border: none;                   /* No border */
-    color: #007BFF;                 /* Text color */
-    padding: 10px 20px;              /* Padding for button */
-    font-size: 16px;                 /* Font size for button text */
-    cursor: pointer;                /* Cursor indicates clickable */
-    transition: color 0.3s ease;     /* Smooth transition for color */
+    background-color: transparent; /*#f4f0e7;*/
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 /* Hover effect for the button */
 .transparent-button:hover {
-    color: #0056b3;                 /* Darker blue on hover */
+    color: #0056b3;
+}
+
+.section-box1 {
+    /*-fx-background-color: #95b1ee; */
+    /*-fx-border-color: #95b1ee; !* Màu viền *!*/
+    -fx-background-color: #f6f6f5;
+    -fx-border-color: #f6f6f5; /* Màu viền */
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-padding: 15; /* Khoảng cách giữa nội dung và viền */
+    /*-fx-effect: dropshadow(gaussian, #000000, 5, 0.5, 0, 0); !* Hiệu ứng bóng đổ *!*/
+}
+
+.section-box2 {
+    -fx-background-color: #ebf3b3; /* Nền màu sáng, bạn có thể thay đổi màu này */
+    -fx-border-color: #ebf3b3; /* Màu viền */
+
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-padding: 15; /* Khoảng cách giữa nội dung và viền */
+    /*-fx-effect: dropshadow(gaussian, #000000, 5, 0.5, 0, 0); !* Hiệu ứng bóng đổ *!*/
+}
+
+.section-box3 {
+    -fx-background-color: #364c84; /* Nền màu sáng, bạn có thể thay đổi màu này */
+    -fx-border-color: #364c84; /* Màu viền */
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-padding: 15; /* Khoảng cách giữa nội dung và viền */
+    /*-fx-effect: dropshadow(gaussian, #000000, 5, 0.5, 0, 0); !* Hiệu ứng bóng đổ *!*/
+}
+
+/* Make the ScrollPane transparent */
+.scroll-pane {
+    -fx-background-color: transparent; /* Make the background of the scroll pane transparent */
+    -fx-background-insets: 0; /* Remove any background insets */
+    -fx-padding: 0; /* Remove padding */
+}
+
+/* For the content inside the ScrollPane (the actual scrollable area) */
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Transparent background for the viewport */
+}
+
+/* Optional: To remove borders around the scroll pane (if any) */
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent; /* Transparent scrollbar background */
+}
+
+#searchField {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #323040;
+    -fx-prompt-text-fill: #77654B;
 }
 
 
