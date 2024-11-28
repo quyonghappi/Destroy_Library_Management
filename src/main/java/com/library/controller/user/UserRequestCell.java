@@ -1,6 +1,5 @@
 package com.library.controller.user;
 
-import com.library.models.BorrowingRecord;
 import com.library.models.Reservation;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;

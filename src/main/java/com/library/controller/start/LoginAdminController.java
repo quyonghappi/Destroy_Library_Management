@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import static com.library.controller.start.Check.validateInput;
 import static com.library.controller.start.ShowView.showAlert;
+import static com.library.dao.UserDao.findUserByName;
 
 public class LoginAdminController {
 
@@ -69,7 +70,8 @@ public class LoginAdminController {
 
 
     public String getUserFullName() throws Exception {
-        User user=userDao.findUserByName(userNameField.getText());
+        User user = findUserByName(userNameField.getText());
+        assert user != null;
         return user.getFullName();
     }
 

@@ -153,10 +153,7 @@ public class DocumentDao implements DAO<Document> {
 
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            if (isbn != null && !isbn.trim().isEmpty()) {
-                ps.setString(1, "%" + isbn.trim() + "%");
-            }
+            ps.setString(1, isbn.trim());
 
             try (ResultSet resultSet = ps.executeQuery()) {
                 while (resultSet.next()) {
@@ -180,7 +177,6 @@ public class DocumentDao implements DAO<Document> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return documents;
     }
 

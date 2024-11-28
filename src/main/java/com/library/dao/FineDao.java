@@ -98,15 +98,18 @@ public class FineDao implements DAO<Fine> {
             throw new IllegalArgumentException("Expected an Integer for recordId");
         }
         int recordId = (Integer) id;
-        String sql = "SELECT f.user_id, f.record_id, f.fine_amount,f.due_date, f.status, br.isbn " +
-                "FROM Fines f JOIN BorrowingRecords br ON f.record_id = br.record_id";
+        String sql = "SELECT f.user_id, f.record_id, f.fine_amount, f.due_date, f.status, br.isbn " +
+                "FROM Fines f JOIN BorrowingRecords br ON f.record_id = br.record_id " +
+                "WHERE f.record_id = ?";
 
-        Fine fine = new Fine();
+        Fine fine = null;
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)
         ) {
+            pstmt.setInt(1, recordId);
             ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
+                fine=new Fine();
                 fine.setUserId(rs.getInt("user_id"));
                 fine.setRecordId(rs.getInt("record_id"));
                 fine.setDueDate(rs.getDate("due_date").toLocalDate());
@@ -115,7 +118,7 @@ public class FineDao implements DAO<Fine> {
 
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("no fine found with recordId: " + id);
         }
         return fine;
     }

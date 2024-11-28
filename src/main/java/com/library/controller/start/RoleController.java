@@ -43,8 +43,8 @@ public class RoleController {
 //        chooseRole(Role.USER);
         role = "reader";
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        loadView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/StartUser.css");
-        showView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/StartUser.css");
+        loadView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/start/StartUser.css");
+        showView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/start/StartUser.css");
     }
 
     /**
@@ -55,8 +55,8 @@ public class RoleController {
 //        chooseRole(Role.ADMIN);
         role = "admin";
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        loadView(stage, "/fxml/Start/adminLogin.fxml", "Login", "/css/adminLogin.css");
-        showView(stage, "/fxml/Start/adminLogin.fxml", "Login", "/css/adminLogin.css");
+        loadView(stage, "/fxml/Start/adminLogin.fxml", "Login", "/css/start/adminLogin.css");
+        showView(stage, "/fxml/Start/adminLogin.fxml", "Login", "/css/start/adminLogin.css");
     }
 
     @FXML
@@ -66,7 +66,7 @@ public class RoleController {
 //            displayViewWithAnimation()
             FXMLLoader loader = new FXMLLoader(RoleController.class.getResource("/fxml/Start/Role.fxml"));
             Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Role.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/start/Role.css")).toExternalForm());
             primaryStage.setTitle("Library Management");
             primaryStage.setScene(scene);
             primaryStage.show();

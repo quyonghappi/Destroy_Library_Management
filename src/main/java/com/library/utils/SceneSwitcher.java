@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -28,7 +28,7 @@ public class SceneSwitcher {
         stage.centerOnScreen();
     }
 
-    public static <T> T navigateToScene(String path, HBox container) {
+    public static <T> T navigateToScene(String path, Node container) {
         try {
             Stage stage = (Stage) container.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(path));
