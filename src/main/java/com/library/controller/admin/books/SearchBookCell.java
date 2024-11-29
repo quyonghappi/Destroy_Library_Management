@@ -13,7 +13,7 @@ import static java.awt.SystemColor.text;
 
 public class SearchBookCell {
 
-    private static DocumentDao documentDao;
+    private static DocumentDao documentDao = new DocumentDao();
 
     public static void SearchBook(ListView<Document> bookDetailContainer, String text, String value) {
 

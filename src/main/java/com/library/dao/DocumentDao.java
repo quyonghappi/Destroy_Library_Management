@@ -153,7 +153,7 @@ public class DocumentDao implements DAO<Document> {
 
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, isbn.trim());
+            ps.setString(1, "%" + isbn.trim() + "%");
 
             try (ResultSet resultSet = ps.executeQuery()) {
                 while (resultSet.next()) {

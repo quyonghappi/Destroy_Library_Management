@@ -10,13 +10,14 @@ import java.util.function.Consumer;
 
 public class FilterPopup {
     private static FilterPopup instance;
-    private final Popup popup;
-    private final ListView<String> listView;
+    private static final Popup popup = new Popup();
+    private static final ListView<String> listView = new ListView<>();
+    private static String selectedItem = null;
 
     private FilterPopup() {
-        popup = new Popup();
-        listView = new ListView<>();
-        listView.getItems().addAll("Title", "Author", "Publisher", "Category");
+//        popup = new Popup();
+//        listView = new ListView<>();
+        listView.getItems().addAll("Title", "ISBN", "Author", "Category");
         listView.setPrefSize(200, 100);
         listView.setStyle("-fx-border-radius: 5; " +
                 "    -fx-font-size: 13px; " +
@@ -54,14 +55,19 @@ public class FilterPopup {
         FilterPopup.getInstance().show(x+8, y+15, owner);
     }
 
-    public void setFilterSelectionListener(Consumer<String> listener) {
+    public static void setFilterSelectionListener(Consumer<String> listener) {
         listView.setOnMouseClicked(event -> {
             String selectedFilter = listView.getSelectionModel().getSelectedItem();
             if (selectedFilter != null && listener != null) {
+                selectedItem = selectedFilter;
                 listener.accept(selectedFilter);
             }
             popup.hide();
         });
+    }
+
+    public static  String getSelectedItem() {
+        return selectedItem;
     }
 
 }
