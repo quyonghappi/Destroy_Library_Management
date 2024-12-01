@@ -2,7 +2,10 @@ package com.library.dao;
 
 import com.library.config.DatabaseConfig;
 import com.library.models.*;
+import com.library.utils.DateFormat;
+
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +32,8 @@ public class DocumentDao implements DAO<Document> {
 
             //sql query to insert or update a document
             String insertSql = "INSERT INTO documents (title, author_id, publisher_id, isbn, category_id, publication_year, " +
-                    "quantity, pages, description, location, preview_link, book_image) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " + // Updated to 12 placeholders
+                    "quantity, pages, description, location, preview_link, book_image, added_date) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
                     "ON DUPLICATE KEY UPDATE " +
                     "title = VALUES(title), " +
                     "author_id = VALUES(author_id), " +
@@ -64,6 +67,7 @@ public class DocumentDao implements DAO<Document> {
                 pstmt.setString(10, doc.getLocation());
                 pstmt.setString(11, doc.getPreviewLink());
                 pstmt.setString(12, doc.getImageLink());
+                pstmt.setTimestamp(13, DateFormat.toSqlTimestamp(LocalDateTime.now()));
 
                 pstmt.executeUpdate();
             }
@@ -75,29 +79,7 @@ public class DocumentDao implements DAO<Document> {
 
     public List<Document> getAll() {
         String sql = "select * from documents";
-        List<Document> documents = new ArrayList<>();
-        try (Connection con = DatabaseConfig.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String isbn = rs.getString("isbn");
-                String title = rs.getString("title");
-                int categoryId = rs.getInt("category_id");
-                int authorId = rs.getInt("author_id");
-                int publisherId = rs.getInt("publisher_id");
-                int publicationYear = rs.getInt("publication_year");
-                int quantity = rs.getInt("quantity");
-                int page = rs.getInt("pages");
-                String description = rs.getString("description");
-                String location = rs.getString("location");
-                String imageUrl = rs.getString("book_image");
-                String previewUrl = rs.getString("preview_link");
-                documents.add(new Document(isbn, title, categoryId, authorId, publisherId, publicationYear, quantity, description, location, page, previewUrl, imageUrl));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
-        return documents;
+        return getRecord(sql);
     }
 
     //search book by title
@@ -133,6 +115,7 @@ public class DocumentDao implements DAO<Document> {
                     doc.setLocation(resultSet.getString("location"));
                     doc.setPreviewLink(resultSet.getString("preview_link"));
                     doc.setImageLink(resultSet.getString("book_image"));
+                    doc.setAddedOn(resultSet.getTimestamp("added_date").toLocalDateTime());
                     documents.add(doc);
                 }
             }
@@ -171,6 +154,7 @@ public class DocumentDao implements DAO<Document> {
                     doc.setLocation(resultSet.getString("location"));
                     doc.setPreviewLink(resultSet.getString("preview_link"));
                     doc.setImageLink(resultSet.getString("book_image"));
+                    doc.setAddedOn(resultSet.getTimestamp("added_date").toLocalDateTime());
                     documents.add(doc);
                 }
             }
@@ -213,6 +197,7 @@ public class DocumentDao implements DAO<Document> {
                         doc.setLocation(resultSet.getString("location"));
                         doc.setPreviewLink(resultSet.getString("preview_link"));
                         doc.setImageLink(resultSet.getString("book_image"));
+                        doc.setAddedOn(resultSet.getTimestamp("added_date").toLocalDateTime());
                         documents.add(doc);
                     }
                 }
@@ -255,6 +240,8 @@ public class DocumentDao implements DAO<Document> {
                         doc.setLocation(resultSet.getString("location"));
                         doc.setPreviewLink(resultSet.getString("preview_link"));
                         doc.setImageLink(resultSet.getString("book_image"));
+                        doc.setAddedOn(resultSet.getTimestamp("added_date").toLocalDateTime());
+
                         documents.add(doc);
                     }
                 }
@@ -267,29 +254,7 @@ public class DocumentDao implements DAO<Document> {
     //get list of available books
     public List<Document> getAvailableList() {
         String sql = "select * from documents where quantity > 0";
-        List<Document> documents = new ArrayList<>();
-        try(Connection conn=DatabaseConfig.getConnection();
-        PreparedStatement ps=conn.prepareStatement(sql);
-        ResultSet rs=ps.executeQuery()) {
-            while (rs.next()) {
-                String isbn = rs.getString("isbn");
-                String title = rs.getString("title");
-                int categoryId = rs.getInt("category_id");
-                int authorId = rs.getInt("author_id");
-                int publisherId = rs.getInt("publisher_id");
-                int publicationYear = rs.getInt("publication_year");
-                int quantity = rs.getInt("quantity");
-                int page = rs.getInt("pages");
-                String description = rs.getString("description");
-                String location = rs.getString("location");
-                String imageUrl = rs.getString("book_image");
-                String previewUrl = rs.getString("preview_link");
-                documents.add(new Document(isbn, title, categoryId, authorId, publisherId, publicationYear, quantity, description, location, page, previewUrl, imageUrl));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
-        return documents;
+        return getRecord(sql);
     }
 
     //get list of lost books
@@ -297,10 +262,27 @@ public class DocumentDao implements DAO<Document> {
         String sql = "select * from documents d\n"
                 + "join borrowingrecords b on b.isbn=d.isbn\n"
                 + "where b.status = 'Lost'";
+        return getRecord(sql);
+    }
+
+    //get recently added book
+    public List<Document> getRecentAddedBooks() {
         List<Document> documents = new ArrayList<>();
-        try(Connection conn=DatabaseConfig.getConnection();
-            PreparedStatement ps=conn.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery()) {
+        String sql = "SELECT * FROM documents "
+                + "ORDER BY added_date DESC "
+                + "LIMIT 50";
+
+        return getRecord(sql);
+    }
+
+
+    private List<Document> getRecord(String sql) {
+        List<Document> documents = new ArrayList<>();
+        try (
+                Connection conn=DatabaseConfig.getConnection();
+                PreparedStatement ps=conn.prepareStatement(sql)
+        ) {
+            ResultSet rs= ps.executeQuery();
             while (rs.next()) {
                 String isbn = rs.getString("isbn");
                 String title = rs.getString("title");
@@ -314,9 +296,11 @@ public class DocumentDao implements DAO<Document> {
                 String location = rs.getString("location");
                 String imageUrl = rs.getString("book_image");
                 String previewUrl = rs.getString("preview_link");
-                documents.add(new Document(isbn, title, categoryId, authorId, publisherId, publicationYear, quantity, description, location, page, previewUrl, imageUrl));
+                LocalDateTime addedDate = (rs.getTimestamp("added_date").toLocalDateTime());
+                documents.add(new Document(isbn, title, categoryId, authorId, publisherId, publicationYear, quantity, description, location, page, previewUrl, imageUrl,addedDate));
             }
-        } catch (SQLException e) {
+        } catch(SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException();
         }
         return documents;
@@ -324,7 +308,7 @@ public class DocumentDao implements DAO<Document> {
 
 
     //get a document by ISBN
-    public <U> Document get(U isbn) throws SQLException {
+    public <U> Document get(U isbn) {
         String selectSql = "SELECT * FROM documents WHERE isbn = ?";
 
         try (Connection connection = DatabaseConfig.getConnection();
@@ -347,8 +331,11 @@ public class DocumentDao implements DAO<Document> {
                 doc.setLocation(resultSet.getString("location"));
                 doc.setPreviewLink(resultSet.getString("preview_link"));
                 doc.setImageLink(resultSet.getString("book_image"));  // Get book_image
+                doc.setAddedOn(resultSet.getTimestamp("added_date").toLocalDateTime());
                 return doc;
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("can not find document with" + isbn);
         }
 
         return null;

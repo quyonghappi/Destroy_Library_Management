@@ -49,7 +49,7 @@ public class UserRequestController implements Initializable {
 
     public void setUsername(String username) {
         this.username = username;
-        System.out.println("Username set: " + username);
+        //System.out.println("Username set: " + username);
 
         requestList=reservationDao.getByUserName(username);
         requestListContainer.setCellFactory(param ->
@@ -64,6 +64,41 @@ public class UserRequestController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        homeNav.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            HomeScreenController controller = navigateToScene("/fxml/User/home_screen.fxml", homeNav);
+            if (controller != null) {
+                controller.setUsername(userFullName);
+                controller.setUserFullName(userFullName);
+            }
+        });
+
+        searchNav.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            SearchBooksScreenController controller = navigateToScene("/fxml/User/search_books_screen.fxml", searchNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+                controller.setUserFullName(username);
+            }
+        });
+
+        favNav.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            FavouriteController controller = navigateToScene("/fxml/User/FavouriteBooks.fxml", favNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+                controller.setUsername(username);
+            }
+        });
+
+        brNav.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            UserRequestController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
+            if (controller != null) {
+                controller.setUsername(username);
+            }
+        });
+
         logout.setOnMouseClicked(event -> navigateToScene("/fxml/Start/Role.fxml", logout));
     }
 

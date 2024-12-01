@@ -1,5 +1,7 @@
 package com.library.controller.start;
 
+import com.library.controller.admin.dashboard.AdminDashboardController;
+import com.library.controller.user.HomeScreenController;
 import com.library.controller.user.UserRequestController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ import static com.library.controller.start.Check.validateInput;
 import static com.library.controller.start.LoadView.loadView;
 import static com.library.controller.start.ShowView.showAlert;
 import static com.library.controller.start.ShowView.showView;
+import static com.library.dao.UserDao.findUserByName;
 
 public class LoginUserController {
 
@@ -60,14 +63,11 @@ public class LoginUserController {
         if (validateInput(username, password) && Check.isValidUsername(username)) {
             if (userDao.authenticateUser(username, password)) {
                 userDao.updateLastLogin(username);
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                loadView(stage, "/fxml/User/home_user_dashboard.fxml", "User Dashboard", "");
-//                showView(stage, "/fxml/User/home_user_dashboard.fxml", "User Dashboard", "");
-                FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/User/user_request.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/home_screen.fxml"));
                 root = loader.load();
-                UserRequestController controller = loader.getController();
-                controller.setUserFullName(getUserFullName());
+                HomeScreenController controller = loader.getController();
                 controller.setUsername(username);
+                controller.setUserFullName(getUserFullName());
                 stage=(Stage)((Node)event.getSource()).getScene().getWindow();
                 scene=new Scene(root);
                 stage.setScene(scene);
@@ -78,7 +78,6 @@ public class LoginUserController {
                 stage.centerOnScreen();
                 stage.show();
 
-
             } else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect username or password.");
                 clearFields();
@@ -87,7 +86,8 @@ public class LoginUserController {
     }
 
     public String getUserFullName() throws Exception {
-        User user=userDao.findUserByName(userNameField.getText());
+        User user = findUserByName(userNameField.getText());
+        assert user != null;
         return user.getFullName();
     }
 

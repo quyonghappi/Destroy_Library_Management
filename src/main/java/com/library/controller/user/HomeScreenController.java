@@ -1,15 +1,12 @@
 package com.library.controller.user;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.library.api.GoogleBooksAPIClient;
-import com.library.controller.admin.books.LentBookController;
+import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.models.Author;
+import com.library.models.BorrowingRecord;
 import com.library.models.Document;
-import com.library.utils.SceneSwitcher;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,7 +21,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 import static com.library.utils.SceneSwitcher.navigateToScene;
@@ -32,97 +28,105 @@ import static com.library.utils.SceneSwitcher.navigateToScene;
 public class HomeScreenController implements Initializable {
 
     @FXML
-    public HBox homeNav1;
+    private Label bestBookAuthor;
+
     @FXML
-    public HBox searchNav;
+    private ImageView bestBookImage;
+
     @FXML
-    public HBox brNav;
+    private Label bestBookTitle;
+
     @FXML
-    public HBox favNav;
+    private HBox brNav;
+
     @FXML
-    public HBox requestNav;
+    private HBox favNav;
+
     @FXML
-    public TextField searchField;
+    private HBox homeNav1;
+
     @FXML
-    public Button logoutButton;
+    private HBox logout;
+
     @FXML
-    private ScrollPane popularBooksScrollPane;
+    private Label memNameLabel;
+
     @FXML
-    public Label memNameLabel;
+    private HBox myBooksContainer;
+
+
+    @FXML
+    private GridPane recentlyAddedContainer;
+
+    @FXML
+    private HBox requestNav;
+
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private HBox searchNav;
 
     private String username;
+    private List<BorrowingRecord> myBooks;
+    private List<Document> recentlyAdded;
+    private BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
+    private DocumentDao documentDao = new DocumentDao();
 
     public void setUsername(String username) {
-        memNameLabel.setText(username);
+        this.username=username;
     }
-
-    public void logout(ActionEvent event) {
-        SceneSwitcher.navigateToScene("/fxml/Start/Role.fxml", logoutButton);
-    }
-
-        //loadMyBook();
-        //loadBestBook();
-
-
-
-
-        //SceneSwitcher.navigateToScene("/fxml/User/request_books_screen.fxml", requestNav);
-
-        //SceneSwitcher.navigateToScene("/fxml/User/fav_books_screen.fxml", favNav);
-
-
-
     private void loadBestBook() {
-        DocumentDao documentDao = new DocumentDao();
-        List<Document> filteredDocuments = documentDao.searchByTitle("fiction");
+//        DocumentDao documentDao = new DocumentDao();
+//        List<Document> filteredDocuments = documentDao.searchByTitle("fiction");
+//
+//        if (!filteredDocuments.isEmpty()) {
+//
+//            Random random = new Random();
+//            int randomIndex = random.nextInt(filteredDocuments.size());
+//
+//            Document document = filteredDocuments.get(randomIndex);
+//
+//            // Create the book card
+//            HBox bookCard = new HBox();
+//            bookCard.setSpacing(10);
+//            bookCard.setStyle("-fx-padding: 10; -fx-border-color: #ddd; -fx-background-color: #fff; -fx-border-radius: 5; -fx-background-radius: 5;");
+//            bookCard.setOnMouseClicked(e -> showBookDetails(document)); // Open book details on click
+//
+//            // Book Cover Image
+//            ImageView bookCover = new ImageView();
+//            bookCover.setFitWidth(100);
+//            bookCover.setFitHeight(150);
+//
+//            if (document.getImageLink() != null && !document.getImageLink().isEmpty()) {
+//                bookCover.setImage(new Image(document.getImageLink(), true)); // Load the image
+//            } else {
+//                bookCover.setImage(new Image("/ui/admindashboard/book1.png", true)); // Default image
+//            }
+//
+//            // Book Information
+//            VBox bookInfo = new VBox();
+//            bookInfo.setSpacing(5);
+//
+//            Label titleLabel = new Label(document.getTitle() != null ? document.getTitle() : "Unknown Title");
+//            titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+//
+//            // Author Information
+//            Author author = documentDao.getAuthor(document.getAuthorId());
+//            String authorName = (author != null) ? author.getName() : "Unknown Author";
+//            Label authorLabel = new Label(authorName);
+//            authorLabel.getStyleClass().add("book-author");
+//
+//            Label pageLabel = new Label(document.getPage() > 0 ? document.getPage() + " pages" : "Page count not available");
+//
+//            // Add Book Info to the card
+//            bookInfo.getChildren().addAll(titleLabel, authorLabel, pageLabel);
+//
+//            // Add Cover and Info to the Book Card
+//            bookCard.getChildren().addAll(bookCover, bookInfo);
 
-        if (!filteredDocuments.isEmpty()) {
-
-            Random random = new Random();
-            int randomIndex = random.nextInt(filteredDocuments.size());
-
-            Document document = filteredDocuments.get(randomIndex);
-
-            // Create the book card
-            HBox bookCard = new HBox();
-            bookCard.setSpacing(10);
-            bookCard.setStyle("-fx-padding: 10; -fx-border-color: #ddd; -fx-background-color: #fff; -fx-border-radius: 5; -fx-background-radius: 5;");
-            bookCard.setOnMouseClicked(e -> showBookDetails(document)); // Open book details on click
-
-            // Book Cover Image
-            ImageView bookCover = new ImageView();
-            bookCover.setFitWidth(100);
-            bookCover.setFitHeight(150);
-
-            if (document.getImageLink() != null && !document.getImageLink().isEmpty()) {
-                bookCover.setImage(new Image(document.getImageLink(), true)); // Load the image
-            } else {
-                bookCover.setImage(new Image("/ui/admindashboard/book1.png", true)); // Default image
-            }
-
-            // Book Information
-            VBox bookInfo = new VBox();
-            bookInfo.setSpacing(5);
-
-            Label titleLabel = new Label(document.getTitle() != null ? document.getTitle() : "Unknown Title");
-            titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-
-            // Author Information
-            Author author = documentDao.getAuthor(document.getAuthorId());
-            String authorName = (author != null) ? author.getName() : "Unknown Author";
-            Label authorLabel = new Label(authorName);
-            authorLabel.getStyleClass().add("book-author");
-
-            Label pageLabel = new Label(document.getPage() > 0 ? document.getPage() + " pages" : "Page count not available");
-
-            // Add Book Info to the card
-            bookInfo.getChildren().addAll(titleLabel, authorLabel, pageLabel);
-
-            // Add Cover and Info to the Book Card
-            bookCard.getChildren().addAll(bookCover, bookInfo);
-
-
-        }
+//
+//        }
     }
 
 
@@ -232,99 +236,90 @@ public class HomeScreenController implements Initializable {
         detailStage.show();
     }
 
-    private FlowPane booksContainer;
-
-    private void loadPopularBooks() {
-        // Lấy dữ liệu sách từ Google Books API
-        JsonArray books = GoogleBooksAPIClient.getBooks("subject:science");
-
-        booksContainer = new FlowPane();
-        booksContainer.setHgap(10); // Khoảng cách ngang giữa các card sách
-        booksContainer.setVgap(10); // Khoảng cách dọc giữa các card sách
-        booksContainer.setPrefWrapLength(600); // Điều chỉnh chiều rộng để các card tự động xuống dòng
-        popularBooksScrollPane.setContent(booksContainer); // Đặt FlowPane vào ScrollPane
-
-        if (books != null && books.size() > 0) {
-            booksContainer.getChildren().clear();
-
-            for (int i = 0; i < books.size(); i++) {
-                JsonObject book = books.get(i).getAsJsonObject().getAsJsonObject("volumeInfo");
-
-                // Tạo layout cho mỗi sách
-                VBox bookCard = new VBox();
-                bookCard.setSpacing(10);
-                bookCard.setStyle("-fx-padding: 10; -fx-border-color: #ddd; -fx-background-color: #fff; -fx-border-radius: 10; -fx-background-radius: 10;");
-                bookCard.setPrefWidth(200);
-
-                // Bìa sách
-                ImageView bookCover = new ImageView();
-                bookCover.setFitWidth(100);
-                bookCover.setFitHeight(150);
-                if (book.has("imageLinks")) {
-                    String imageUrl = book.getAsJsonObject("imageLinks").get("thumbnail").getAsString();
-                    bookCover.setImage(new Image(imageUrl, true));
-                }
-
-                // Thông tin sách (dưới bìa sách)
-                VBox bookInfo = new VBox();
-                bookInfo.setSpacing(5);
-
-                Label titleLabel = new Label(book.has("title") ? book.get("title").getAsString() : "Unknown Title");
-                titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-
-                Label authorLabel = new Label(book.has("authors") ? String.join(", ", book.getAsJsonArray("authors").toString()) : "Unknown Author");
-                Label pageLabel = new Label(book.has("pageCount") ? book.get("pageCount").getAsString() + " pages" : "Page count not available");
-
-                // Thêm thông tin vào VBox
-                bookInfo.getChildren().addAll(titleLabel, authorLabel, pageLabel);
-
-                // Xử lý click vào bìa sách để mở modal hiển thị chi tiết
-                bookCover.setOnMouseClicked(e -> {
-                    BookDetailController controller = SceneSwitcher.navigateToScene("/fxml/User/book_detail.fxml", bookCover);
-                });
-
-                // Thêm bìa sách và thông tin vào layout card sách
-                bookCard.getChildren().addAll(bookCover, bookInfo);
-
-                // Thêm card sách vào FlowPane
-                booksContainer.getChildren().add(bookCard);
-            }
-        } else {
-            Label noResultsLabel = new Label("No results found.");
-            booksContainer.getChildren().add(noResultsLabel);
-        }
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadPopularBooks();
-        homeNav1.setOnMouseClicked(event -> {
-            String userFullName= memNameLabel.getText();
-            HomeScreenController controller = navigateToScene("/fxml/User/home_screen.fxml", homeNav1);
-            if (controller != null) {
-                controller.setUsername(userFullName);
-            }
-        });
-
-        //navigateToScene("/fxml/User/home_screen.fxml", homeNav1);
+        loadRecentAddedBooks();
+        loadMyBooks();
 
         searchNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
             SearchBooksScreenController controller = navigateToScene("/fxml/User/search_books_screen.fxml", searchNav);
             if (controller != null) {
-                controller.setUsername(userFullName);
+                controller.setUsername(username);
+                controller.setUserFullName(userFullName);
             }
         });
-
-        //SceneSwitcher.navigateToScene("/fxml/User/search_books_screen.fxml", searchNav);
 
         brNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
             BorrowedBooksController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
             if (controller != null) {
-                controller.setUsername(userFullName);
+                controller.setUsername(username);
+                controller.setUserFullName(userFullName);
             }
         });
-        //SceneSwitcher.navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
+
+        requestNav.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            UserRequestController controller = navigateToScene("/fxml/User/user_request.fxml", requestNav);
+            if (controller != null) {
+                controller.setUsername(username);
+            }
+        });
+
+        favNav.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            UserRequestController controller = navigateToScene("/fxml/User/FavouriteBooks.fxml", favNav);
+            if (controller != null) {
+                controller.setUsername(username);
+                controller.setUserFullName(userFullName);
+            }
+        });
+
+        logout.setOnMouseClicked(event->navigateToScene("/fxml/Start/Role.fxml", logout));
+    }
+
+    private void loadMyBooks() {
+        myBooks= borrowingRecordDao.getByUserName(username);
+        try {
+            for (BorrowingRecord myBook : myBooks) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
+                VBox bookInfo = loader.load();
+                BookCardController controller = loader.getController();
+                controller.loadBookInfo(documentDao.get(myBook.getISBN()));
+                myBooksContainer.getChildren().add(bookInfo);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void loadRecentAddedBooks() {
+        recentlyAdded=documentDao.getRecentAddedBooks();
+
+        int column =0;
+        int row=1;
+        try {
+            for (Document doc : recentlyAdded) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
+                VBox bookInfo = loader.load();
+                BookCardController controller = loader.getController();
+                controller.loadBookInfo(doc);
+                if (column == 9) {
+                    column = 0;
+                    ++row;
+                }
+
+                recentlyAddedContainer.add(bookInfo, column++, row);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setUserFullName(String userFullName) {
+        memNameLabel.setText(userFullName);
     }
 }

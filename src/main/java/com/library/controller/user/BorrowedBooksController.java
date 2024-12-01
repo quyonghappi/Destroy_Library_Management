@@ -2,6 +2,7 @@ package com.library.controller.user;
 
 import com.library.dao.BorrowingRecordDao;
 import com.library.models.BorrowingRecord;
+import com.library.models.Favourite;
 import com.library.utils.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,7 +35,7 @@ public class BorrowedBooksController implements Initializable {
     private HBox homeNav;
 
     @FXML
-    private Button logoutButton;
+    private HBox logout;
 
     @FXML
     private Label memNameLabel;
@@ -71,6 +72,7 @@ public class BorrowedBooksController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logout.setOnMouseClicked(event -> navigateToScene("/fxml/Start/Role.fxml", logout));
         //truong hop minh nhan vao mot cell thi navigate to book detail cua cell do
         borrowListContainer.setOnMouseClicked(event -> {
             BorrowingRecord selectedRecord = borrowListContainer.getSelectionModel().getSelectedItem();
@@ -88,36 +90,38 @@ public class BorrowedBooksController implements Initializable {
             HomeScreenController controller = navigateToScene("/fxml/User/home_screen.fxml", homeNav);
             if (controller != null) {
                 controller.setUsername(userFullName);
+                controller.setUserFullName(userFullName);
             }
         });
-
-        //navigateToScene("/fxml/User/home_screen.fxml", homeNav1);
 
         searchNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
             SearchBooksScreenController controller = navigateToScene("/fxml/User/search_books_screen.fxml", searchNav);
             if (controller != null) {
-                controller.setUsername(userFullName);
+                controller.setUserFullName(userFullName);
+                controller.setUserFullName(username);
             }
         });
 
-        //SceneSwitcher.navigateToScene("/fxml/User/search_books_screen.fxml", searchNav);
-
-        brNav1.setOnMouseClicked(event -> {
+        favNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
-            BorrowedBooksController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav1);
+            FavouriteController controller = navigateToScene("/fxml/User/FavouriteBooks.fxml", favNav);
             if (controller != null) {
-                controller.setUsername(userFullName);
+                controller.setUserFullName(userFullName);
+                controller.setUsername(username);
+            }
+        });
+
+        requestNav.setOnMouseClicked(event -> {
+            String userFullName= memNameLabel.getText();
+            UserRequestController controller = navigateToScene("/fxml/User/user_request.fxml", requestNav);
+            if (controller != null) {
+                controller.setUsername(username);
             }
         });
     }
 
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
-    }
-
-    @FXML
-    public void logout(ActionEvent event) {
-        SceneSwitcher.navigateToScene("/fxml/Start/Role.fxml", logoutButton);
     }
 }

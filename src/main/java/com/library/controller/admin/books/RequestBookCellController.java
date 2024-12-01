@@ -68,17 +68,16 @@ public class RequestBookCellController {
     }
 
     public void loadReservation(Reservation reservation) {
-        try {
-            current = reservation;
-            int userId = reservation.getUserId();
-            int reservationId = reservation.getReservationId();
-            User user = userDao.get(userId);
-            if (user != null) {
-                userIdLabel.setText(String.valueOf(user.getUserId()));
-                userLabel.setText(user.getFullName());
-            }
+        current = reservation;
+        int userId = reservation.getUserId();
+        int reservationId = reservation.getReservationId();
+        User user = userDao.get(userId);
+        if (user != null) {
+            userIdLabel.setText(String.valueOf(user.getUserId()));
+            userLabel.setText(user.getFullName());
+        }
 
-            Document doc = documentDao.get(reservation.getIsbn());
+        Document doc = documentDao.get(reservation.getIsbn());
             if (doc != null) {
                 bookNameLabel.setText(doc.getTitle());
                 isbnLabel.setText(reservation.getIsbn());
@@ -94,9 +93,6 @@ public class RequestBookCellController {
             }
 
             updateButtonVisibility(reservation.getStatus());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void updateButtonVisibility(String status) {

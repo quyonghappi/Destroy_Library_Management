@@ -50,7 +50,7 @@ public class SearchBooksScreenController {
     private String username;
 
     public void setUsername(String username) {
-        memNameLabel.setText(username);
+        this.username = username;
     }
 
     public void logout(ActionEvent event) {
@@ -61,30 +61,37 @@ public class SearchBooksScreenController {
         searchField.setOnAction(event -> onSearchBooks());
 
         homeNav.setOnMouseClicked(event -> {
-            String userFullName= memNameLabel.getText();
+            String userFullName = memNameLabel.getText();
             HomeScreenController controller = navigateToScene("/fxml/User/home_screen.fxml", homeNav);
             if (controller != null) {
                 controller.setUsername(userFullName);
+                controller.setUserFullName(userFullName);
             }
         });
-
-        //navigateToScene("/fxml/User/home_screen.fxml", homeNav1);
-
-        searchNav1.setOnMouseClicked(event -> {
-            String userFullName= memNameLabel.getText();
-            SearchBooksScreenController controller = navigateToScene("/fxml/User/search_books_screen.fxml", searchNav1);
-            if (controller != null) {
-                controller.setUsername(userFullName);
-            }
-        });
-
-        //SceneSwitcher.navigateToScene("/fxml/User/search_books_screen.fxml", searchNav);
 
         brNav.setOnMouseClicked(event -> {
-            String userFullName= memNameLabel.getText();
-            BorrowedBooksController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
+            String userFullName = memNameLabel.getText();
+            SearchBooksScreenController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
             if (controller != null) {
-                controller.setUsername(userFullName);
+                controller.setUserFullName(userFullName);
+                controller.setUserFullName(username);
+            }
+        });
+
+        favNav.setOnMouseClicked(event -> {
+            String userFullName = memNameLabel.getText();
+            FavouriteController controller = navigateToScene("/fxml/User/FavouriteBooks.fxml", favNav);
+            if (controller != null) {
+                controller.setUserFullName(userFullName);
+                controller.setUsername(username);
+            }
+        });
+
+        requestNav.setOnMouseClicked(event -> {
+            String userFullName = memNameLabel.getText();
+            UserRequestController controller = navigateToScene("/fxml/User/user_request.fxml", requestNav);
+            if (controller != null) {
+                controller.setUsername(username);
             }
         });
     }
@@ -272,6 +279,10 @@ public class SearchBooksScreenController {
 
         // Hiển thị cửa sổ
         detailStage.show();
+    }
+
+    public void setUserFullName(String userFullName) {
+        memNameLabel.setText(userFullName);
     }
 
 

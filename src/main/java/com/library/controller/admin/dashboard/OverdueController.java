@@ -55,44 +55,39 @@ public class OverdueController {
     }
 
     public void loadOverdueData(Fine fine) {
-        try {
-            currentFine=fine;
-            int userId = fine.getUserId();
+        currentFine=fine;
+        int userId = fine.getUserId();
 
-            int recordId = fine.getRecordId();
+        int recordId = fine.getRecordId();
 
-            User user = userDao.get(userId);
-            if (user != null) {
-                useridLabel.setText(String.valueOf(user.getUserId()));
-                usernameLabel.setText(user.getFullName());
-            }
+        User user = userDao.get(userId);
+        if (user != null) {
+            useridLabel.setText(String.valueOf(user.getUserId()));
+            usernameLabel.setText(user.getFullName());
+        }
 //            } else {
 //                useridLabel.setText("N/A");
 //                usernameLabel.setText("Unknown User");
 //            }
 
             //load borrowing record
-            BorrowingRecord borrowingRecord = borrowingRecordDao.get(recordId);
-            if (borrowingRecord != null) {
-                Document document = documentDao.get(borrowingRecord.getISBN());
-                if (document != null) {
-                    bookNameLabel.setText(document.getTitle());
-                    DecimalFormat decimalFormat = new DecimalFormat("#,###");
-                    fineLabel.setText(decimalFormat.format(fine.getFineAmount()));
+        BorrowingRecord borrowingRecord = borrowingRecordDao.get(recordId);
+        if (borrowingRecord != null) {
+            Document document = documentDao.get(borrowingRecord.getISBN());
+            if (document != null) {
+                bookNameLabel.setText(document.getTitle());
+                DecimalFormat decimalFormat = new DecimalFormat("#,###");
+                fineLabel.setText(decimalFormat.format(fine.getFineAmount()));
                     //fineLabel.setText(String.valueOf(fine.getFineAmount())); //use fine's fine amount
-                    recordIdLabel.setText(String.valueOf(recordId));
-                    overdueLabel.setText(fineDao.daysOverdue(borrowingRecord)+ " days");
+                recordIdLabel.setText(String.valueOf(recordId));
+                overdueLabel.setText(fineDao.daysOverdue(borrowingRecord) + " days");
 
-                    if (!document.getImageLink().equals("N/A")) {
-                        loadImageLazy(document.getImageLink(), bookImage, 50, 60);
-                    }
-                } else {
-                    bookNameLabel.setText("N/A");
+                if (!document.getImageLink().equals("N/A")) {
+                    loadImageLazy(document.getImageLink(), bookImage, 50, 60);
                 }
+            } else {
+                bookNameLabel.setText("N/A");
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

@@ -69,6 +69,7 @@ CREATE TABLE Documents (
                            location VARCHAR(255) NOT NULL,
                            preview_link TEXT,
                            book_image TEXT,
+                           added_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                            FOREIGN KEY (author_id) REFERENCES Authors(author_id) ON DELETE  RESTRICT ON UPDATE CASCADE,
                            FOREIGN KEY (publisher_id) REFERENCES Publishers(publisher_id) ON DELETE  RESTRICT ON UPDATE CASCADE,
                            FOREIGN KEY (category_id) REFERENCES Categories(category_id) ON DELETE  RESTRICT ON UPDATE CASCADE
@@ -121,17 +122,7 @@ CREATE TABLE Admins (
                         FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE RESTRICT ON UPDATE  CASCADE
 );
 
--- Table for recording admin actions
-CREATE TABLE AdminActions (
-                              action_id INT NOT NULL AUTO_INCREMENT,
-                              admin_id INT NOT NULL,
-                              action_type ENUM('add_user', 'remove_user', 'update_user', 'add_document', 'remove_document', 'update_document', 'other') NOT NULL,
-    -- action_description TEXT,
-                              action_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-                              target_id INT,
-                              PRIMARY KEY(action_id),
-                              FOREIGN KEY (admin_id) REFERENCES Admins(admin_id)
-);
+
 
 -- Table for managing overdue fines
 CREATE TABLE Fines (

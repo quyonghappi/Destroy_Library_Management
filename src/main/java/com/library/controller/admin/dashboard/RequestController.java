@@ -67,33 +67,29 @@ public class RequestController {
         this.lv = lv;
     }
     public void loadReservation(Reservation reservation) {
-        try {
-            current = reservation;
-            int userId = reservation.getUserId();
-            int reservationId = reservation.getReservationId();
-            User user = userDao.get(userId);
-            if (user != null) {
-                useridLabel.setText(String.valueOf(user.getUserId()));
-                usernameLabel.setText(user.getFullName());
-            }
-
-            Document doc = documentDao.get(reservation.getIsbn());
-            if (doc != null) {
-                // Set other information
-                bookNameLabel.setText(doc.getTitle());
-                isbnLabel.setText(reservation.getIsbn());
-                requestDateLabel.setText(reservation.getReservationDate().toString());
-                requestIdLabel.setText(String.valueOf(reservation.getReservationId()));
-
-                // Load the image using lazy loading
-                if (!doc.getImageLink().equals("N/A")) {
-                    loadImageLazy(doc.getImageLink(), bookImage, 50, 60);
-                }
-            }
-            updateButtonVisibility(reservation.getStatus());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        current = reservation;
+        int userId = reservation.getUserId();
+        int reservationId = reservation.getReservationId();
+        User user = userDao.get(userId);
+        if (user != null) {
+            useridLabel.setText(String.valueOf(user.getUserId()));
+            usernameLabel.setText(user.getFullName());
         }
+
+        Document doc = documentDao.get(reservation.getIsbn());
+        if (doc != null) {
+            // Set other information
+            bookNameLabel.setText(doc.getTitle());
+            isbnLabel.setText(reservation.getIsbn());
+            requestDateLabel.setText(reservation.getReservationDate().toString());
+            requestIdLabel.setText(String.valueOf(reservation.getReservationId()));
+
+            // Load the image using lazy loading
+            if (!doc.getImageLink().equals("N/A")) {
+                loadImageLazy(doc.getImageLink(), bookImage, 50, 60);
+            }
+        }
+        updateButtonVisibility(reservation.getStatus());
     }
 
     private void updateButtonVisibility(String status) {

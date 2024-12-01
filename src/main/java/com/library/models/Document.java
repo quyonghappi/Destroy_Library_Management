@@ -1,5 +1,8 @@
 package com.library.models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Document {
     private String ISBN;
     private String title;
@@ -15,6 +18,7 @@ public class Document {
     private String location = "com/library";
     private String previewLink;
     private String imageLink;
+    private LocalDateTime addedOn;
 
     private Author author;
     private Publisher publisher;
@@ -27,7 +31,7 @@ public class Document {
     public Document(String ISBN, String title, int categoryId, int authorId, int publisherId,
                     int publicationYear, int quantity,
                     String description, String location,
-                    int page, String previewLink, String imageLink) {
+                    int page, String previewLink, String imageLink, LocalDateTime addedOn) {
         this.ISBN = ISBN;
         this.title = title;
         this.categoryId = categoryId;
@@ -35,13 +39,12 @@ public class Document {
         this.publisherId = publisherId;
         this.publicationYear = publicationYear;
         this.quantity = quantity;
-//        this.totalCopies = totalCopies;
-//        this.availableCopies = availableCopies;
         this.description = description;
         this.location = location;
         this.page = page;
         this.previewLink=previewLink;
         this.imageLink=imageLink;
+        this.addedOn = addedOn;
     }
 
     public String getISBN() {
@@ -158,4 +161,15 @@ public class Document {
     public void setPage(int page) {
         this.page = page;
     }
+
+    public void setAddedOn(LocalDateTime time) {
+        this.addedOn = time;
+    }
+
+    public LocalDateTime getAddedOn() {
+        return addedOn;
+    }
+
+
+
 }
