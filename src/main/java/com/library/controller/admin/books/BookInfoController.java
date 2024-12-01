@@ -3,7 +3,6 @@ import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.DocumentDao;
 import com.library.models.Document;
-import com.library.utils.FilterPopup;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,14 +13,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-//import static com.library.utils.FilterPopup.showPopup;
-import static com.library.utils.FilterPopup.*;
-import static com.library.utils.FilterPopup.getSelectedItem;
 import static com.library.utils.SceneSwitcher.*;
 
 public class BookInfoController implements Initializable {
@@ -63,9 +58,6 @@ public class BookInfoController implements Initializable {
     private HBox returnNav;
 
     @FXML
-    private ImageView filter;
-
-    @FXML
     private ToggleButton allButton;
 
     @FXML
@@ -74,20 +66,20 @@ public class BookInfoController implements Initializable {
     @FXML
     private ToggleButton lostButton;
 
-    @FXML
-    private TextField searchField;
 
     @FXML
     private TextField searchField1;
 
+    @FXML
+    private ComboBox<String> SearchComboBox = new ComboBox<>();
 
     private DocumentDao documentDao=new DocumentDao();
-//    List<Document> documentList=new ArrayList<>();
-
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        SearchComboBox.getItems().addAll("Title", "ISBN", "Author", "Category");
 
         loadBookList();
         lentNav.setOnMouseClicked(event -> {
@@ -132,18 +124,15 @@ public class BookInfoController implements Initializable {
                 controller.setUserFullName(userFullName);
             }
         });
-
         lendButton.setOnAction(event -> showLendBookScene(bookInfoRoot));
-        filter.setOnMouseClicked(event->showPopup(filter, event));
+        //filter.setOnMouseClicked(event->showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(bookInfoRoot));
-
-        FilterPopup.setFilterSelectionListener(selectedFilter -> {
-            SearchBookCell.handleSearch(bookDetailContainer, searchField1.getText(), FilterPopup.getSelectedItem());
-            System.out.println( FilterPopup.getSelectedItem());
+        SearchComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            SearchBookCell.handleSearch(bookDetailContainer, searchField1.getText(), newValue);
         });
 
         searchField1.textProperty().addListener((observable, oldValue, newValue) -> {
-            SearchBookCell.handleSearch(bookDetailContainer, newValue, FilterPopup.getSelectedItem());
+            SearchBookCell.handleSearch(bookDetailContainer, newValue, SearchComboBox.getValue());
         });
 
     }

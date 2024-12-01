@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../css/admin/addMemStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.AddBookController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../css/admin/addMemStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.EditBookController">
     <children>
         <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="5.0" StackPane.alignment="CENTER">
             <children>
@@ -24,10 +24,10 @@
                                         <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
                                     </HBox.margin>
                                     <image>
-                                        <Image url="@../../../ui/admindashboard/book1.png" />
+                                        <Image url="@../../../ui/admindashboard/edit-box-fill.png" />
                                     </image>
                                 </ImageView>
-                                <Label minHeight="-Infinity" prefHeight="40.0" text="Add book" textFill="#28324d">
+                                <Label minHeight="-Infinity" prefHeight="40.0" text="Change book information" textFill="#28324d">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
@@ -41,8 +41,8 @@
                 </HBox>
                 <VBox prefHeight="74.0" prefWidth="600.0" spacing="7.0">
                     <children>
-                        <Label styleClass="small-label" text="ISBN" />
-                        <TextField fx:id="isbnField" minHeight="-Infinity" prefHeight="35.0" prefWidth="250.0" promptText="Enter isbn" styleClass="text-field" />
+                        <Label styleClass="small-label" text="Location" />
+                        <TextField fx:id="locationField" minHeight="-Infinity" prefHeight="35.0" prefWidth="250.0" promptText="Enter location" styleClass="text-field" />
                     </children>
                     <padding>
                         <Insets left="20.0" right="20.0" />
@@ -53,8 +53,8 @@
                 </VBox>
                 <VBox prefHeight="74.0" prefWidth="600.0" spacing="7.0">
                     <children>
-                        <Label styleClass="small-label" text="Book quantity" />
-                        <TextField fx:id="bookQuantityField" minHeight="-Infinity" prefHeight="35.0" promptText="Enter the number of copies to be added" styleClass="text-field" />
+                        <Label styleClass="small-label" text="Number of new copies" />
+                        <TextField fx:id="copiesQuantityField" minHeight="-Infinity" prefHeight="35.0" promptText="Enter the number of new copies" styleClass="text-field" />
                     </children>
                     <VBox.margin>
                         <Insets />
@@ -63,7 +63,7 @@
                         <Insets bottom="40.0" left="20.0" right="20.0" />
                     </padding>
                 </VBox>
-                <Button fx:id="confirmButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addBook" prefHeight="35.0" prefWidth="560.0" styleClass="confirm-button" text="Confirm" textFill="#e2f6ff">
+                <Button fx:id="confirmButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editBook" prefHeight="35.0" prefWidth="560.0" styleClass="confirm-button" text="Confirm" textFill="#e2f6ff">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>

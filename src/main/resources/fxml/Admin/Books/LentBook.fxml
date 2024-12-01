@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="lentBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.LentBookController">
+<StackPane fx:id="lentBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.LentBookController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
          <left>
@@ -290,7 +290,7 @@
                               <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1116.0" styleClass="bar-box-below">
                                  <children>
                                     <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" text="Thumbnail" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
                                     <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="User" HBox.hgrow="ALWAYS" />
                                     <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="ISBN" HBox.hgrow="ALWAYS" />
                                     <Label alignment="CENTER" prefHeight="40.0" prefWidth="160.0" text="Borrow date" HBox.hgrow="ALWAYS" />

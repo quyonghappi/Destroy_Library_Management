@@ -16,6 +16,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.library.utils.SceneSwitcher.navigateToScene;
+
 public class UserRequestController implements Initializable {
     @FXML
     private HBox brNav;
@@ -27,7 +29,7 @@ public class UserRequestController implements Initializable {
     private HBox homeNav;
 
     @FXML
-    private Button logoutButton;
+    private HBox logout;
 
     @FXML
     private Label memNameLabel;
@@ -62,15 +64,10 @@ public class UserRequestController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        logout.setOnMouseClicked(event -> navigateToScene("/fxml/Start/Role.fxml", logout));
     }
 
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
-    }
-
-    @FXML
-    public void logout(ActionEvent event) {
-        SceneSwitcher.navigateToScene("/fxml/Start/Role.fxml", logoutButton);
     }
 }

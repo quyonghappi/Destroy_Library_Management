@@ -138,7 +138,7 @@ CREATE TABLE Fines (
                        fine_id INT AUTO_INCREMENT PRIMARY KEY,
                        user_id INT,
                        record_id INT,    -- Links to borrowing records
-                       fine_amount DECIMAL(5, 2) NOT NULL,
+                       fine_amount DECIMAL(10,0) NOT NULL,
                        due_date DATE NOT NULL,
                        status ENUM('UNPAID', 'PAID') DEFAULT 'UNPAID',
                        FOREIGN KEY (user_id) REFERENCES Users(user_id),

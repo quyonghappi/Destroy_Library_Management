@@ -25,8 +25,8 @@
 #paidButton{
     -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-text-fill: #3A9D88;
-    -fx-background-color: #E4F4F3;
+    -fx-text-fill: #CB755C;
+    -fx-background-color: #F9EBEA;
     -fx-background-radius: 5;
     -fx-border-width: 1px;
     -fx-border-radius: 5;
@@ -34,7 +34,8 @@
 }
 
 #paidButton:hover {
-    -fx-background-color: #ddfdfc;
+    -fx-background-color: #f1d4d2;
+    -fx-text-fill: #bc6c52;
 }
 /*#denyButton {*/
 /*    -fx-text-fill: #CB755C;*/

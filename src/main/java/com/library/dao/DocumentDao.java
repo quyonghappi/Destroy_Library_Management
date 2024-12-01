@@ -354,23 +354,44 @@ public class DocumentDao implements DAO<Document> {
         return null;
     }
 
-    //delete doc
+    //delete doc by its isbn, do not use title cuz books can have same title
     public void delete(Document doc) throws SQLException {
         Connection conn = DatabaseConfig.getConnection();
-        String sql = "DELETE FROM documents WHERE title= ?";
+        String sql = "DELETE FROM documents WHERE isbn= ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, doc.getTitle());
+            stmt.setString(1, doc.getISBN());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    //edit number of book copies and its location
+    public void editBook(String isbn, String location, int quantity) {
+        String sql = "update documents set quantity= quantity + ?, location = ? where isbn = ?";
+        try (
+                Connection conn = DatabaseConfig.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, quantity);
+            ps.setString(2, location);
+            ps.setString(3, isbn);
+            //execute the update
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//        finally {
+//            conn.close();
+//        }
+    }
+
     //when user return book or borrow book, update available copies
-    public void updateQuantity(String isbn, String status) throws SQLException {
-        Connection conn = DatabaseConfig.getConnection();
+    public void updateQuantity(String isbn, String status) {
         String sql = "update documents set quantity= quantity + ? where isbn = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (
+                Connection conn = DatabaseConfig.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, isbn);
             if (status.equals("returned")) ps.setInt(1, 1);
             else if (status.equals("borrowed") || status.equals("lost")) ps.setInt(1, -1);
@@ -380,9 +401,10 @@ public class DocumentDao implements DAO<Document> {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            conn.close();
         }
+//        finally {
+//            conn.close();
+//        }
     }
 
     //methods to fetch or create author, publisher, and category IDs

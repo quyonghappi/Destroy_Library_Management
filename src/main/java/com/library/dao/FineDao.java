@@ -44,6 +44,22 @@ public class FineDao implements DAO<Fine> {
         return fineList;
     }
 
+    //check if fine record for that overdue borrowing is exist
+    public boolean fineExists(int recordId) {
+        String sql = "SELECT count(*) FROM fines WHERE record_id = ?";
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, recordId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
     //get list of paid fines
     public List<Fine> getPaid() {
         List<Fine> paidList = new ArrayList<>();
@@ -141,10 +157,9 @@ public class FineDao implements DAO<Fine> {
         if (isOverdue(dueDate)) {
             br.setStatus("late");
             BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
-            //System.out.println("Updating status to 'late' for record ID: " + br.getRecordId());
             borrowingRecordDao.update(br);
         }
-        if (isOverdue(dueDate) || getFine) {
+        if ((isOverdue(dueDate) || getFine) && !fineExists(br.getRecordId())) {
             System.out.println("Adding fine for record ID: " + br.getRecordId());
             add(br);
         }
@@ -163,7 +178,7 @@ public class FineDao implements DAO<Fine> {
             ps.setInt(1,record.getUserId());
             ps.setInt(2,record.getRecordId());
             ps.setDouble(3,calculateFine(record));
-            ps.setObject(4,LocalDate.now().plusDays(7));
+            ps.setObject(4,LocalDate.now().plusDays(14));
             ps.setString(5,"UNPAID");
 
             ps.executeUpdate();
@@ -175,18 +190,18 @@ public class FineDao implements DAO<Fine> {
 
     public double calculateFine(BorrowingRecord record) {
         //10k each day overdue
-        if (!isOverdue(record.getBorrowDate())) {
+        if (isOverdue(record.getBorrowDate().plusDays(14))) {
             //only used for local date
             //Period period=Period.between(LocalDateTime.now(), record.getReturnDate());
             return daysOverdue(record) * 10000;
         } else if (record.getStatus().equals("lost")) {
-            return 5000000;
+            return 200000;
         }
         return 0;
     }
 
     public long daysOverdue(BorrowingRecord record) {
-        Duration duration = Duration.between(record.getBorrowDate().plusDays(7), LocalDateTime.now());
+        Duration duration = Duration.between(record.getBorrowDate().plusDays(14), LocalDateTime.now());
         return duration.toDays();
     }
 

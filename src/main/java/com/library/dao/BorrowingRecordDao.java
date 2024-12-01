@@ -52,7 +52,7 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
 
     //get lent book
     public List<BorrowingRecord> getLent() {
-        String sql = "select * from borrowingrecords where status='borrowed'";
+        String sql = "select * from borrowingrecords where status in ('borrowed', 'late', 'lost')";
         return getRecord(sql);
     }
 
@@ -116,7 +116,7 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         String sql="insert into borrowingrecords(user_id, isbn, borrow_date,return_date, status) values(?,?,?,?,?)";
         try(
                 Connection conn=DatabaseConfig.getConnection();
-                PreparedStatement ps=conn.prepareStatement(sql);
+                PreparedStatement ps=conn.prepareStatement(sql)
         ) {
             //  ps.setInt(1, borrowingRecord.getRecordId());
             ps.setInt(1, borrowingRecord.getUserId());
@@ -137,7 +137,7 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         String sql="update borrowingrecords set status=?, return_date=? where record_id=?";
         try(
                 Connection conn=DatabaseConfig.getConnection();
-                PreparedStatement ps= conn.prepareStatement(sql);
+                PreparedStatement ps= conn.prepareStatement(sql)
         ) {
             ps.setString(1, br.getStatus());
             ps.setTimestamp(2, DateFormat.toSqlTimestamp(br.getReturnDate()));
@@ -145,6 +145,10 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        if (br.getStatus().equals("returned") || br.getStatus().equals("lost")) {
+            DocumentDao documentDao = new DocumentDao();
+            documentDao.updateQuantity(br.getISBN(), br.getStatus());
         }
     }
 

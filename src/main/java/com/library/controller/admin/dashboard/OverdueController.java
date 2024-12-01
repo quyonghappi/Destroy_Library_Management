@@ -15,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 
@@ -76,7 +77,9 @@ public class OverdueController {
                 Document document = documentDao.get(borrowingRecord.getISBN());
                 if (document != null) {
                     bookNameLabel.setText(document.getTitle());
-                    fineLabel.setText(String.valueOf(fine.getFineAmount())); //use fine's fine amount
+                    DecimalFormat decimalFormat = new DecimalFormat("#,###");
+                    fineLabel.setText(decimalFormat.format(fine.getFineAmount()));
+                    //fineLabel.setText(String.valueOf(fine.getFineAmount())); //use fine's fine amount
                     recordIdLabel.setText(String.valueOf(recordId));
                     overdueLabel.setText(fineDao.daysOverdue(borrowingRecord)+ " days");
 

@@ -7,14 +7,22 @@ import com.library.models.Document;
 import com.library.models.Publisher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 import static com.library.utils.LoadImage.loadImageLazy;
 
-public class BookInfoCellController extends ListCell<Document> {
+public class BookInfoCellController extends ListCell<Document> implements Initializable {
     @FXML
     private Label authorLabel;
 
@@ -42,8 +50,6 @@ public class BookInfoCellController extends ListCell<Document> {
     @FXML
     private Label locationLabel;
 
-    @FXML
-    private Label statusLabel;
 
     private ListView<Document> listView;
     private Document currentDocument;
@@ -58,6 +64,7 @@ public class BookInfoCellController extends ListCell<Document> {
     public void setListView(ListView<Document> listView) {
         this.listView = listView;
     }
+
     public void loadDocument(Document document) {
         if (document != null) {
             currentDocument = document;
@@ -80,29 +87,63 @@ public class BookInfoCellController extends ListCell<Document> {
         }
     }
 
-    @FXML
-    private void handleEditButtonAction(ActionEvent event) {
-//        try {
-//            documentDao.delete(documentDao.findByISBN(isbnLabel.getText());
-//            BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
-//            BorrowingRecord borrowingRecord=new BorrowingRecord(useridLabel.getText(), isbnLabel.getText(),now(),"borrowed");
-//            borrowingRecordDao.add(borrowingRecord);
-//            //remove current request from listview
-//            lv.getItems().remove(current);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
 
+    private void handleEditButtonAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Books/EditBookInfo.fxml"));
+            StackPane root = loader.load();
+//            Rectangle darkBackground = new Rectangle();
+//            darkBackground.setFill(Color.color(0, 0, 0, 0.7)); //black with 70% opacity
+//            darkBackground.widthProperty().bind(root.widthProperty());
+//            darkBackground.heightProperty().bind(root.heightProperty());
+
+            EditBookController controller = loader.getController();
+            controller.setDocument(currentDocument);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            scene.lookup("#cancelButton").setOnMouseClicked(event -> {
+                stage.close();
+            });
+            stage.setScene(scene);
+            stage.setTitle("Edit Book");
+            stage.centerOnScreen();
+            //set the new stage as modal
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(editImage.getScene().getWindow()); //set owner to the parent stage
+
+            stage.showAndWait();
+        } catch (IOException e) {
+            System.out.println("fxml path is not valid");
+        }
     }
 
-    @FXML
-    private void handleDeleteButtonAction(ActionEvent event) {
+    private void handleDeleteButtonAction() {
         try {
-            documentDao.delete(documentDao.get(isbnLabel.getText()));
-            listView.getItems().remove(currentDocument);
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirm Delete Information");
+            confirmationAlert.setHeaderText("Confirm Book Details");
+            confirmationAlert.setContentText("Are you sure you want to delete book: \n\n" +
+                    "Title: " + bookNameLabel.getText() + "\n" +
+                    "ISBN: " + isbnLabel.getText());
+            confirmationAlert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    try {
+                        documentDao.delete(documentDao.get(isbnLabel.getText()));
+                    } catch (SQLException e) {
+                        throw new RuntimeException("Can not delete book: " + isbnLabel.getText());
+                    }
+                    listView.getItems().remove(currentDocument);
+                }
+            });
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        editImage.setOnMouseClicked(mouseEvent -> handleEditButtonAction());
+        deleteImage.setOnMouseClicked(mouseEvent -> handleDeleteButtonAction());
     }
 }

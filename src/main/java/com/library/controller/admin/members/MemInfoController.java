@@ -2,7 +2,6 @@ package com.library.controller.admin.members;
 import com.library.controller.admin.books.BookInfoController;
 import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.dao.UserDao;
-import com.library.models.Document;
 import com.library.models.User;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -18,9 +17,10 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import static com.library.dao.UserDao.searchByUsername;
 import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
@@ -61,13 +61,7 @@ public class MemInfoController implements Initializable {
     private ImageView filter;
 
     @FXML
-    private TextField searchField;
-
-    @FXML
     private TextField searchField1;
-
-    @FXML
-    private HBox settingContainer;
 
     private UserDao userDao=new UserDao();
 
@@ -90,7 +84,15 @@ public class MemInfoController implements Initializable {
         });
         addMem.setOnMouseClicked(event->showAddMemScene());
         lendButton.setOnAction(event -> showLendBookScene(memInfoRoot));
-        filter.setOnMouseClicked(event->showPopup(filter, event));
+        //filter.setOnMouseClicked(event->showPopup(filter, event));
+
+        searchField1.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                loadMemList();
+            } else {
+                handleMemSearch(memDetailContainer, newValue.trim());
+            }
+        });
     }
 
     private void loadMemList() {
@@ -186,6 +188,34 @@ public class MemInfoController implements Initializable {
             System.out.println("fail to load add mem scene");
         }
     }
+
+    void handleMemSearch(ListView<User> memDetailContainer, String username) {
+        Task<List<User>> searchTask = new Task<>() {
+
+            @Override
+            protected List<User> call() throws SQLException {
+                return searchByUsername(username);
+            }
+        };
+
+        searchTask.setOnSucceeded(event -> {
+            List<User> searchResult = searchTask.getValue();
+            if (!searchResult.isEmpty()) {
+                System.out.println(searchResult.toString());
+                refreshListView(searchResult);
+            } else {
+                System.out.println("user not found");
+                memDetailContainer.getItems().clear();
+            }
+        });
+
+        searchTask.setOnFailed(event -> {
+            System.out.println("fail to load users with username: "+ username + searchTask.getException());
+        });
+        new Thread(searchTask).start();
+    }
+
+
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
     }

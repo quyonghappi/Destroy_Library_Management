@@ -141,7 +141,7 @@ public class LentBookController implements Initializable {
     }
 
     private List<BorrowingRecord> getBrList() {
-        return borrowingRecordDao.getAll();
+        return borrowingRecordDao.getLent();
     }
 
     public void setUserFullName(String userFullName) {

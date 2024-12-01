@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1116.0" stylesheets="@../../../css/bookInfoCellStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.RequestBookCellController">
+<HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1116.0" stylesheets="@../../../css/admin/bookInfoCellStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.RequestBookCellController">
    <children>
       <ImageView fx:id="bookImage" fitHeight="65.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../../css/register.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.start.RegisterController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../../css/start/register.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.start.RegisterController">
     <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="950.0" style="-fx-background-radius: 30px; -fx-background-color: #FFFFFF;">
         <children>
             <!-- Left VBox: Form -->
@@ -32,24 +32,24 @@
                             <Font size="16.0" />
                         </font>
                     </Label>
-                    <TextField fx:id="fullNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="Full name" style="-fx-border-radius: 20px; -fx-background-radius: 20px; -fx-background-color: #bfd1f6;" stylesheets="@../../css/register.css">
+                    <TextField fx:id="fullNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="Full name" style="-fx-border-radius: 20px; -fx-background-radius: 20px; -fx-background-color: #bfd1f6;" stylesheets="@../../css/start/register.css">
                         <VBox.margin>
                             <Insets top="20.0" />
                         </VBox.margin>
                     </TextField>
-                    <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="User name" style="-fx-background-color: #bfd1f6; -fx-border-radius: 20px; -fx-background-radius: 20px;" stylesheets="@../../css/register.css">
+                    <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="User name" style="-fx-background-color: #bfd1f6; -fx-border-radius: 20px; -fx-background-radius: 20px;" stylesheets="@../../css/start/register.css">
                         <VBox.margin>
                             <Insets top="5.0" />
                         </VBox.margin>
                     </TextField>
-                    <TextField fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="Email" style="-fx-background-color: #bfd1f6; -fx-border-radius: 20px; -fx-background-radius: 20px;" stylesheets="@../../css/register.css">
+                    <TextField fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="Email" style="-fx-background-color: #bfd1f6; -fx-border-radius: 20px; -fx-background-radius: 20px;" stylesheets="@../../css/start/register.css">
                         <VBox.margin>
                             <Insets top="5.0" />
                         </VBox.margin>
                     </TextField>
-                    <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="Password" style="-fx-background-radius: 20px; -fx-background-color: #bfd1f6;" stylesheets="@../../css/register.css" />
-                    <PasswordField fx:id="confirmPasswordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="Confirm password" style="-fx-background-radius: 20px; -fx-background-color: #bfd1f6;" stylesheets="@../../css/register.css" />
-                    <Button fx:id="signUpButton" onAction="#signUp" prefHeight="51.0" prefWidth="185.0" style="-fx-background-color: #88adf4; -fx-background-radius: 25px;" styleClass="register-button" stylesheets="@../../css/register.css" text="Sign up">
+                    <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="Password" style="-fx-background-radius: 20px; -fx-background-color: #bfd1f6;" stylesheets="@../../css/start/register.css" />
+                    <PasswordField fx:id="confirmPasswordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" promptText="Confirm password" style="-fx-background-radius: 20px; -fx-background-color: #bfd1f6;" stylesheets="@../../css/start/register.css" />
+                    <Button fx:id="signUpButton" onAction="#signUp" prefHeight="51.0" prefWidth="185.0" style="-fx-background-color: #88adf4; -fx-background-radius: 25px;" styleClass="register-button" stylesheets="@../../css/start/register.css" text="Sign up">
                         <!--                    Button fx:id="signUpButton" text="Sign up" onAction="#signUp" "/-->
                         <VBox.margin>
                             <Insets top="40.0" />

@@ -3,15 +3,18 @@ package com.library.controller.user;
 import com.library.dao.DocumentDao;
 import com.library.models.*;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 
-public class UserRequestCellController {
+public class UserRequestCellController implements Initializable {
     @FXML
     private Label authorLabel;
 
@@ -32,6 +35,9 @@ public class UserRequestCellController {
 
     @FXML
     private Label pageLabel;
+
+    @FXML
+    private ImageView deleteImage;
 
     private ListView<Reservation> listView;
     private Reservation current;
@@ -61,4 +67,14 @@ public class UserRequestCellController {
             }
         }
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        deleteImage.setOnMouseClicked(event -> {
+            if (current != null && listView != null) {
+                listView.getItems().remove(current);
+            }
+        });
+    }
+
 }

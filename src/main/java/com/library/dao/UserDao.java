@@ -181,6 +181,37 @@ public class UserDao implements DAO<User> {
         return null;
     }
 
+    //method to search user with result show dynamically
+    public static List<User> searchByUsername(String username) throws SQLException {
+        List<User> result = new ArrayList<>();
+        String sql = "SELECT * FROM users WHERE user_name like ?";
+        try (
+                Connection cn = DatabaseConfig.getConnection();
+                PreparedStatement ps = cn.prepareStatement(sql)
+        ) {
+            ps.setString(1, "%"+username+"%");
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setUsername(rs.getString("user_name"));
+                user.setUserRole(rs.getString("user_role"));
+                user.setAccountStatus(rs.getString("account_status"));
+                user.setPassword(rs.getString("password_hash"));
+                user.setFullName(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
+                result.add(user);
+            }
+        } catch (SQLException e) {
+            throw new SQLException("This username doesn't exist!" + e.getMessage());
+        }
+        return result;
+    }
+
+
+
     /**
      * get a list of all users having fines
      * @return list of users having fines
