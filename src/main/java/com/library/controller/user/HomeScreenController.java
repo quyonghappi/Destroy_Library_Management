@@ -75,6 +75,7 @@ public class HomeScreenController implements Initializable {
 
     public void setUsername(String username) {
         this.username=username;
+        loadMyBooks();
     }
     private void loadBestBook() {
 //        DocumentDao documentDao = new DocumentDao();
@@ -239,7 +240,6 @@ public class HomeScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadRecentAddedBooks();
-        loadMyBooks();
 
         searchNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
@@ -264,6 +264,7 @@ public class HomeScreenController implements Initializable {
             UserRequestController controller = navigateToScene("/fxml/User/user_request.fxml", requestNav);
             if (controller != null) {
                 controller.setUsername(username);
+                controller.setUserFullName(userFullName);
             }
         });
 

@@ -17,6 +17,10 @@
     -fx-scale-y: 1.2;
 }
 
+.small-label {
+    -fx-text-fill: #8a9199;
+}
+
 #statusLabel {
     /*-fx-background-color: #BACFBF;*/
     -fx-background-radius: 5;

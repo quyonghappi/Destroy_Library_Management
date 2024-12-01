@@ -68,7 +68,7 @@ public class UserRequestController implements Initializable {
             String userFullName= memNameLabel.getText();
             HomeScreenController controller = navigateToScene("/fxml/User/home_screen.fxml", homeNav);
             if (controller != null) {
-                controller.setUsername(userFullName);
+                controller.setUsername(username);
                 controller.setUserFullName(userFullName);
             }
         });
@@ -78,7 +78,7 @@ public class UserRequestController implements Initializable {
             SearchBooksScreenController controller = navigateToScene("/fxml/User/search_books_screen.fxml", searchNav);
             if (controller != null) {
                 controller.setUserFullName(userFullName);
-                controller.setUserFullName(username);
+                controller.setUsername(username);
             }
         });
 
@@ -96,6 +96,7 @@ public class UserRequestController implements Initializable {
             UserRequestController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
             if (controller != null) {
                 controller.setUsername(username);
+                controller.setUserFullName(userFullName);
             }
         });
 

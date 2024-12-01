@@ -1,6 +1,7 @@
 package com.library.controller.user;
 
 import com.library.dao.DocumentDao;
+import com.library.dao.FavouriteDao;
 import com.library.models.Author;
 import com.library.models.Document;
 import com.library.utils.SceneSwitcher;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+import static com.library.utils.LoadImage.loadImageLazy;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 
 public class SearchBooksScreenController {
@@ -39,9 +41,8 @@ public class SearchBooksScreenController {
     @FXML
     public TextField searchField;
     @FXML
-    public Button logoutButton;
-    @FXML
-    private ScrollPane popularBooksScrollPane;
+    public HBox logout;
+
     @FXML
     public Label memNameLabel;
     @FXML
@@ -53,10 +54,6 @@ public class SearchBooksScreenController {
         this.username = username;
     }
 
-    public void logout(ActionEvent event) {
-        SceneSwitcher.navigateToScene("/fxml/Start/Role.fxml", logoutButton);
-    }
-
     public void initialize() {
         searchField.setOnAction(event -> onSearchBooks());
 
@@ -64,17 +61,17 @@ public class SearchBooksScreenController {
             String userFullName = memNameLabel.getText();
             HomeScreenController controller = navigateToScene("/fxml/User/home_screen.fxml", homeNav);
             if (controller != null) {
-                controller.setUsername(userFullName);
+                controller.setUsername(username);
                 controller.setUserFullName(userFullName);
             }
         });
 
         brNav.setOnMouseClicked(event -> {
             String userFullName = memNameLabel.getText();
-            SearchBooksScreenController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
+            BorrowedBooksController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
             if (controller != null) {
                 controller.setUserFullName(userFullName);
-                controller.setUserFullName(username);
+                controller.setUsername(username);
             }
         });
 
@@ -92,8 +89,11 @@ public class SearchBooksScreenController {
             UserRequestController controller = navigateToScene("/fxml/User/user_request.fxml", requestNav);
             if (controller != null) {
                 controller.setUsername(username);
+                controller.setUserFullName(userFullName);
             }
         });
+
+        logout.setOnMouseClicked(event->navigateToScene("/fxml/Start/Role.fxml", logout));
     }
 
     @FXML
@@ -125,20 +125,16 @@ public class SearchBooksScreenController {
             for (Document document : filteredDocuments) {
                 HBox bookCard = new HBox();
                 bookCard.setSpacing(10);
-                bookCard.setStyle("-fx-padding: 10; -fx-border-color: #ddd; -fx-background-color: #fff; -fx-border-radius: 5; -fx-background-radius: 5;");
+                bookCard.setStyle("-fx-background-color: #95b1ee; -fx-border-radius: 15; -fx-background-radius: 15;");
 
                 // Ảnh bìa sách
                 ImageView bookCover = new ImageView();
                 bookCover.setFitWidth(100);
                 bookCover.setFitHeight(150);
-                if (document.getImageLink() != null && !document.getImageLink().isEmpty()) {
-                    bookCover.setImage(new Image(document.getImageLink(), true));
-                    //aspect ratio of the image will be preserved ì true
-
-
-                    // loadImageLazy(document.getImageLink(), bookCover);
+                if (!document.getImageLink().equals("N/A")) {
+                    loadImageLazy(document.getImageLink(), bookCover, bookCover.getFitWidth(), bookCover.getFitHeight());
                 } else {
-                    bookCover.setImage(new Image("/ui/admindashboard/book1.png", true));
+                    bookCover.setImage(new Image("/ui/admindashboard/bookcover.png", true));
                 }
 
                 // Thông tin sách
@@ -192,10 +188,10 @@ public class SearchBooksScreenController {
         bookCover.setFitWidth(150);
         bookCover.setFitHeight(200);
         bookCover.setPreserveRatio(true);
-        if (document.getImageLink() != null && !document.getImageLink().isEmpty()) {
-            bookCover.setImage(new Image(document.getImageLink(), true));
+        if (!document.getImageLink().equals("N/A")) {
+            loadImageLazy(document.getImageLink(), bookCover, bookCover.getFitWidth(), bookCover.getFitHeight());
         } else {
-            bookCover.setImage(new Image("/ui/admindashboard/book1.png")); // Ảnh mặc định nếu không có
+            bookCover.setImage(new Image("/ui/admindashboard/bookcover.png", true));
         }
 
         // Tạo các nhãn hiển thị thông tin
@@ -225,10 +221,11 @@ public class SearchBooksScreenController {
 
         // Tạo Hyperlink cho liên kết sách preview nếu có
         Hyperlink previewLink = null;
-        if (document.getPreviewLink() != null && !document.getPreviewLink().isEmpty()) {
+        if (!document.getPreviewLink().equals("There is no preview for this book.")) {
             previewLink = new Hyperlink("View Preview");
             previewLink.setOnAction(e -> {
                 try {
+                    //no no we will display that preview part in our app
                     // Mở liên kết preview trong trình duyệt
                     java.awt.Desktop.getDesktop().browse(java.net.URI.create(document.getPreviewLink()));
                 } catch (IOException ex) {
@@ -237,11 +234,16 @@ public class SearchBooksScreenController {
             });
             previewLink.getStyleClass().add("book-preview-link");
         }
+        else {
+            previewLink = null;
+        }
 
         // Tạo "Add to Favorites" label
-        Label addToFavoritesLabel = new Label("Add to Favorites");
-        addToFavoritesLabel.getStyleClass().add("add-to-favorites");
-        //addToFavoritesLabel.setOnMouseClicked(e -> addToFavorites(document)); // Handle click event
+        //this should be a button to handle action
+        //hlinh styling cho dep nhu back button nhe
+        Button addToFavorites = new Button("Add to Favorites");
+        addToFavorites.getStyleClass().add("add-to-favorites");
+        addToFavorites.setOnMouseClicked(e -> addToFavorites(document)); // Handle click event
 
         // Đặt các phần tử vào GridPane
         detailContainer.add(bookCover, 0, 0, 1, 6); // Ảnh bìa chiếm 6 dòng
@@ -252,7 +254,7 @@ public class SearchBooksScreenController {
         if (previewLink != null) {
             detailContainer.add(previewLink, 2, 7); // Thêm liên kết preview nếu có
         }
-        detailContainer.add(addToFavoritesLabel, 2, 8); // Add to Favorites label
+        detailContainer.add(addToFavorites, 2, 9); // Add to Favorites label
         detailContainer.add(backButton, 2, 9);
 
         // Tạo StackPane để căn giữa nội dung
@@ -262,7 +264,7 @@ public class SearchBooksScreenController {
 
         // Tạo Scene và thêm CSS
         Scene detailScene = new Scene(root, 715, 590);
-        detailScene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
+        detailScene.getStylesheets().add(getClass().getResource("/css/user/styling.css").toExternalForm());
 
         // Set Scene cho Stage
         detailStage.setScene(detailScene);
@@ -284,6 +286,12 @@ public class SearchBooksScreenController {
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
     }
+
+    private void addToFavorites(Document document) {
+        FavouriteDao favouriteDao = new FavouriteDao();
+        favouriteDao.add(document);
+    }
+
 
 
 

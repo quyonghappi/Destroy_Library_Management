@@ -59,7 +59,7 @@ public class SearchScreenController {
 
                         Stage stage = (Stage) libraryButton.getScene().getWindow();
                         Scene scene = new Scene(bookView, 1466, 750);
-                        scene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
+                        scene.getStylesheets().add(getClass().getResource("/css/user/styling.css").toExternalForm());
 
                         stage.setScene(scene);
                         stage.show();
@@ -495,7 +495,7 @@ public class SearchScreenController {
 
                 // Tạo Scene và thêm CSS
                 Scene detailScene = new Scene(root, 715, 590);
-                detailScene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
+                detailScene.getStylesheets().add(getClass().getResource("/css/user/styling.css").toExternalForm());
 
                 // Set Scene cho Stage
                 detailStage.setScene(detailScene);

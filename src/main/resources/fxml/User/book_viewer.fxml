@@ -12,9 +12,9 @@
 <AnchorPane prefHeight="750.0" prefWidth="1466.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22.0.2" fx:controller="com.library.controller.user.BookViewerController">
 
     <!-- Left Sidebar -->
-    <VBox alignment="CENTER" prefHeight="700.0" prefWidth="82.0" styleClass="sidebar" stylesheets="@/css/start/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+    <VBox alignment="CENTER" prefHeight="700.0" prefWidth="82.0" styleClass="sidebar" stylesheets="@/css/user/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
         <VBox prefHeight="200.0" prefWidth="100.0" />
-        <Button fx:id="homeButton" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/start/styling.css">
+        <Button fx:id="homeButton" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/user/styling.css">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
                     <image>
@@ -30,14 +30,14 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="libraryButton" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/start/styling.css">
+        <Button fx:id="libraryButton" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/user/styling.css">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
                     <Image url="/icons/favorites_icon.png" />
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="homeButton1" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/start/styling.css">
+        <Button fx:id="homeButton1" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/user/styling.css">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
                     <image>
@@ -46,7 +46,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="homeButton21" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/start/styling.css">
+        <Button fx:id="homeButton21" mnemonicParsing="false" styleClass="sidebar-button" stylesheets="@/css/user/styling.css">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" styleClass="image-view">
                     <image>

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Hyperlink?>
 
-<AnchorPane prefHeight="439.0" prefWidth="456.0" stylesheets="/css/start/styling.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
+<AnchorPane prefHeight="439.0" prefWidth="456.0" stylesheets="/css/user/styling.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
     <!-- Main Content -->
     <VBox alignment="CENTER" spacing="20" styleClass="book-detail-container" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
         <!-- Book Details Section -->
