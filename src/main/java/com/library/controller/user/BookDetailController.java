@@ -239,15 +239,16 @@
 package com.library.controller.user;
 
 import com.library.dao.DocumentDao;
-import com.library.models.Author;
-import com.library.models.Document;
+import com.library.dao.ReservationDao;
+import com.library.models.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+
+import java.awt.Desktop;
+import java.net.URI;
+import java.time.LocalDateTime;
 
 public class BookDetailController {
 
@@ -255,75 +256,119 @@ public class BookDetailController {
     private ImageView bookCover;
 
     @FXML
-    private Label bookTitle, bookAuthor, bookDescription, bookPages, bookPublishedDate, bookPublisher;
+    private Label bookTitle, bookAuthor, bookPublishedDate, bookDescription;
 
     @FXML
     private Hyperlink previewLink;
 
     @FXML
-    private Button backButton;
+    private Button addToFavoritesButton, requestButton, backButton;
 
-    // Method to load book details into the FXML components
     public void loadBookDetails(Document document) {
         if (document != null) {
-            // Hiển thị tiêu đề sách
             bookTitle.setText(document.getTitle() != null ? document.getTitle() : "Unknown Title");
 
-            // Hiển thị tên tác giả
             DocumentDao documentDao = new DocumentDao();
             Author author = documentDao.getAuthor(document.getAuthorId());
             String authorName = (author != null) ? author.getName() : "Unknown Author";
-            bookAuthor.setText(authorName);
+            bookAuthor.setText("Author: " + authorName);
 
-            // Hiển thị mô tả sách
-            bookDescription.setText(document.getDescription() != null ? document.getDescription() : "No description available.");
+            bookPublishedDate.setText(document.getPublicationYear() > 0
+                    ? "Published: " + document.getPublicationYear()
+                    : "Published: N/A");
 
-            // Hiển thị số trang
-            bookPages.setText(document.getPage() > 0 ? document.getPage() + " pages" : "Page count not available");
+            bookDescription.setText(document.getDescription() != null
+                    ? document.getDescription()
+                    : "No description available.");
 
-            // Hiển thị năm xuất bản
-            bookPublishedDate.setText(document.getPublicationYear() > 0 ? "Published Date: " + document.getPublicationYear() : "Published Date: N/A");
-
-            // Hiển thị nhà xuất bản
-            bookPublisher.setText(document.getPublisher() != null ? "Publisher: " + document.getPublisher() : "Publisher: Unknown");
-
-            // Hiển thị ảnh bìa
             if (document.getImageLink() != null && !document.getImageLink().isEmpty()) {
                 bookCover.setImage(new Image(document.getImageLink(), true));
             } else {
-                bookCover.setImage(new Image("/ui/admindashboard/book1.png")); // Default image if none provided
+                bookCover.setImage(new Image("/ui/admindashboard/book1.png")); // Default image
             }
 
-            // Hiển thị liên kết preview (nếu có)
             if (document.getPreviewLink() != null && !document.getPreviewLink().isEmpty()) {
                 previewLink.setText("View Preview");
                 previewLink.setOnAction(e -> {
                     try {
-                        java.awt.Desktop.getDesktop().browse(new java.net.URI(document.getPreviewLink()));
+                        Desktop.getDesktop().browse(new URI(document.getPreviewLink()));
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 });
                 previewLink.setVisible(true);
             } else {
-                previewLink.setVisible(false); // Hide the preview link if not available
+                previewLink.setVisible(false);
             }
         } else {
-            // Default message when no document is passed
             bookTitle.setText("No details available.");
             bookAuthor.setText("");
-            bookDescription.setText("");
-            bookPages.setText("");
             bookPublishedDate.setText("");
-            bookPublisher.setText("");
-            bookCover.setImage(null); // Remove the image
-            previewLink.setVisible(false); // Hide preview link
+            bookDescription.setText("");
+            bookCover.setImage(null);
+            previewLink.setVisible(false);
         }
     }
 
     @FXML
     private void onBackClicked() {
-        // Handle the back button click event
-        bookCover.getScene().getWindow().hide(); // Close the current window
+        backButton.getScene().getWindow().hide(); // Close the current window
     }
+
+    @FXML
+    private void onAddToFavoritesClicked() {
+        System.out.println("Book added to favorites!");
+    }
+
+//    @FXML
+//    private void onRequestClicked(Document document) {
+//        requestButton.setOnAction(event -> onRequestClicked(document));//        User currentUser = getCurrentUser();
+////        if (currentUser != null && document != null) {
+////            // Create a new reservation instance
+////            Reservation reservation = new Reservation();
+////            reservation.setUserId(currentUser.getUserId());
+////            reservation.setIsbn(document.getISBN());
+////            reservation.setReservationDate(LocalDateTime.now());
+////            reservation.setStatus("active");
+////
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setTitle("Request Book");
+//            alert.setHeaderText("Do you want to request this book?");
+//
+//            String bookDetails = "Title: " + document.getTitle() + "\n" +
+//                    "Author: " + document.getAuthor() + "\n" +
+//                    "Published: " + document.getPublicationYear() + "\n" +
+//                    "Description: " + document.getDescription();
+//
+//            TextArea textArea = new TextArea(bookDetails);
+//            textArea.setWrapText(true);
+//            textArea.setEditable(false);
+//
+//            alert.getDialogPane().setContent(textArea);
+//
+//            ButtonType requestButton = new ButtonType("Request now");
+//            ButtonType cancelButton = new ButtonType("Cancel");
+//            alert.getButtonTypes().setAll(requestButton, cancelButton);
+//
+////            alert.showAndWait().ifPresent(response -> {
+////                if (response == requestButton) {
+////                    ReservationDao reservationDao = new ReservationDao();
+////                    reservationDao.add(reservation);
+////                    System.out.println("Request for book sent!");
+////                } else {
+////                    System.out.println("Request cancelled.");
+////                }
+////            });
+////        } else {
+////            System.out.println("No user or book details available.");
+////        }
+//    }
+
+    @FXML
+    private void onRequestClicked() {
+        System.out.println("Book requested!");
+    }
+
+
+
 }

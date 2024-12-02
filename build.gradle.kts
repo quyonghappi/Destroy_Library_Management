@@ -15,9 +15,14 @@ repositories {
 
 dependencies {
     implementation("org.openjfx:javafx-controls:22.0.2") //JavaFX version, adjust if needed
+    implementation("org.openjfx:javafx-web:17")
     implementation("org.openjfx:javafx-fxml:22.0.2")    // using FXML
     implementation("com.google.code.gson:gson:2.10.1")  //add Gson dependency
-    implementation("mysql:mysql-connector-java:8.0.33") //add sql connector
+    implementation "org.openjfx:javafx-graphics:22.0.2"
+    //implementation("mysql:mysql-connector-java:8.0.33") //add sql connector
+    implementation("mysql:mysql-connector-java:8.4.2") //add sql connector
+
+    implementation "org.openjfx:javafx-swing:22.0.2"
 
     implementation("com.squareup.okhttp3:okhttp:4.10.0") //updated OkHttp dependency
     implementation("com.google.code.gson:gson:2.10.1") //Gson dependency
@@ -29,7 +34,7 @@ dependencies {
 
 javafx {
     version = "22.0.2"
-    modules = listOf("javafx.controls", "javafx.fxml")
+    modules = listOf("javafx.controls", "javafx.fxml", "javafx.web")
 }
 
 application {
