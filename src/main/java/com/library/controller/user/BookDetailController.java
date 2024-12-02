@@ -245,6 +245,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.web.WebView;
+
 
 import java.awt.Desktop;
 import java.net.URI;
@@ -264,6 +266,7 @@ public class BookDetailController {
     @FXML
     private Button addToFavoritesButton, requestButton, backButton;
 
+    /*
     public void loadBookDetails(Document document) {
         if (document != null) {
             bookTitle.setText(document.getTitle() != null ? document.getTitle() : "Unknown Title");
@@ -307,6 +310,75 @@ public class BookDetailController {
             bookDescription.setText("");
             bookCover.setImage(null);
             previewLink.setVisible(false);
+        }
+    }
+
+    */
+
+    @FXML
+    private WebView previewWebView;  // WebView for previewing the book
+
+    /**
+     * Load book details into the view components.
+     *
+     * @param document The Document object containing the book's details.
+     */
+    public void loadBookDetails(Document document) {
+        if (document != null) {
+            // Set book title
+            bookTitle.setText(document.getTitle() != null ? document.getTitle() : "Unknown Title");
+
+            // Set author name
+            DocumentDao documentDao = new DocumentDao();
+            Author author = documentDao.getAuthor(document.getAuthorId());
+            String authorName = (author != null) ? author.getName() : "Unknown Author";
+            bookAuthor.setText("Author: " + authorName);
+
+            // Set publication year
+            bookPublishedDate.setText(document.getPublicationYear() > 0
+                    ? "Published: " + document.getPublicationYear()
+                    : "Published: N/A");
+
+            // Set description
+            bookDescription.setText(document.getDescription() != null
+                    ? document.getDescription()
+                    : "No description available.");
+
+            // Set book cover image
+            if (document.getImageLink() != null && !document.getImageLink().isEmpty()) {
+                bookCover.setImage(new Image(document.getImageLink(), true));
+            } else {
+                bookCover.setImage(new Image("/ui/admindashboard/book1.png")); // Default image
+            }
+
+            // Set preview link
+            if (document.getPreviewLink() != null && !document.getPreviewLink().isEmpty()) {
+                previewLink.setText("View Preview");
+                previewLink.setOnAction(e -> {
+                    try {
+                        Desktop.getDesktop().browse(new URI(document.getPreviewLink()));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                previewLink.setVisible(true);
+
+                // Also load the preview into the WebView if available
+                previewWebView.setVisible(true);
+                previewWebView.getEngine().load(document.getPreviewLink());
+            } else {
+                previewLink.setVisible(false);
+                previewWebView.setVisible(false);
+            }
+        } else {
+            // Default values when no document is loaded
+            bookTitle.setText("No details available.");
+            bookAuthor.setText("");
+            bookPublishedDate.setText("");
+            bookDescription.setText("");
+            bookCover.setImage(null);
+            previewLink.setVisible(false);
+            previewWebView.setVisible(false);
         }
     }
 
