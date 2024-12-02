@@ -45,6 +45,13 @@ public class LoginAdminController {
         String username = userNameField.getText().trim();
         String password = passwordField.getText();
 
+        User user = userDao.findUserByName(username);
+
+        if (!user.getAccountStatus().equals("active")) {
+            showAlert(AlertType.ERROR, "Login Failed", "Your account has been locked.");
+            return;
+        }
+
         if (validateInput(username, password)) {
             if (userDao.authenticateAdmin(username,password)) {
                 userDao.updateLastLogin(username);

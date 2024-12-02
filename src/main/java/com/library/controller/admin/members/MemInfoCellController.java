@@ -1,15 +1,26 @@
 package com.library.controller.admin.members;
 
+import com.library.controller.admin.books.EditBookController;
+import com.library.dao.DocumentDao;
 import com.library.dao.FineDao;
 import com.library.dao.UserDao;
 import com.library.models.Fine;
 import com.library.models.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
 
 public class MemInfoCellController {
@@ -20,7 +31,7 @@ public class MemInfoCellController {
     private ImageView editImage;
 
     @FXML
-    private ImageView deleteImage;
+    private ImageView lockImage;
 
     @FXML
     private Label emailLabel;
@@ -44,7 +55,7 @@ public class MemInfoCellController {
 
     public void initialize() {
         editImage.setOnMouseClicked(event->handleEditButtonAction());
-        deleteImage.setOnMouseClicked(event->handleDeleteButtonAction());
+        lockImage.setOnMouseClicked(event->handleLockButtonAction());
     }
     public void setListView(ListView<User> listView) {
         this.listView = listView;
@@ -67,10 +78,46 @@ public class MemInfoCellController {
     }
 
     @FXML
-    private void handleDeleteButtonAction() {
+    private void handleLockButtonAction() {
         try {
-            userDao.delete(userDao.get(idLabel.getText()));
-            listView.getItems().remove(currentUser);
+            String Id = idLabel.getText().substring(1);
+
+            User user = UserDao.findUserById(Id);
+            if(user.getAccountStatus().equals("active")) {
+                user.setAccountStatus("suspended");
+
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Confirm Lock Member");
+                confirmationAlert.setHeaderText("Confirm Member Details");
+                confirmationAlert.setContentText("Are you sure you want to Lock Member: \n\n" +
+                        "UserName: " + fullnameLabel.getText() + "\n" +
+                        "Id: " + idLabel.getText());
+                confirmationAlert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        UserDao.UpdateAccount(user);
+                    }
+                });
+            } else {
+                user.setAccountStatus("active");
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Confirm Open Member");
+                confirmationAlert.setHeaderText("Confirm Member Details");
+                confirmationAlert.setContentText("Are you sure you want to open Member: \n\n" +
+                        "UserName: " + fullnameLabel.getText() + "\n" +
+                        "Id: " + idLabel.getText());
+                confirmationAlert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        UserDao.UpdateAccount(user);
+                    }
+                });
+            }
+
+
+
+
+
+
+
         }
         catch (Exception e) {
             throw new RuntimeException(e);
@@ -79,17 +126,31 @@ public class MemInfoCellController {
 
     @FXML
     private void handleEditButtonAction() {
-//        try {
-//            documentDao.delete(documentDao.findByISBN(isbnLabel.getText());
-//            BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
-//            BorrowingRecord borrowingRecord=new BorrowingRecord(useridLabel.getText(), isbnLabel.getText(),now(),"borrowed");
-//            borrowingRecordDao.add(borrowingRecord);
-//            //remove current request from listview
-//            lv.getItems().remove(current);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Member/EditMemInfo.fxml"));
+            StackPane root = loader.load();
+
+            EditMemController controller = loader.getController();
+            controller.setUser(currentUser);
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            scene.lookup("#cancelButton").setOnMouseClicked(event -> {
+                stage.close();
+            });
+            stage.setScene(scene);
+            stage.setTitle("Edit Member");
+            stage.centerOnScreen();
+            //set the new stage as modal
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(editImage.getScene().getWindow()); //set owner to the parent stage
+
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

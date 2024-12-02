@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Boolean.FALSE;
+
 public class UserDao implements DAO<User> {
 
     public UserDao() {
@@ -76,28 +78,34 @@ public class UserDao implements DAO<User> {
         return users;
     }
 
-//    public void update(User user) {
-//        String sql = "UPDATE users SET full_name = ?, user_name = ?, email = ?, password_hash = ?, user_role = ?, account_status = ?, account_locked = ? WHERE user_id = ?";
-//        try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
-//            stmt.setString(1, user.getFullName());
-//            stmt.setString(2, user.getUsername());
-//            stmt.setString(3, user.getEmail());
-//            stmt.setString(4, user.getPassword());
-//            stmt.setString(5, user.getUserRole());
-//            stmt.setString(6, user.getAccountStatus());
-//
-//            // Use DateFormat to convert LocalDateTime to SQL Timestamp
-//            //stmt.setTimestamp(7, DateFormat.toSqlTimestamp(user.getLastLogin()));
-//
-//            //stmt.setInt(8, user.getLoginAttempts());
-//            stmt.setBoolean(9, user.isActive());
-//            stmt.setInt(10, user.getUserId());
-//
-//            stmt.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void UpdatePassword(User user) {
+        String sql = "UPDATE users SET user_name = ?, password_hash = ? WHERE user_id = ?";
+
+        String newPasswordHash = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, newPasswordHash.trim());
+            stmt.setInt(3, user.getUserId());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void UpdateAccount(User user) {
+        String sql = "UPDATE users SET account_status = ?, account_locked = ? WHERE user_id = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, user.getAccountStatus());
+            stmt.setBoolean(2, !user.getAccountStatus().equals("active"));
+            stmt.setInt(3, user.getUserId());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void updateLastLogin(String username) {
         String sql = "UPDATE users SET last_login=? WHERE user_name = ?";
@@ -145,7 +153,7 @@ public class UserDao implements DAO<User> {
             ps.setString(5, user.getUserRole());
             ps.setString(6, user.getAccountStatus());
             ps.setDate(7, DateFormat.toSqlDate(user.getJoinDate()));
-            ps.setBoolean(8, user.isActive());
+            ps.setBoolean(8, !user.isActive());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -180,6 +188,34 @@ public class UserDao implements DAO<User> {
         }
         return null;
     }
+
+    public static User findUserById(String Id) throws SQLException {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        try (
+                Connection cn = DatabaseConfig.getConnection();
+                PreparedStatement ps = cn.prepareStatement(sql)
+        ) {
+            ps.setInt(1, Integer.parseInt(Id));
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setUsername(rs.getString("user_name"));
+                user.setUserRole(rs.getString("user_role"));
+                user.setAccountStatus(rs.getString("account_status"));
+                user.setPassword(rs.getString("password_hash"));
+                user.setFullName(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
+                return user;
+            }
+        } catch (SQLException e) {
+            throw new SQLException("This username doesn't exist!" + e.getMessage());
+        }
+        return null;
+    }
+
 
     //method to search user with result show dynamically
     public static List<User> searchByUsername(String username) throws SQLException {
@@ -242,43 +278,51 @@ public class UserDao implements DAO<User> {
         return users;
     }
 
-//    public User findUserById(int id) throws Exception {
-//        String sql = "SELECT * FROM users WHERE user_id = ?";
-//        try (
-//                Connection cn = DatabaseConfig.getConnection();
-//                PreparedStatement ps = cn.prepareStatement(sql);
-//        ) {
-//            ps.setInt(1, id);
-//            ResultSet rs = ps.executeQuery();
-//
-//            if (rs.next()) {
-//                User user = new User();
-//                user.setUserId(rs.getInt("user_id"));
-//                user.setUsername(rs.getString("user_name"));
-//                user.setUserRole(rs.getString("user_role"));
-//                user.setAccountStatus(rs.getString("account_status"));
-//                user.setPassword(rs.getString("password_hash"));
-//                user.setFullName(rs.getString("full_name"));
-//                user.setEmail(rs.getString("email"));
-//                user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
-//                return user;
-//            }
-//        } catch (SQLException e) {
-//            throw new SQLException("This username doesn't exist!" + e.getMessage());
-//        }
-//        return null;
-//    }
+    public User findUserById(int id) throws Exception {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        try (
+                Connection cn = DatabaseConfig.getConnection();
+                PreparedStatement ps = cn.prepareStatement(sql);
+        ) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setUsername(rs.getString("user_name"));
+                user.setUserRole(rs.getString("user_role"));
+                user.setAccountStatus(rs.getString("account_status"));
+                user.setPassword(rs.getString("password_hash"));
+                user.setFullName(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
+                return user;
+            }
+        } catch (SQLException e) {
+            throw new SQLException("This username doesn't exist!" + e.getMessage());
+        }
+        return null;
+    }
 
     //authenticate user using username and password
-    public boolean authenticateAdmin(String username, String password) throws Exception {
+    public static boolean authenticateAdmin(String username, String password) throws Exception {
         User user = findUserByName(username);
         if (user == null) return false;
         return BCrypt.checkpw(password, user.getPassword()) && user.getUserRole().equals("admin");
     }
 
-    public boolean authenticateUser(String username, String password) throws Exception {
+    public static boolean authenticateUser(String username, String password) throws Exception {
         User user = findUserByName(username);
         if (user == null) return false;
         return BCrypt.checkpw(password, user.getPassword()) && user.getUserRole().equals("reader");
     }
+
+//    public static boolean AccountLocked(String username) throws Exception {
+//        User user = findUserByName(username);
+//        if (user == null) return false;
+//
+//
+//    }
+
 }

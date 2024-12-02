@@ -45,7 +45,7 @@ public class AddBookController {
                 return;
             }
 
-            if (DocumentDao.searchByIsbn(isbn) != null) {
+            if (!DocumentDao.searchByIsbn(isbn).isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Validation Error", "Book already exists.");
                 return;
             }

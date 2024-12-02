@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="requestBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.RequestBookController">
+<StackPane fx:id="requestBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.RequestBookController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" StackPane.alignment="CENTER">
          <left>
@@ -185,31 +185,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="850.0">
                      <children>
-                        <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="304.0" styleClass="search-box" HBox.hgrow="ALWAYS">
-                           <children>
-                              <ImageView fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../ui/admindashboard/search.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <TextField id="searchField" fx:id="searchField" prefHeight="19.0" prefWidth="424.0" promptText="Search" HBox.hgrow="ALWAYS" />
-                              <ImageView fx:id="filter" fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../ui/admindashboard/setting.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                           </children>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </HBox>
-                        <Pane prefHeight="43.0" prefWidth="177.0" />
+                        <Pane prefHeight="30.0" prefWidth="906.0" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -306,6 +282,14 @@
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="708.8" spacing="20.0">
                                        <children>
+                                          <ImageView fx:id="filter" fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../ui/admindashboard/setting.png" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </ImageView>
                                           <ToggleButton fx:id="allButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showAllRequest" prefWidth="40.0" styleClass="chosen-button" text="All" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
                                                 <Insets left="50.0" />

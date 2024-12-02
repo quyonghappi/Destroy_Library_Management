@@ -11,7 +11,7 @@ public class insertAdmin {
         try {
             String fullName = "Hoang Duong";
             String username = "duongg";
-            String email = "duongnn241@gmail.com";
+            String email = "duongnn246@gmail.com";
             String password = "123456";
             User user = new User(fullName, username, email, password);
             user.setUserRole("Admin");
