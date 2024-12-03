@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class BorrowedBooksCell extends ListCell<BorrowingRecord> {
     private HBox borrowedBooksBox;
@@ -38,6 +39,18 @@ public class BorrowedBooksCell extends ListCell<BorrowingRecord> {
         }
         else {
             try {
+                //borrowedBooksCellController.loadBorrowedBooks(item);
+
+                // SET TGIAN HAJN TRA SACSH
+                if (item.getStatus().equals("borrowed")) {
+                    if (item.getBorrowDate().plusDays(14).isBefore(LocalDateTime.now()) &&
+                            !item.getStatus().equals("late")) {
+                        item.setStatus("late");
+                    } else if (item.getBorrowDate().plusDays(30).isBefore(LocalDateTime.now()) &&
+                            !item.getStatus().equals("lost")) {
+                        item.setStatus("lost");
+                    }
+                }
                 borrowedBooksCellController.loadBorrowedBooks(item);
             } catch (SQLException e) {
                 e.printStackTrace();

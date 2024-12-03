@@ -11,6 +11,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 
@@ -65,7 +67,19 @@ public class BorrowedBooksCellController {
 
             brdateLabel.setText(String.valueOf(br.getBorrowDate()));
             duedateLabel.setText(String.valueOf(br.getBorrowDate().plusDays(14)));
-            statusLabel.setText(br.getStatus());
+            //statusLabel.setText(br.getStatus());
+
+            //Logic cho phat vi muon sach
+            LocalDateTime bayh = LocalDateTime.now();
+            LocalDateTime borrowDate = br.getBorrowDate();
+            if(borrowDate.plusDays(30).isBefore(bayh)){
+                statusLabel.setText("Lost");
+            } else if (borrowDate.plusDays(14).isBefore(bayh)) {
+                long daysLate = Duration.between(borrowDate.plusDays(14), bayh).toDays();
+                statusLabel.setText("Late: " + daysLate + " ngày");
+            } else {
+                statusLabel.setText(br.getStatus());
+            }
 
             if (!doc.getImageLink().equals("N/A")) {
                 loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());

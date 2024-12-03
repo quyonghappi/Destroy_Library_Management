@@ -5,6 +5,7 @@ import com.library.models.BorrowingRecord;
 import com.library.utils.DateFormat;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +52,33 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
 
 
     //get lent book
+    // CHECK XEM QUAS 14 NGAY THI PHAT THOI
     public List<BorrowingRecord> getLent() {
         String sql = "select * from borrowingrecords where status in ('borrowed', 'late', 'lost')";
-        return getRecord(sql);
+
+        //Checkin date : due  in 14 ngay yk
+        List<BorrowingRecord> list = getRecord(sql);
+        for(BorrowingRecord borrowingRecord : list) {
+            LocalDateTime borrowDate=borrowingRecord.getBorrowDate();
+            LocalDateTime bayh = LocalDateTime.now();
+
+            if (borrowingRecord.getStatus().equals("borrowed")) {
+
+                // tra sach late ne: 2 weeks
+                if (borrowDate.plusDays(14).isBefore(bayh)) {
+                    borrowingRecord.setStatus("late");
+                    update(borrowingRecord);
+                }
+
+                //lost neu 1 thang k tra sach
+                if (borrowDate.plusDays(30).isAfter(bayh)) {
+                    borrowingRecord.setStatus("lost");
+                    update(borrowingRecord);
+                }
+            }
+        }
+        //return getRecord(sql);
+        return list;
     }
 
     //get returned
