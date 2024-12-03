@@ -13,24 +13,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
-//import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.FilterPopup.*;
 import static com.library.utils.FilterPopup.getSelectedItem;
 import static com.library.utils.SceneSwitcher.*;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class BookInfoController implements Initializable {
 
     @FXML
     StackPane bookInfoRoot;
-
-    @FXML
-    private HBox aboutContainer;
 
     @FXML
     private Label addBookButton;
@@ -77,15 +72,20 @@ public class BookInfoController implements Initializable {
     @FXML
     private TextField searchField1;
 
-    private DocumentDao documentDao=new DocumentDao();
-//    List<Document> documentList=new ArrayList<>();
+    @FXML
+    private Label countLabel;
 
+    private List<Document> documentList = new ArrayList<>();
+    private DocumentDao documentDao=new DocumentDao();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        documentList = documentDao.getAll();
+        countLabel.setText(String.valueOf(documentList.size()));
 
         loadBookList();
+
         lentNav.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
             LentBookController controller = navigateToScene("/fxml/Admin/Books/LentBook.fxml", lentNav);
@@ -148,7 +148,7 @@ public class BookInfoController implements Initializable {
         Task<List<Document>> loadTask = new Task<>() {
             @Override
             protected List<Document> call() {
-                return documentDao.getAll();
+                return documentList;
             }
         };
 
