@@ -256,6 +256,7 @@ import java.util.ResourceBundle;
 
 import static com.library.dao.UserDao.findUserByName;
 import static com.library.utils.LoadImage.loadImageLazy;
+import static com.library.utils.SceneSwitcher.navigateToScene;
 
 public class BookDetailController implements Initializable {
 
@@ -363,7 +364,14 @@ public class BookDetailController implements Initializable {
 
     @FXML
     private void onBackClicked() {
-        backButton.getScene().getWindow().hide(); // Close the current window
+        //backButton.getScene().getWindow().hide(); // Close the current window
+
+        backButton.setOnMouseClicked(event -> {
+            SearchBooksScreenController controller = navigateToScene("/fxml/User/search_books_screen.fxml", backButton);
+            if (controller != null) {
+                controller.setUsername(username);
+            }
+        });
     }
 
 

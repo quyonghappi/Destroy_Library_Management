@@ -22,7 +22,7 @@ public class MDash extends Application {
             Scene scene = new Scene(root, 1466, 750);
 
             // Add the external CSS stylesheet to style the UI
-            scene.getStylesheets().add(getClass().getResource("/css/start/styling.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/css/user/styling.css").toExternalForm());
 
             // Set the scene and stage properties
             primaryStage.setTitle("OnlyPipe ;D");  // Set the window title

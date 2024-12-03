@@ -244,25 +244,25 @@ public class GoogleBooksAPIClient {
     }
 
     public static void main(String[] args) {
-        //String file = "src/main/java/com/library/api/sci-fi_books.txt";
+        String file = "src/main/java/com/library/api/programming_books.txt";
         GoogleBooksAPIClient newClient = new GoogleBooksAPIClient();
-//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-//            String isbn;
-//            int quantity = 10;
-//            while ((isbn = br.readLine()) != null) {
-//                if (!isbn.trim().isEmpty()) newClient.getBookData(isbn.trim(), quantity);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        String isbn="9780824791599";
-        int quantity=10;
-        try {
-            newClient.getBookData(isbn.trim(),quantity);
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String isbn;
+            int quantity = 10;
+            while ((isbn = br.readLine()) != null) {
+                if (!isbn.trim().isEmpty()) newClient.getBookData(isbn.trim(), quantity);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        String isbn="9780824791599";
+//        int quantity=10;
+//        try {
+//            newClient.getBookData(isbn.trim(),quantity);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
 
