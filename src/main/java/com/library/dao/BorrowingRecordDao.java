@@ -2,6 +2,8 @@ package com.library.dao;
 
 import com.library.config.DatabaseConfig;
 import com.library.models.BorrowingRecord;
+import com.library.models.Document;
+import com.library.models.User;
 import com.library.utils.DateFormat;
 
 import java.sql.*;
@@ -210,4 +212,73 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         }
         return list;
     }
+
+    public static List<BorrowingRecord> searchByIsbn(String isbn) {
+        List<BorrowingRecord> borrowingRecords = new ArrayList<>();
+        String sql = "SELECT * FROM borrowingrecords";
+
+        if (isbn != null && !isbn.trim().isEmpty()) {
+            sql += " WHERE isbn LIKE ? AND status=?";
+        }
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + isbn.trim() + "%");
+            ps.setString(2, "borrowed");
+
+            try (ResultSet resultSet = ps.executeQuery()) {
+                while (resultSet.next()) {
+                    BorrowingRecord borrow = new BorrowingRecord();
+
+                    borrow.setISBN(resultSet.getString("isbn"));
+                    borrow.setUserId(Integer.parseInt(resultSet.getString("user_id")));
+                    borrow.setRecordId(resultSet.getInt("record_id"));
+                    borrow.setBorrowDate(borrow.getBorrowDate());
+                    borrow.setStatus(resultSet.getString("status"));
+                    borrow.setReturnDate(borrow.getReturnDate());
+                    borrowingRecords.add(borrow);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return borrowingRecords;
+    }
+
+    public static List<BorrowingRecord> searchById(String Id) {
+
+        int id = Integer.parseInt(Id);
+        List<BorrowingRecord> borrowingRecords = new ArrayList<>();
+        String sql = "SELECT * FROM borrowingrecords";
+
+        if (Id != null && !Id.trim().isEmpty()) {
+            sql += " WHERE user_id = ? AND status = ?";
+        }
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, String.valueOf(id));
+            ps.setString(2, "borrowed");
+
+            try (ResultSet resultSet = ps.
+
+                    executeQuery()) {
+                while (resultSet.next()) {
+                    BorrowingRecord borrow = new BorrowingRecord();
+
+                    borrow.setISBN(resultSet.getString("isbn"));
+                    borrow.setUserId(Integer.parseInt(resultSet.getString("user_id")));
+                    borrow.setRecordId(resultSet.getInt("record_id"));
+                    borrow.setBorrowDate(borrow.getBorrowDate());
+                    borrow.setStatus(resultSet.getString("status"));
+                    borrow.setReturnDate(borrow.getReturnDate());
+                    borrowingRecords.add(borrow);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return borrowingRecords;
+    }
+
 }

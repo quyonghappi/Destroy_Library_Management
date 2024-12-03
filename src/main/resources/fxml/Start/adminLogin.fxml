@@ -36,14 +36,6 @@
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;">
                      <children>
                         <TextField fx:id="userNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="308.0" promptText="Username" style="-fx-background-color: #bfd1f6; -fx-background-radius: 20px;" stylesheets="@../../css/start/AdminLogin.css" />
-                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../ui/start/user.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets top="10.0" />
-                           </HBox.margin>
-                        </ImageView>
                      </children>
                      <VBox.margin>
                         <Insets top="30.0" />
@@ -80,6 +72,13 @@
          <HBox.margin>
             <Insets />
          </HBox.margin>
+         <children>
+            <ImageView fx:id="returnBack" fitHeight="65.0" fitWidth="68.0" onMouseClicked="#setReturnBack" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ui/start/returnBack.png" />
+               </image>
+            </ImageView>
+         </children>
       </StackPane>
    </children>
 </HBox>

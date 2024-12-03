@@ -12,11 +12,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.EventObject;
+import java.util.Objects;
+
 import static com.library.controller.start.Check.validateInput;
+import static com.library.controller.start.LoadView.loadView;
 import static com.library.controller.start.ShowView.showAlert;
+import static com.library.controller.start.ShowView.showView;
 import static com.library.dao.UserDao.findUserByName;
 
 public class LoginAdminController {
@@ -31,12 +39,26 @@ public class LoginAdminController {
     private Button loginButton;
 
     @FXML
-    protected Hyperlink signUpLink;
+    private Hyperlink signUpLink;
+
+    @FXML
+    private ImageView returnBack;
+
+
+
+
 
     private final UserDao userDao = new UserDao();
     private Parent root;
     private Scene scene;
     private Stage stage;
+
+//
+//    public void setReturn() {
+//        returnBack.setOnMouseClicked(mouseEvent -> {
+//
+//        });
+//    }
 
     //good good :3
     //to tach thanh login cua admin -> chuyen sang man hinh admin
@@ -44,6 +66,11 @@ public class LoginAdminController {
     void login(ActionEvent event) throws Exception {
         String username = userNameField.getText().trim();
         String password = passwordField.getText();
+
+        if (!Check.validateInput(username, password)) {
+            showAlert(AlertType.ERROR, "Login Failed", "Please enter all the information.");
+            return;
+        }
 
         User user = userDao.findUserByName(username);
 
@@ -76,6 +103,7 @@ public class LoginAdminController {
     }
 
 
+
     public String getUserFullName() throws Exception {
         User user = findUserByName(userNameField.getText());
         assert user != null;
@@ -85,5 +113,13 @@ public class LoginAdminController {
     private void clearFields() {
         userNameField.clear();
         passwordField.clear();
+    }
+
+
+    public void setReturnBack(MouseEvent mouseEvent) {
+        returnBack.setMouseTransparent(true);
+        Stage stage = (Stage) returnBack.getScene().getWindow();
+        loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
+        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
     }
 }

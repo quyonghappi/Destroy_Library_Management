@@ -4,6 +4,7 @@ import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.models.BorrowingRecord;
+import com.library.utils.FilterPopup;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,14 +12,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//import static com.library.utils.FilterPopup.showPopup;
+import static com.library.controller.start.LoadView.loadView;
+import static com.library.controller.start.ShowView.showView;
 import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.*;
 
@@ -31,7 +37,13 @@ public class LentBookController implements Initializable {
     private Label addBookButton;
 
     @FXML
+    private Label allCountLabel;
+
+    @FXML
     private Button lendButton;
+
+    @FXML
+    private Label lentCountLabel;
 
     @FXML
     private ListView<BorrowingRecord> lentDetailContainer;
@@ -46,13 +58,16 @@ public class LentBookController implements Initializable {
     private HBox membersContainer;
 
     @FXML
-    private Label countLabel;
+    private Label overdueCountLabel;
 
     @FXML
     private HBox overdueNav;
 
     @FXML
     private HBox overviewContainer;
+
+    @FXML
+    private Label requestCountLabel;
 
     @FXML
     private HBox requestNav;
@@ -63,7 +78,17 @@ public class LentBookController implements Initializable {
     @FXML
     private ImageView filter;
 
-    private TextField searchField1;
+    @FXML
+    private Label returnedCountLabel;
+
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private  TextField searchField1;
+
+    @FXML
+    private Button logOut;
 
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
     List<BorrowingRecord> brList=new ArrayList<>();
@@ -72,7 +97,6 @@ public class LentBookController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         brList=getBrList();
-        countLabel.setText(String.valueOf(brList.size()));
         lentDetailContainer.setCellFactory(param ->
         {
             LentBookCell lentBookCell=new LentBookCell();
@@ -124,8 +148,17 @@ public class LentBookController implements Initializable {
             }
         });
         lendButton.setOnMouseClicked(event->showLendBookScene(lentBookRoot));
-//        filter.setOnMouseClicked(event->showPopup(filter, event));
+        filter.setOnMouseClicked(event->showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(lentBookRoot));
+
+        FilterPopup.setFilterSelectionListener(selectedFilter -> {
+            SearchLentBook.handleSearch(lentDetailContainer, searchField1.getText(), FilterPopup.getSelectedItem());
+            System.out.println( FilterPopup.getSelectedItem());
+        });
+
+        searchField1.textProperty().addListener((observable, oldValue, newValue) -> {
+            SearchLentBook.handleSearch(lentDetailContainer, newValue, FilterPopup.getSelectedItem());
+        });
     }
 
     private List<BorrowingRecord> getBrList() {
@@ -136,4 +169,10 @@ public class LentBookController implements Initializable {
         memNameLabel.setText(userFullName);
     }
 
+    public void setLogOut(MouseEvent mouseEvent) {
+        logOut.setMouseTransparent(true);
+        Stage stage = (Stage) logOut.getScene().getWindow();
+        loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
+        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
+    }
 }

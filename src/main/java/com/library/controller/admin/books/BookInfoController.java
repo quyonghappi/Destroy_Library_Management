@@ -10,22 +10,28 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-
-import static com.library.utils.FilterPopup.*;
-import static com.library.utils.FilterPopup.getSelectedItem;
-import static com.library.utils.SceneSwitcher.*;
+import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+//import static com.library.utils.FilterPopup.showPopup;
+import static com.library.controller.start.LoadView.loadView;
+import static com.library.controller.start.ShowView.showView;
+import static com.library.utils.FilterPopup.*;
+import static com.library.utils.SceneSwitcher.*;
 
 public class BookInfoController implements Initializable {
 
     @FXML
     StackPane bookInfoRoot;
+
+    @FXML
+    private HBox aboutContainer;
 
     @FXML
     private Label addBookButton;
@@ -73,19 +79,17 @@ public class BookInfoController implements Initializable {
     private TextField searchField1;
 
     @FXML
-    private Label countLabel;
+    private Button logOut;
 
-    private List<Document> documentList = new ArrayList<>();
     private DocumentDao documentDao=new DocumentDao();
+//    List<Document> documentList=new ArrayList<>();
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        documentList = documentDao.getAll();
-        countLabel.setText(String.valueOf(documentList.size()));
 
         loadBookList();
-
         lentNav.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
             LentBookController controller = navigateToScene("/fxml/Admin/Books/LentBook.fxml", lentNav);
@@ -134,12 +138,12 @@ public class BookInfoController implements Initializable {
         addBookButton.setOnMouseClicked(event->showAddBookScene(bookInfoRoot));
 
         FilterPopup.setFilterSelectionListener(selectedFilter -> {
-            SearchBookCell.handleSearch(bookDetailContainer, searchField1.getText(), FilterPopup.getSelectedItem());
+            SearchBookInfo.handleSearch(bookDetailContainer, searchField1.getText(), FilterPopup.getSelectedItem());
             System.out.println( FilterPopup.getSelectedItem());
         });
 
         searchField1.textProperty().addListener((observable, oldValue, newValue) -> {
-            SearchBookCell.handleSearch(bookDetailContainer, newValue, FilterPopup.getSelectedItem());
+            SearchBookInfo.handleSearch(bookDetailContainer, newValue, FilterPopup.getSelectedItem());
         });
 
     }
@@ -148,12 +152,12 @@ public class BookInfoController implements Initializable {
         Task<List<Document>> loadTask = new Task<>() {
             @Override
             protected List<Document> call() {
-                return documentList;
+                return documentDao.getAll();
             }
         };
 
         loadTask.setOnSucceeded(event -> {
-            SearchBookCell.refreshListView(bookDetailContainer, loadTask.getValue());
+            SearchBookInfo.refreshListView(bookDetailContainer, loadTask.getValue());
         });
         loadTask.setOnFailed(event -> {
             System.out.println("fail to load book info" + loadTask.getException());
@@ -173,7 +177,7 @@ public class BookInfoController implements Initializable {
             if (filteredDoc.isEmpty()) {
                 bookDetailContainer.getItems().clear();
             } else {
-                SearchBookCell.refreshListView(bookDetailContainer, filteredDoc);
+                SearchBookInfo.refreshListView(bookDetailContainer, filteredDoc);
             }
         });
         applyTask.setOnFailed(event -> {
@@ -208,6 +212,13 @@ public class BookInfoController implements Initializable {
         selectedButton.getStyleClass().add("chosen-button");
         other1.getStyleClass().add("bar-button");
         other2.getStyleClass().add("bar-button");
+    }
+
+    public void setLogout(MouseEvent mouseEvent) {
+        logOut.setMouseTransparent(true);
+        Stage stage = (Stage) logOut.getScene().getWindow();
+        loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
+        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
     }
 
     @FunctionalInterface

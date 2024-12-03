@@ -158,6 +158,11 @@
                         <Insets left="-11.0" />
                      </VBox.margin>
                   </HBox>
+                  <Button fx:id="logOut" mnemonicParsing="false" onMouseClicked="#setLogOut" prefHeight="29.0" prefWidth="180.0" text="Log Out">
+                     <VBox.margin>
+                        <Insets left="30.0" top="160.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
          </left>

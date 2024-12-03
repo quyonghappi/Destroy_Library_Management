@@ -30,6 +30,10 @@ public class BorrowingRecord {
         this.status = status;
     }
 
+    public BorrowingRecord(String isbn) {
+        this.isbn = isbn;
+    }
+
     public int getRecordId() {
         return recordId;
     }

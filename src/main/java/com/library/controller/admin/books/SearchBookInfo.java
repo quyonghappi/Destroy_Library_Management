@@ -3,54 +3,15 @@ package com.library.controller.admin.books;
 import com.library.dao.DocumentDao;
 import com.library.models.Document;
 import javafx.concurrent.Task;
-import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
 import java.sql.SQLException;
 import java.util.List;
-import static java.awt.SystemColor.text;
 
 
-public class SearchBookCell {
+public class SearchBookInfo {
 
     private static DocumentDao documentDao = new DocumentDao();
-
-    public static void SearchBook(ListView<Document> bookDetailContainer, String text, String value) {
-
-        Task<List<Document>> searchTask = new Task<>() {
-
-            @Override
-            protected List<Document> call() throws SQLException {
-                switch (value) {
-                    case "ISBN":
-                        return DocumentDao.searchByIsbn(text);
-                    case "Title":
-                        return DocumentDao.searchByTitle(text);
-                    case "Category":
-                        return DocumentDao.searchByCategory(text);
-                    case "Author":
-                        return DocumentDao.searchByAuthor(text);
-                    default: return null;
-                }
-            }
-        };
-
-        searchTask.setOnSucceeded(event -> {
-            List<Document> searchResults = searchTask.getValue();
-            if (searchResults.isEmpty()) {
-                bookDetailContainer.getItems().clear();
-                bookDetailContainer.setVisible(false);
-            } else {
-                bookDetailContainer.setVisible(true);
-            }
-            refreshListView(bookDetailContainer, searchResults);
-        });
-
-        searchTask.setOnFailed(event -> {
-            System.out.println("fail to load book info" + searchTask.getException());
-        });
-        new Thread(searchTask).start();
-    }
 
     static void handleSearch(ListView<Document> bookDetailContainer, String searchText, String selectedCriteria) {
         if (searchText != null && !searchText.isEmpty()) {
@@ -82,7 +43,7 @@ public class SearchBookCell {
         };
 
         loadTask.setOnSucceeded(event -> {
-            SearchBookCell.refreshListView(bookDetailContainer, loadTask.getValue());
+            SearchBookInfo.refreshListView(bookDetailContainer, loadTask.getValue());
         });
         loadTask.setOnFailed(event -> {
             System.out.println("fail to load book info" + loadTask.getException());

@@ -15,14 +15,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 //import static com.library.utils.FilterPopup.showPopup;
+import static com.library.controller.start.LoadView.loadView;
+import static com.library.controller.start.ShowView.showView;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -72,6 +76,9 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private Label visitorLabel;
+
+    @FXML
+    private Button logOut;
 
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
     private UserDao userDa0=new UserDao();
@@ -154,4 +161,10 @@ public class AdminDashboardController implements Initializable {
         memNameLabel.setText(userFullName);
     }
 
+    public void setLogOut(MouseEvent mouseEvent) {
+        logOut.setMouseTransparent(true);
+        Stage stage = (Stage) logOut.getScene().getWindow();
+        loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
+        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
+    }
 }

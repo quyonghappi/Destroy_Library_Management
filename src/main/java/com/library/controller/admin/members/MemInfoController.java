@@ -9,19 +9,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import static com.library.dao.UserDao.searchByUsername;
 
+import static com.library.controller.start.LoadView.loadView;
+import static com.library.controller.start.ShowView.showView;
+import static com.library.dao.UserDao.searchByUsername;
+import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -46,7 +51,7 @@ public class MemInfoController implements Initializable {
     private Label memNameLabel;
 
     @FXML
-    private Label countLabel;
+    private HBox membersContainer;
 
     @FXML
     private ToggleButton allButton;
@@ -58,15 +63,18 @@ public class MemInfoController implements Initializable {
     private HBox overviewContainer;
 
     @FXML
+    private ImageView filter;
+
+    @FXML
     private TextField searchField1;
 
+    @FXML
+    private Button logOut;
+
     private UserDao userDao=new UserDao();
-    private List<User> userList = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userList = userDao.getAll();
-        countLabel.setText(String.valueOf(userList.size()));
         loadMemList();
         booksContainer.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
@@ -99,12 +107,11 @@ public class MemInfoController implements Initializable {
         Task<List<User>> loadTask = new Task<>() {
             @Override
             protected List<User> call() {
-                return userList;
+                return userDao.getAll();
             }
         };
 
         loadTask.setOnSucceeded(event -> {
-            countLabel.setText(String.valueOf(loadTask.getValue().size()));
             refreshListView(loadTask.getValue());
         });
         loadTask.setOnFailed(event -> {
@@ -162,6 +169,13 @@ public class MemInfoController implements Initializable {
 
         selectedButton.getStyleClass().add("chosen-button");
         other.getStyleClass().add("bar-button");
+    }
+
+    public void setlogOut(MouseEvent mouseEvent) {
+        logOut.setMouseTransparent(true);
+        Stage stage = (Stage) logOut.getScene().getWindow();
+        loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
+        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
     }
 
     @FunctionalInterface
