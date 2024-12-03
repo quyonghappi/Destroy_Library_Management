@@ -93,7 +93,7 @@ public class UserRequestController implements Initializable {
 
         brNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
-            UserRequestController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
+            BorrowedBooksController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
             if (controller != null) {
                 controller.setUsername(username);
                 controller.setUserFullName(userFullName);

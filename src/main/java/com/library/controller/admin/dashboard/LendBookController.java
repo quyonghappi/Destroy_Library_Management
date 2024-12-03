@@ -34,13 +34,10 @@ public class LendBookController {
         String[] isbn=bookDetailsField.getText().split(",");
         for (int i=0;i<isbn.length;i++) {
             try {
-                String userId = String.valueOf(userDao.findUserByName(username).getUserId());
-                LocalDateTime borrowDate=LocalDateTime.now();
-                borrowingRecordDao.add(new BorrowingRecord(userId,isbn[i].trim(),borrowDate, "borrowed"));
-            } catch (SQLException e) {
-                e.printStackTrace();
-                System.out.println("cannot find user "+username);
-            } catch (Exception e) {
+            String userId = String.valueOf(UserDao.findUserByName(username).getUserId());
+            LocalDateTime borrowDate=LocalDateTime.now();
+            borrowingRecordDao.add(new BorrowingRecord(userId,isbn[i].trim(),borrowDate, "borrowed"));
+            } catch(Exception e) {
                 e.printStackTrace();
             }
         }

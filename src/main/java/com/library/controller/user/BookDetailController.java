@@ -239,146 +239,125 @@
 package com.library.controller.user;
 
 import com.library.dao.DocumentDao;
+
+import com.library.dao.FavouriteDao;
 import com.library.dao.ReservationDao;
 import com.library.models.*;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
-
-import java.awt.Desktop;
-import java.net.URI;
+import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ResourceBundle;
 
-public class BookDetailController {
+import static com.library.dao.UserDao.findUserByName;
+import static com.library.utils.LoadImage.loadImageLazy;
+
+public class BookDetailController implements Initializable {
+
+    private String username;
+    private boolean favourite = false;
+
+    @FXML
+    private ImageView addFavImage;
+
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private Label bookAuthor;
 
     @FXML
     private ImageView bookCover;
 
     @FXML
-    private Label bookTitle, bookAuthor, bookPublishedDate, bookDescription;
+    private Label bookDescription;
+
+    @FXML
+    private Label bookPublishedDate;
+
+    @FXML
+    private Label bookTitle;
+
+    @FXML
+    private Label categoryLabel;
+
+    @FXML
+    private Label isbnLabel;
+
+    @FXML
+    private Label pageLabel;
+
+    @FXML
+    private Button previewButton;
 
     @FXML
     private Hyperlink previewLink;
 
     @FXML
-    private Button addToFavoritesButton, requestButton, backButton;
-
-    /*
-    public void loadBookDetails(Document document) {
-        if (document != null) {
-            bookTitle.setText(document.getTitle() != null ? document.getTitle() : "Unknown Title");
-
-            DocumentDao documentDao = new DocumentDao();
-            Author author = documentDao.getAuthor(document.getAuthorId());
-            String authorName = (author != null) ? author.getName() : "Unknown Author";
-            bookAuthor.setText("Author: " + authorName);
-
-            bookPublishedDate.setText(document.getPublicationYear() > 0
-                    ? "Published: " + document.getPublicationYear()
-                    : "Published: N/A");
-
-            bookDescription.setText(document.getDescription() != null
-                    ? document.getDescription()
-                    : "No description available.");
-
-            if (document.getImageLink() != null && !document.getImageLink().isEmpty()) {
-                bookCover.setImage(new Image(document.getImageLink(), true));
-            } else {
-                bookCover.setImage(new Image("/ui/admindashboard/book1.png")); // Default image
-            }
-
-            if (document.getPreviewLink() != null && !document.getPreviewLink().isEmpty()) {
-                previewLink.setText("View Preview");
-                previewLink.setOnAction(e -> {
-                    try {
-                        Desktop.getDesktop().browse(new URI(document.getPreviewLink()));
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                });
-                previewLink.setVisible(true);
-            } else {
-                previewLink.setVisible(false);
-            }
-        } else {
-            bookTitle.setText("No details available.");
-            bookAuthor.setText("");
-            bookPublishedDate.setText("");
-            bookDescription.setText("");
-            bookCover.setImage(null);
-            previewLink.setVisible(false);
-        }
-    }
-
-    */
+    private WebView previewWebView;
 
     @FXML
-    private WebView previewWebView;  // WebView for previewing the book
+    private Label publisherLabel;
+
+    @FXML
+    private Button requestButton;
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setCurrentDocument(Document doc) {
+        loadBookDetails(doc);
+    }
 
     /**
      * Load book details into the view components.
      *
      * @param document The Document object containing the book's details.
      */
-    public void loadBookDetails(Document document) {
-        if (document != null) {
-            // Set book title
-            bookTitle.setText(document.getTitle() != null ? document.getTitle() : "Unknown Title");
+    private void loadBookDetails(Document document) {
+        // Set book title
+        bookTitle.setText(document.getTitle());
+        pageLabel.setText("Pages: " + document.getPage());
+        isbnLabel.setText("ISBN: " + document.getISBN());
 
-            // Set author name
-            DocumentDao documentDao = new DocumentDao();
-            Author author = documentDao.getAuthor(document.getAuthorId());
-            String authorName = (author != null) ? author.getName() : "Unknown Author";
-            bookAuthor.setText("Author: " + authorName);
 
-            // Set publication year
-            bookPublishedDate.setText(document.getPublicationYear() > 0
-                    ? "Published: " + document.getPublicationYear()
-                    : "Published: N/A");
+        // Set author name
+        DocumentDao documentDao = new DocumentDao();
+        Author author = documentDao.getAuthor(document.getAuthorId());
+        String authorName = author.getName();
+        bookAuthor.setText("Author: " + authorName);
+        Publisher publisher=documentDao.getPublisher(document.getPublisherId());
+        publisherLabel.setText("Publisher: " + publisher.getName());
+        Category category=documentDao.getCategory(document.getCategoryId());
+        categoryLabel.setText("Category: " + category.getName());
 
-            // Set description
-            bookDescription.setText(document.getDescription() != null
-                    ? document.getDescription()
-                    : "No description available.");
+        // Set publication year
+        bookPublishedDate.setText("Published date: " + document.getPublicationYear());
 
-            // Set book cover image
-            if (document.getImageLink() != null && !document.getImageLink().isEmpty()) {
-                bookCover.setImage(new Image(document.getImageLink(), true));
-            } else {
-                bookCover.setImage(new Image("/ui/admindashboard/book1.png")); // Default image
-            }
 
-            // Set preview link
-            if (document.getPreviewLink() != null && !document.getPreviewLink().isEmpty()) {
-                previewLink.setText("View Preview");
-                previewLink.setOnAction(e -> {
-                    try {
-                        Desktop.getDesktop().browse(new URI(document.getPreviewLink()));
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                });
-                previewLink.setVisible(true);
+        // Set description
+        bookDescription.setText(document.getDescription());
 
-                // Also load the preview into the WebView if available
-                previewWebView.setVisible(true);
-                previewWebView.getEngine().load(document.getPreviewLink());
-            } else {
-                previewLink.setVisible(false);
-                previewWebView.setVisible(false);
-            }
+        // Set book cover image
+        if (!document.getImageLink().equals("N/A")) {
+            loadImageLazy(document.getImageLink(), bookCover, bookCover.getFitWidth(), bookCover.getFitHeight());
         } else {
-            // Default values when no document is loaded
-            bookTitle.setText("No details available.");
-            bookAuthor.setText("");
-            bookPublishedDate.setText("");
-            bookDescription.setText("");
-            bookCover.setImage(null);
-            previewLink.setVisible(false);
-            previewWebView.setVisible(false);
+            bookCover.setImage(new Image("/ui/admindashboard/bookcover.png")); // Default image
+        }
+
+        // Set preview link
+        if (!document.getPreviewLink().equals("No preview available.")) {
+                previewWebView.setVisible(true);
+                previewWebView.getEngine().load(document.getPreviewLink() + "&output=embed");
+        } else {
+            previewWebView.getEngine().loadContent("No preview available.");
         }
     }
 
@@ -387,10 +366,6 @@ public class BookDetailController {
         backButton.getScene().getWindow().hide(); // Close the current window
     }
 
-    @FXML
-    private void onAddToFavoritesClicked() {
-        System.out.println("Book added to favorites!");
-    }
 
 //    @FXML
 //    private void onRequestClicked(Document document) {
@@ -438,9 +413,44 @@ public class BookDetailController {
 
     @FXML
     private void onRequestClicked() {
-        System.out.println("Book requested!");
+        ReservationDao reservationDao = new ReservationDao();
+        Reservation reservation = new Reservation();
+        User user = findUserByName(username);
+        assert user != null;
+        if(requestButton.getText().equals("Request Book")) {
+            reservationDao.add(new Reservation(user.getUserId(), isbnLabel.getText().substring(6).trim(), LocalDateTime.now(), "active"));
+            requestButton.setText("Cancel Request");
+            requestButton.setStyle("-fx-background-color: #e7f1a8");
+        }
+        else {
+            reservationDao.delete(isbnLabel.getText(), user.getUserId());
+            requestButton.setText("Request Book");
+            requestButton.setStyle("-fx-background-color: #364c84");
+        }
     }
 
+    private void addFavourite() {
+        FavouriteDao favDao = new FavouriteDao();
+        User user = findUserByName(username);
+        assert user != null;
+        if (!favourite) {
+            favDao.add(new Favourite(user.getUserId(), isbnLabel.getText().substring(6).trim()));
+            favourite = true;
+            addFavImage.setImage(new Image("/ui/user/heart-add-line.png"));
+        } else {
+            favDao.delete(isbnLabel.getText(), user.getUserId());
+            favourite = false;
+            addFavImage.setImage(new Image("/ui/user/heart-add-fill.png"));
+        }
 
+    }
 
+    /**
+     * @param url
+     * @param resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        addFavImage.setOnMouseClicked(event -> addFavourite());
+    }
 }

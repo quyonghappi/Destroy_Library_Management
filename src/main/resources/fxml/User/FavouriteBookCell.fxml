@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="1116.0" spacing="20.0" stylesheets="@../../css/user/BorrowedBooksCellStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.FavouriteBooksCellController">
+    <children>
+        <ImageView fx:id="bookImage" fitHeight="85.0" fitWidth="70.0" pickOnBounds="true">
+            <image>
+                <Image url="@../../../../../../library_management/src/main/resources/ui/admindashboard/bookcover.png" />
+            </image>
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </ImageView>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="150.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="40.0" prefWidth="500.0" spacing="10.0" HBox.hgrow="NEVER">
+               <children>
+                  <Label fx:id="bookNameLabel" alignment="CENTER" styleClass="big-label" text="Title" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="authorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="small-label" text="by Author" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="isbnLabel" styleClass="small-label" text="isbn" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="170.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label fx:id="categoryLabel" styleClass="small-label" text="category" />
+                  <Label fx:id="pageLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="small-label" text="pages" textAlignment="JUSTIFY" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+        <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="40.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fx:id="favImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../ui/user/hand-heart-fill.png" />
+               </image>
+            </ImageView>
+         </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets left="20.0" />
+    </padding>
+</HBox>

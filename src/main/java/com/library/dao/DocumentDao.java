@@ -270,7 +270,7 @@ public class DocumentDao implements DAO<Document> {
         List<Document> documents = new ArrayList<>();
         String sql = "SELECT * FROM documents "
                 + "ORDER BY added_date DESC "
-                + "LIMIT 50";
+                + "LIMIT 55";
 
         return getRecord(sql);
     }

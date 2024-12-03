@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BorrowedBooksController">
+<StackPane fx:id="borrowedBooksRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BorrowedBooksController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
          <left>
@@ -150,7 +150,7 @@
                            </font></Label>
                         <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="1150.0" style="-fx-background-color: #364c84; -fx-background-radius: 8; -fx-rotate: -5;" VBox.vgrow="ALWAYS">
                            <children>
-                              <ListView fx:id="borrowListContainer" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="1116.0" style="-fx-rotate: 5;" styleClass="list-cell" HBox.hgrow="ALWAYS">
+                              <ListView fx:id="borrowListContainer" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="1116.0" style="-fx-rotate: 5;" styleClass="list-view1" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets bottom="15.0" />
                                  </HBox.margin>

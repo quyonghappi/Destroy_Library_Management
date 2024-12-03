@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="returnedBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.ReturnBookController">
+<StackPane fx:id="returnedBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.ReturnBookController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" StackPane.alignment="CENTER">
          <left>
@@ -166,17 +166,9 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="850.0">
                      <children>
-                        <Pane prefHeight="30.0" prefWidth="896.0" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                        <Pane prefHeight="43.0" prefWidth="177.0" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                            <children>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../ui/admindashboard/bell.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets right="15.0" />
-                                 </HBox.margin>
-                              </ImageView>
                               <Label fx:id="memNameLabel" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -194,7 +186,6 @@
                               <HBox fx:id="allNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="bar-label" text="All books" />
-                                    <Label text="Label" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <HBox.margin>
                                     <Insets right="5.0" />
@@ -203,7 +194,6 @@
                               <HBox fx:id="lentNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="bar-label" text="Lent" />
-                                    <Label text="Label" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <HBox.margin>
                                     <Insets right="5.0" />
@@ -212,7 +202,7 @@
                               <HBox fx:id="returnNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="bar-label" text="Returned" />
-                                    <Label styleClass="bar-label-right" text="Label" HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="countLabel" styleClass="bar-label-right" text="Label" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <HBox.margin>
                                     <Insets right="5.0" />
@@ -225,7 +215,6 @@
                               <HBox fx:id="overdueNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="bar-label" text="Overdue" />
-                                    <Label text="Label" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <HBox.margin>
                                     <Insets right="5.0" />
@@ -234,7 +223,6 @@
                               <HBox fx:id="requestNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="bar-label" text="Requests" />
-                                    <Label text="Label" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <HBox.margin>
                                     <Insets right="5.0" />

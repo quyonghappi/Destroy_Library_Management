@@ -12,6 +12,13 @@ public class Reservation {
     public Reservation() {
 
     }
+    public Reservation(int userId, String isbn, LocalDateTime date, String status) {
+        this.userId = userId;
+        this.isbn = isbn;
+        this.reservationDate = date;
+        this.status = status;
+    }
+
     public Reservation(int reservationId, int userId, String isbn, LocalDateTime date, String status) {
         this.reservationId = reservationId;
         this.userId = userId;
@@ -19,6 +26,7 @@ public class Reservation {
         this.reservationDate = date;
         this.status = status;
     }
+
 
     public int getReservationId() {
         return reservationId;

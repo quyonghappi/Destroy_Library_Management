@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-//import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.*;
 
 public class OverdueBookController implements Initializable {
@@ -71,10 +70,10 @@ public class OverdueBookController implements Initializable {
     private ToggleButton allButton;
 
     @FXML
-    private TextField searchField;
+    private TextField searchField1;
 
     @FXML
-    private TextField searchField1;
+    private Label countLabel;
 
     private BorrowingRecordDao borrowingRecordDao= new BorrowingRecordDao();
     private FineDao fineDao= new FineDao();
@@ -184,6 +183,9 @@ public class OverdueBookController implements Initializable {
 //
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        fines = getOverdueList();
+        countLabel.setText(String.valueOf(fines.size()));
+
         loadOverdueList();
 
         setupNavigation();
@@ -198,7 +200,7 @@ public class OverdueBookController implements Initializable {
         Task<List<Fine>> loadTask = new Task<>() {
             @Override
             protected List<Fine> call() {
-                return getOverdueList(); // Database call
+                return fines;
             }
         };
 

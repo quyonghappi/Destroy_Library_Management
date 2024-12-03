@@ -1,5 +1,7 @@
 package com.library.utils;
 
+import com.library.controller.user.BookDetailController;
+import com.library.models.Document;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -85,6 +87,25 @@ public class SceneSwitcher {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("fail to load add book scene");
+        }
+    }
+
+    public static void showBookDetails(StackPane root, String username, Document doc) {
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/fxml/User/book_detail.fxml"));
+            StackPane addBookScene = loader.load();
+            if (loader.getController() instanceof BookDetailController bookDetailController) {
+                bookDetailController.setUsername(username);
+                bookDetailController.setCurrentDocument(doc);
+            }
+            //addBookScene.setStyle("-fx-background-color: #F8FCFF");
+            root.getChildren().addAll(addBookScene);
+            addBookScene.lookup("#backButton").setOnMouseClicked(event -> {
+                root.getChildren().removeAll(addBookScene);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("fail to load book details scene");
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.library.controller.user;
 
 import com.library.dao.DocumentDao;
-import com.library.dao.ReservationDao;
+import com.library.dao.FavouriteDao;
 import com.library.models.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 
-public class UserRequestCellController implements Initializable {
+public class FavouriteBooksCellController implements Initializable {
     @FXML
     private Label authorLabel;
 
@@ -38,18 +38,18 @@ public class UserRequestCellController implements Initializable {
     private Label pageLabel;
 
     @FXML
-    private ImageView deleteImage;
+    private ImageView favImage;
 
-    private ListView<Reservation> listView;
-    private Reservation current;
+    private ListView<Favourite> listView;
+    private Favourite current;
     private DocumentDao documentDao=new DocumentDao();
-    private ReservationDao reservationDao = new ReservationDao();
+    private FavouriteDao favouriteDao=new FavouriteDao();
 
-    public void setListView(ListView<Reservation> lv){
+    public void setListView(ListView<Favourite> lv){
         this.listView=lv;
     }
 
-    public void loadUserRequest(Reservation r) throws SQLException {
+    public void loadUserFavourite(Favourite r) throws SQLException {
         if (r != null) {
             current=r;
             Document doc = documentDao.get(r.getIsbn());
@@ -62,7 +62,6 @@ public class UserRequestCellController implements Initializable {
             categoryLabel.setText(category.getName());
             pageLabel.setText(String.valueOf(doc.getPage()));
 
-            reqdateLabel.setText(String.valueOf(r.getReservationDate()));
 
             if (!doc.getImageLink().equals("N/A")) {
                 loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());
@@ -72,9 +71,9 @@ public class UserRequestCellController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        deleteImage.setOnMouseClicked(event -> {
+        favImage.setOnMouseClicked(event -> {
             if (current != null && listView != null) {
-                reservationDao.delete(current);
+                favouriteDao.delete(current);
                 listView.getItems().remove(current);
             }
         });

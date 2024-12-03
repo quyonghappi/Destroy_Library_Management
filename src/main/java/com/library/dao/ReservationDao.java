@@ -13,7 +13,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationDao  {
-    //use for denying or approving reservation, when approve thi phai add new record vao borrowing
+    //use when users change their mind
+    public void delete(String isbn, int userId) {
+        String sql = "delete from reservations where isbn = ? and user_id = ?";
+        try (Connection con = DatabaseConfig.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, isbn);
+            ps.setInt(2, userId);
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Reservation deleted successfully.");
+            } else {
+                System.out.println("No reservation found with the specified ISBN and username.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("cannot deleting reservation sent by " + userId, e);
+        }
+    }
+
+    //overload delete method
     public void delete(Reservation reservation) {
         String sql="delete from reservations where reservation_id=?";
         try(Connection con= DatabaseConfig.getConnection();
@@ -25,6 +46,9 @@ public class ReservationDao  {
             throw new RuntimeException(e);
         }
     }
+
+
+
 
     public void add(Reservation reservation) {
         String sql="insert into reservations(user_id, isbn, reservation_date,status) values(?,?,?,?)";
@@ -41,9 +65,10 @@ public class ReservationDao  {
         }
     }
 
-    //get reservation list
+    //get reservation list with asc reservation_date
     public List<Reservation> getReservations() {
-        String sql="select * from reservations";
+        String sql="select * from reservations " +
+                "order by reservation_date";
         List<Reservation> reservations = new ArrayList<>();
         try(Connection con= DatabaseConfig.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)) {

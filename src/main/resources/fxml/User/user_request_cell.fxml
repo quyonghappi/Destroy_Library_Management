@@ -9,7 +9,7 @@
 
 <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="1116.0" spacing="20.0" stylesheets="@../../css/user/BorrowedBooksCellStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.UserRequestCellController">
     <children>
-        <ImageView fx:id="bookImage" fitHeight="80.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="bookImage" fitHeight="85.0" fitWidth="70.0" pickOnBounds="true">
             <image>
                 <Image url="@../../../../../../library_management/src/main/resources/ui/admindashboard/bookcover.png" />
             </image>

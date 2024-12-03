@@ -18,11 +18,13 @@ import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import javax.print.Doc;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.library.utils.LoadImage.loadImageLazy;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 
 public class HomeScreenController implements Initializable {
@@ -40,6 +42,9 @@ public class HomeScreenController implements Initializable {
     private HBox brNav;
 
     @FXML
+    private Label category;
+
+    @FXML
     private HBox favNav;
 
     @FXML
@@ -54,6 +59,11 @@ public class HomeScreenController implements Initializable {
     @FXML
     private HBox myBooksContainer;
 
+    @FXML
+    private Label pages;
+
+    @FXML
+    private Label publisher;
 
     @FXML
     private GridPane recentlyAddedContainer;
@@ -239,7 +249,7 @@ public class HomeScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadRecentAddedBooks();
+        loadRecentAddedBooksAndRecommendation();
 
         searchNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
@@ -270,7 +280,7 @@ public class HomeScreenController implements Initializable {
 
         favNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
-            UserRequestController controller = navigateToScene("/fxml/User/FavouriteBooks.fxml", favNav);
+            FavouriteController controller = navigateToScene("/fxml/User/FavouriteBooks.fxml", favNav);
             if (controller != null) {
                 controller.setUsername(username);
                 controller.setUserFullName(userFullName);
@@ -297,17 +307,28 @@ public class HomeScreenController implements Initializable {
 
     }
 
-    private void loadRecentAddedBooks() {
+    private void loadRecentAddedBooksAndRecommendation() {
         recentlyAdded=documentDao.getRecentAddedBooks();
+        Document doc=recentlyAdded.get(recentlyAdded.size()-1);
+        bestBookAuthor.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
+        bestBookTitle.setText(doc.getTitle());
+        pages.setText(String.valueOf(doc.getPage()));
+        publisher.setText("Publisher: "+String.valueOf(documentDao.getPublisher(doc.getPublisherId()).getName()));
+        category.setText(String.valueOf("Genre: "+documentDao.getCategory(doc.getCategoryId()).getName()));
+
+
+        if (!doc.getImageLink().equals("N/A")) {
+            loadImageLazy(doc.getImageLink(),bestBookImage, bestBookImage.getFitWidth(), bestBookImage.getFitHeight());
+        }
 
         int column =0;
         int row=1;
         try {
-            for (Document doc : recentlyAdded) {
+            for (int i=0; i<recentlyAdded.size()-1; i++) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
                 VBox bookInfo = loader.load();
                 BookCardController controller = loader.getController();
-                controller.loadBookInfo(doc);
+                controller.loadBookInfo(recentlyAdded.get(i));
                 if (column == 9) {
                     column = 0;
                     ++row;

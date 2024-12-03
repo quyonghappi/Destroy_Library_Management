@@ -1,5 +1,5 @@
 .root {
-    -fx-font-family: "Roboto Slab";
+    -fx-font-family: "Segoe UI";
 }
 
 .sidebar {
@@ -95,7 +95,7 @@
     -fx-prompt-text-fill: #77654B;
 }
 
-.list-view {
+.list-view1 {
     -fx-background-color: #e7f1a8;
     -fx-border-radius:7;
     -fx-background-radius: 7;
@@ -103,7 +103,7 @@
     /*-fx-border-color: #e7f1a8;*/
 }
 
-.list-view .list-cell {
+.list-view1 .list-cell {
     -fx-background-color: #e7f1a8;
     -fx-background-radius: 7;
     -fx-border-radius: 7;
@@ -112,23 +112,58 @@
     -fx-font-family: "Rockwell";
 }
 
-.list-view .list-cell:hover {
+.list-view1 .list-cell:hover {
     -fx-background-color: #d9e1a5;
     -fx-background-radius: 7;
     -fx-border-radius: 7;
 }
 
-.list-view .scroll-bar {
+.list-view1 .scroll-bar {
     -fx-background-color: #ACBC8D;
 }
-.list-view .scroll-bar .thumb {
+.list-view1 .scroll-bar .thumb {
     -fx-background-color:#ACBC8D;
     -fx-border-radius: 5px;
 }
 
-.list-view .scroll-bar .increment-button,
-.list-view .scroll-bar .decrement-button {
-    -fx-background-color: #ACBC8D;
+.list-view1 .scroll-bar .increment-button,
+.list-view1 .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+}
+
+.list-view2 {
+    -fx-background-color: #fffdf5;
+    -fx-border-radius:7;
+    -fx-background-radius: 7;
+    -fx-border-width: 0;
+    /*-fx-border-color: #e7f1a8;*/
+}
+
+.list-view2 .list-cell {
+    -fx-background-color: #fffdf5;
+    -fx-background-radius: 7;
+    -fx-border-radius: 7;
+    -fx-border-width: 0px;
+    -fx-border-color: transparent;
+    -fx-font-family: "Rockwell";
+}
+
+.list-view2 .list-cell:hover {
+    -fx-background-color: #e9f1ff;
+    -fx-background-radius: 7;
+    -fx-border-radius: 7;
+}
+
+.list-view2 .scroll-bar {
+    -fx-background-color: #a5bff6;
+}
+.list-view2 .scroll-bar .thumb {
+    -fx-background-color:#95b1ee;
+    -fx-border-radius: 5px;
+}
+
+.list-view2 .scroll-bar .increment-button,
+.list-view2 .scroll-bar .decrement-button {
     -fx-opacity: 0;
 }
 

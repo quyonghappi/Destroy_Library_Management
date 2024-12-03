@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Boolean.FALSE;
 
 public class UserDao implements DAO<User> {
 
@@ -78,7 +77,7 @@ public class UserDao implements DAO<User> {
         return users;
     }
 
-    public static void UpdatePassword(User user) {
+    public static void updatePassword(User user) {
         String sql = "UPDATE users SET user_name = ?, password_hash = ? WHERE user_id = ?";
 
         String newPasswordHash = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
@@ -93,7 +92,7 @@ public class UserDao implements DAO<User> {
         }
     }
 
-    public static void UpdateAccount(User user) {
+    public static void updateAccount(User user) {
         String sql = "UPDATE users SET account_status = ?, account_locked = ? WHERE user_id = ?";
 
         try (Connection conn = DatabaseConfig.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -162,7 +161,7 @@ public class UserDao implements DAO<User> {
     }
 
     // Find a user by username for login check
-    public static User findUserByName(String username) throws SQLException {
+    public static User findUserByName(String username) {
         String sql = "SELECT * FROM users WHERE user_name = ?";
         try (
                 Connection cn = DatabaseConfig.getConnection();
@@ -184,7 +183,7 @@ public class UserDao implements DAO<User> {
                 return user;
             }
         } catch (SQLException e) {
-            throw new SQLException("This username doesn't exist!" + e.getMessage());
+            throw new RuntimeException("This username doesn't exist, cannot find user by name!" + e.getMessage());
         }
         return null;
     }

@@ -1,7 +1,5 @@
 package com.library.controller.admin.members;
 
-import com.library.controller.admin.books.EditBookController;
-import com.library.dao.DocumentDao;
 import com.library.dao.FineDao;
 import com.library.dao.UserDao;
 import com.library.models.Fine;
@@ -20,7 +18,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.List;
 
 public class MemInfoCellController {
@@ -94,7 +91,7 @@ public class MemInfoCellController {
                         "Id: " + idLabel.getText());
                 confirmationAlert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.OK) {
-                        UserDao.UpdateAccount(user);
+                        UserDao.updateAccount(user);
                     }
                 });
             } else {
@@ -107,7 +104,7 @@ public class MemInfoCellController {
                         "Id: " + idLabel.getText());
                 confirmationAlert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.OK) {
-                        UserDao.UpdateAccount(user);
+                        UserDao.updateAccount(user);
                     }
                 });
             }

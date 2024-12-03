@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -18,10 +17,11 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import static com.library.dao.UserDao.searchByUsername;
-import static com.library.utils.FilterPopup.showPopup;
+
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -46,7 +46,7 @@ public class MemInfoController implements Initializable {
     private Label memNameLabel;
 
     @FXML
-    private HBox membersContainer;
+    private Label countLabel;
 
     @FXML
     private ToggleButton allButton;
@@ -58,15 +58,15 @@ public class MemInfoController implements Initializable {
     private HBox overviewContainer;
 
     @FXML
-    private ImageView filter;
-
-    @FXML
     private TextField searchField1;
 
     private UserDao userDao=new UserDao();
+    private List<User> userList = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userList = userDao.getAll();
+        countLabel.setText(String.valueOf(userList.size()));
         loadMemList();
         booksContainer.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
@@ -99,11 +99,12 @@ public class MemInfoController implements Initializable {
         Task<List<User>> loadTask = new Task<>() {
             @Override
             protected List<User> call() {
-                return userDao.getAll();
+                return userList;
             }
         };
 
         loadTask.setOnSucceeded(event -> {
+            countLabel.setText(String.valueOf(loadTask.getValue().size()));
             refreshListView(loadTask.getValue());
         });
         loadTask.setOnFailed(event -> {

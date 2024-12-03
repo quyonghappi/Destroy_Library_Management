@@ -12,8 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 
-import java.sql.SQLException;
-
 import static com.library.utils.LoadImage.loadImageLazy;
 import static java.time.LocalDateTime.now;
 

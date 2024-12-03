@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteDao implements DAO<Favourite> {
+public class FavouriteDao {
     public List<Favourite> getAll() {
         String sql = "select * from favouritebooks";
         List<Favourite> favourites = new ArrayList<Favourite>();
@@ -72,6 +72,7 @@ public class FavouriteDao implements DAO<Favourite> {
 
             ps.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
 
@@ -89,9 +90,30 @@ public class FavouriteDao implements DAO<Favourite> {
         }
     }
 
+    //overload delete method
+    public void delete(String isbn, int userId) {
+        String sql = "delete from favouritebooks where isbn = ? and user_id = ?";
+        try (Connection con = DatabaseConfig.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, isbn);
+            ps.setInt(2, userId);
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Favourite book deleted successfully.");
+            } else {
+                System.out.println("No favourite book found with the specified ISBN and username.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("cannot deleting favourite book sent by" + userId, e);
+        }
+    }
+
     public List<Favourite> getByUserName(String username) {
         String userIdQuery = "SELECT user_id FROM users WHERE user_name = ?";
-        String sql = "SELECT * FROM favourites WHERE user_id = ?";
+        String sql = "SELECT * FROM favouritebooks WHERE user_id = ?";
         List<Favourite> favourites = new ArrayList<>();
 
         try (Connection conn = DatabaseConfig.getConnection();

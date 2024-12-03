@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.HomeScreenController">
+<StackPane fx:id="homeRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.HomeScreenController">
     <children>
         <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
             <left>
@@ -115,16 +115,8 @@
                                     </HBox.margin>
                                 </HBox>
                                 <Pane minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" HBox.hgrow="ALWAYS" />
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                     <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../ui/admindashboard/bell.png" />
-                                            </image>
-                                            <HBox.margin>
-                                                <Insets right="15.0" />
-                                            </HBox.margin>
-                                        </ImageView>
                                         <Label fx:id="memNameLabel" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -156,7 +148,7 @@
                                  <font>
                                     <Font name="Rockwell Bold" size="20.0" />
                                  </font></Label>
-                                        <ScrollPane fx:id="myBooksScrollPane" fitToHeight="false" fitToWidth="true" hbarPolicy="ALWAYS" minHeight="-Infinity" prefHeight="220.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                        <ScrollPane fitToHeight="false" fitToWidth="true" hbarPolicy="ALWAYS" minHeight="-Infinity" prefHeight="220.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                             <HBox fx:id="myBooksContainer" minHeight="-Infinity" prefHeight="190.0" spacing="10" />
                                  <padding>
                                     <Insets left="20.0" right="10.0" top="10.0" />
@@ -169,7 +161,7 @@
 
                                     <!-- Best Book Section -->
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="300.0" spacing="20" styleClass="section-box2" stylesheets="@../../css/user/styling.css" HBox.hgrow="ALWAYS">
-                              <Label text="Best Book" textFill="#483b28">
+                              <Label text="Recommendation" textFill="#483b28">
                                  <font>
                                     <Font name="Rockwell Bold" size="20.0" />
                                  </font>
@@ -186,6 +178,21 @@
                                           <Font name="Rockwell" size="13.0" />
                                        </font>
                                     </Label>
+                                    <Label fx:id="pages" text="Author Name" textFill="#483b28">
+                                       <font>
+                                          <Font name="Rockwell" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="publisher" text="Author Name" textFill="#483b28">
+                                       <font>
+                                          <Font name="Rockwell" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="category" text="Author Name" textFill="#483b28">
+                                       <font>
+                                          <Font name="Rockwell" size="13.0" />
+                                       </font>
+                                    </Label>
                                             </VBox>
                                         </HBox>
                                     </VBox>
@@ -193,13 +200,16 @@
 
                                 <!-- Popular Books -->
                                 <VBox spacing="10" stylesheets="@../../css/user/styling.css" VBox.vgrow="ALWAYS">
-                                    <Label text="Recently Added Books" textFill="#483b28">
+                                    <Label text="New Arrivals" textFill="#483b28">
                               <font>
                                  <Font name="Rockwell Bold" size="20.0" />
-                              </font></Label>
+                              </font>
+                              <VBox.margin>
+                                 <Insets left="15.0" />
+                              </VBox.margin></Label>
                                     <ScrollPane fitToHeight="false" fitToWidth="true" hbarPolicy="ALWAYS" minWidth="-Infinity" prefHeight="300.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                               <content>
-                                 <GridPane fx:id="recentlyAddedContainer" alignment="CENTER" hgap="7.0" minHeight="-Infinity" vgap="7.0">
+                                 <GridPane fx:id="recentlyAddedContainer" alignment="CENTER" hgap="15.0" minHeight="-Infinity" vgap="7.0">
                                    <rowConstraints>
                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                    </rowConstraints>

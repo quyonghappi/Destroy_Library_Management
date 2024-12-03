@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-//import static com.library.utils.FilterPopup.showPopup;
+import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.*;
 
 public class LentBookController implements Initializable {
@@ -31,13 +31,7 @@ public class LentBookController implements Initializable {
     private Label addBookButton;
 
     @FXML
-    private Label allCountLabel;
-
-    @FXML
     private Button lendButton;
-
-    @FXML
-    private Label lentCountLabel;
 
     @FXML
     private ListView<BorrowingRecord> lentDetailContainer;
@@ -52,16 +46,13 @@ public class LentBookController implements Initializable {
     private HBox membersContainer;
 
     @FXML
-    private Label overdueCountLabel;
+    private Label countLabel;
 
     @FXML
     private HBox overdueNav;
 
     @FXML
     private HBox overviewContainer;
-
-    @FXML
-    private Label requestCountLabel;
 
     @FXML
     private HBox requestNav;
@@ -72,11 +63,7 @@ public class LentBookController implements Initializable {
     @FXML
     private ImageView filter;
 
-    @FXML
-    private Label returnedCountLabel;
-
-    @FXML
-    private TextField searchField;
+    private TextField searchField1;
 
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
     List<BorrowingRecord> brList=new ArrayList<>();
@@ -85,6 +72,7 @@ public class LentBookController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         brList=getBrList();
+        countLabel.setText(String.valueOf(brList.size()));
         lentDetailContainer.setCellFactory(param ->
         {
             LentBookCell lentBookCell=new LentBookCell();

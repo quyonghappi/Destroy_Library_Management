@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.UserRequestController">
+<StackPane fx:id="userRequestRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.UserRequestController">
     <children>
         <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
             <left>
@@ -116,16 +116,8 @@
                                     </HBox.margin>
                                 </HBox>
                                 <Pane minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" HBox.hgrow="ALWAYS" />
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                     <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../ui/admindashboard/bell.png" />
-                                            </image>
-                                            <HBox.margin>
-                                                <Insets right="15.0" />
-                                            </HBox.margin>
-                                        </ImageView>
                                         <Label fx:id="memNameLabel" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -150,7 +142,7 @@
                                     </font></Label>
                                 <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="1150.0" style="-fx-background-color: #364c84; -fx-background-radius: 8; -fx-rotate: -5;" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <ListView fx:id="requestListContainer" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1116.0" style="-fx-rotate: 5;" HBox.hgrow="ALWAYS">
+                                        <ListView fx:id="requestListContainer" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1116.0" style="-fx-rotate: 5; -fx-background-color: #e7f1a8;" styleClass="list-view1" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets bottom="15.0" />
                                             </HBox.margin>

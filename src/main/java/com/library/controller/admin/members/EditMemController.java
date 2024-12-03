@@ -1,7 +1,6 @@
 package com.library.controller.admin.members;
 
 import com.library.controller.start.Check;
-import com.library.dao.DocumentDao;
 import com.library.dao.UserDao;
 import com.library.models.User;
 import javafx.event.ActionEvent;
@@ -10,10 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import kotlin.io.OnErrorAction;
-import org.mindrot.jbcrypt.BCrypt;
-
-import java.sql.SQLException;
 
 import static com.library.controller.start.ShowView.showAlert;
 
@@ -89,9 +84,9 @@ public class EditMemController {
                 try {
                     user = UserDao.findUserByName(userNameInput);
                     user.setPassword(newPasswordInput);
-                    UserDao.UpdatePassword(user); // Assuming updateUser takes the `User` object as a parameter.
+                    UserDao.updatePassword(user); // Assuming updateUser takes the `User` object as a parameter.
                     showAlert(Alert.AlertType.INFORMATION, "Success", "User information updated successfully.");
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to update user information.");
                     e.printStackTrace();
                 }
