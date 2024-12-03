@@ -109,7 +109,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
                                         </ImageView>
-                                        <TextField id="searchField" fx:id="searchField" minWidth="-Infinity" prefHeight="19.0" prefWidth="450.0" promptText="Search book name, author" HBox.hgrow="ALWAYS" />
+                                        <TextField id="searchField" fx:id="favSearchField" minWidth="-Infinity" prefHeight="19.0" prefWidth="450.0" promptText="Search book name, author" HBox.hgrow="ALWAYS" onAction="#onSearchFavorite"/>
                                     </children>
                                     <HBox.margin>
                                         <Insets />

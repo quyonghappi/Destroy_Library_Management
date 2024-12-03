@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="homeRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.HomeScreenController">
+<StackPane fx:id="homeRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.HomeScreenController">
     <children>
         <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
             <left>
@@ -108,7 +108,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
                                         </ImageView>
-                                        <TextField id="searchField" fx:id="searchField" minWidth="-Infinity" prefHeight="19.0" prefWidth="450.0" promptText="Search book name, author" stylesheets="@../../css/user/BorrowedBooksStyling.css" HBox.hgrow="ALWAYS" />
+                                        <TextField id="searchField" fx:id="homeSearchField" minWidth="-Infinity" prefHeight="19.0" prefWidth="450.0" promptText="Search book name, author" stylesheets="@../../css/user/BorrowedBooksStyling.css" HBox.hgrow="ALWAYS" onAction="#onSearchHome"/>
                                     </children>
                                     <HBox.margin>
                                         <Insets />
@@ -148,7 +148,7 @@
                                  <font>
                                     <Font name="Rockwell Bold" size="20.0" />
                                  </font></Label>
-                                        <ScrollPane fitToHeight="false" fitToWidth="true" hbarPolicy="ALWAYS" minHeight="-Infinity" prefHeight="220.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                        <ScrollPane fitToHeight="false" fitToWidth="true" hbarPolicy="ALWAYS" minHeight="-Infinity" prefHeight="220.0" stylesheets="@../../css/user/styling.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                             <HBox fx:id="myBooksContainer" minHeight="-Infinity" prefHeight="190.0" spacing="10" />
                                  <padding>
                                     <Insets left="20.0" right="10.0" top="10.0" />
@@ -160,13 +160,13 @@
                                     </VBox>
 
                                     <!-- Best Book Section -->
-                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="300.0" spacing="20" styleClass="section-box2" stylesheets="@../../css/user/styling.css" HBox.hgrow="ALWAYS">
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="300.0" spacing="20" styleClass="section-box1" stylesheets="@../../css/user/styling.css" HBox.hgrow="ALWAYS">
                               <Label text="Recommendation" textFill="#483b28">
                                  <font>
                                     <Font name="Rockwell Bold" size="20.0" />
                                  </font>
                               </Label>
-                                        <HBox alignment="CENTER" spacing="20">
+                                        <HBox alignment="CENTER_LEFT" spacing="20">
                                             <ImageView fx:id="bestBookImage" fitHeight="200" fitWidth="150" />
                                             <VBox spacing="5">
                                                 <Label fx:id="bestBookTitle" text="Example Book Title" textFill="#483b28">

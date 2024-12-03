@@ -167,4 +167,12 @@
     -fx-opacity: 0;
 }
 
+#searchScreenRoot {
+    -fx-background-image: url("images/flower_background.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+
 

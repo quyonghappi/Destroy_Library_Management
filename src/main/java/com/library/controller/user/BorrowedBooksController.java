@@ -127,4 +127,19 @@ public class BorrowedBooksController implements Initializable {
     }
 
 
+    @FXML
+    private TextField brSearchField;
+
+    @FXML
+    private void onSearchBorrow() {
+        String query = brSearchField.getText().trim();
+
+        if (!query.isEmpty()) {
+            SearchBooksScreenController searchController = navigateToScene("/fxml/User/search_books_screen.fxml", brSearchField);
+
+            if (searchController != null) {
+                searchController.performSearch(query);
+            }
+        }
+    }
 }

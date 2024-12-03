@@ -106,4 +106,20 @@ public class UserRequestController implements Initializable {
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
     }
+
+    @FXML
+    private TextField reqSearchField;
+
+    @FXML
+    private void onSearchRequest() {
+        String query = reqSearchField.getText().trim();
+
+        if (!query.isEmpty()) {
+            SearchBooksScreenController searchController = navigateToScene("/fxml/User/search_books_screen.fxml", reqSearchField);
+
+            if (searchController != null) {
+                searchController.performSearch(query);
+            }
+        }
+    }
 }

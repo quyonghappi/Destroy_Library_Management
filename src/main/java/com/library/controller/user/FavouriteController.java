@@ -120,4 +120,20 @@ public class FavouriteController implements Initializable {
 
         logout.setOnMouseClicked(event -> navigateToScene("/fxml/Start/Role.fxml", logout));
     }
+
+    @FXML
+    private TextField favSearchField;
+
+    @FXML
+    private void onSearchFavorite() {
+        String query = favSearchField.getText().trim();
+
+        if (!query.isEmpty()) {
+            SearchBooksScreenController searchController = navigateToScene("/fxml/User/search_books_screen.fxml", favSearchField);
+
+            if (searchController != null) {
+                searchController.performSearch(query);
+            }
+        }
+    }
 }
