@@ -143,7 +143,15 @@ public class GoogleBooksAPIClient {
                 String description = getStringOrDefault(volumeInfo, "description", "N/A");
                 int pages = getIntOrDefault(volumeInfo, "pageCount", 0);
                 String imageLink = extractImageLink(volumeInfo);
-                String previewLink = extractPreviewLink(book);
+                JsonObject accessInfo = book.has("accessInfo") ? book.getAsJsonObject("accessInfo") : null;
+                String checkViewability = accessInfo != null && accessInfo.has("viewability") ? accessInfo.get("viewability").getAsString() : "N/A";
+
+                String previewLink;
+                if (accessInfo == null || checkViewability.equals("NO_PAGES")) {
+                    previewLink = "There is no preview for this book.";
+                } else {
+                    previewLink = volumeInfo.has("previewLink") ? volumeInfo.get("previewLink").getAsString() : "N/A";
+                }
 
                 Document doc = new Document();
                 doc.setTitle(title + " " + subtitle);
@@ -209,15 +217,6 @@ public class GoogleBooksAPIClient {
             return getStringOrDefault(imageLinks, "thumbnail", "N/A");
         }
         return "N/A";
-    }
-
-    private String extractPreviewLink(JsonObject book) {
-        JsonObject accessInfo = book.getAsJsonObject("accessInfo");
-        String viewability = getStringOrDefault(accessInfo, "viewability", "N/A");
-        if ("NO_PAGES".equals(viewability)) {
-            return "No preview available.";
-        }
-        return getStringOrDefault(accessInfo, "previewLink", "No preview available.");
     }
 
     private void insertDocumentIntoDatabase(Document doc, String authorName, String publisherName, String categoryName) {

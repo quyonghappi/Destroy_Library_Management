@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 import static com.library.controller.start.LoadView.loadView;
 import static com.library.controller.start.ShowView.showView;
-import static com.library.dao.UserDao.searchByUsername;
+import static com.library.dao.UserDao.searchByEmail;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -208,28 +208,26 @@ public class MemInfoController implements Initializable {
         }
     }
 
-    void handleMemSearch(ListView<User> memDetailContainer, String username) {
+    void handleMemSearch(ListView<User> memDetailContainer, String email) {
         Task<List<User>> searchTask = new Task<>() {
 
             @Override
             protected List<User> call() throws SQLException {
-                return searchByUsername(username);
+                return searchByEmail(email);
             }
         };
 
         searchTask.setOnSucceeded(event -> {
             List<User> searchResult = searchTask.getValue();
             if (!searchResult.isEmpty()) {
-                System.out.println(searchResult.toString());
                 refreshListView(searchResult);
             } else {
-                System.out.println("user not found");
                 memDetailContainer.getItems().clear();
             }
         });
 
         searchTask.setOnFailed(event -> {
-            System.out.println("fail to load users with username: "+ username + searchTask.getException());
+            System.out.println("fail to load users with this email: "+ email + searchTask.getException());
         });
         new Thread(searchTask).start();
     }

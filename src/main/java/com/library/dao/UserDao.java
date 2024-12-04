@@ -185,14 +185,14 @@ public class UserDao implements DAO<User> {
     }
 
     //method to search user with result show dynamically
-    public static List<User> searchByUsername(String username) throws SQLException {
+    public static List<User> searchByEmail(String email) throws SQLException {
         List<User> result = new ArrayList<>();
-        String sql = "SELECT * FROM users WHERE user_name like ?";
+        String sql = "SELECT * FROM users WHERE email like ?";
         try (
                 Connection cn = DatabaseConfig.getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql)
         ) {
-            ps.setString(1, "%"+username+"%");
+            ps.setString(1, "%"+email+"%");
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
