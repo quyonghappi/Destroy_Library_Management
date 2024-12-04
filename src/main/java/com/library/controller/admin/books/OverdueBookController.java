@@ -138,9 +138,11 @@ public class OverdueBookController implements Initializable {
         {
             OverdueCell overdueCell = new OverdueCell();
             overdueCell.setListView(overdueDetailContainer);
+            overdueCell.setParentController(this);
             return overdueCell;
         });
         overdueDetailContainer.getItems().setAll(fines);
+        sortListView();
     }
 
     private void setupNavigation() {
@@ -249,6 +251,20 @@ public class OverdueBookController implements Initializable {
     interface DataLoader {
         List<Fine> load();
     }
+
+    public void sortListView() {
+        overdueDetailContainer.getItems().sort((r1, r2) -> {
+            if ("UNPAID".equals(r1.getStatus()) && !"UNPAID".equals(r2.getStatus())) {
+                return -1;  // r1 comes before r2
+            }
+            else if (!"UNPAID".equals(r1.getStatus()) && "UNPAID".equals(r2.getStatus())) {
+                return 1;   // r2 comes before r1
+            }
+            return 0;
+        });
+    }
+
+
 
     private List<Fine> getOverdueList() {
         return fineDao.getAll();

@@ -1,5 +1,7 @@
 package com.library.controller.admin.dashboard;
 
+import com.library.controller.admin.books.OverdueBookController;
+import com.library.controller.admin.books.RequestBookController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.dao.FineDao;
@@ -10,9 +12,11 @@ import com.library.models.Fine;
 import com.library.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -42,11 +46,17 @@ public class OverdueController {
     @FXML
     private Label usernameLabel;
 
+    @FXML
+    private Button paidButton;
+
+    @FXML
+    private Label statusLabel;
+
     private DocumentDao documentDao = new DocumentDao();
     private UserDao userDao=new UserDao();
     private FineDao fineDao=new FineDao();
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
-
+    private OverdueBookController parentController;
     private ListView<Fine> lv;
     private Fine currentFine;
 
@@ -54,11 +64,22 @@ public class OverdueController {
         this.lv = lv;
     }
 
+    public void setParentController(OverdueBookController parentController) {
+        this.parentController = parentController; // Set the parent controller
+    }
+
     public void loadOverdueData(Fine fine) {
         currentFine=fine;
         int userId = fine.getUserId();
-
         int recordId = fine.getRecordId();
+
+        if(fine.getStatus().equals("PAID")) {
+            statusLabel.setText("PAID");
+            statusLabel.setVisible(true);
+            if (paidButton != null && paidButton.getParent() instanceof VBox parent) {
+                parent.getChildren().remove(paidButton);
+            }
+        }
 
         User user = userDao.get(userId);
         if (user != null) {
@@ -81,7 +102,6 @@ public class OverdueController {
                     //fineLabel.setText(String.valueOf(fine.getFineAmount())); //use fine's fine amount
                 recordIdLabel.setText(String.valueOf(recordId));
                 overdueLabel.setText(fineDao.daysOverdue(borrowingRecord) + " days");
-
                 if (!document.getImageLink().equals("N/A")) {
                     loadImageLazy(document.getImageLink(), bookImage, 50, 60);
                 }
@@ -94,11 +114,12 @@ public class OverdueController {
     @FXML
     private void handlePaidButtonAction(ActionEvent event) {
         try {
-            fineDao.delete(fineDao.get(Integer.parseInt(recordIdLabel.getText())));
+            //fineDao.delete(fineDao.get(Integer.parseInt(recordIdLabel.getText())));
             fineDao.changeFineStatus(Integer.parseInt(recordIdLabel.getText()));
-
-            //remove current request from listview
-            lv.getItems().remove(currentFine);
+            lv.refresh();
+            if (parentController != null) {
+                parentController.sortListView();
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

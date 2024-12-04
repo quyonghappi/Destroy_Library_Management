@@ -37,6 +37,17 @@
     -fx-background-color: #f1d4d2;
     -fx-text-fill: #bc6c52;
 }
+
+#statusLabel {
+    -fx-text-fill:  #1D69A3;
+    -fx-background-color: #CEDFF9;
+    -fx-background-radius: 5;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5;
+    -fx-border-color: #EEE8E8;
+    -fx-padding: 5 20 5 20;
+}
+
 /*#denyButton {*/
 /*    -fx-text-fill: #CB755C;*/
 /*    -fx-background-color: #F9EBEA;*/

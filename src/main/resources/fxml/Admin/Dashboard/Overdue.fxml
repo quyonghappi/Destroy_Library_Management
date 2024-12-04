@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" stylesheets="@/css/admin/overdueStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.dashboard.OverdueController">
+<HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" stylesheets="@/css/admin/overdueStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.dashboard.OverdueController">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
          <children>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -37,7 +37,7 @@
                </image></ImageView>
             <VBox alignment="CENTER" prefHeight="40.0" prefWidth="100.0">
                <children>
-                  <Label fx:id="bookNameLabel" styleClass="big-label" text="Label" />
+                  <Label fx:id="bookNameLabel" maxWidth="1.7976931348623157E308" styleClass="big-label" text="Label" />
                   <Label fx:id="recordIdLabel" styleClass="small-label" text="Label" />
                </children>
             </VBox>
@@ -57,14 +57,11 @@
             <Label id="fineLabel" fx:id="fineLabel" styleClass="big-label" text="Label" />
          </children>
       </VBox>
-      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button id="paidButton" mnemonicParsing="false" onAction="#handlePaidButtonAction" prefWidth="80.0" text="Paid" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
+            <Button id="paidButton" fx:id="paidButton" mnemonicParsing="false" onAction="#handlePaidButtonAction" prefWidth="80.0" text="Paid" />
+            <Label fx:id="statusLabel" text="Label" visible="false" />
          </children>
-      </HBox>
+      </VBox>
    </children>
 </HBox>

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1116.0" stylesheets="@../../../css/admin/bookInfoCellStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.ReturnBookCellController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1116.0" stylesheets="@../../../css/admin/bookInfoCellStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.ReturnBookCellController">
     <children>
         <ImageView fx:id="bookImage" fitHeight="65.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -19,7 +19,7 @@
         </ImageView>
         <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="150.0">
             <children>
-                <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" HBox.hgrow="NEVER">
+                <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="230.0" HBox.hgrow="NEVER">
                     <children>
                         <Label fx:id="bookNameLabel" alignment="CENTER" styleClass="big-label" text="Title" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
                         <Label fx:id="authorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="small-label" text="by Author" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
