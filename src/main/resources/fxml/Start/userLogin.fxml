@@ -48,7 +48,7 @@
                         </TextField>
                         <ImageView fitHeight="27.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../ui/start/lock.png" />
+                              <Image url="@../../ui/start/user.png" />
                            </image>
                            <HBox.margin>
                               <Insets top="12.0" />
@@ -67,7 +67,7 @@
                            </font></PasswordField>
                         <ImageView fitHeight="34.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../ui/start/user.png" />
+                              <Image url="@../../ui/start/lock.png" />
                            </image>
                            <HBox.margin>
                               <Insets top="12.0" />
@@ -78,14 +78,6 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <Hyperlink fx:id="forgotPasswordLink" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Forgot password?">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Hyperlink>
                   <Button fx:id="loginButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#login" prefHeight="46.0" prefWidth="267.0" style="-fx-background-color: #88adf4; -fx-padding: 10px 20px; -fx-background-radius: 15px;" styleClass="login-button" stylesheets="@../../css/start/UserLogin.css" text="Login" textFill="#2a599e">
                      <font>
                         <Font name="Segoe UI Historic" size="18.0" />

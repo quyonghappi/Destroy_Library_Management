@@ -135,12 +135,12 @@ public class SearchBooksScreenController implements Initializable {
 
         logout.setOnMouseClicked(event->navigateToScene("/fxml/Start/Role.fxml", logout));
 
-//        if (pagination != null) {
-//            pagination.setPageFactory(pageIndex -> {
-//                loadPageResults(pageIndex);
-//                return searchResultsContainer;
-//            });
-//        }
+        if (pagination != null) {
+            pagination.setPageFactory(pageIndex -> {
+                loadPageResults(pageIndex);
+                return searchResultsContainer;
+            });
+        }
 
     }
 
@@ -173,7 +173,7 @@ public class SearchBooksScreenController implements Initializable {
             searchResultsContainer.getChildren().add(bookCard);
         }
         int pageCount = (int) Math.ceil(books.size() / 40.0);
-        //pagination.setPageCount(pageCount);  // Cập nhật số trang cho pagination
+//        pagination.setPageCount(pageCount);  // Cập nhật số trang cho pagination
     }
 
 
@@ -270,13 +270,14 @@ public class SearchBooksScreenController implements Initializable {
     }
 
 
-//    private void loadPageResults(int pageIndex) {
-//        int startIndex = pageIndex * 40;
-//        int endIndex = Math.min(startIndex + 40, filteredDocuments.size());
-//
-//        List<Document> pageBooks = filteredDocuments.subList(startIndex, endIndex);
-//        showBooks(pageBooks);
-//    }
+
+    private void loadPageResults(int pageIndex) {
+        int startIndex = pageIndex * 40;
+        int endIndex = Math.min(startIndex + 40, filteredDocuments.size());
+
+        List<Document> pageBooks = filteredDocuments.subList(startIndex, endIndex);
+        showBooks(pageBooks);
+    }
 
 
     private void showSearchResults(String query) {
@@ -352,4 +353,7 @@ public class SearchBooksScreenController implements Initializable {
         memNameLabel.setText(userFullName);
     }
 
+    public void setSearchQuery(String searchQuery) {
+
+    }
 }

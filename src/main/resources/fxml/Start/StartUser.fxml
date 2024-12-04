@@ -46,7 +46,7 @@
             <Font name="Book Antiqua Bold" size="72.0" />
          </font>
       </Text>
-      <Button fx:id="loginButton" layoutX="59.0" layoutY="788.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="38.0" prefWidth="119.0" style="-fx-background-radius: 20px; -fx-background-color: #80abe2;" styleClass="login-button" text="Login" />
-      <Button fx:id="registerButton" layoutX="59.0" layoutY="713.0" mnemonicParsing="false" onAction="#handleSignUpButtonAction" prefHeight="38.0" prefWidth="107.0" style="-fx-background-radius: 20px; -fx-background-color: #80abe2;" styleClass="login-button" text="Sign up" />
+      <Button fx:id="loginButton" layoutX="26.0" layoutY="724.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="38.0" prefWidth="119.0" style="-fx-background-radius: 20px; -fx-background-color: #80abe2;" styleClass="login-button" text="Login" />
+      <Button fx:id="registerButton" layoutX="26.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleSignUpButtonAction" prefHeight="38.0" prefWidth="107.0" style="-fx-background-radius: 20px; -fx-background-color: #80abe2;" styleClass="login-button" text="Sign up" />
    </children>
 </AnchorPane>
