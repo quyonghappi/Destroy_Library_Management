@@ -4,6 +4,8 @@ import com.library.dao.DocumentDao;
 import com.library.models.Author;
 import com.library.models.Document;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -93,7 +95,7 @@ public class SearchBooksScreenController implements Initializable {
         //loadRecentAddedBooksAndRecommendation();
 
         loadAllBooks();
-        searchField.setOnAction(event -> onSearchBooks());
+        searchField.textProperty().addListener(event -> onSearchBooks());
 
         homeNav.setOnMouseClicked(event -> {
             String userFullName = memNameLabel.getText();
@@ -383,10 +385,13 @@ public class SearchBooksScreenController implements Initializable {
                 bookCard.setPrefSize(300, 220);
 
                 // Add fade-in effect
-                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.75), bookCard);
-                fadeIn.setFromValue(0);
-                fadeIn.setToValue(1);
-                fadeIn.play();
+                ScaleTransition popUp = new ScaleTransition(Duration.seconds(0.75), bookCard);
+                popUp.setFromX(0);
+                popUp.setFromY(0);
+                popUp.setToX(1);
+                popUp.setToY(1);
+                popUp.setInterpolator(Interpolator.EASE_OUT);
+                popUp.play();
 
                 // Book cover image
                 ImageView bookCover = new ImageView();
