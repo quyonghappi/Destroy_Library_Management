@@ -8,9 +8,6 @@ import com.library.models.Category;
 import com.library.models.Document;
 import com.library.models.Publisher;
 import okhttp3.*;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -21,7 +18,7 @@ public class GoogleBooksAPIClient {
     private static final long TIME_WINDOW_MS = 60000; // Time window in ms
     private final Queue<Long> requestTimestamps = new LinkedList<>();
 
-    private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=isbn%s&key=%s";
+    private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=isbn:%s&key=%s";
 
     private final OkHttpClient client;
     private final Gson gson;
@@ -106,18 +103,28 @@ public class GoogleBooksAPIClient {
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
                         String jsonData = response.body().string();
-                        parseBooks(jsonData, quantity);
+                        printApiResponse(jsonData);
+                        parseBooks(jsonData, quantity, isbn);
                     } else {
                         System.out.printf("Error for ISBN %s: %s - %s\n", isbn, response.code(), response.message());
                     }
                 }
             });
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void parseBooks(String jsonData, int quantity) {
+    private void printApiResponse(String jsonData) {
+        System.out.println("api response:");
+        System.out.println(jsonData);
+        System.out.println("--------------------------");
+
+    }
+
+    private void parseBooks(String jsonData, int quantity, String givenIsbn) {
         JsonObject jsonObject = gson.fromJson(jsonData, JsonObject.class);
         JsonArray items = jsonObject.getAsJsonArray("items");
 
@@ -169,7 +176,7 @@ public class GoogleBooksAPIClient {
                 insertDocumentIntoDatabase(doc, authorName, publisherName, categoryName);
             }
         } else {
-            System.out.println("No books found for the provided ISBN.");
+            System.out.println("No books found for the provided ISBN." + givenIsbn);
         }
     }
 
@@ -210,7 +217,7 @@ public class GoogleBooksAPIClient {
         if ("NO_PAGES".equals(viewability)) {
             return "No preview available.";
         }
-        return getStringOrDefault(accessInfo, "previewLink", "N/A");
+        return getStringOrDefault(accessInfo, "previewLink", "No preview available.");
     }
 
     private void insertDocumentIntoDatabase(Document doc, String authorName, String publisherName, String categoryName) {
@@ -250,25 +257,25 @@ public class GoogleBooksAPIClient {
     }
 
     public static void main(String[] args) {
-        String file = "src/main/java/com/library/api/programming_books.txt";
+//        String file = "src/main/java/com/library/api/programming_books.txt";
         GoogleBooksAPIClient newClient = new GoogleBooksAPIClient();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String isbn;
-            int quantity = 10;
-            while ((isbn = br.readLine()) != null) {
-                if (!isbn.trim().isEmpty()) newClient.getBookData(isbn.trim(), quantity);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-//        String isbn="9780824791599";
-//        int quantity=10;
-//        try {
-//            newClient.getBookData(isbn.trim(),quantity);
+//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+//            String isbn;
+//            int quantity = 10;
+//            while ((isbn = br.readLine()) != null) {
+//                if (!isbn.trim().isEmpty()) newClient.getBookData(isbn.trim(), quantity);
+//            }
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+
+        String isbn="9789390504640";
+        int quantity=10;
+        try {
+            newClient.getBookData(isbn.trim(),quantity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
