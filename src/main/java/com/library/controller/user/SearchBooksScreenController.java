@@ -135,12 +135,12 @@ public class SearchBooksScreenController implements Initializable {
 
         logout.setOnMouseClicked(event->navigateToScene("/fxml/Start/Role.fxml", logout));
 
-//        if (pagination != null) {
-//            pagination.setPageFactory(pageIndex -> {
-//                loadPageResults(pageIndex);
-//                return searchResultsContainer;
-//            });
-//        }
+        if (pagination != null) {
+            pagination.setPageFactory(pageIndex -> {
+                loadPageResults(pageIndex);
+                return searchResultsContainer;
+            });
+        }
 
     }
 
@@ -153,10 +153,10 @@ public class SearchBooksScreenController implements Initializable {
             }
         };
 
-        loadTask.setOnSucceeded(event -> {
-            filteredDocuments = loadTask.getValue();
-            showBooks(filteredDocuments);  // Hiển thị tất cả sách
-        });
+//        loadTask.setOnSucceeded(event -> {
+//            filteredDocuments = loadTask.getValue();
+////            showBooks(filteredDocuments);  // Hiển thị tất cả sách
+//        });
 
         loadTask.setOnFailed(event -> {
             System.err.println("Failed to load books: " + loadTask.getException());
@@ -173,7 +173,7 @@ public class SearchBooksScreenController implements Initializable {
             searchResultsContainer.getChildren().add(bookCard);
         }
         int pageCount = (int) Math.ceil(books.size() / 40.0);
-        //pagination.setPageCount(pageCount);  // Cập nhật số trang cho pagination
+//        pagination.setPageCount(pageCount);  // Cập nhật số trang cho pagination
     }
 
 
@@ -271,13 +271,13 @@ public class SearchBooksScreenController implements Initializable {
 
 
 
-//    private void loadPageResults(int pageIndex) {
-//        int startIndex = pageIndex * 40;
-//        int endIndex = Math.min(startIndex + 40, filteredDocuments.size());
-//
-//        List<Document> pageBooks = filteredDocuments.subList(startIndex, endIndex);
-//        showBooks(pageBooks);
-//    }
+    private void loadPageResults(int pageIndex) {
+        int startIndex = pageIndex * 40;
+        int endIndex = Math.min(startIndex + 40, filteredDocuments.size());
+
+        List<Document> pageBooks = filteredDocuments.subList(startIndex, endIndex);
+        showBooks(pageBooks);
+    }
 
 
     private void showSearchResults(String query) {

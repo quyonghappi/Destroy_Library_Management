@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 <StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../../css/start/register.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.start.RegisterController">
-    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="950.0" style="-fx-background-radius: 30px; -fx-background-color: #FFFFFF;">
+    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="950.0" style="-fx-background-radius: 30px; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, #bfd1f6, 15, 0.5, 0, 6);">
         <children>
             <!-- Left VBox: Form -->
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="405.0" spacing="10" styleClass="form-box">
@@ -52,7 +52,7 @@
                     <Button fx:id="signUpButton" onAction="#signUp" prefHeight="51.0" prefWidth="185.0" style="-fx-background-color: #88adf4; -fx-background-radius: 25px;" styleClass="register-button" stylesheets="@../../css/start/register.css" text="Sign up">
                         <!--                    Button fx:id="signUpButton" text="Sign up" onAction="#signUp" "/-->
                         <VBox.margin>
-                            <Insets top="40.0" />
+                            <Insets top="20.0" />
                         </VBox.margin>
                     </Button>
                     <Hyperlink fx:id="loginLink" onAction="#openLogin" text="Already have an account? Login" />
@@ -64,7 +64,7 @@
                 <children>
                     <ImageView fitHeight="613.0" fitWidth="406.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../../ui/start/backgr.jpg" />
+                            <Image url="@../../ui/start/Thiết%20kế%20chưa%20có%20tên.png" />
                         </image>
                     </ImageView>
                 </children>

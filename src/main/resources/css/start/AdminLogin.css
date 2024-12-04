@@ -1,15 +1,11 @@
 #rootPane {
-    -fx-background-image: url("/images/background.jpg");
+    /*-fx-background-image: url("/ui/start/backgr1.jpg");*/
+
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
-/*.form-box {*/
-/*    -fx-background-color: linear-gradient(to bottom, #86a9ea, rgba(220, 220, 255, 0.7));*/
-/*    -fx-background-radius: 20px;*/
-/*    -fx-padding: 20px;*/
-/*    -fx-alignment: center;*/
-/*}*/
+
 
 .title {
     -fx-font-size: 38px;
