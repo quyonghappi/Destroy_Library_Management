@@ -112,6 +112,7 @@ public class HomeScreenController implements Initializable {
             String userFullName= memNameLabel.getText();
             BorrowedBooksController controller = navigateToScene("/fxml/User/BorrowedBooks.fxml", brNav);
             if (controller != null) {
+
                 controller.setUsername(username);
                 controller.setUserFullName(userFullName);
             }
@@ -246,6 +247,7 @@ public class HomeScreenController implements Initializable {
             SearchBooksScreenController searchController = navigateToScene("/fxml/User/search_books_screen.fxml", homeSearchField);
 
             if (searchController != null) {
+
                 searchController.performSearch(query);
                 searchController.setUsername(username);
                 searchController.setUserFullName(userFullName);
