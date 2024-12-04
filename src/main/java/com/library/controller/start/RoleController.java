@@ -67,6 +67,7 @@ public class RoleController {
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/start/Role.css")).toExternalForm());
             primaryStage.setTitle("Library Management");
             primaryStage.setScene(scene);
+            primaryStage.setMaximized(true);
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
             primaryStage.setWidth(screenBounds.getWidth());
             primaryStage.setHeight(screenBounds.getHeight());

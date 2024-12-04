@@ -28,8 +28,8 @@ public class LoadImage {
             protected Image call() throws Exception {
                 //Tải ảnh ở kích thước lớn hơn (2x hoặc 3x kích thước mong muốn)
                 // //then giảm kích thước trong ImageView giúp ảnh trông sắc nét hơn
-                double scaledWidth = w * 3;
-                double scaledHeight = h * 3;
+                double scaledWidth = w * 2;
+                double scaledHeight = h * 2;
                 return new Image(imageUrl, scaledWidth, scaledHeight, false, true); // smooth = true
             }
         };
@@ -46,7 +46,7 @@ public class LoadImage {
 
         loadImageTask.setOnFailed(event -> {
             System.err.println("Failed to load image from URL: " + imageUrl);
-            Platform.runLater(() -> imageView.setImage(new Image("file:placeholder.png")));
+            Platform.runLater(() -> imageView.setImage(new Image("/ui/admindashboard/bookcover.png")));
         });
 
         new Thread(loadImageTask).start();

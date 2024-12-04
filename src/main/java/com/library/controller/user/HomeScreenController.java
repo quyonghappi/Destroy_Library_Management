@@ -178,7 +178,6 @@ public class HomeScreenController implements Initializable {
         int row=1;
         try {
             for (int i=0; i<recentlyAdded.size()-1; i++) {
-                if (i==bestBookIndex) continue;
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
                 VBox bookInfo = loader.load();
                 BookCardController controller = loader.getController();

@@ -113,7 +113,7 @@
 }
 
 .list-view1 .list-cell:hover {
-    -fx-background-color: #d9e1a5;
+    -fx-background-color: #f2fdbf;
     -fx-background-radius: 7;
     -fx-border-radius: 7;
 }

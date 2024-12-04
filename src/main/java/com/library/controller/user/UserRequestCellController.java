@@ -73,12 +73,16 @@ public class UserRequestCellController implements Initializable {
                     break;
                 case "fulfilled":
                     statusLabel.setText("Fulfilled");
-                    ((VBox) deleteImage.getParent()).getChildren().remove(deleteImage);
+                    if (deleteImage != null && deleteImage.getParent() instanceof VBox parent) {
+                        parent.getChildren().remove(deleteImage);
+                    }
                     statusLabel.setVisible(true);
                     break;
                 case "cancelled":
                     statusLabel.setText("Cancelled");
-                    ((VBox) deleteImage.getParent()).getChildren().remove(deleteImage);
+                    if (deleteImage != null && deleteImage.getParent() instanceof VBox parent) {
+                        parent.getChildren().remove(deleteImage);
+                    }
                     break;
             }
 
