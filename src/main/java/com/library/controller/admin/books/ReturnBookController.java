@@ -4,6 +4,7 @@ import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.models.BorrowingRecord;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -97,17 +98,10 @@ public class ReturnBookController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        updateReturnCount();
         brList=getBrList();
-        returnDetailContainer.setCellFactory(param ->
-        {
-            ReturnBookCell returnBookCell=new ReturnBookCell();
-            returnBookCell.setListView(returnDetailContainer);
-            return returnBookCell;
-        });
-        returnDetailContainer.getItems().setAll(brList);
+        countLabel.setText(String.valueOf(brList.size()));
 
+        loadReturnList();
         allNav.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
             BookInfoController controller = navigateToScene("/fxml/Admin/Books/BookInfo.fxml", allNav);
@@ -160,6 +154,32 @@ public class ReturnBookController implements Initializable {
         });
     }
 
+    private void loadReturnList() {
+        Task<List<BorrowingRecord>> loadTask = new Task<>() {
+            @Override
+            protected List<BorrowingRecord> call() throws Exception {
+                return brList;
+            }
+        };
+        loadTask.setOnSucceeded(
+                event-> {
+                    returnDetailContainer.setCellFactory(param ->
+                    {
+                        ReturnBookCell returnBookCell=new ReturnBookCell();
+                        returnBookCell.setListView(returnDetailContainer);
+                        return returnBookCell;
+                    });
+                    returnDetailContainer.getItems().setAll(loadTask.getValue());
+                }
+        );
+        loadTask.setOnFailed(
+                event-> {
+                    System.out.println("failed to load return list"+loadTask.getException().getMessage());
+                }
+        );
+        new Thread(loadTask).start();
+    }
+
     private void searchReturn(String isbn) {
         if(isbn.trim().isEmpty()) {
             brList = borrowingRecordDao.getReturned();
@@ -174,11 +194,6 @@ public class ReturnBookController implements Initializable {
             return returnBookCell;
         });
         returnDetailContainer.getItems().setAll(brList);
-    }
-
-    public void updateReturnCount() {
-        List<BorrowingRecord> bookList = borrowingRecordDao.getReturned();
-        countLabel.setText(String.valueOf(bookList.size()));
     }
 
     private List<BorrowingRecord> getBrList() {

@@ -164,7 +164,7 @@ public class AdminDashboardController implements Initializable {
     }
 
     private List<Reservation> getReservationList() {
-        return reservationDao.getReservations();
+        return reservationDao.getAll();
     }
 
     private List<Fine> getFineList() {

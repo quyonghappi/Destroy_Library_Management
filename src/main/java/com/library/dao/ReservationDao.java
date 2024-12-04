@@ -1,6 +1,7 @@
 package com.library.dao;
 
 import com.library.config.DatabaseConfig;
+import com.library.models.BorrowingRecord;
 import com.library.models.Reservation;
 import com.library.utils.DateFormat;
 import javafx.scene.control.ListView;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservationDao  {
+public class ReservationDao implements DAO<Reservation>  {
     //use when users change their mind
     public void delete(String isbn, int userId) {
         String sql = "delete from reservations where isbn = ? and user_id = ?";
@@ -49,7 +50,10 @@ public class ReservationDao  {
     }
 
 
-    public void add(Reservation reservation) {
+    public <U> void add(U r) {
+        if (!(r instanceof Reservation reservation)) {
+            throw new IllegalArgumentException("r is not a Reservation");
+        }
         String sql="insert into reservations(user_id, isbn, reservation_date,status) values(?,?,?,?)";
         try (
                 Connection conn=DatabaseConfig.getConnection();
@@ -66,7 +70,7 @@ public class ReservationDao  {
     }
 
     //get reservation list with asc reservation_date
-    public List<Reservation> getReservations() {
+    public List<Reservation> getAll() {
         String sql="select * from reservations " +
                 "order by reservation_date";
         List<Reservation> reservations = new ArrayList<>();
@@ -129,12 +133,11 @@ public class ReservationDao  {
         return reservations;
     }
 
-    public List<Reservation> getById(int reservation_id) {
-        String sql="select * from reservations where user_id=?";
-        List<Reservation> reservation=new ArrayList<>();
+    public <U> Reservation get(U reservation_id) {
+        String sql="select * from reservations where reservation_id=?";
         try(Connection conn=DatabaseConfig.getConnection();
             PreparedStatement ps=conn.prepareStatement(sql)) {
-            ps.setInt(1,reservation_id);
+            ps.setInt(1,(int)reservation_id);
             ResultSet rs=ps.executeQuery();
             while(rs.next()) {
 
@@ -142,12 +145,12 @@ public class ReservationDao  {
                 String isbn=rs.getString("isbn");
                 LocalDateTime date=rs.getTimestamp("reservation_date").toLocalDateTime();
                 String status=rs.getString("status");
-                reservation.add(new Reservation(reservation_id,user_id,isbn,date,status));
+                return new Reservation((int)reservation_id,user_id,isbn,date,status);
             }
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return reservation;
+        return null;
     }
 
     /**

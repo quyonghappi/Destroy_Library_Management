@@ -138,7 +138,7 @@ public class RequestBookController implements Initializable {
     //minh search bang username cuz users cannot know their requestId
     private void searchRequest(String username) {
         if (username == null || username.trim().isEmpty()) {
-                reservations = reservationDao.getReservations();
+                reservations = reservationDao.getAll();
         } else {
             reservations = reservationDao.getByUserName(username);
         }
@@ -147,7 +147,7 @@ public class RequestBookController implements Initializable {
 
 
     private List<Reservation> getReservations(){
-        return reservationDao.getReservations();
+        return reservationDao.getAll();
     }
 
 
@@ -215,7 +215,7 @@ public class RequestBookController implements Initializable {
     @FXML
     private void showAllRequest(ActionEvent event) {
         updateButtonStyles(allButton, fulfilledButton, cancelledButton);
-        applyFilter(()->reservationDao.getReservations());
+        applyFilter(()->reservationDao.getAll());
     }
 
     private void updateButtonStyles(ToggleButton selectedButton, ToggleButton other1, ToggleButton other2) {
