@@ -100,12 +100,12 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1116.0" styleClass="bar-box-below">
                                  <children>
-                                    <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" text="Name" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Email" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="170.0" text="Member ID" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Last login" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" prefHeight="40.0" prefWidth="140.0" text="Fine due" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" layoutX="762.0" layoutY="10.0" prefHeight="40.0" prefWidth="220.0" text="Action" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" text="Name" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="Email" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="170.0" text="Member ID" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" text="Last login" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="Fine" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" layoutX="762.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="160.0" text="Action" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                               <ListView fx:id="memDetailContainer" editable="true" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="490.0" prefWidth="1116.0" VBox.vgrow="ALWAYS" />

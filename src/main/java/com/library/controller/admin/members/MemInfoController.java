@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -51,7 +52,7 @@ public class MemInfoController implements Initializable {
     private Label memNameLabel;
 
     @FXML
-    private HBox membersContainer;
+    private Label countLabel;
 
     @FXML
     private ToggleButton allButton;
@@ -72,9 +73,12 @@ public class MemInfoController implements Initializable {
     private Button logOut;
 
     private UserDao userDao=new UserDao();
+    private List<User> userList = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userList = userDao.getAll();
+        countLabel.setText(String.valueOf(userList.size()));
         loadMemList();
         booksContainer.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
@@ -107,7 +111,7 @@ public class MemInfoController implements Initializable {
         Task<List<User>> loadTask = new Task<>() {
             @Override
             protected List<User> call() {
-                return userDao.getAll();
+                return userList;
             }
         };
 

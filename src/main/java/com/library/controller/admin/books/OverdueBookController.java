@@ -75,10 +75,10 @@ public class OverdueBookController implements Initializable {
     private ToggleButton allButton;
 
     @FXML
-    private TextField searchField;
+    private TextField searchField1;
 
     @FXML
-    private TextField searchField1;
+    private Label countLabel;
 
     @FXML
     private Button logOut;
@@ -87,112 +87,12 @@ public class OverdueBookController implements Initializable {
     private FineDao fineDao= new FineDao();
     List<Fine> fines=new ArrayList<>();
 
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        fines=getOverdueList();
-//        overdueDetailContainer.setCellFactory(param->
-//        {
-//            OverdueCell overdueCell = new OverdueCell();
-//            overdueCell.setListView(overdueDetailContainer);
-//            return overdueCell;
-//        });
-//        overdueDetailContainer.getItems().setAll(fines);
-//
-//        lentNav.setOnMouseClicked(event -> {
-//            String userFullName=memNameLabel.getText();
-//            LentBookController controller = navigateToScene("/fxml/admin/Books/LentBook.fxml", lentNav);
-//            if (controller != null) {
-//                controller.setUserFullName(userFullName);
-//            }
-//        });
-//        allNav.setOnMouseClicked(event -> {
-//            String userFullName=memNameLabel.getText();
-//            BookInfoController controller = navigateToScene("/fxml/admin/Books/BookInfo.fxml", allNav);
-//            if (controller != null) {
-//                controller.setUserFullName(userFullName);
-//            }
-//        });
-//        requestNav.setOnMouseClicked(event -> {
-//            String userFullName=memNameLabel.getText();
-//            RequestBookController controller=navigateToScene("/fxml/admin/Books/RequestBook.fxml", requestNav);
-//            if (controller != null) {
-//                controller.setUserFullName(userFullName);
-//            }
-//        });
-//        returnNav.setOnMouseClicked(event -> {
-//            String userFullName=memNameLabel.getText();
-//            ReturnBookController controller=navigateToScene("/fxml/admin/Books/ReturnedBook.fxml", returnNav);
-//            if (controller != null) {
-//                controller.setUserFullName(userFullName);
-//            }
-//        });
-//        overviewContainer.setOnMouseClicked(event -> {
-//            String userFullName=memNameLabel.getText();
-//            AdminDashboardController controller= navigateToScene("/fxml/admin//BookInfo.fxml", membersContainer);
-//            if (controller != null) {
-//                controller.setUserFullName(userFullName);
-//            }
-//        });
-//        membersContainer.setOnMouseClicked(event-> {
-//            String userFullName=memNameLabel.getText();
-//            MemInfoController controller= navigateToScene("/fxml/admin/Member/MemInfo.fxml", membersContainer);
-//            if (controller != null) {
-//                controller.setUserFullName(userFullName);
-//            }
-//        });
-//        lendButton.setOnMouseClicked(event->showLendBookScene(overdueRoot));
-//        filter.setOnMouseClicked(event->showPopup(filter, event));
-//    }
-//
-//    private List<Fine> getOverdueList() {
-//        return fineDao.getAll();
-//    }
-//
-//    public void setUserFullName(String userFullName) {
-//        memNameLabel.setText(userFullName);
-//    }
-//
-//    @FXML
-//    private void unpaidFilter(ActionEvent event) {
-//        fines=fineDao.getUnpaid();
-//        overdueDetailContainer.setCellFactory(param->
-//        {
-//            OverdueCell overdueCell = new OverdueCell();
-//            overdueCell.setListView(overdueDetailContainer);
-//            return overdueCell;
-//        });
-//        overdueDetailContainer.getItems().setAll(fines);
-//    }
-//
-//    @FXML
-//    private void allFilter(ActionEvent event) {
-//        fines=getOverdueList();
-//        overdueDetailContainer.setCellFactory(param->
-//        {
-//            OverdueCell overdueCell = new OverdueCell();
-//            overdueCell.setListView(overdueDetailContainer);
-//            return overdueCell;
-//        });
-//        overdueDetailContainer.getItems().setAll(fines);
-//    }
-//
-//    @FXML
-//    private void paidFilter(ActionEvent event) {
-//        fines=fineDao.getPaid();
-//        overdueDetailContainer.setCellFactory(param->
-//        {
-//            OverdueCell overdueCell = new OverdueCell();
-//            overdueCell.setListView(overdueDetailContainer);
-//            return overdueCell;
-//        });
-//        overdueDetailContainer.getItems().setAll(fines);
-//    }
-//}
-//
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadOverdueList();
+        fines = getOverdueList();
+        countLabel.setText(String.valueOf(fines.size()));
 
+        loadOverdueList();
         setupNavigation();
 
         lendButton.setOnMouseClicked(event -> showLendBookScene(overdueRoot));
@@ -205,7 +105,7 @@ public class OverdueBookController implements Initializable {
         Task<List<Fine>> loadTask = new Task<>() {
             @Override
             protected List<Fine> call() {
-                return getOverdueList(); // Database call
+                return fines; // Database call
             }
         };
 

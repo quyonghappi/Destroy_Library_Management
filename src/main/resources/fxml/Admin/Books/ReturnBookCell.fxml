@@ -13,6 +13,9 @@
             <image>
                 <Image url="@../../../ui/admindashboard/bookcover.png" />
             </image>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
         </ImageView>
         <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="150.0">
             <children>
@@ -43,24 +46,24 @@
                 </VBox>
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="40.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="40.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
             <children>
                 <Label fx:id="isbnLabel" styleClass="big-label" text="isbn" />
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="40.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="40.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
             <children>
                 <Label fx:id="brdateLabel" styleClass="big-label" text="borrowed date" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="40.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="40.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
             <children>
                 <Label fx:id="duedateLabel" styleClass="big-label" text="duedate" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="40.0" prefWidth="180.0" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="40.0" prefWidth="180.0" HBox.hgrow="ALWAYS">
             <children>
-                <Label fx:id="returndateLabel" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="120.0" styleClass="big-label" text="borrowed" />
+                <Label fx:id="returndateLabel" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="120.0" styleClass="big-label" text="borrowed" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
     </children>

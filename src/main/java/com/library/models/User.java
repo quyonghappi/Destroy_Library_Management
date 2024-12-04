@@ -100,13 +100,6 @@ public class User {
         this.joinDate = joinDate;
     }
 
-    public List<String> getBorrowedDocuments() {
-        return borrowedDocuments;
-    }
-    public void setBorrowedDocuments(List<String> borrowedDocuments) {
-        this.borrowedDocuments = borrowedDocuments;
-    }
-
     public boolean isActive() {
         return active;
     }

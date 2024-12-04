@@ -58,16 +58,10 @@ public class ReturnBookController implements Initializable {
     private HBox membersContainer;
 
     @FXML
-    private Label overdueCountLabel;
-
-    @FXML
     private HBox overdueNav;
 
     @FXML
     private HBox overviewContainer;
-
-    @FXML
-    private Label requestCountLabel;
 
     @FXML
     private HBox requestNav;
@@ -79,10 +73,7 @@ public class ReturnBookController implements Initializable {
     private ImageView filter;
 
     @FXML
-    private Label returnedCountLabel;
-
-    @FXML
-    private TextField searchField;
+    private Label countLabel;
 
     @FXML
     private Button logOut;
@@ -94,6 +85,7 @@ public class ReturnBookController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         brList=getBrList();
+        countLabel.setText(String.valueOf(brList.size()));
         returnDetailContainer.setCellFactory(param ->
         {
             ReturnBookCell returnBookCell=new ReturnBookCell();

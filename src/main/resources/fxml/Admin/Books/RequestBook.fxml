@@ -307,8 +307,9 @@
                                     <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="130.0" text="Thumbnail" HBox.hgrow="ALWAYS" />
                                     <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
                                     <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="170.0" text="ISBN" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="170.0" text="Available copies" />
                                     <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" text="User" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="180.0" text="Request date" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="160.0" text="Request date" HBox.hgrow="ALWAYS" />
                                     <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" text="Action" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>

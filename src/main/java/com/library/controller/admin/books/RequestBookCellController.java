@@ -29,6 +29,9 @@ public class RequestBookCellController {
     private Label bookNameLabel;
 
     @FXML
+    private Label availableQuantityLabel;
+
+    @FXML
     private Label dateLabel;
 
     @FXML
@@ -81,6 +84,7 @@ public class RequestBookCellController {
                 isbnLabel.setText(reservation.getIsbn());
                 dateLabel.setText(String.valueOf(reservation.getReservationDate()));
                 requestIdLabel.setText(String.valueOf(reservation.getReservationId()));
+                availableQuantityLabel.setText(String.valueOf(doc.getQuantity()));
                 Author author=documentDao.getAuthor(doc.getAuthorId());
                 if(author==null) authorLabel.setText("Unknown");
                 else authorLabel.setText(author.getName());

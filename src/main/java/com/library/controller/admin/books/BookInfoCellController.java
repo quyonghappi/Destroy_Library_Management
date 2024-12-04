@@ -5,7 +5,6 @@ import com.library.dao.ReservationDao;
 import com.library.models.Author;
 import com.library.models.Document;
 import com.library.models.Publisher;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
 import static com.library.utils.LoadImage.loadImageLazy;
 
 public class BookInfoCellController extends ListCell<Document> implements Initializable {
@@ -34,6 +34,9 @@ public class BookInfoCellController extends ListCell<Document> implements Initia
 
     @FXML
     private Label isbnLabel;
+
+    @FXML
+    private Label availableQuantityLabel;
 
     @FXML
     private ImageView deleteImage;
@@ -69,6 +72,7 @@ public class BookInfoCellController extends ListCell<Document> implements Initia
         if (document != null) {
             currentDocument = document;
             isbnLabel.setText(document.getISBN());
+            availableQuantityLabel.setText(String.valueOf(document.getQuantity()));
             bookNameLabel.setText(document.getTitle());
             locationLabel.setText(document.getLocation());
             publisher=documentDao.getPublisher(document.getPublisherId());
@@ -78,7 +82,9 @@ public class BookInfoCellController extends ListCell<Document> implements Initia
             } else publisherLabel.setText("N/A");
             authorLabel.setText(author.getName());
             //get num of request for this book
-            requestLabel.setText(String.valueOf(reservationDao.getByISBN(document.getISBN())));
+            int numOfRequestEachBook = reservationDao.getByISBN(document.getISBN());
+            System.out.println(numOfRequestEachBook);
+            requestLabel.setText(String.valueOf(numOfRequestEachBook));
 
             // Load the image using lazy loading
             if (!document.getImageLink().equals("N/A")) {

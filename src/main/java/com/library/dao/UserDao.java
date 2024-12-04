@@ -35,9 +35,7 @@ public class UserDao implements DAO<User> {
 
                 // Use DateFormat to convert SQL Timestamp to LocalDateTime
                 user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
-//                user.setLastLogin(DateFormat.toLocalDateTime(rs.getTimestamp("last_login")));
-//
-//                user.setLoginAttempts(rs.getInt("login_attempts"));
+                user.setLastLoginDate(DateFormat.toLocalDate(rs.getDate("last_login")));
                 user.setActive(rs.getBoolean("account_locked"));
             }
         } catch (SQLException e) {
@@ -61,13 +59,9 @@ public class UserDao implements DAO<User> {
                 user.setUserRole(rs.getString("user_role"));
                 user.setAccountStatus(rs.getString("account_status"));
 
-                // Use DateFormat to convert SQL Date to LocalDate
                 user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
 
-                // Use DateFormat to convert SQL Timestamp to LocalDateTime
-//                user.setLastLogin(DateFormat.toLocalDateTime(rs.getTimestamp("last_login")));
-//
-//                user.setLoginAttempts(rs.getInt("login_attempts"));
+                user.setLastLoginDate(DateFormat.toLocalDate(rs.getDate("last_login")));
                 user.setActive(rs.getBoolean("account_locked"));
                 users.add(user);
             }
@@ -135,7 +129,7 @@ public class UserDao implements DAO<User> {
         if(!(u instanceof User user)) {
             throw new IllegalArgumentException("User is not an instance of User");
         }
-        String insert = "INSERT INTO users (full_name, user_name, email, password_hash, user_role, account_status, join_date, account_locked) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insert = "INSERT INTO users (full_name, user_name, email, password_hash, user_role, account_status, join_date, last_login, account_locked) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (
                 Connection conn = DatabaseConfig.getConnection();
@@ -152,7 +146,8 @@ public class UserDao implements DAO<User> {
             ps.setString(5, user.getUserRole());
             ps.setString(6, user.getAccountStatus());
             ps.setDate(7, DateFormat.toSqlDate(user.getJoinDate()));
-            ps.setBoolean(8, !user.isActive());
+            ps.setDate(8, DateFormat.toSqlDate(user.getLastLoginDate()) );
+            ps.setBoolean(9, !user.isActive());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -180,6 +175,7 @@ public class UserDao implements DAO<User> {
                 user.setFullName(rs.getString("full_name"));
                 user.setEmail(rs.getString("email"));
                 user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
+                user.setLastLoginDate(DateFormat.toLocalDate(rs.getDate("last_login")));
                 return user;
             }
         } catch (SQLException e) {
@@ -207,6 +203,7 @@ public class UserDao implements DAO<User> {
                 user.setFullName(rs.getString("full_name"));
                 user.setEmail(rs.getString("email"));
                 user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
+                user.setLastLoginDate(DateFormat.toLocalDate(rs.getDate("last_login")));
                 return user;
             }
         } catch (SQLException e) {
@@ -237,6 +234,7 @@ public class UserDao implements DAO<User> {
                 user.setFullName(rs.getString("full_name"));
                 user.setEmail(rs.getString("email"));
                 user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
+                user.setLastLoginDate(DateFormat.toLocalDate(rs.getDate("last_login")));
                 result.add(user);
             }
         } catch (SQLException e) {
@@ -266,8 +264,8 @@ public class UserDao implements DAO<User> {
                 user.setPassword(rs.getString("password_hash"));
                 user.setUserRole(rs.getString("user_role"));
                 user.setAccountStatus(rs.getString("account_status"));
-
                 user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
+                user.setLastLoginDate(DateFormat.toLocalDate(rs.getDate("last_login")));
                 user.setActive(rs.getBoolean("account_locked"));
                 users.add(user);
             }
@@ -275,33 +273,6 @@ public class UserDao implements DAO<User> {
             e.printStackTrace();
         }
         return users;
-    }
-
-    public User findUserById(int id) throws Exception {
-        String sql = "SELECT * FROM users WHERE user_id = ?";
-        try (
-                Connection cn = DatabaseConfig.getConnection();
-                PreparedStatement ps = cn.prepareStatement(sql);
-        ) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                User user = new User();
-                user.setUserId(rs.getInt("user_id"));
-                user.setUsername(rs.getString("user_name"));
-                user.setUserRole(rs.getString("user_role"));
-                user.setAccountStatus(rs.getString("account_status"));
-                user.setPassword(rs.getString("password_hash"));
-                user.setFullName(rs.getString("full_name"));
-                user.setEmail(rs.getString("email"));
-                user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
-                return user;
-            }
-        } catch (SQLException e) {
-            throw new SQLException("This username doesn't exist!" + e.getMessage());
-        }
-        return null;
     }
 
     //authenticate user using username and password

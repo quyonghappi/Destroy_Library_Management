@@ -36,14 +36,9 @@ public class LentBookController implements Initializable {
     @FXML
     private Label addBookButton;
 
-    @FXML
-    private Label allCountLabel;
 
     @FXML
     private Button lendButton;
-
-    @FXML
-    private Label lentCountLabel;
 
     @FXML
     private ListView<BorrowingRecord> lentDetailContainer;
@@ -57,17 +52,12 @@ public class LentBookController implements Initializable {
     @FXML
     private HBox membersContainer;
 
-    @FXML
-    private Label overdueCountLabel;
 
     @FXML
     private HBox overdueNav;
 
     @FXML
     private HBox overviewContainer;
-
-    @FXML
-    private Label requestCountLabel;
 
     @FXML
     private HBox requestNav;
@@ -79,10 +69,7 @@ public class LentBookController implements Initializable {
     private ImageView filter;
 
     @FXML
-    private Label returnedCountLabel;
-
-    @FXML
-    private TextField searchField;
+    private Label countLabel;
 
     @FXML
     private  TextField searchField1;
@@ -97,6 +84,8 @@ public class LentBookController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         brList=getBrList();
+        countLabel.setText(String.valueOf(brList.size()));
+
         lentDetailContainer.setCellFactory(param ->
         {
             LentBookCell lentBookCell=new LentBookCell();
@@ -152,12 +141,12 @@ public class LentBookController implements Initializable {
         addBookButton.setOnMouseClicked(event->showAddBookScene(lentBookRoot));
 
         FilterPopup.setFilterSelectionListener(selectedFilter -> {
-            SearchLentBook.handleSearch(lentDetailContainer, searchField1.getText(), FilterPopup.getSelectedItem());
+            //SearchLentBook.handleSearch(lentDetailContainer, searchField1.getText(), FilterPopup.getSelectedItem());
             System.out.println( FilterPopup.getSelectedItem());
         });
 
         searchField1.textProperty().addListener((observable, oldValue, newValue) -> {
-            SearchLentBook.handleSearch(lentDetailContainer, newValue, FilterPopup.getSelectedItem());
+            //SearchLentBook.handleSearch(lentDetailContainer, newValue, FilterPopup.getSelectedItem());
         });
     }
 

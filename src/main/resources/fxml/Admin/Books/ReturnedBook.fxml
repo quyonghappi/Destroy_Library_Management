@@ -155,11 +155,6 @@
                         <Insets left="-11.0" />
                      </VBox.margin>
                   </HBox>
-                  <Button fx:id="logOut" onMouseClicked="#setLogOut" mnemonicParsing="false" prefHeight="29.0" prefWidth="224.0" text="Log Out">
-                     <VBox.margin>
-                        <Insets top="160.0" />
-                     </VBox.margin>
-                  </Button>
                </children>
                <BorderPane.margin>
                   <Insets />
@@ -266,13 +261,13 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1116.0" styleClass="bar-box-below">
                                  <children>
-                                    <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" text="Thumbnail" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="User" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="ISBN" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="160.0" text="Borrow date" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" prefHeight="40.0" prefWidth="160.0" text="Due date" HBox.hgrow="ALWAYS" />
-                                    <Label alignment="CENTER" layoutX="612.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Return date" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" text="Thumbnail" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="170.0" text="User" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="150.0" text="ISBN" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="160.0" text="Borrow date" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="160.0" text="Due date" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" layoutX="612.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="160.0" text="Return date" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                               <ListView fx:id="returnDetailContainer" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="490.0" prefWidth="1116.0" VBox.vgrow="ALWAYS" />

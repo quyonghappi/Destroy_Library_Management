@@ -9,14 +9,18 @@ package com.library.controller.admin.books;
     import javafx.fxml.FXML;
     import javafx.fxml.Initializable;
     import javafx.scene.control.*;
+    import javafx.scene.input.MouseEvent;
     import javafx.scene.layout.HBox;
     import javafx.scene.layout.StackPane;
+    import javafx.stage.Stage;
 
     import java.net.URL;
     import java.util.ArrayList;
     import java.util.List;
     import java.util.ResourceBundle;
 
+    import static com.library.controller.start.LoadView.loadView;
+    import static com.library.controller.start.ShowView.showView;
     import static com.library.utils.SceneSwitcher.*;
 
 public class RequestBookController implements Initializable {
@@ -68,6 +72,9 @@ public class RequestBookController implements Initializable {
 
     @FXML
     private TextField searchField1;
+
+    @FXML
+    private Button logOut;
 
     private ReservationDao reservationDao=new ReservationDao();
     List<Reservation> reservations=new ArrayList<Reservation>();
@@ -233,5 +240,12 @@ public class RequestBookController implements Initializable {
     @FunctionalInterface
     interface DataLoader {
         List<Reservation> load();
+    }
+
+    public void setLogOut(MouseEvent mouseEvent) {
+        logOut.setMouseTransparent(true);
+        Stage stage = (Stage) logOut.getScene().getWindow();
+        loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
+        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
     }
 }

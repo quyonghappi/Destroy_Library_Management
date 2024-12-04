@@ -1,5 +1,6 @@
 package com.library.controller.user;
 
+import com.library.dao.DocumentDao;
 import com.library.dao.ReservationDao;
 import com.library.models.Reservation;
 import com.library.utils.SceneSwitcher;
@@ -11,14 +12,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.library.utils.SceneSwitcher.navigateToScene;
+import static com.library.utils.SceneSwitcher.showBookDetails;
 
 public class UserRequestController implements Initializable {
+    @FXML
+    private StackPane userRequestRoot;
+
     @FXML
     private HBox brNav;
 
@@ -45,6 +51,7 @@ public class UserRequestController implements Initializable {
 
     private String username;
     private ReservationDao reservationDao = new ReservationDao();
+    private DocumentDao documentDao = new DocumentDao();
     private List<Reservation> requestList;
 
     public void setUsername(String username) {
@@ -64,6 +71,14 @@ public class UserRequestController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        requestListContainer.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                Reservation selectedReservation = requestListContainer.getSelectionModel().getSelectedItem();
+                if (selectedReservation != null) {
+                    showBookDetails(userRequestRoot,username,documentDao.get(selectedReservation.getIsbn()));
+                }
+            }
+        });
         homeNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
             HomeScreenController controller = navigateToScene("/fxml/User/home_screen.fxml", homeNav);

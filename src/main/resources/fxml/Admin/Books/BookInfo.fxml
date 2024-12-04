@@ -24,7 +24,7 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="850.0">
                             <children>
-                                <Pane prefHeight="30.0" prefWidth="907.0" />
+                                <Pane prefHeight="30.0" prefWidth="907.0" HBox.hgrow="ALWAYS" />
                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                     <children>
                                         <Label fx:id="memNameLabel" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
@@ -123,11 +123,7 @@
                                                                 <Insets left="50.0" />
                                                             </HBox.margin>
                                                         </ToggleButton>
-                                                        <ToggleButton fx:id="availableButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#availableFilter" prefHeight="33.0" prefWidth="83.0" styleClass="bar-button" text="Available" HBox.hgrow="ALWAYS">
-                                                            <HBox.margin>
-                                                                <Insets />
-                                                            </HBox.margin>
-                                                        </ToggleButton>
+                                          <ToggleButton fx:id="availableButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#availableFilter" prefWidth="70.0" styleClass="bar-button" text="Available" />
                                                         <ToggleButton fx:id="lostButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#lostFilter" prefWidth="50.0" styleClass="bar-button" text="Lost" HBox.hgrow="ALWAYS">
                                                             <HBox.margin>
                                                                 <Insets />
@@ -142,14 +138,14 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1116.0" styleClass="bar-box-below">
                                             <children>
-                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" text="Thumbnail" HBox.hgrow="ALWAYS" />
-                                                <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
-                                                <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="Publisher" HBox.hgrow="ALWAYS" />
-                                                <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="ISBN" HBox.hgrow="ALWAYS" />
-                                                <Label alignment="CENTER" prefHeight="40.0" prefWidth="160.0" text="Status" HBox.hgrow="ALWAYS" />
-                                                <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" prefHeight="40.0" prefWidth="140.0" text="Location" HBox.hgrow="ALWAYS" />
-                                                <Label alignment="CENTER" layoutX="612.0" layoutY="10.0" prefHeight="40.0" prefWidth="150.0" text="Request" HBox.hgrow="ALWAYS" />
-                                                <Label alignment="CENTER" layoutX="762.0" layoutY="10.0" prefHeight="40.0" prefWidth="220.0" text="Action" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" text="Thumbnail" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="180.0" text="Title &amp; Author" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="140.0" text="Publisher" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="ISBN" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="Available copies" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" layoutX="570.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" text="Location" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" layoutX="612.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="Request" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" layoutX="762.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="185.0" text="Action" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <ListView fx:id="bookDetailContainer" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="490.0" prefWidth="1116.0" VBox.vgrow="ALWAYS" />

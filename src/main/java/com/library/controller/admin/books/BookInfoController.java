@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -79,15 +80,21 @@ public class BookInfoController implements Initializable {
     private TextField searchField1;
 
     @FXML
+    private Label countLabel;
+
+    @FXML
     private Button logOut;
 
     private DocumentDao documentDao=new DocumentDao();
-//    List<Document> documentList=new ArrayList<>();
+    List<Document> documentList=new ArrayList<>();
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        documentList = documentDao.getAll();
+        countLabel.setText(String.valueOf(documentList.size()));
 
         loadBookList();
         lentNav.setOnMouseClicked(event -> {
@@ -152,7 +159,7 @@ public class BookInfoController implements Initializable {
         Task<List<Document>> loadTask = new Task<>() {
             @Override
             protected List<Document> call() {
-                return documentDao.getAll();
+                return documentList;
             }
         };
 

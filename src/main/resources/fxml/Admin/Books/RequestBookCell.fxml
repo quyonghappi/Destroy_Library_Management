@@ -15,27 +15,20 @@
             <Image url="@../../../ui/admindashboard/bookcover.png" />
          </image>
          <HBox.margin>
-            <Insets left="30.0" right="30.0" />
+            <Insets left="20.0" right="30.0" />
          </HBox.margin>
       </ImageView>
-      <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="150.0">
+      <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0">
          <children>
-            <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label fx:id="bookNameLabel" alignment="CENTER" styleClass="big-label" text="Title" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
-                  <Label fx:id="authorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="small-label" text="by Author" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
-               </children>
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
-            </VBox>
+            <Label fx:id="bookNameLabel" alignment="CENTER" styleClass="big-label" text="Title" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
+            <Label fx:id="authorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="small-label" text="by Author" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
          </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="170.0" HBox.hgrow="ALWAYS">
-         <children>
-            <Label fx:id="isbnLabel" styleClass="big-label" text="isbn" />
-         </children>
-      </HBox>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </VBox>
+      <Label fx:id="isbnLabel" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="150.0" styleClass="big-label" text="isbn" />
+      <Label fx:id="availableQuantityLabel" alignment="CENTER" minHeight="-Infinity" prefHeight="80.0" prefWidth="160.0" styleClass="big-label" text="isbn" />
       <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
          <children>
             <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
@@ -50,13 +43,10 @@
                </children>
             </VBox>
          </children>
-         <padding>
-            <Insets left="5.0" />
-         </padding>
       </HBox>
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="140.0">
          <children>
-            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="dateLabel" alignment="CENTER" styleClass="big-label" text="request date" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
                   <Label fx:id="requestIdLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="small-label" text="request id" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
