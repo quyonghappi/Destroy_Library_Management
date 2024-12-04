@@ -167,6 +167,8 @@ public class DocumentDao implements DAO<Document> {
         return Documents;
     }
 
+
+
     public static List<Document> searchByAuthor(String author) throws SQLException {
         List<Document> Documents = new ArrayList<>();
         String sql = """
@@ -553,6 +555,40 @@ public class DocumentDao implements DAO<Document> {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    public static Document findByIsbn(String isbn) {
+        String sql = "SELECT * FROM Documents";
+        Document doc = new Document();
+        if (isbn != null && !isbn.trim().isEmpty()) {
+            sql += " WHERE isbn LIKE ?";
+        }
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + isbn.trim() + "%");
+
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    doc.setISBN(resultSet.getString("isbn"));
+                    doc.setTitle(resultSet.getString("title"));
+                    doc.setAuthorId(resultSet.getInt("author_id"));
+                    doc.setPublisherId(resultSet.getInt("publisher_id"));
+                    doc.setCategoryId(resultSet.getInt("category_id"));
+                    doc.setPublicationYear(resultSet.getInt("publication_year"));
+                    doc.setQuantity(resultSet.getInt("quantity"));
+                    doc.setPage(resultSet.getInt("pages"));
+                    doc.setDescription(resultSet.getString("description"));
+                    doc.setLocation(resultSet.getString("location"));
+                    doc.setPreviewLink(resultSet.getString("preview_link"));
+                    doc.setImageLink(resultSet.getString("book_image"));
+                    doc.setAddedOn(resultSet.getTimestamp("added_date").toLocalDateTime());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return doc;
     }
 
 }

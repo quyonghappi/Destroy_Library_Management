@@ -519,8 +519,8 @@
 
 /* Styling for the Back Button */
 .back-button {
-    -fx-background-color: #333; /* Dark background for the button */
-    -fx-text-fill: #fff; /* White text for contrast */
+    -fx-background-color: #f6f6f5; /* Dark background for the button */
+    -fx-text-fill: #555; /* White text for contrast */
     -fx-font-size: 14px; /* Medium font size */
     -fx-font-weight: bold; /* Bold text for emphasis */
     -fx-padding: 10 20; /* Padding inside the button */

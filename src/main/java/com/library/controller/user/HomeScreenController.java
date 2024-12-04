@@ -177,7 +177,7 @@ public class HomeScreenController implements Initializable {
     private void loadRecentAddedBooksAndRecommendation() {
         recentlyAdded=documentDao.getRecentAddedBooks();
         Random random = new Random();
-        int bestBookIndex= random.nextInt(55);
+        int bestBookIndex= random.nextInt(54);
         Document doc=recentlyAdded.get(bestBookIndex);
         bestBookAuthor.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
         bestBookTitle.setText(doc.getTitle());
