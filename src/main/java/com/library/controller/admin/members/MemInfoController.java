@@ -2,6 +2,7 @@ package com.library.controller.admin.members;
 import com.library.controller.admin.books.BookInfoController;
 import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.dao.UserDao;
+import com.library.models.BorrowingRecord;
 import com.library.models.User;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -27,7 +28,6 @@ import java.util.ResourceBundle;
 import static com.library.controller.start.LoadView.loadView;
 import static com.library.controller.start.ShowView.showView;
 import static com.library.dao.UserDao.searchByUsername;
-import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -72,6 +72,9 @@ public class MemInfoController implements Initializable {
     @FXML
     private Button logOut;
 
+    @FXML
+    private Label countLabel;
+
     private UserDao userDao=new UserDao();
     private List<User> userList = new ArrayList<>();
 
@@ -80,6 +83,7 @@ public class MemInfoController implements Initializable {
         userList = userDao.getAll();
         countLabel.setText(String.valueOf(userList.size()));
         loadMemList();
+        updateMemberCount();
         booksContainer.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
             BookInfoController controller= navigateToScene("/fxml/Admin/Books/BookInfo.fxml", booksContainer);
@@ -180,6 +184,11 @@ public class MemInfoController implements Initializable {
         Stage stage = (Stage) logOut.getScene().getWindow();
         loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
         showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
+    }
+
+    public void updateMemberCount() {
+        List<User> users = userDao.getAll();
+        countLabel.setText(String.valueOf(users.size()));
     }
 
     @FunctionalInterface

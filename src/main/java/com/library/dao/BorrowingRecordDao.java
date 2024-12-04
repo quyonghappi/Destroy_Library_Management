@@ -2,6 +2,8 @@ package com.library.dao;
 
 import com.library.config.DatabaseConfig;
 import com.library.models.BorrowingRecord;
+import com.library.models.Document;
+import com.library.models.User;
 import com.library.utils.DateFormat;
 
 import java.sql.*;
@@ -37,6 +39,8 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
             while (rs.next()) {
                 int userId = rs.getInt("user_id");
                 String isbn = rs.getString("isbn");
+//                Timestamp borrowDate = rs.getTimestamp("borrow_date");
+//                Timestamp returnDate = rs.getTimestamp("return_date");
                 Timestamp borrowDate=rs.getTimestamp("borrow_date");
                 Timestamp returnDate=rs.getTimestamp("return_date");
                 String status = rs.getString("status");
@@ -62,7 +66,6 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
 
             if (borrowingRecord.getStatus().equals("borrowed")) {
 
-                //cho nay cau lam tot ne
                 // tra sach late ne: 2 weeks
                 if (borrowDate.plusDays(14).isBefore(bayh)) {
                     borrowingRecord.setStatus("late");
@@ -118,10 +121,13 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
                 int recordId = rs.getInt("record_id");
                 int userId = rs.getInt("user_id");
                 String isbn = rs.getString("isbn");
+//                Timestamp borrowDate = rs.getTimestamp("borrow_date");
+//                Timestamp returnDate = rs.getTimestamp("return_date");
                 Timestamp borrowDate=rs.getTimestamp("borrow_date");
                 Timestamp returnDate=rs.getTimestamp("return_date");
                 String status = rs.getString("status");
                 list.add(new BorrowingRecord(recordId,userId,isbn, DateFormat.toLocalDateTime(borrowDate), DateFormat.toLocalDateTime(returnDate), status));
+                //list.add(new BorrowingRecord(recordId,userId,isbn, DateFormat.toLocalDate(borrowDate),DateFormat.toLocalDateTime(returnDate),status));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -193,14 +199,11 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
                         Timestamp borrowDate = recordRs.getTimestamp("borrow_date");
                         Timestamp returnDate = recordRs.getTimestamp("return_date");
                         String status = recordRs.getString("status");
-                        BorrowingRecord borrowingRecord = new BorrowingRecord(
+                        list.add(new BorrowingRecord(
                                 recordId, userId, isbn,
                                 DateFormat.toLocalDateTime(borrowDate),
                                 DateFormat.toLocalDateTime(returnDate),
-                                status);
-                        FineDao fineDao = new FineDao();
-                        fineDao.checkAndAddFine(borrowingRecord);
-                        list.add(borrowingRecord);
+                                status));
                     }
                 }
             }

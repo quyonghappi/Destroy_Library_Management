@@ -78,12 +78,16 @@ public class ReturnBookController implements Initializable {
     @FXML
     private Button logOut;
 
+    @FXML
+    private Label countLabel;
+
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
     List<BorrowingRecord> brList=new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        updateReturnCount();
         brList=getBrList();
         countLabel.setText(String.valueOf(brList.size()));
         returnDetailContainer.setCellFactory(param ->
@@ -139,6 +143,11 @@ public class ReturnBookController implements Initializable {
         lendButton.setOnMouseClicked(event-> showLendBookScene(returnedBookRoot));
 //        filter.setOnMouseClicked(event->showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(returnedBookRoot));
+    }
+
+    public void updateReturnCount() {
+        List<BorrowingRecord> bookList = borrowingRecordDao.getReturned();
+        countLabel.setText(String.valueOf(bookList.size()));
     }
 
     private List<BorrowingRecord> getBrList() {

@@ -15,8 +15,6 @@ public class FilterPopup {
     private static String selectedItem = null;
 
     private FilterPopup() {
-//        popup = new Popup();
-//        listView = new ListView<>();
         listView.getItems().addAll("Title", "ISBN", "Author", "Category");
         listView.setPrefSize(200, 100);
         listView.setStyle("-fx-border-radius: 5; " +

@@ -265,6 +265,15 @@
     -fx-background-color: #FAFBFC;
 }
 
+.transparent-button {
+    background-color: transparent; /*#f4f0e7;*/
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+
 
 
 
