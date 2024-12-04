@@ -1,4 +1,5 @@
 package com.library.controller.admin.books;
+
 import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.DocumentDao;
@@ -20,10 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-//import static com.library.utils.FilterPopup.showPopup;
 import static com.library.controller.start.LoadView.loadView;
 import static com.library.controller.start.ShowView.showView;
-import static com.library.utils.FilterPopup.*;
+import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.*;
 
 public class BookInfoController implements Initializable {

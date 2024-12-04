@@ -8,13 +8,12 @@ import com.library.dao.ReservationDao;
 import com.library.dao.UserDao;
 import com.library.models.Fine;
 import com.library.models.Reservation;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -66,15 +65,6 @@ public class AdminDashboardController implements Initializable {
     private ListView<Reservation> requestDetailContainer;
 
     @FXML
-    private ImageView filter;
-
-    @FXML
-    private HBox searchContainer;
-
-    @FXML
-    private TextField searchField;
-
-    @FXML
     private Label visitorLabel;
 
     @FXML
@@ -85,34 +75,17 @@ public class AdminDashboardController implements Initializable {
     private FineDao fineDao = new FineDao();
     private ReservationDao reservationDao=new ReservationDao();
     private List<Fine> fineList;
-    private List<Reservation> reservationList;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        fineList=getFineList();
-        reservationList=getReservationList();
+        fineList= getFineList();
         borrowedLabel.setText(String.valueOf(borrowingRecordDao.getLent().size()));
         overdueBookLabel.setText(String.valueOf(fineList.size()));
         visitorLabel.setText(String.valueOf(userDa0.getAll().size()));
 
-        requestDetailContainer.setCellFactory(param ->
-        {
-            RequestCell requestCell = new RequestCell();
-            requestCell.setListView(requestDetailContainer);
-            requestCell.setParentController(this);
-            return requestCell;
-        });
-        requestDetailContainer.getItems().addAll(reservationList);
-        sortListView();
-
-        overdueDetailContainer.setCellFactory(param-> {
-            OverdueCell overdueCell=new OverdueCell();
-            overdueCell.setListView(overdueDetailContainer);
-            return overdueCell;
-        });
-        overdueDetailContainer.getItems().addAll(fineList);
-
+        loadFineList();
+        loadReservationList();
         //add event on Container
         booksContainer.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
@@ -134,15 +107,68 @@ public class AdminDashboardController implements Initializable {
 //        filter.setOnMouseClicked(event->showPopup(filter, event));
     }
 
+    private void loadFineList() {
+        Task<List<Fine>> loadTask = new Task<>() {
+            @Override
+            protected List<Fine> call() {
+                return fineList;
+            }
+        };
+
+        loadTask.setOnSucceeded(event -> {
+            refreshListView(loadTask.getValue());
+        });
+        loadTask.setOnFailed(event -> {
+            System.out.println("fail to load fine info" + loadTask.getException());
+        });
+        new Thread(loadTask).start();
+    }
+
+    private void loadReservationList() {
+        Task<List<Reservation>> loadTask = new Task<>() {
+            @Override
+            protected List<Reservation> call() throws Exception {
+                return getReservationList();
+            }
+        };
+        loadTask.setOnSucceeded(event -> {
+            refreshListView1(loadTask.getValue());
+        });
+        loadTask.setOnFailed(event -> {
+            System.out.println("fail to load request info" + loadTask.getException());
+        });
+        new Thread(loadTask).start();
+
+
+    }
+
+
+    private void refreshListView(List<Fine> fine) {
+        overdueDetailContainer.setCellFactory(param-> {
+            OverdueCell overdueCell=new OverdueCell();
+            overdueCell.setListView(overdueDetailContainer);
+            return overdueCell;
+        });
+        overdueDetailContainer.getItems().addAll(fineList);
+    }
+
+    private void refreshListView1(List<Reservation> reservations) {
+        requestDetailContainer.setCellFactory(param ->
+        {
+            RequestCell requestCell = new RequestCell();
+            requestCell.setListView(requestDetailContainer);
+            requestCell.setParentController(this);
+            return requestCell;
+        });
+        requestDetailContainer.getItems().addAll(reservations);
+        sortListView();
+    }
+
     private List<Reservation> getReservationList() {
         return reservationDao.getReservations();
     }
 
     private List<Fine> getFineList() {
-//        List<BorrowingRecord> lateList=borrowingRecordDao.getLate();
-//        for (int i=0; i<lateList.size(); i++) {
-//            fineDao.addFine(lateList.get(i));
-//        }
         return fineDao.getAll();
     }
 
