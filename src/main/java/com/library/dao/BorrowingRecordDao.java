@@ -57,8 +57,8 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         String updateSql = """
         UPDATE borrowingrecords
         SET status = CASE
-            WHEN status = 'borrowed' AND borrow_date < NOW() - INTERVAL 14 DAY THEN 'late'
             WHEN status = 'borrowed' AND borrow_date < NOW() - INTERVAL 30 DAY THEN 'lost'
+            WHEN status = 'borrowed' AND borrow_date < NOW() - INTERVAL 14 DAY THEN 'late'
             ELSE status
         END
         WHERE status IN ('borrowed', 'late', 'lost');
@@ -73,7 +73,6 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         // Trả về danh sách đã cập nhật
         return getRecord("SELECT * FROM borrowingrecords WHERE status IN ('borrowed', 'late', 'lost')");
     }
-
 
     //get returned
     public List<BorrowingRecord> getReturned() {

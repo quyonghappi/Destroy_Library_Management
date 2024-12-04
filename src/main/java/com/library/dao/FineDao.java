@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,10 +61,10 @@ public class FineDao implements DAO<Fine> {
     //get list of paid fines
     public List<Fine> getPaid() {
         List<Fine> paidList = new ArrayList<>();
-        String sql="select * from Fines where status = 'PAIN'";
+        String sql="select * from Fines where status = 'PAID'";
         try(Connection conn= DatabaseConfig.getConnection();
-        PreparedStatement ps=conn.prepareStatement(sql);
-        ResultSet rs=ps.executeQuery();
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
         ) {
             while (rs.next()) {
                 Fine fine = new Fine();
@@ -151,14 +150,15 @@ public class FineDao implements DAO<Fine> {
     }
 
     public void checkAndAddFine(BorrowingRecord br) {
-        LocalDateTime dueDate = br.getBorrowDate().plusDays(14);
-        boolean getFine = br.getStatus().equals("lost");
-        if (isOverdue(dueDate)) {
-            br.setStatus("late");
-            BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
-            borrowingRecordDao.update(br);
-        }
-        if ((isOverdue(dueDate) || getFine) && !fineExists(br.getRecordId())) {
+//        LocalDateTime dueDate = br.getBorrowDate().plusDays(14);
+//        boolean getFine = br.getStatus().equals("lost");
+//        if (isOverdue(dueDate)) {
+//            br.setStatus("late");
+//            BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
+//            borrowingRecordDao.update(br);
+//        }
+        boolean getFine = br.getStatus().equals("lost") || br.getStatus().equals("late");
+        if (getFine && !fineExists(br.getRecordId())) {
             System.out.println("Adding fine for record ID: " + br.getRecordId());
             add(br);
         }
@@ -177,7 +177,13 @@ public class FineDao implements DAO<Fine> {
             ps.setInt(1,record.getUserId());
             ps.setInt(2,record.getRecordId());
             ps.setDouble(3,calculateFine(record));
-            ps.setObject(4,LocalDate.now().plusDays(14));
+            //sau 14 ngay muon khong tra thi thanh fine
+            //sau do thi have 14 days to pay fine
+            if (record.getStatus().equals("lost")) {
+                ps.setObject(4, record.getBorrowDate().plusDays(14+30));
+            } else {
+                ps.setObject(4,record.getBorrowDate().plusDays(24));
+            }
             ps.setString(5,"UNPAID");
 
             ps.executeUpdate();
@@ -189,23 +195,20 @@ public class FineDao implements DAO<Fine> {
 
     public double calculateFine(BorrowingRecord record) {
         //10k each day overdue
-        if (isOverdue(record.getBorrowDate().plusDays(14))) {
+        if (record.getStatus().equals("late")) {
             //only used for local date
             //Period period=Period.between(LocalDateTime.now(), record.getReturnDate());
-            return daysOverdue(record) * 10000;
+            return daysOverdue(record) * 5000;
         } else if (record.getStatus().equals("lost")) {
             return 200000;
         }
         return 0;
     }
 
-    public long daysOverdue(BorrowingRecord record) {
-        Duration duration = Duration.between(record.getBorrowDate().plusDays(14), LocalDateTime.now());
-        return duration.toDays();
-    }
 
-    public boolean isOverdue(LocalDateTime dueDate) {
-        return LocalDateTime.now().isAfter(dueDate);
+    public long daysOverdue(BorrowingRecord record) {
+        Duration duration = Duration.between(record.getBorrowDate().plusDays(14), LocalDateTime.now());;
+        return duration.toDays();
     }
 
     //change fine status if it was paid

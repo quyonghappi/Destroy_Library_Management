@@ -73,13 +73,6 @@ public class OverdueController {
         int userId = fine.getUserId();
         int recordId = fine.getRecordId();
 
-        if(fine.getStatus().equals("PAID")) {
-            statusLabel.setText("PAID");
-            statusLabel.setVisible(true);
-            if (paidButton != null && paidButton.getParent() instanceof VBox parent) {
-                parent.getChildren().remove(paidButton);
-            }
-        }
 
         User user = userDao.get(userId);
         if (user != null) {
@@ -109,13 +102,27 @@ public class OverdueController {
                 bookNameLabel.setText("N/A");
             }
         }
+        updateButtonVisibility(fine.getStatus());
+    }
+
+    private void updateButtonVisibility(String status) {
+        if(status.equals("PAID")) {
+            statusLabel.setText("PAID");
+            statusLabel.setVisible(true);
+            paidButton.setVisible(false);
+        } else {
+            statusLabel.setVisible(false);
+            paidButton.setVisible(true);
+        }
     }
 
     @FXML
-    private void handlePaidButtonAction(ActionEvent event) {
+    private void handlePaidButtonAction() {
         try {
             //fineDao.delete(fineDao.get(Integer.parseInt(recordIdLabel.getText())));
             fineDao.changeFineStatus(Integer.parseInt(recordIdLabel.getText()));
+            currentFine.setStatus("PAID");
+            updateButtonVisibility("PAID");
             lv.refresh();
             if (parentController != null) {
                 parentController.sortListView();
