@@ -1,32 +1,30 @@
 package com.library.controller.user;
 
 import com.library.dao.BorrowingRecordDao;
+import com.library.dao.DocumentDao;
 import com.library.models.BorrowingRecord;
-import com.library.models.Favourite;
-import com.library.utils.SceneSwitcher;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import static com.library.utils.SceneSwitcher.navigateToScene;
+import static com.library.utils.SceneSwitcher.showBookDetails;
 
 public class BorrowedBooksController implements Initializable {
 
     @FXML
-    private ListView<BorrowingRecord> borrowListContainer;
+    private StackPane borrowedBooksRoot;
 
     @FXML
-    private HBox brNav1;
+    private ListView<BorrowingRecord> borrowListContainer;
 
     @FXML
     private HBox favNav;
@@ -53,11 +51,11 @@ public class BorrowedBooksController implements Initializable {
     private String username;
     private BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
     private List<BorrowingRecord> borrowedBooks = new ArrayList<>();
+    private DocumentDao documentDao =new DocumentDao();
 
     public void setUsername(String username) {
         this.username = username;
         System.out.println("Username set: " + username);
-
         borrowedBooks=borrowingRecordDao.getByUserName(username);
         //System.out.println(borrowedBooks.toString());
         borrowListContainer.setCellFactory(param ->
@@ -75,12 +73,11 @@ public class BorrowedBooksController implements Initializable {
         logout.setOnMouseClicked(event -> navigateToScene("/fxml/Start/Role.fxml", logout));
         //truong hop minh nhan vao mot cell thi navigate to book detail cua cell do
         borrowListContainer.setOnMouseClicked(event -> {
-            BorrowingRecord selectedRecord = borrowListContainer.getSelectionModel().getSelectedItem();
-            if (selectedRecord != null) {
-                BookDetailController controller = SceneSwitcher.navigateToScene("/fxml/User/book_detail.fxml", borrowListContainer);
-                if (controller != null) {
-                    //tu hoan thanh o phan book detail
-                    //controller.setBookDetails(selectedRecord);
+
+            if (event.getClickCount() == 2) {
+                BorrowingRecord selectedItem = borrowListContainer.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    showBookDetails(borrowedBooksRoot,username,documentDao.get(selectedItem.getISBN()));
                 }
             }
         });

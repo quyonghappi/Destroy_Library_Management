@@ -88,13 +88,6 @@ public class RegisterController {
         clearFields();
     }
 
-//    @FXML
-//    public void openLogin(ActionEvent event) {
-//        Stage stage = (Stage) loginLink.getScene().getWindow();
-//        Node currentRoot = stage.getScene().getRoot();
-//        displayViewWithAnimation(stage, "/fxml/Start/Register.fxml", "Login", "/css/register.css", currentRoot);
-//    }
-
     @FXML
     void openLogin(ActionEvent event) {
 
@@ -164,13 +157,6 @@ public class RegisterController {
         emailField.clear();
         confirmPasswordField.clear();
     }
-//    private void showAlert(AlertType alertType, String title, String message) {
-//        Alert alert = new Alert(alertType);
-//        alert.setTitle(title);
-//        alert.setContentText(message);
-//        alert.show();
-//    }
-
 
     public Button getSignUpButton() {
         return signUpButton;

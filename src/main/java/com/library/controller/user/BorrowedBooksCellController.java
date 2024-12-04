@@ -1,6 +1,7 @@
 package com.library.controller.user;
 
 import com.library.dao.DocumentDao;
+import com.library.dao.FineDao;
 import com.library.models.Author;
 import com.library.models.BorrowingRecord;
 import com.library.models.Category;
@@ -11,8 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.text.DecimalFormat;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 
@@ -43,11 +43,15 @@ public class BorrowedBooksCellController {
     private Label duedateLabel;
 
     @FXML
+    private Label fineAmountLabel;
+
+    @FXML
     private Label isbnLabel;
 
     private ListView<BorrowingRecord> listView;
     private BorrowingRecord borrowedBook;
     private DocumentDao documentDao=new DocumentDao();
+    private FineDao fineDao=new FineDao();
 
     public void setListView(ListView<BorrowingRecord> lv){
         this.listView=lv;
@@ -67,19 +71,24 @@ public class BorrowedBooksCellController {
 
             brdateLabel.setText(String.valueOf(br.getBorrowDate()));
             duedateLabel.setText(String.valueOf(br.getBorrowDate().plusDays(14)));
-            //statusLabel.setText(br.getStatus());
-
-            //Logic cho phat vi muon sach
-            LocalDateTime bayh = LocalDateTime.now();
-            LocalDateTime borrowDate = br.getBorrowDate();
-            if(borrowDate.plusDays(30).isBefore(bayh)){
-                statusLabel.setText("Lost");
-            } else if (borrowDate.plusDays(14).isBefore(bayh)) {
-                long daysLate = Duration.between(borrowDate.plusDays(14), bayh).toDays();
-                statusLabel.setText("Late: " + daysLate + " ngày");
-            } else {
-                statusLabel.setText(br.getStatus());
+            switch(br.getStatus()) {
+                case "borrowed":
+                    statusLabel.setText("Borrowed");
+                    break;
+                case "late":
+                    statusLabel.setText("Late");
+                    DecimalFormat decimalFormat = new DecimalFormat("#,###");
+                    fineAmountLabel.setText("Fine: " + decimalFormat.format(fineDao.get(br.getRecordId()).getFineAmount()));
+                    fineAmountLabel.setVisible(true);
+                    break;
+                case "lost":
+                    statusLabel.setText("Lost");
+                    DecimalFormat decimalFormat1 = new DecimalFormat("#,###");
+                    fineAmountLabel.setText("Fine: " + decimalFormat1.format(fineDao.get(br.getRecordId()).getFineAmount()));
+                    fineAmountLabel.setVisible(true);
+                    break;
             }
+            statusLabel.setText(br.getStatus());
 
             if (!doc.getImageLink().equals("N/A")) {
                 loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());

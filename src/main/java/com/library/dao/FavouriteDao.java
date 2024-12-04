@@ -103,12 +103,28 @@ public class FavouriteDao {
             if (rowsAffected > 0) {
                 System.out.println("Favourite book deleted successfully.");
             } else {
-                System.out.println("No favourite book found with the specified ISBN and username.");
+                System.out.println("No favourite book found with the specified ISBN and username." + isbn + " " + userId);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("cannot deleting favourite book sent by" + userId, e);
         }
+    }
+
+    public boolean favExists(String isbn, int userId) {
+        String sql = "select * from favouritebooks where isbn = ? and user_id = ?";
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, isbn);
+            pstmt.setInt(2, userId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 
     public List<Favourite> getByUserName(String username) {

@@ -1,5 +1,7 @@
 package com.library.controller.user;
+import com.library.dao.DocumentDao;
 import com.library.dao.FavouriteDao;
+import com.library.models.BorrowingRecord;
 import com.library.models.Favourite;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -8,14 +10,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.library.utils.SceneSwitcher.navigateToScene;
+import static com.library.utils.SceneSwitcher.showBookDetails;
 
 public class FavouriteController implements Initializable {
+    @FXML
+    private StackPane favRoot;
     @FXML
     private HBox brNav;
 
@@ -45,7 +51,7 @@ public class FavouriteController implements Initializable {
 
     private String username;
     private FavouriteDao favouriteDao = new FavouriteDao();
-    private List<Favourite> favList;
+    private DocumentDao documentDao = new DocumentDao();
 
     public void setUsername(String username) {
         this.username = username;
@@ -82,6 +88,16 @@ public class FavouriteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        favoriteListContainer.setOnMouseClicked(event -> {
+
+            if (event.getClickCount() == 2) {
+                Favourite selectedItem = favoriteListContainer.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    showBookDetails(favRoot,username,documentDao.get(selectedItem.getIsbn()));
+                }
+            }
+        });
+
         homeNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
             HomeScreenController controller = navigateToScene("/fxml/User/home_screen.fxml", homeNav);

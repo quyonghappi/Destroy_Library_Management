@@ -48,8 +48,6 @@ public class ReservationDao  {
     }
 
 
-
-
     public void add(Reservation reservation) {
         String sql="insert into reservations(user_id, isbn, reservation_date,status) values(?,?,?,?)";
         try (
@@ -60,6 +58,7 @@ public class ReservationDao  {
             ps.setString(2,reservation.getIsbn());
             ps.setTimestamp(3, DateFormat.toSqlTimestamp(reservation.getReservationDate()));
             ps.setString(4,"active");
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -167,6 +166,22 @@ public class ReservationDao  {
             throw new RuntimeException(e);
         }
         return numOfReservations;
+    }
+
+    public boolean reservationExists(String isbn, int userId) {
+        String sql = "select * from reservations where isbn = ? and user_id = ?";
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, isbn);
+            pstmt.setInt(2, userId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 
     public void updateStatus(int reservation_id, String status) {

@@ -8,6 +8,7 @@
     -fx-border-radius: 7px;
 }*/
 
+
 #bookImage {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
@@ -22,10 +23,16 @@
 }
 
 #statusLabel {
-    /*-fx-background-color: #BACFBF;*/
+    -fx-background-color: #b5e695;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
     -fx-text-fill: #274236;
+}
+
+#fineAmountLabel {
+    -fx-text-fill: #364c84;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
 }
 
 #favImage {
