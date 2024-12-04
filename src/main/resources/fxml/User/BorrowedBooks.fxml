@@ -90,7 +90,7 @@
                   <Insets />
                </BorderPane.margin>
                <padding>
-                  <Insets top="165.0" />
+                  <Insets top="200.0" />
                </padding>
             </VBox>
          </left>

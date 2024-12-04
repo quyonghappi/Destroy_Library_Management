@@ -266,7 +266,7 @@ public class DocumentDao implements DAO<Document> {
     public List<Document> getLostList() {
         String sql = "select * from Documents d\n"
                 + "join borrowingrecords b on b.isbn=d.isbn\n"
-                + "where b.status = 'Lost'";
+                + "where b.status = 'lost'";
         return getRecord(sql);
     }
 
