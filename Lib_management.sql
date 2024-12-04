@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS BorrowingRecords;
 DROP TABLE IF EXISTS Reservations;
 DROP TABLE IF EXISTS Reviews;
 DROP TABLE IF EXISTS Admins;
-DROP TABLE IF EXISTS AdminActions;
+-- DROP TABLE IF EXISTS AdminActions;
 DROP TABLE IF EXISTS Fines;
 
 -- Table for managing users

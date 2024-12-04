@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteDao {
+public class FavouriteDao implements DAO<Favourite> {
     public List<Favourite> getAll() {
         String sql = "select * from favouritebooks";
         List<Favourite> favourites = new ArrayList<Favourite>();
@@ -158,5 +158,6 @@ public class FavouriteDao {
         }
         return favourites;
     }
+
 
 }

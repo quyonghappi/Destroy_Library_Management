@@ -4,6 +4,7 @@ import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.models.BorrowingRecord;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -73,15 +74,7 @@ public class LentBookController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         brList=getBrList();
         countLabel.setText(String.valueOf(brList.size()));
-
-        lentDetailContainer.setCellFactory(param ->
-        {
-            LentBookCell lentBookCell=new LentBookCell();
-            lentBookCell.setListView(lentDetailContainer);
-            return lentBookCell;
-        });
-        lentDetailContainer.getItems().setAll(brList);
-
+        loadLentList();
         allNav.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
             BookInfoController controller = navigateToScene("/fxml/Admin/Books/BookInfo.fxml", allNav);
@@ -135,9 +128,27 @@ public class LentBookController implements Initializable {
 
     }
 
-    public void updateBorrowingCount() {
-        List<BorrowingRecord> bookList = borrowingRecordDao.getLent();
-        countLabel.setText(String.valueOf(bookList.size()));
+    private void loadLentList() {
+        Task<List<BorrowingRecord>> loadTask = new Task<>() {
+            @Override
+            protected List<BorrowingRecord> call() throws Exception {
+                return brList;
+            }
+        };
+        loadTask.setOnSucceeded(event-> {
+            lentDetailContainer.setCellFactory(param ->
+            {
+                LentBookCell lentBookCell=new LentBookCell();
+                lentBookCell.setListView(lentDetailContainer);
+                return lentBookCell;
+            });
+            lentDetailContainer.getItems().setAll(loadTask.getValue());
+        });
+        loadTask.setOnFailed(event-> {
+            System.out.println("failed to load lent list"+loadTask.getException().getMessage());
+        });
+
+        new Thread(loadTask).start();
     }
 
     private List<BorrowingRecord> getBrList() {

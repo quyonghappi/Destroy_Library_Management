@@ -92,9 +92,6 @@ public class SearchBooksScreenController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //loadRecentAddedBooksAndRecommendation();
-
-        loadAllBooks();
         searchField.textProperty().addListener(event -> onSearchBooks());
 
         homeNav.setOnMouseClicked(event -> {
