@@ -148,10 +148,13 @@ public class BorrowedBooksController implements Initializable {
         String query = brSearchField.getText().trim();
 
         if (!query.isEmpty()) {
+            String userFullName= memNameLabel.getText();
             SearchBooksScreenController searchController = navigateToScene("/fxml/User/search_books_screen.fxml", brSearchField);
 
             if (searchController != null) {
                 searchController.performSearch(query);
+                searchController.setUsername(username);
+                searchController.setUserFullName(userFullName);
             }
         }
     }
