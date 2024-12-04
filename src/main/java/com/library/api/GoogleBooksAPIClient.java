@@ -8,6 +8,9 @@ import com.library.models.Category;
 import com.library.models.Document;
 import com.library.models.Publisher;
 import okhttp3.*;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -163,23 +166,30 @@ public class GoogleBooksAPIClient {
                 doc.setQuantity(quantity);
                 doc.setImageLink(imageLink);
 
+                Category category = new Category();
                 if (!"N/A".equals(categoryName)) {
-                    Category category = new Category();
                     category.setName(categoryName);
-                    doc.setCategory(category);
                 }
+                else {
+                    category.setName("N/A");
+                }
+                doc.setCategory(category);
 
+                Author author = new Author();
                 if (!"Unknown".equals(authorName)) {
-                    Author author = new Author();
                     author.setName(authorName);
-                    doc.setAuthor(author);
+                } else {
+                    author.setName("Unknown");
                 }
+                doc.setAuthor(author);
 
+                Publisher publisher = new Publisher();
                 if (!"Unknown".equals(publisherName)) {
-                    Publisher publisher = new Publisher();
                     publisher.setName(publisherName);
-                    doc.setPublisher(publisher);
+                } else {
+                    publisher.setName("Unknown");
                 }
+                doc.setPublisher(publisher);
 
                 insertDocumentIntoDatabase(doc, authorName, publisherName, categoryName);
             }
@@ -256,25 +266,17 @@ public class GoogleBooksAPIClient {
     }
 
     public static void main(String[] args) {
-//        String file = "src/main/java/com/library/api/programming_books.txt";
+        String file = "src/main/java/com/library/api/isbn_count.txt";
         GoogleBooksAPIClient newClient = new GoogleBooksAPIClient();
-//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-//            String isbn;
-//            int quantity = 10;
-//            while ((isbn = br.readLine()) != null) {
-//                if (!isbn.trim().isEmpty()) newClient.getBookData(isbn.trim(), quantity);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        String isbn="9789390504640";
-        int quantity=10;
-        try {
-            newClient.getBookData(isbn.trim(),quantity);
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            while (br.readLine() != null) {
+                String[] line = br.readLine().split(" ", 2);
+                newClient.getBookData(line[0], Integer.parseInt(line[1]));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }
 
