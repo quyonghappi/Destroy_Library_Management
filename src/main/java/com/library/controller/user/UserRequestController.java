@@ -143,10 +143,14 @@ public class UserRequestController implements Initializable {
         String query = reqSearchField.getText().trim();
 
         if (!query.isEmpty()) {
+            String userFullName= memNameLabel.getText();
+
             SearchBooksScreenController searchController = navigateToScene("/fxml/User/search_books_screen.fxml", reqSearchField);
 
             if (searchController != null) {
                 searchController.performSearch(query);
+                searchController.setUsername(username);
+                searchController.setUserFullName(userFullName);
             }
         }
     }
