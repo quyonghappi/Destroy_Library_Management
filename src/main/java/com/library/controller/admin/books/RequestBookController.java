@@ -130,6 +130,19 @@ public class RequestBookController implements Initializable {
         lendButton.setOnMouseClicked(event->showLendBookScene(requestBookRoot));
 //        filter.setOnMouseClicked(event->showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(requestBookRoot));
+
+        searchField1.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchRequest(newValue);
+        });
+    }
+
+    private void searchRequest(String Id) {
+        if (Id == null || Id.trim().isEmpty()) {
+                reservations = reservationDao.getReservations();
+        } else {
+            reservations = reservationDao.getById(Integer.parseInt(Id));
+        }
+        loadReservationList();
     }
 
 

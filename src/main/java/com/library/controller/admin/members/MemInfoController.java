@@ -72,9 +72,6 @@ public class MemInfoController implements Initializable {
     @FXML
     private Button logOut;
 
-    @FXML
-    private Label countLabel;
-
     private UserDao userDao=new UserDao();
     private List<User> userList = new ArrayList<>();
 

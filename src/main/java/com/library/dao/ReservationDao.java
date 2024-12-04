@@ -3,6 +3,7 @@ package com.library.dao;
 import com.library.config.DatabaseConfig;
 import com.library.models.Reservation;
 import com.library.utils.DateFormat;
+import javafx.scene.control.ListView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -128,24 +129,25 @@ public class ReservationDao  {
         return reservations;
     }
 
-    public Reservation getById(int reservation_id) {
-        String sql="select * from reservations where reservation_id=?";
-        Reservation reservation=null;
+    public List<Reservation> getById(int reservation_id) {
+        String sql="select * from reservations where user_id=?";
+        List<Reservation> reservation=new ArrayList<>();
         try(Connection conn=DatabaseConfig.getConnection();
             PreparedStatement ps=conn.prepareStatement(sql)) {
             ps.setInt(1,reservation_id);
             ResultSet rs=ps.executeQuery();
             while(rs.next()) {
+
                 int user_id=rs.getInt("user_id");
                 String isbn=rs.getString("isbn");
                 LocalDateTime date=rs.getTimestamp("reservation_date").toLocalDateTime();
                 String status=rs.getString("status");
-                reservation = new Reservation(reservation_id,user_id,isbn,date,status);
+                reservation.add(new Reservation(reservation_id,user_id,isbn,date,status));
             }
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return reservation ;
+        return reservation;
     }
 
     /**

@@ -63,9 +63,6 @@ public class OverdueBookController implements Initializable {
     private HBox allNav;
 
     @FXML
-    private ImageView filter;
-
-    @FXML
     private ToggleButton paidButton;
 
     @FXML
@@ -98,6 +95,18 @@ public class OverdueBookController implements Initializable {
         lendButton.setOnMouseClicked(event -> showLendBookScene(overdueRoot));
 //        filter.setOnMouseClicked(event -> showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(overdueRoot));
+        searchField1.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchOverDue(newValue);
+        });
+    }
+
+    private void searchOverDue(String Id) {
+        if (Id.isEmpty()) {
+            fines = fineDao.getAll();
+        } else {
+            fines = fineDao.getFinesByUserId(Integer.parseInt(Id));
+        }
+        loadOverdueList();
     }
 
     private void loadOverdueList() {
