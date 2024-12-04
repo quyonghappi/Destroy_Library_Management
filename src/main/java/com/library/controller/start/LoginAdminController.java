@@ -23,8 +23,7 @@ import java.util.Objects;
 
 import static com.library.controller.start.Check.validateInput;
 import static com.library.controller.start.LoadView.loadView;
-import static com.library.controller.start.ShowView.showAlert;
-import static com.library.controller.start.ShowView.showView;
+import static com.library.controller.start.LoadView.showAlert;
 import static com.library.dao.UserDao.findUserByName;
 
 public class LoginAdminController {
@@ -120,6 +119,5 @@ public class LoginAdminController {
         returnBack.setMouseTransparent(true);
         Stage stage = (Stage) returnBack.getScene().getWindow();
         loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
-        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
     }
 }

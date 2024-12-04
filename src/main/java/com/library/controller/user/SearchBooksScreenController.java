@@ -144,93 +144,6 @@ public class SearchBooksScreenController implements Initializable {
 
     }
 
-
-//    private void loadRecentAddedBooksAndRecommendation() {
-//        recentlyAdded=documentDao.getRecentAddedBooks();
-//        Document doc=recentlyAdded.get(recentlyAdded.size()-1);
-//        bestBookAuthor.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
-//        bestBookTitle.setText(doc.getTitle());
-//        pages.setText(String.valueOf(doc.getPage()));
-//        publisher.setText("Publisher: "+String.valueOf(documentDao.getPublisher(doc.getPublisherId()).getName()));
-//        category.setText(String.valueOf("Genre: "+documentDao.getCategory(doc.getCategoryId()).getName()));
-//
-//
-//        if (!doc.getImageLink().equals("N/A")) {
-//            loadImageLazy(doc.getImageLink(),bestBookImage, bestBookImage.getFitWidth(), bestBookImage.getFitHeight());
-//        }
-//
-//        int column =0;
-//        int row=1;
-//        try {
-//            for (int i=0; i<recentlyAdded.size()-1; i++) {
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
-//                VBox bookInfo = loader.load();
-//                BookCardController controller = loader.getController();
-//                controller.loadBookInfo(recentlyAdded.get(i));
-//                if (column == 9) {
-//                    column = 0;
-//                    ++row;
-//                }
-//
-//                searchResultsContainer.add(bookInfo, column++, row);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    /*
-    private HBox createBookCard(Document document) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/BookCard.fxml"));
-        try {
-            HBox bookCard = loader.load();
-            BookCardController controller = loader.getController();
-            controller.loadBookInfo(document);
-
-            bookCard.setSpacing(10);
-            bookCard.setStyle("-fx-background-color: #f0f0f0; -fx-border-radius: 15; -fx-background-radius: 15;");
-            bookCard.setPrefWidth(200);
-
-            return bookCard;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private void loadAllBooks() {
-        Task<List<Document>> loadTask = new Task<>() {
-            @Override
-            protected List<Document> call() throws Exception {
-                return documentDao.getAll();
-            }
-        };
-
-        loadTask.setOnSucceeded(event -> {
-            filteredDocuments = loadTask.getValue();
-            showBooks(filteredDocuments);
-        });
-
-        loadTask.setOnFailed(event -> {
-            System.err.println("Failed to load books: " + loadTask.getException());
-        });
-
-        new Thread(loadTask).start();
-    }
-
-    private void showBooks(List<Document> books) {
-        searchResultsContainer.getChildren().clear();
-
-        for (Document document : books) {
-            HBox bookCard = createBookCard(document);
-            searchResultsContainer.getChildren().add(bookCard);
-        }
-        int pageCount = (int) Math.ceil(books.size() / 40.0);
-        pagination.setPageCount(pageCount);
-    }
-
-    */
-
     private void loadAllBooks() {
         // Tải tất cả sách từ database
         Task<List<Document>> loadTask = new Task<>() {
@@ -270,11 +183,6 @@ public class SearchBooksScreenController implements Initializable {
         bookCard.setSpacing(10);
         bookCard.setStyle("-fx-background-color: transparent; -fx-border-radius: 15; -fx-background-radius: 15;");
         bookCard.setPrefSize(300, 200);
-
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.75), bookCard);
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-        fadeIn.play();
 
 
         ImageView bookCover = new ImageView();
@@ -384,14 +292,6 @@ public class SearchBooksScreenController implements Initializable {
                 bookCard.setStyle("-fx-background-color: transparent; -fx-border-radius: 15; -fx-background-radius: 15;");
                 bookCard.setPrefSize(300, 220);
 
-                // Add fade-in effect
-                ScaleTransition popUp = new ScaleTransition(Duration.seconds(0.75), bookCard);
-                popUp.setFromX(0);
-                popUp.setFromY(0);
-                popUp.setToX(1);
-                popUp.setToY(1);
-                popUp.setInterpolator(Interpolator.EASE_OUT);
-                popUp.play();
 
                 // Book cover image
                 ImageView bookCover = new ImageView();

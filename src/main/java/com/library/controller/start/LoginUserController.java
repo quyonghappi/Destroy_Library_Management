@@ -21,8 +21,7 @@ import javafx.stage.Stage;
 
 import static com.library.controller.start.Check.validateInput;
 import static com.library.controller.start.LoadView.loadView;
-import static com.library.controller.start.ShowView.showAlert;
-import static com.library.controller.start.ShowView.showView;
+import static com.library.controller.start.LoadView.showAlert;
 import static com.library.dao.UserDao.findUserByName;
 
 public class LoginUserController {
@@ -118,13 +117,11 @@ public class LoginUserController {
     private void openSignUp(ActionEvent event) {
         Stage stage = (Stage) signUpLink.getScene().getWindow();
         loadView(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/start/register.css");
-        showView(stage, "/fxml/Start/Register.fxml", "Login", "/css/start/register.css");
     }
 
     public void setReturnback(MouseEvent mouseEvent) {
         returnBack.setMouseTransparent(true);
         Stage stage = (Stage) returnBack.getScene().getWindow();
         loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
-        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
     }
 }

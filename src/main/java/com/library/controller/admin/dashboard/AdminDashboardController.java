@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
 
 //import static com.library.utils.FilterPopup.showPopup;
 import static com.library.controller.start.LoadView.loadView;
-import static com.library.controller.start.ShowView.showView;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showLendBookScene;
 
@@ -191,6 +190,5 @@ public class AdminDashboardController implements Initializable {
         logOut.setMouseTransparent(true);
         Stage stage = (Stage) logOut.getScene().getWindow();
         loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
-        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
     }
 }

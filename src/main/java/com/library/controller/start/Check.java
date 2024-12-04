@@ -4,7 +4,7 @@ import javafx.scene.control.Alert;
 
 import java.util.regex.Pattern;
 
-import static com.library.controller.start.ShowView.showAlert;
+import static com.library.controller.start.LoadView.showAlert;
 //import static com.library.controller.start.ViewLoader.showAlert;
 
 public interface Check {

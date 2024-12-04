@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 import static com.library.controller.start.LoadView.loadView;
-import static com.library.controller.start.ShowView.showView;
 
 public class RoleController {
 
@@ -42,7 +41,6 @@ public class RoleController {
         role = "reader";
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         loadView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/start/StartUser.css");
-        showView(stage, "/fxml/Start/StartUser.fxml", "Login", "/css/start/StartUser.css");
     }
 
     /**
@@ -54,7 +52,6 @@ public class RoleController {
         role = "admin";
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         loadView(stage, "/fxml/Start/adminLogin.fxml", "Login", "/css/start/adminLogin.css");
-        showView(stage, "/fxml/Start/adminLogin.fxml", "Login", "/css/start/adminLogin.css");
     }
 
     @FXML
