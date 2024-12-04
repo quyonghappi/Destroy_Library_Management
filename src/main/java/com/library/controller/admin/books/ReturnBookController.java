@@ -58,10 +58,16 @@ public class ReturnBookController implements Initializable {
     private HBox membersContainer;
 
     @FXML
+    private Label overdueCountLabel;
+
+    @FXML
     private HBox overdueNav;
 
     @FXML
     private HBox overviewContainer;
+
+    @FXML
+    private Label requestCountLabel;
 
     @FXML
     private HBox requestNav;
@@ -73,13 +79,19 @@ public class ReturnBookController implements Initializable {
     private ImageView filter;
 
     @FXML
-    private Label countLabel;
+    private Label returnedCountLabel;
+
+    @FXML
+    private TextField searchField1;
 
     @FXML
     private Button logOut;
 
     @FXML
     private Label countLabel;
+
+    @FXML
+    private  Label logout;
 
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
     List<BorrowingRecord> brList=new ArrayList<>();
@@ -89,7 +101,6 @@ public class ReturnBookController implements Initializable {
 
         updateReturnCount();
         brList=getBrList();
-        countLabel.setText(String.valueOf(brList.size()));
         returnDetailContainer.setCellFactory(param ->
         {
             ReturnBookCell returnBookCell=new ReturnBookCell();
@@ -143,6 +154,27 @@ public class ReturnBookController implements Initializable {
         lendButton.setOnMouseClicked(event-> showLendBookScene(returnedBookRoot));
 //        filter.setOnMouseClicked(event->showPopup(filter, event));
         addBookButton.setOnMouseClicked(event->showAddBookScene(returnedBookRoot));
+
+
+        searchField1.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchReturn(newValue);
+        });
+    }
+
+    private void searchReturn(String isbn) {
+        if(isbn.trim().isEmpty()) {
+            brList = borrowingRecordDao.getReturned();
+            returnDetailContainer.getItems().setAll(brList);
+        }
+
+        brList = borrowingRecordDao.getReturnByISBN(isbn);
+        returnDetailContainer.setCellFactory(param ->
+        {
+            ReturnBookCell returnBookCell=new ReturnBookCell();
+            returnBookCell.setListView(returnDetailContainer);
+            return returnBookCell;
+        });
+        returnDetailContainer.getItems().setAll(brList);
     }
 
     public void updateReturnCount() {

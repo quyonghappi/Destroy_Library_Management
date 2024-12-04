@@ -259,14 +259,6 @@
                                              </HBox.margin>
                                           </ImageView>
                                           <TextField id="searchField" fx:id="searchField1" prefHeight="19.0" prefWidth="589.0" promptText="Search" />
-                                          <ImageView fx:id="filter" fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../ui/admindashboard/setting.png" />
-                                             </image>
-                                             <HBox.margin>
-                                                <Insets right="10.0" />
-                                             </HBox.margin>
-                                          </ImageView>
                                        </children>
                                     </HBox>
                                  </children>

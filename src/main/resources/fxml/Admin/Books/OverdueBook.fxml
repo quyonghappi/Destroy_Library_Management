@@ -282,14 +282,6 @@
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="42.0" prefWidth="607.0" spacing="20.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fx:id="filter" fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../ui/admindashboard/setting.png" />
-                                             </image>
-                                             <HBox.margin>
-                                                <Insets right="10.0" />
-                                             </HBox.margin>
-                                          </ImageView>
                                           <ToggleButton fx:id="allButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#allFilter" prefWidth="40.0" styleClass="chosen-button" text="All" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
                                                 <Insets left="50.0" />

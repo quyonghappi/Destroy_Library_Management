@@ -56,32 +56,26 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
     //get lent book
     // CHECK XEM QUAS 14 NGAY THI PHAT THOI
     public List<BorrowingRecord> getLent() {
-        String sql = "select * from borrowingrecords where status in ('borrowed', 'late', 'lost')";
+        String updateSql = """
+        UPDATE borrowingrecords
+        SET status = CASE
+            WHEN status = 'borrowed' AND borrow_date < NOW() - INTERVAL 14 DAY THEN 'late'
+            WHEN status = 'borrowed' AND borrow_date < NOW() - INTERVAL 30 DAY THEN 'lost'
+            ELSE status
+        END
+        WHERE status IN ('borrowed', 'late', 'lost');
+    """;
 
-        //Checkin date : due  in 14 ngay yk
-        List<BorrowingRecord> list = getRecord(sql);
-        for(BorrowingRecord borrowingRecord : list) {
-            LocalDateTime borrowDate=borrowingRecord.getBorrowDate();
-            LocalDateTime bayh = LocalDateTime.now();
-
-            if (borrowingRecord.getStatus().equals("borrowed")) {
-
-                // tra sach late ne: 2 weeks
-                if (borrowDate.plusDays(14).isBefore(bayh)) {
-                    borrowingRecord.setStatus("late");
-                    update(borrowingRecord);
-                }
-
-                //lost neu 1 thang k tra sach
-                if (borrowDate.plusDays(30).isAfter(bayh)) {
-                    borrowingRecord.setStatus("lost");
-                    update(borrowingRecord);
-                }
-            }
+        try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement ps = conn.prepareStatement(updateSql)) {
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        //return getRecord(sql);
-        return list;
+
+        // Trả về danh sách đã cập nhật
+        return getRecord("SELECT * FROM borrowingrecords WHERE status IN ('borrowed', 'late', 'lost')");
     }
+
 
     //get returned
     public List<BorrowingRecord> getReturned() {
@@ -90,44 +84,46 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
     }
 
 //    //get late
-//    public List<BorrowingRecord> getLate() {
-//        List<BorrowingRecord> list = getLent();
-//        FineDao fineDao = new FineDao();
-//        for (BorrowingRecord borrowingRecord : list) {
-//            fineDao.checkAndAddFine(borrowingRecord);
-//        }
-//        String sql = "select * from borrowingrecords where status='late'";
-//        List<BorrowingRecord> lateList = getRecord(sql);
-//        return lateList;
-//    }
+    public List<BorrowingRecord> getLate() {
+        List<BorrowingRecord> list = getLent();
+        FineDao fineDao = new FineDao();
+        for (BorrowingRecord borrowingRecord : list) {
+            fineDao.checkAndAddFine(borrowingRecord);
+        }
+        String sql = "select * from borrowingrecords where status='late'";
+        List<BorrowingRecord> lateList = getRecord(sql);
+        return lateList;
+    }
 
-//    //get lost, already have this in doc dao
-//    public List<BorrowingRecord> getLost() {
-//        List<BorrowingRecord> list = getLent();
-//        FineDao fineDao = new FineDao();
-//        for (BorrowingRecord borrowingRecord : list) {
-//            fineDao.checkAndAddFine(borrowingRecord);
-//        }
-//        String sql = "select * from borrowingrecords where status='Lost'";
-//        return getRecord(sql);
-//    }
+    //get lost, already have this in doc dao
+    public List<BorrowingRecord> getLost() {
+        List<BorrowingRecord> list = getLent();
+        FineDao fineDao = new FineDao();
+        for (BorrowingRecord borrowingRecord : list) {
+            fineDao.checkAndAddFine(borrowingRecord);
+        }
+        String sql = "select * from borrowingrecords where status='Lost'";
+        return getRecord(sql);
+    }
 
     private List<BorrowingRecord> getRecord(String sql) {
-        List<BorrowingRecord> list = new ArrayList<BorrowingRecord>();
-        try (Connection conn= DatabaseConfig.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        List<BorrowingRecord> list = new ArrayList<>();
+        try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 int recordId = rs.getInt("record_id");
                 int userId = rs.getInt("user_id");
                 String isbn = rs.getString("isbn");
-//                Timestamp borrowDate = rs.getTimestamp("borrow_date");
-//                Timestamp returnDate = rs.getTimestamp("return_date");
-                Timestamp borrowDate=rs.getTimestamp("borrow_date");
-                Timestamp returnDate=rs.getTimestamp("return_date");
+
+                Timestamp borrowDate = rs.getTimestamp("borrow_date");
+                Timestamp returnDate = rs.getTimestamp("return_date");
+
+                LocalDateTime borrowDateTime = borrowDate != null ? DateFormat.toLocalDateTime(borrowDate) : null;
+                LocalDateTime returnDateTime = returnDate != null ? DateFormat.toLocalDateTime(returnDate) : null;
+
                 String status = rs.getString("status");
-                list.add(new BorrowingRecord(recordId,userId,isbn, DateFormat.toLocalDateTime(borrowDate), DateFormat.toLocalDateTime(returnDate), status));
-                //list.add(new BorrowingRecord(recordId,userId,isbn, DateFormat.toLocalDate(borrowDate),DateFormat.toLocalDateTime(returnDate),status));
+                list.add(new BorrowingRecord(recordId, userId, isbn, borrowDateTime, returnDateTime, status));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -213,72 +209,99 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         return list;
     }
 
-    public static List<BorrowingRecord> searchByIsbn(String isbn) {
+    public List<BorrowingRecord> searchByIsbn(String isbn) {
         List<BorrowingRecord> borrowingRecords = new ArrayList<>();
-        String sql = "SELECT * FROM borrowingrecords";
 
+        // Start building the query
+        String sql = "SELECT * FROM borrowingrecords WHERE status IN ('borrowed', 'lost', 'late')";
+
+        // Append condition for isbn if provided
         if (isbn != null && !isbn.trim().isEmpty()) {
-            sql += " WHERE isbn LIKE ? AND status=?";
+            sql += " AND isbn LIKE ?";
+        }
+
+        // Establish database connection and prepare statement
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // Set the isbn parameter if necessary
+            if (isbn != null && !isbn.trim().isEmpty()) {
+                ps.setString(1, "%" + isbn.trim() + "%");
+            }
+
+            // Execute the query and process the result set
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int recordId = rs.getInt("record_id");
+                    int userId = rs.getInt("user_id");
+                    String isbnResult = rs.getString("isbn");
+                    Timestamp borrowDate = rs.getTimestamp("borrow_date");
+                    Timestamp returnDate = rs.getTimestamp("return_date");
+
+                    // Convert the Timestamp to LocalDateTime if available
+                    LocalDateTime borrowDateTime = borrowDate != null ? DateFormat.toLocalDateTime(borrowDate) : null;
+                    LocalDateTime returnDateTime = returnDate != null ? DateFormat.toLocalDateTime(returnDate) : null;
+
+                    String status = rs.getString("status");
+
+                    // Add the record to the list
+                    borrowingRecords.add(new BorrowingRecord(recordId, userId, isbnResult, borrowDateTime, returnDateTime, status));
+                }
+            }
+        } catch (SQLException e) {
+            // Log or handle the exception
+            System.err.println("Error executing SQL query: " + e.getMessage());
+            e.printStackTrace();  // or use a logging framework
+        }
+
+        return borrowingRecords;
+    }
+
+    public List<BorrowingRecord> getReturnByISBN(String isbn) {
+        String sql = "SELECT * FROM borrowingrecords WHERE status IN ('returned')";
+        List<BorrowingRecord> returnISBN = new ArrayList<>();
+
+        // Append condition for isbn if provided
+        if (isbn != null && !isbn.trim().isEmpty()) {
+            sql += " AND isbn LIKE ?";
         }
 
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, "%" + isbn.trim() + "%");
-            ps.setString(2, "borrowed");
 
-            try (ResultSet resultSet = ps.executeQuery()) {
-                while (resultSet.next()) {
-                    BorrowingRecord borrow = new BorrowingRecord();
+            if (isbn != null && !isbn.trim().isEmpty()) {
+                ps.setString(1, "%" + isbn.trim() + "%");
+            }
 
-                    borrow.setISBN(resultSet.getString("isbn"));
-                    borrow.setUserId(Integer.parseInt(resultSet.getString("user_id")));
-                    borrow.setRecordId(resultSet.getInt("record_id"));
-                    borrow.setBorrowDate(borrow.getBorrowDate());
-                    borrow.setStatus(resultSet.getString("status"));
-                    borrow.setReturnDate(borrow.getReturnDate());
-                    borrowingRecords.add(borrow);
+            // Execute the query and process the result set
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int recordId = rs.getInt("record_id");
+                    int userId = rs.getInt("user_id");
+                    String isbnResult = rs.getString("isbn");
+                    Timestamp borrowDate = rs.getTimestamp("borrow_date");
+                    Timestamp returnDate = rs.getTimestamp("return_date");
+
+                    // Convert the Timestamp to LocalDateTime if available
+                    LocalDateTime borrowDateTime = borrowDate != null ? DateFormat.toLocalDateTime(borrowDate) : null;
+                    LocalDateTime returnDateTime = returnDate != null ? DateFormat.toLocalDateTime(returnDate) : null;
+
+                    String status = rs.getString("status");
+
+                    // Add the record to the list
+                    returnISBN.add(new BorrowingRecord(recordId, userId, isbnResult, borrowDateTime, returnDateTime, status));
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Log or handle the exception
+            System.err.println("Error executing SQL query: " + e.getMessage());
+            e.printStackTrace();  // or use a logging framework
         }
-        return borrowingRecords;
+
+        return returnISBN;
     }
 
-    public static List<BorrowingRecord> searchById(String Id) {
 
-        int id = Integer.parseInt(Id);
-        List<BorrowingRecord> borrowingRecords = new ArrayList<>();
-        String sql = "SELECT * FROM borrowingrecords";
 
-        if (Id != null && !Id.trim().isEmpty()) {
-            sql += " WHERE user_id = ? AND status = ?";
-        }
-
-        try (Connection conn = DatabaseConfig.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, String.valueOf(id));
-            ps.setString(2, "borrowed");
-
-            try (ResultSet resultSet = ps.
-
-                    executeQuery()) {
-                while (resultSet.next()) {
-                    BorrowingRecord borrow = new BorrowingRecord();
-
-                    borrow.setISBN(resultSet.getString("isbn"));
-                    borrow.setUserId(Integer.parseInt(resultSet.getString("user_id")));
-                    borrow.setRecordId(resultSet.getInt("record_id"));
-                    borrow.setBorrowDate(borrow.getBorrowDate());
-                    borrow.setStatus(resultSet.getString("status"));
-                    borrow.setReturnDate(borrow.getReturnDate());
-                    borrowingRecords.add(borrow);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return borrowingRecords;
-    }
 
 }
