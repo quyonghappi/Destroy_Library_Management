@@ -119,10 +119,10 @@
 }
 
 .list-view1 .scroll-bar {
-    -fx-background-color: #ACBC8D;
+    -fx-background-color:  #e7f1a8;
 }
 .list-view1 .scroll-bar .thumb {
-    -fx-background-color:#ACBC8D;
+    -fx-background-color:#f2fdbf;
     -fx-border-radius: 5px;
 }
 
@@ -155,7 +155,7 @@
 }
 
 .list-view2 .scroll-bar {
-    -fx-background-color: #a5bff6;
+    -fx-background-color: #fffdf5;
 }
 .list-view2 .scroll-bar .thumb {
     -fx-background-color:#95b1ee;

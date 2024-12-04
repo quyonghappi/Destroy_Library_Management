@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="overdueRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.OverdueBookController">
+<StackPane fx:id="overdueRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.OverdueBookController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
          <left>
@@ -277,7 +277,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </HBox.margin>
                                           </ImageView>
-                                          <TextField id="searchField" fx:id="searchField1" prefHeight="19.0" prefWidth="300.0" promptText="Search" HBox.hgrow="ALWAYS" />
+                                          <TextField id="searchField" fx:id="searchField1" prefHeight="19.0" prefWidth="300.0" promptText="Enter username to search" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="42.0" prefWidth="607.0" spacing="20.0" HBox.hgrow="ALWAYS">

@@ -63,8 +63,8 @@ public class UserRequestCellController implements Initializable {
             bookNameLabel.setText(doc.getTitle());
 
             Category category = documentDao.getCategory(doc.getCategoryId());
-            categoryLabel.setText(category.getName());
-            pageLabel.setText(String.valueOf(doc.getPage()));
+            categoryLabel.setText("Category: "+ category.getName());
+            pageLabel.setText("Total pages: " + doc.getPage());
 
             reqdateLabel.setText(String.valueOf(r.getReservationDate()));
             switch (r.getStatus()) {

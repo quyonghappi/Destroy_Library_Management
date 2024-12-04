@@ -4,6 +4,10 @@ import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.models.BorrowingRecord;
 import com.library.models.Document;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -134,14 +139,15 @@ public class HomeScreenController implements Initializable {
     }
 
     private void loadMyBooks() {
-        myBooks= borrowingRecordDao.getByUserName(username);
+        myBooks = borrowingRecordDao.getByUserName(username);
         try {
-            for (BorrowingRecord myBook : myBooks) {
+            for (int i = 0; i < myBooks.size(); i++) {
+                BorrowingRecord myBook = myBooks.get(i);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
                 VBox bookInfo = loader.load();
                 BookCardController controller = loader.getController();
-                Document document = documentDao.get(myBook.getISBN());
-                controller.loadBookInfo(documentDao.get(myBook.getISBN()));
+                Document document = documentDao.get(recentlyAdded.get(i).getISBN());
+                controller.loadBookInfo(documentDao.get(recentlyAdded.get(i).getISBN()));
 
                 bookInfo.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2) {
@@ -149,13 +155,22 @@ public class HomeScreenController implements Initializable {
                     }
                 });
 
+
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), bookInfo);
+                fadeIn.setFromValue(0);
+                fadeIn.setToValue(1);
+                TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), bookInfo);
+                slideIn.setFromX(-300);
+                slideIn.setToX(0);
+                SequentialTransition sequentialTransition = new SequentialTransition();
+                sequentialTransition.getChildren().addAll(fadeIn, slideIn);
+                sequentialTransition.play();
                 myBooksContainer.getChildren().add(bookInfo);
+                sequentialTransition.setDelay(Duration.seconds(i * 0.1)); // Delay
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private void loadRecentAddedBooksAndRecommendation() {
@@ -166,8 +181,8 @@ public class HomeScreenController implements Initializable {
         bestBookAuthor.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
         bestBookTitle.setText(doc.getTitle());
         pages.setText("Pages: " +doc.getPage());
-        publisher.setText("Publisher: "+String.valueOf(documentDao.getPublisher(doc.getPublisherId()).getName()));
-        category.setText(String.valueOf("Genre: "+documentDao.getCategory(doc.getCategoryId()).getName()));
+        publisher.setText("Publisher: "+(documentDao.getPublisher(doc.getPublisherId()).getName()));
+        category.setText("Genre: "+documentDao.getCategory(doc.getCategoryId()).getName());
         bestBookImage.setOnMouseClicked(event -> showBookDetails(homeRoot, username, doc));
 
         if (!doc.getImageLink().equals("N/A")) {
@@ -189,6 +204,19 @@ public class HomeScreenController implements Initializable {
                         showBookDetails(homeRoot, username, document);
                     }
                 });
+
+                // (pop-up effect)
+                TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), bookInfo);
+                translateTransition.setFromY(100); // Start off the screen (Y-axis)
+                translateTransition.setToY(0);    // End at normal position
+                translateTransition.setInterpolator(Interpolator.EASE_OUT); // Make the movement smoother
+                // (fade-in effect)
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), bookInfo);
+                fadeIn.setFromValue(0);  // bắt đàu = no visibility
+                fadeIn.setToValue(1);    // kthuc = full visibility
+                SequentialTransition sequentialTransition = new SequentialTransition(translateTransition, fadeIn);
+                sequentialTransition.setDelay(Duration.seconds(0.1 * i)); // delay
+                sequentialTransition.play();
 
                 if (column == 9) {
                     column = 0;

@@ -100,11 +100,11 @@ public class OverdueBookController implements Initializable {
         });
     }
 
-    private void searchOverDue(String Id) {
-        if (Id.isEmpty()) {
+    private void searchOverDue(String username) {
+        if (username.isEmpty()) {
             fines = fineDao.getAll();
         } else {
-            fines = fineDao.getFinesByUserId(Integer.parseInt(Id));
+            fines = fineDao.getFinesByUsername(username);
         }
         loadOverdueList();
     }

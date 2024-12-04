@@ -170,7 +170,10 @@
                                  </font>
                               </Label>
                                         <HBox alignment="CENTER_LEFT" spacing="20">
-                                            <ImageView fx:id="bestBookImage" fitHeight="200" fitWidth="150" />
+                                            <ImageView fx:id="bestBookImage" fitHeight="200" fitWidth="150">
+                                    <image>
+                                       <Image url="@../../ui/admindashboard/bookcover.png" />
+                                    </image></ImageView>
                                             <VBox spacing="5">
                                                 <Label fx:id="bestBookTitle" style="-fx-font-family: serif;" text="Example Book Title" textFill="#483b28">
                                        <font>

@@ -136,11 +136,12 @@ public class RequestBookController implements Initializable {
         });
     }
 
-    private void searchRequest(String Id) {
-        if (Id == null || Id.trim().isEmpty()) {
+    //minh search bang username cuz users cannot know their requestId
+    private void searchRequest(String username) {
+        if (username == null || username.trim().isEmpty()) {
                 reservations = reservationDao.getReservations();
         } else {
-            reservations = reservationDao.getById(Integer.parseInt(Id));
+            reservations = reservationDao.getByUserName(username);
         }
         loadReservationList();
     }

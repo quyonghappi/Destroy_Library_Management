@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="requestBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.RequestBookController">
+<StackPane fx:id="requestBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.RequestBookController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" StackPane.alignment="CENTER">
          <left>
@@ -277,7 +277,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </HBox.margin>
                                           </ImageView>
-                                          <TextField id="searchField" fx:id="searchField1" minWidth="-Infinity" prefHeight="19.0" prefWidth="364.8" promptText="Search" HBox.hgrow="ALWAYS" />
+                                          <TextField id="searchField" fx:id="searchField1" minWidth="-Infinity" prefHeight="19.0" prefWidth="364.8" promptText="Enter username to search" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="708.8" spacing="20.0">

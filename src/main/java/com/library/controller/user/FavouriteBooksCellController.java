@@ -28,9 +28,6 @@ public class FavouriteBooksCellController implements Initializable {
     private Label bookNameLabel;
 
     @FXML
-    private Label reqdateLabel;
-
-    @FXML
     private Label categoryLabel;
 
     @FXML
@@ -57,12 +54,12 @@ public class FavouriteBooksCellController implements Initializable {
             Document doc = documentDao.get(r.getIsbn());
             Author author = documentDao.getAuthor(doc.getAuthorId());
             authorLabel.setText(author.getName());
-            isbnLabel.setText(doc.getISBN());
+            isbnLabel.setText("ISBN: " + doc.getISBN());
             bookNameLabel.setText(doc.getTitle());
 
             Category category = documentDao.getCategory(doc.getCategoryId());
-            categoryLabel.setText(category.getName());
-            pageLabel.setText(String.valueOf(doc.getPage()));
+            categoryLabel.setText("Category: "+category.getName());
+            pageLabel.setText("Total pages: " + doc.getPage());
 
 
             if (!doc.getImageLink().equals("N/A")) {

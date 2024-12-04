@@ -18,7 +18,10 @@
          <children>
             <HBox minHeight="-Infinity" prefHeight="480.0" prefWidth="1360.0" spacing="20">
                <children>
-                  <ImageView fx:id="bookCover" fitHeight="350.0" fitWidth="250.0" />
+                  <ImageView fx:id="bookCover" fitHeight="350.0" fitWidth="250.0">
+                     <image>
+                        <Image url="@../../ui/admindashboard/bookcover.png" />
+                     </image></ImageView>
                   <VBox prefHeight="300.0" prefWidth="454.0" spacing="10">
                      <children>
                         <Label fx:id="bookTitle" prefHeight="23.0" prefWidth="378.0" style="-fx-font-size: 27px; -fx-font-weight: bold;" styleClass="book-title" stylesheets="@../../css/user/styling.css" text="Book Title" textAlignment="JUSTIFY" wrapText="true">

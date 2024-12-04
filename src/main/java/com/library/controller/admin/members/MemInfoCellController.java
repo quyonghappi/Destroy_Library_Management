@@ -81,7 +81,8 @@ public class MemInfoCellController {
         try {
             String Id = idLabel.getText().substring(1);
 
-            User user = UserDao.findUserById(Id);
+            UserDao userDao = new UserDao();
+            User user =userDao.get(Id);
             if(user.getAccountStatus().equals("active")) {
                 user.setAccountStatus("suspended");
 

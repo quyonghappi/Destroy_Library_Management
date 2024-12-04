@@ -204,14 +204,14 @@ public class ReservationDao  {
     }
 
     public List<Reservation> getByUserName(String username) {
-        String userIdQuery = "SELECT user_id FROM users WHERE user_name = ?";
+        String userIdQuery = "SELECT user_id FROM users WHERE user_name like ?";
         String sql = "SELECT * FROM reservations WHERE user_id = ?";
         List<Reservation> reservations = new ArrayList<>();
 
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement userIdPs = conn.prepareStatement(userIdQuery)) {
 
-            userIdPs.setString(1, username);
+            userIdPs.setString(1, "%"+username+"%");
             try (ResultSet userIdRs = userIdPs.executeQuery()) {
                 if (userIdRs.next()) {
                     int userId = userIdRs.getInt("user_id");

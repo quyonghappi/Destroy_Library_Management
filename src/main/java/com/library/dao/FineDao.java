@@ -2,7 +2,6 @@ package com.library.dao;
 import com.library.config.DatabaseConfig;
 import com.library.models.BorrowingRecord;
 import com.library.models.Fine;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -243,6 +242,43 @@ public class FineDao implements DAO<Fine> {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        return fines;
+    }
+
+    public List<Fine> getFinesByUsername(String username) {
+        String userIdQuery = "SELECT user_id FROM users WHERE user_name like ?";
+        String sql = "SELECT * FROM fines WHERE user_id = ?";
+        List<Fine> fines = new ArrayList<>();
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement userIdPs = conn.prepareStatement(userIdQuery)) {
+
+            userIdPs.setString(1, "%"+username+"%");
+            try (ResultSet userIdRs = userIdPs.executeQuery()) {
+                if (userIdRs.next()) {
+                    int userId = userIdRs.getInt("user_id");
+
+                    //get reservations for the user_id
+                    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                        ps.setInt(1, userId);
+                        try (ResultSet rs = ps.executeQuery()) {
+                            while (rs.next()) {
+                                Fine fine = new Fine();
+                                fine.setUserId(rs.getInt("user_id"));
+                                fine.setRecordId(rs.getInt("record_id"));
+                                fine.setDueDate(rs.getDate("due_date").toLocalDate());
+                                fine.setStatus(rs.getString("status"));
+                                fine.setFineAmount(rs.getBigDecimal("fine_amount"));
+                                fine.setFineId(rs.getInt("fine_id"));
+                                fines.add(fine);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching fines for username: " + username, e);
         }
         return fines;
     }

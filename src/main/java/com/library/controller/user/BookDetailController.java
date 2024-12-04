@@ -83,7 +83,7 @@ public class BookDetailController {
     private void loadBookDetails(Document document) {
         // Set book title
         bookTitle.setText(document.getTitle());
-        pageLabel.setText("Pages: " + document.getPage());
+        pageLabel.setText("Total pages: " + document.getPage());
         isbnLabel.setText("ISBN: " + document.getISBN());
 
 

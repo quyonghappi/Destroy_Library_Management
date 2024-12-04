@@ -63,11 +63,11 @@ public class BorrowedBooksCellController {
             Document doc = documentDao.get(br.getISBN());
             Author author = documentDao.getAuthor(doc.getAuthorId());
             authorLabel.setText(author.getName());
-            isbnLabel.setText(doc.getISBN());
+            isbnLabel.setText("ISBN: " + doc.getISBN());
             bookNameLabel.setText(doc.getTitle());
             Category category = documentDao.getCategory(doc.getCategoryId());
-            categoryLabel.setText(category.getName());
-            pageLabel.setText(String.valueOf(doc.getPage()));
+            categoryLabel.setText("Category: " + category.getName());
+            pageLabel.setText("Total pages: " +doc.getPage());
 
             brdateLabel.setText(String.valueOf(br.getBorrowDate()));
             duedateLabel.setText(String.valueOf(br.getBorrowDate().plusDays(14)));

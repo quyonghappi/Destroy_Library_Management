@@ -184,35 +184,6 @@ public class UserDao implements DAO<User> {
         return null;
     }
 
-    public static User findUserById(String Id) throws SQLException {
-        String sql = "SELECT * FROM users WHERE user_id = ?";
-        try (
-                Connection cn = DatabaseConfig.getConnection();
-                PreparedStatement ps = cn.prepareStatement(sql)
-        ) {
-            ps.setInt(1, Integer.parseInt(Id));
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                User user = new User();
-                user.setUserId(rs.getInt("user_id"));
-                user.setUsername(rs.getString("user_name"));
-                user.setUserRole(rs.getString("user_role"));
-                user.setAccountStatus(rs.getString("account_status"));
-                user.setPassword(rs.getString("password_hash"));
-                user.setFullName(rs.getString("full_name"));
-                user.setEmail(rs.getString("email"));
-                user.setJoinDate(DateFormat.toLocalDate(rs.getDate("join_date")));
-                user.setLastLoginDate(DateFormat.toLocalDate(rs.getDate("last_login")));
-                return user;
-            }
-        } catch (SQLException e) {
-            throw new SQLException("This username doesn't exist!" + e.getMessage());
-        }
-        return null;
-    }
-
-
     //method to search user with result show dynamically
     public static List<User> searchByUsername(String username) throws SQLException {
         List<User> result = new ArrayList<>();
