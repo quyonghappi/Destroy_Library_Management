@@ -72,9 +72,6 @@ public class MemInfoController implements Initializable {
     @FXML
     private Button logOut;
 
-    @FXML
-    private Label countLabel;
-
     private UserDao userDao=new UserDao();
     private List<User> userList = new ArrayList<>();
 
@@ -83,7 +80,6 @@ public class MemInfoController implements Initializable {
         userList = userDao.getAll();
         countLabel.setText(String.valueOf(userList.size()));
         loadMemList();
-        updateMemberCount();
         booksContainer.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
             BookInfoController controller= navigateToScene("/fxml/Admin/Books/BookInfo.fxml", booksContainer);
@@ -184,11 +180,6 @@ public class MemInfoController implements Initializable {
         Stage stage = (Stage) logOut.getScene().getWindow();
         loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
         showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
-    }
-
-    public void updateMemberCount() {
-        List<User> users = userDao.getAll();
-        countLabel.setText(String.valueOf(users.size()));
     }
 
     @FunctionalInterface

@@ -20,6 +20,14 @@
 
 .small-label {
     -fx-text-fill: #8a9199;
+    -fx-font-size: 13px;
+    -fx-font-family: "serif";
+}
+
+.big-label {
+    -fx-text-fill: #483b28;
+    -fx-font-size: 14px;
+    -fx-font-family: "serif";
 }
 
 #statusLabel {
@@ -27,6 +35,7 @@
     -fx-background-radius: 5;
     -fx-border-radius: 5;
     -fx-text-fill: #274236;
+    -fx-padding: 5 10 5 10;
 }
 
 #fineAmountLabel {

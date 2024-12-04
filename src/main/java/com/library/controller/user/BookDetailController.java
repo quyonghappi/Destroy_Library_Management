@@ -130,7 +130,6 @@ public class BookDetailController {
 
             }
             isFavourite = favDao.favExists(isbn, user.getUserId());
-            System.out.println(isFavourite);
             if (isFavourite) {
                 updateFavButtonStyle(addFavImage, isFavourite);
             }

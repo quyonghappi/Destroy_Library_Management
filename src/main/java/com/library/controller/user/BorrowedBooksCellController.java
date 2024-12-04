@@ -88,7 +88,6 @@ public class BorrowedBooksCellController {
                     fineAmountLabel.setVisible(true);
                     break;
             }
-            statusLabel.setText(br.getStatus());
 
             if (!doc.getImageLink().equals("N/A")) {
                 loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());

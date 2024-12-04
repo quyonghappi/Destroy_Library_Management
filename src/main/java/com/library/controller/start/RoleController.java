@@ -32,8 +32,6 @@ public class RoleController {
 
     public static String role;
     private Stage stage;
-//    private Scene scene;
-//    private Parent root;
 
     /**
      * Method called when the User button is pressed
@@ -69,6 +67,9 @@ public class RoleController {
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/start/Role.css")).toExternalForm());
             primaryStage.setTitle("Library Management");
             primaryStage.setScene(scene);
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            primaryStage.setWidth(screenBounds.getWidth());
+            primaryStage.setHeight(screenBounds.getHeight());
             primaryStage.show();
 
 

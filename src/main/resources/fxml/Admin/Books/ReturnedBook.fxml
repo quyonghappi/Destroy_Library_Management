@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="returnedBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.ReturnBookController">
+<StackPane fx:id="returnedBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.ReturnBookController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" StackPane.alignment="CENTER">
          <left>
@@ -166,11 +166,6 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="logout" text="Log out">
-                           <HBox.margin>
-                              <Insets left="20.0" top="10.0" />
-                           </HBox.margin>
-                        </Label>
                      </children>
                      <VBox.margin>
                         <Insets top="160.0" />
@@ -267,7 +262,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </HBox.margin>
                                           </ImageView>
-                                          <TextField id="searchField" fx:id="searchField1" prefHeight="19.0" prefWidth="589.0" promptText="Search" />
+                                          <TextField id="searchField" fx:id="searchField1" prefHeight="19.0" prefWidth="589.0" promptText="Enter ISBN to search" />
                                        </children>
                                     </HBox>
                                  </children>

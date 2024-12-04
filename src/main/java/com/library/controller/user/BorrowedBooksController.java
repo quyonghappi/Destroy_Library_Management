@@ -3,6 +3,8 @@ package com.library.controller.user;
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.models.BorrowingRecord;
+import com.library.models.Favourite;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -50,21 +52,35 @@ public class BorrowedBooksController implements Initializable {
     //khi switch scene thi controller will call setUsername method
     private String username;
     private BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
-    private List<BorrowingRecord> borrowedBooks = new ArrayList<>();
     private DocumentDao documentDao =new DocumentDao();
 
     public void setUsername(String username) {
         this.username = username;
-        System.out.println("Username set: " + username);
-        borrowedBooks=borrowingRecordDao.getByUserName(username);
-        //System.out.println(borrowedBooks.toString());
-        borrowListContainer.setCellFactory(param ->
-        {
-            BorrowedBooksCell borrowedBooksCell=new BorrowedBooksCell();
-            borrowedBooksCell.setListView(borrowListContainer);
-            return borrowedBooksCell;
+        //System.out.println("Username set: " + username);
+        loadBorrowedList();
+
+    }
+
+    private void loadBorrowedList() {
+        Task<List<BorrowingRecord>> loadTask = new Task<>() {
+            @Override
+            protected List<BorrowingRecord> call() {
+                return borrowingRecordDao.getByUserName(username);
+            }
+        };
+        loadTask.setOnSucceeded(event -> {
+            borrowListContainer.setCellFactory(param ->
+            {
+                BorrowedBooksCell borrowedBooksCell=new BorrowedBooksCell();
+                borrowedBooksCell.setListView(borrowListContainer);
+                return borrowedBooksCell;
+            });
+            borrowListContainer.getItems().setAll(loadTask.getValue());
         });
-        borrowListContainer.getItems().setAll(borrowedBooks);
+        loadTask.setOnFailed(event -> {
+            System.out.println("fail to load user" + username +"favorite books" + loadTask.getException());
+        });
+        new Thread(loadTask).start();
 
     }
 

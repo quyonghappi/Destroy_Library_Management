@@ -17,13 +17,13 @@
             <Insets bottom="6.0" />
          </VBox.margin>
       </ImageView>
-      <Label fx:id="titleLabel" text="Label" textFill="#483b28">
+      <Label fx:id="titleLabel" text="Kẻ giết người" textFill="#483b28">
          <font>
-            <Font name="Rockwell" size="13.0" />
+            <Font name="Serif Regular" size="14.0" />
          </font></Label>
       <Label fx:id="authorLabel" text="Label" textFill="#8a9199">
          <font>
-            <Font name="Rockwell" size="12.0" />
+            <Font name="Serif Regular" size="13.0" />
          </font></Label>
    </children>
 </VBox>

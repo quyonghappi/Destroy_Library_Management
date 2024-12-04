@@ -2,8 +2,6 @@ package com.library.dao;
 
 import com.library.config.DatabaseConfig;
 import com.library.models.BorrowingRecord;
-import com.library.models.Document;
-import com.library.models.User;
 import com.library.utils.DateFormat;
 
 import java.sql.*;
@@ -83,28 +81,28 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         return getRecord(sql);
     }
 
-//    //get late
-    public List<BorrowingRecord> getLate() {
-        List<BorrowingRecord> list = getLent();
-        FineDao fineDao = new FineDao();
-        for (BorrowingRecord borrowingRecord : list) {
-            fineDao.checkAndAddFine(borrowingRecord);
-        }
-        String sql = "select * from borrowingrecords where status='late'";
-        List<BorrowingRecord> lateList = getRecord(sql);
-        return lateList;
-    }
-
-    //get lost, already have this in doc dao
-    public List<BorrowingRecord> getLost() {
-        List<BorrowingRecord> list = getLent();
-        FineDao fineDao = new FineDao();
-        for (BorrowingRecord borrowingRecord : list) {
-            fineDao.checkAndAddFine(borrowingRecord);
-        }
-        String sql = "select * from borrowingrecords where status='Lost'";
-        return getRecord(sql);
-    }
+    //    //get late
+//    public List<BorrowingRecord> getLate() {
+//        List<BorrowingRecord> list = getLent();
+//        FineDao fineDao = new FineDao();
+//        for (BorrowingRecord borrowingRecord : list) {
+//            fineDao.checkAndAddFine(borrowingRecord);
+//        }
+//        String sql = "select * from borrowingrecords where status='late'";
+//        List<BorrowingRecord> lateList = getRecord(sql);
+//        return lateList;
+//    }
+//
+//    //get lost, already have this in doc dao
+//    public List<BorrowingRecord> getLost() {
+//        List<BorrowingRecord> list = getLent();
+//        FineDao fineDao = new FineDao();
+//        for (BorrowingRecord borrowingRecord : list) {
+//            fineDao.checkAndAddFine(borrowingRecord);
+//        }
+//        String sql = "select * from borrowingrecords where status='Lost'";
+//        return getRecord(sql);
+//    }
 
     private List<BorrowingRecord> getRecord(String sql) {
         List<BorrowingRecord> list = new ArrayList<>();
@@ -300,8 +298,4 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
 
         return returnISBN;
     }
-
-
-
-
 }

@@ -109,7 +109,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <TextField id="searchField" fx:id="brSearchField" minWidth="-Infinity" prefHeight="19.0" prefWidth="450.0" promptText="Search book name, author" HBox.hgrow="ALWAYS" onAction="#onSearchBorrow"/>
+                              <TextField id="searchField" fx:id="brSearchField" minWidth="-Infinity" onAction="#onSearchBorrow" prefHeight="19.0" prefWidth="450.0" promptText="Search book name, author" HBox.hgrow="ALWAYS" />
                            </children>
                            <HBox.margin>
                               <Insets />
@@ -118,14 +118,6 @@
                         <Pane minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                            <children>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../ui/admindashboard/bell.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets right="15.0" />
-                                 </HBox.margin>
-                              </ImageView>
                               <Label fx:id="memNameLabel" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

@@ -4,11 +4,9 @@ import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.models.BorrowingRecord;
-import com.library.utils.Filter1;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -35,9 +33,6 @@ public class LentBookController implements Initializable {
 
     @FXML
     private Button lendButton;
-
-    @FXML
-    private Label lentCountLabel;
 
     @FXML
     private ListView<BorrowingRecord> lentDetailContainer;
@@ -77,8 +72,9 @@ public class LentBookController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        updateBorrowingCount();
         brList=getBrList();
+        countLabel.setText(String.valueOf(brList.size()));
+
         lentDetailContainer.setCellFactory(param ->
         {
             LentBookCell lentBookCell=new LentBookCell();

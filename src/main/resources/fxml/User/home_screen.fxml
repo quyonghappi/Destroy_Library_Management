@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="homeRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.HomeScreenController">
+<StackPane fx:id="homeRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.HomeScreenController">
     <children>
         <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0">
             <left>
@@ -108,14 +108,17 @@
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
                                         </ImageView>
-                                        <TextField id="searchField" fx:id="homeSearchField" minWidth="-Infinity" prefHeight="19.0" prefWidth="450.0" promptText="Search book name, author" stylesheets="@../../css/user/BorrowedBooksStyling.css" HBox.hgrow="ALWAYS" onAction="#onSearchHome"/>
+                                        <TextField id="searchField" fx:id="homeSearchField" minWidth="-Infinity" onAction="#onSearchHome" prefHeight="19.0" prefWidth="450.0" promptText="Search book name, author" stylesheets="@../../css/user/BorrowedBooksStyling.css" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></TextField>
                                     </children>
                                     <HBox.margin>
                                         <Insets />
                                     </HBox.margin>
                                 </HBox>
                                 <Pane minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" HBox.hgrow="ALWAYS" />
-                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                     <children>
                                         <Label fx:id="memNameLabel" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -169,28 +172,28 @@
                                         <HBox alignment="CENTER_LEFT" spacing="20">
                                             <ImageView fx:id="bestBookImage" fitHeight="200" fitWidth="150" />
                                             <VBox spacing="5">
-                                                <Label fx:id="bestBookTitle" text="Example Book Title" textFill="#483b28">
+                                                <Label fx:id="bestBookTitle" style="-fx-font-family: serif;" text="Example Book Title" textFill="#483b28">
                                        <font>
-                                          <Font name="Rockwell Bold" size="16.0" />
+                                          <Font name="Rockwell Bold" size="18.0" />
                                        </font></Label>
-                                    <Label fx:id="bestBookAuthor" text="Author Name" textFill="#483b28">
+                                    <Label fx:id="bestBookAuthor" style="-fx-font-family: serif;" text="Author Name" textFill="#483b28">
                                        <font>
-                                          <Font name="Rockwell" size="13.0" />
+                                          <Font name="Rockwell" size="15.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="pages" text="Author Name" textFill="#483b28">
                                        <font>
-                                          <Font name="Rockwell" size="13.0" />
+                                          <Font name="Serif Regular" size="15.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="publisher" text="Author Name" textFill="#483b28">
                                        <font>
-                                          <Font name="Rockwell" size="13.0" />
+                                          <Font name="Serif Regular" size="15.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="category" text="Author Name" textFill="#483b28">
                                        <font>
-                                          <Font name="Rockwell" size="13.0" />
+                                          <Font name="Serif Regular" size="15.0" />
                                        </font>
                                     </Label>
                                             </VBox>

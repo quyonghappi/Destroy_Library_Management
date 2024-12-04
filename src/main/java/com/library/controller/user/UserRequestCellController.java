@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -40,6 +41,9 @@ public class UserRequestCellController implements Initializable {
     @FXML
     private ImageView deleteImage;
 
+    @FXML
+    private Label statusLabel;
+
     private ListView<Reservation> listView;
     private Reservation current;
     private DocumentDao documentDao=new DocumentDao();
@@ -63,6 +67,21 @@ public class UserRequestCellController implements Initializable {
             pageLabel.setText(String.valueOf(doc.getPage()));
 
             reqdateLabel.setText(String.valueOf(r.getReservationDate()));
+            switch (r.getStatus()) {
+                case "active":
+                    statusLabel.setVisible(false);
+                    break;
+                case "fulfilled":
+                    statusLabel.setText("Fulfilled");
+                    ((VBox) deleteImage.getParent()).getChildren().remove(deleteImage);
+                    statusLabel.setVisible(true);
+                    break;
+                case "cancelled":
+                    statusLabel.setText("Cancelled");
+                    ((VBox) deleteImage.getParent()).getChildren().remove(deleteImage);
+                    break;
+            }
+
 
             if (!doc.getImageLink().equals("N/A")) {
                 loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());

@@ -150,7 +150,7 @@
 .book-info {
     -fx-font-size: 15px;
     -fx-text-fill: #666666;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Serif";
 }
 
 .active-sidebar-button {
@@ -252,7 +252,7 @@
 
 .book-title {
     -fx-font-size: 32px; /* Font size */
-    -fx-font-family: "Poor Richard"; /* Font family */
+    -fx-font-family: "serif"; /* Font family */
     -fx-text-fill: #000; /* Text color */
     -fx-wrap-text: true; /* Enable multiline mode */
     -fx-alignment: top-left; /* Align text at the top */

@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class MemInfoCellController {
@@ -69,7 +70,8 @@ public class MemInfoCellController {
         for (Fine fine:fineList) {
             amount = amount.add(fine.getFineAmount());
         }
-        fineLabel.setText(String.valueOf(amount));
+        DecimalFormat format = new DecimalFormat("#,###");
+        fineLabel.setText(format.format(amount));
 
 
     }

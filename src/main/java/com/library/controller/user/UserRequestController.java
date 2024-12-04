@@ -3,11 +3,9 @@ package com.library.controller.user;
 import com.library.dao.DocumentDao;
 import com.library.dao.ReservationDao;
 import com.library.models.Reservation;
-import com.library.utils.SceneSwitcher;
-import javafx.event.ActionEvent;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -52,21 +50,36 @@ public class UserRequestController implements Initializable {
     private String username;
     private ReservationDao reservationDao = new ReservationDao();
     private DocumentDao documentDao = new DocumentDao();
-    private List<Reservation> requestList;
 
     public void setUsername(String username) {
         this.username = username;
         //System.out.println("Username set: " + username);
 
-        requestList=reservationDao.getByUserName(username);
-        requestListContainer.setCellFactory(param ->
-        {
-            UserRequestCell userRequestCell = new UserRequestCell();
-            userRequestCell.setListView(requestListContainer);
-            return userRequestCell;
+        loadUserRequestList();
 
+    }
+
+    private void loadUserRequestList() {
+        Task<List<Reservation>> loadTask = new Task<>() {
+            @Override
+            protected List<Reservation> call() {
+                return reservationDao.getByUserName(username);
+            }
+        };
+        loadTask.setOnSucceeded(event -> {
+            requestListContainer.setCellFactory(param ->
+            {
+                UserRequestCell cell = new UserRequestCell();
+                cell.setListView(requestListContainer);
+                return cell;
+            });
+            requestListContainer.getItems().setAll(loadTask.getValue());
         });
-        requestListContainer.getItems().setAll(requestList);
+        loadTask.setOnFailed(event -> {
+            System.out.println("fail to load user" + username +"favorite books" + loadTask.getException());
+        });
+        new Thread(loadTask).start();
+
     }
 
     @Override

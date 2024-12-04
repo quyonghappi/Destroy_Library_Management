@@ -154,18 +154,17 @@ public class ReservationDao  {
      */
     public int getByISBN(String isbn) {
         String sql="select count(*) from reservations where isbn=?";
-        int numOfReservations=0;
         try(Connection conn=DatabaseConfig.getConnection();
             PreparedStatement ps=conn.prepareStatement(sql)) {
             ps.setString(1,isbn);
             ResultSet rs=ps.executeQuery();
-            while(rs.next()) {
-                numOfReservations++;
+            if (rs.next()) {
+                return rs.getInt(1); //get the count value
             }
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return numOfReservations;
+        return 0;
     }
 
     public boolean reservationExists(String isbn, int userId) {

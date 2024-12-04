@@ -18,6 +18,8 @@ public class LoadImage {
         //kiểm tra cache
         if (imageCache.containsKey(imageUrl)) {
             imageView.setImage(imageCache.get(imageUrl));
+            imageView.setFitWidth(w);
+            imageView.setFitHeight(h);
             return;
         }
 
@@ -26,8 +28,8 @@ public class LoadImage {
             protected Image call() throws Exception {
                 //Tải ảnh ở kích thước lớn hơn (2x hoặc 3x kích thước mong muốn)
                 // //then giảm kích thước trong ImageView giúp ảnh trông sắc nét hơn
-                double scaledWidth = w * 2;
-                double scaledHeight = h * 2;
+                double scaledWidth = w * 3;
+                double scaledHeight = h * 3;
                 return new Image(imageUrl, scaledWidth, scaledHeight, false, true); // smooth = true
             }
         };

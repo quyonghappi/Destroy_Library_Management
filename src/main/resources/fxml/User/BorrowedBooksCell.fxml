@@ -22,7 +22,10 @@
          <children>
             <VBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="40.0" prefWidth="400.0" spacing="5.0" HBox.hgrow="NEVER">
                <children>
-                  <Label fx:id="bookNameLabel" alignment="CENTER" styleClass="big-label" text="Title" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="bookNameLabel" alignment="CENTER" styleClass="big-label" text="Tiếng Việt" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="Vivaldi Italic" size="12.0" />
+                     </font></Label>
                   <Label fx:id="authorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="small-label" text="by Author" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS" />
                   <Label fx:id="isbnLabel" styleClass="big-label" text="isbn" />
                   <Label fx:id="categoryLabel" styleClass="big-label" text="category" />

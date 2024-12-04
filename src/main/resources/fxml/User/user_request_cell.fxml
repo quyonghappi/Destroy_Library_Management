@@ -46,15 +46,16 @@
                 <Label fx:id="reqdateLabel" styleClass="big-label" text="request date" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
-      <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" spacing="30.0">
+      <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
          <children>
             <ImageView fx:id="deleteImage" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ui/bookInfo/trash.png" />
                </image>
             </ImageView>
+            <Label fx:id="statusLabel" text="Label" visible="false" />
          </children>
-      </HBox>
+      </VBox>
     </children>
     <padding>
         <Insets left="35.0" />

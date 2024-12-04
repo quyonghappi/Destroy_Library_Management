@@ -82,9 +82,7 @@ public class BookInfoCellController extends ListCell<Document> implements Initia
             } else publisherLabel.setText("N/A");
             authorLabel.setText(author.getName());
             //get num of request for this book
-            int numOfRequestEachBook = reservationDao.getByISBN(document.getISBN());
-            System.out.println(numOfRequestEachBook);
-            requestLabel.setText(String.valueOf(numOfRequestEachBook));
+            requestLabel.setText(String.valueOf(reservationDao.getByISBN(document.getISBN())));
 
             // Load the image using lazy loading
             if (!document.getImageLink().equals("N/A")) {
