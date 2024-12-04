@@ -1,6 +1,9 @@
 package com.library.models;
 
+import com.library.dao.DocumentDao;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -82,4 +85,7 @@ public class BorrowingRecord {
         this.status = status;
     }
 
+//    public List<Document> getDocumentByISBN(String isbn) {
+//        return DocumentDao.searchByIsbn(isbn);
+//    }
 }

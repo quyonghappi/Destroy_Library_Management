@@ -5,6 +5,7 @@ import com.library.controller.admin.dashboard.OverdueCell;
 import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.FineDao;
+import com.library.models.BorrowingRecord;
 import com.library.models.Fine;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -82,6 +83,9 @@ public class OverdueBookController implements Initializable {
 
     @FXML
     private Button logOut;
+
+    @FXML
+    private Label countLabel;
 
     private BorrowingRecordDao borrowingRecordDao= new BorrowingRecordDao();
     private FineDao fineDao= new FineDao();
@@ -192,7 +196,7 @@ public class OverdueBookController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadOverdueList();
-
+        updateOverDueCount();
         setupNavigation();
 
         lendButton.setOnMouseClicked(event -> showLendBookScene(overdueRoot));
@@ -336,6 +340,11 @@ public class OverdueBookController implements Initializable {
         Stage stage = (Stage) logOut.getScene().getWindow();
         loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
         showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
+    }
+
+    public void updateOverDueCount() {
+        List<Fine> bookList = fineDao.getAll();
+        countLabel.setText(String.valueOf(bookList.size()));
     }
 
     @FunctionalInterface

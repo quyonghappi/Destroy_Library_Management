@@ -1,28 +1,247 @@
+//package com.library.controller.books;
+//
+//import com.library.controller.admin.dashboard.AdminDashboardController;
+//import com.library.controller.admin.dashboard.RequestCell;
+//import com.library.controller.admin.members.MemInfoController;
+//import com.library.dao.ReservationDao;
+//import com.library.models.Reservation;
+//import javafx.event.ActionEvent;
+//import javafx.fxml.FXML;
+//import javafx.fxml.Initializable;
+//import javafx.scene.control.*;
+//import javafx.scene.image.ImageView;
+//import javafx.scene.layout.HBox;
+//import javafx.scene.layout.StackPane;
+//
+//import java.net.URL;
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.ResourceBundle;
+//
+//import static com.library.utils.FilterPopup.showPopup;
+//import static com.library.utils.SceneSwitcher.navigateToScene;
+//import static com.library.utils.SceneSwitcher.showLendBookScene;
+//
+//public class RequestBookController implements Initializable {
+//
+//    @FXML
+//    StackPane requestRoot;
+//    @FXML
+//    private HBox aboutContainer;
+//
+//    @FXML
+//    private Label addBookButton;
+//
+//    @FXML
+//    private HBox allNav;
+//
+//    @FXML
+//    private ListView<Reservation> requestDetailContainer;
+//
+//    @FXML
+//    private Button lendButton;
+//
+//    @FXML
+//    private HBox lentNav;
+//
+//    @FXML
+//    private Label memNameLabel;
+//
+//    @FXML
+//    private HBox membersContainer;
+//
+//    @FXML
+//    private HBox overdueNav;
+//
+//    @FXML
+//    private HBox overviewContainer;
+//
+//    @FXML
+//    private HBox returnNav;
+//
+//    @FXML
+//    private ImageView filter;
+//
+//    @FXML
+//    private ToggleButton allButton;
+//
+//    @FXML
+//    private ToggleButton fulfilledButton;
+//
+//    @FXML
+//    private ToggleButton cancelledButton;
+//
+//    @FXML
+//    private TextField searchField;
+//
+//    @FXML
+//    private TextField searchField1;
+//
+//    private ReservationDao reservationDao=new ReservationDao();
+//    List<Reservation> reservations=new ArrayList<Reservation>();
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        reservations=getReservations();
+//        requestDetailContainer.setCellFactory(param->
+//        {
+//            RequestBookCell requestBookCell = new RequestBookCell();
+//            requestBookCell.setListView(requestDetailContainer);
+//            requestBookCell.setParentController(this);
+//            return requestBookCell;
+//        });
+//        requestDetailContainer.getItems().setAll(reservations);
+//        sortListView();
+//
+//        allNav.setOnMouseClicked(event -> {
+//            String userFullName=memNameLabel.getText();
+//            BookInfoController controller = navigateToScene("/fxml/admin/Books/BookInfo.fxml", allNav);
+//            if (controller != null) {
+//                controller.setUserFullName(userFullName);
+//            }
+//        });
+//        returnNav.setOnMouseClicked(event -> {
+//            String userFullName=memNameLabel.getText();
+//            ReturnBookController controller=navigateToScene("/fxml/admin/Books/ReturnedBook.fxml", returnNav);
+//            if (controller != null) {
+//                controller.setUserFullName(userFullName);
+//            }
+//        });
+//        lentNav.setOnMouseClicked(event -> {
+//            String userFullName=memNameLabel.getText();
+//            LentBookController controller = navigateToScene("/fxml/admin/Books/LentBook.fxml", lentNav);
+//            if (controller != null) {
+//                controller.setUserFullName(userFullName);
+//            }
+//        });
+//        overdueNav.setOnMouseClicked(event -> {
+//            String userFullName=memNameLabel.getText();
+//            OverdueBookController controller=navigateToScene("/fxml/admin/Books/OverdueBook.fxml", overdueNav);
+//            if (controller != null) {
+//                controller.setUserFullName(userFullName);
+//            }
+//        });
+//        overviewContainer.setOnMouseClicked(event -> {
+//            String userFullName=memNameLabel.getText();
+//            AdminDashboardController controller= navigateToScene("/fxml/admin/Dashboard/adminDashboard.fxml", overviewContainer);
+//            if (controller != null) {
+//                controller.setUserFullName(userFullName);
+//            }
+//        });
+//        membersContainer.setOnMouseClicked(event-> {
+//            String userFullName=memNameLabel.getText();
+//            MemInfoController controller= navigateToScene("/fxml/admin/Member/MemInfo.fxml", membersContainer);
+//            if (controller != null) {
+//                controller.setUserFullName(userFullName);
+//            }
+//        });
+//        lendButton.setOnMouseClicked(event->showLendBookScene(requestRoot));
+//        filter.setOnMouseClicked(event->showPopup(filter, event));
+//    }
+//
+//
+//    private List<Reservation> getReservations(){
+//        return reservationDao.getReservations();
+//    }
+//
+//    private List<Reservation> getFulfilledList() {
+//        return reservationDao.getFulfilledReservations();
+//    }
+//
+//    private List<Reservation> getCancelledList() {
+//        return reservationDao.getCancelledReservations();
+//    }
+//
+//    void sortListView() {
+//        requestDetailContainer.getItems().sort((r1, r2) -> {
+//            if ("active".equals(r1.getStatus()) && !"active".equals(r2.getStatus())) {
+//                return -1;
+//            } else if (!"active".equals(r1.getStatus()) && "active".equals(r2.getStatus())) {
+//                return 1;
+//            }
+//            return 0;
+//        });
+//    }
+//
+//    public void setUserFullName(String userFullName) {
+//        memNameLabel.setText(userFullName);
+//    }
+//
+//    @FXML
+//    private void fulfilledFilter(ActionEvent event) {
+//        reservations=getFulfilledList();
+//        requestDetailContainer.setCellFactory(param->
+//        {
+//            RequestBookCell requestBookCell = new RequestBookCell();
+//            requestBookCell.setListView(requestDetailContainer);
+//            requestBookCell.setParentController(this);
+//            return requestBookCell;
+//        });
+//        requestDetailContainer.getItems().setAll(reservations);
+//    }
+//
+//    @FXML
+//    private void cancelledFilter(ActionEvent event) {
+//        reservations=getCancelledList();
+//        requestDetailContainer.setCellFactory(param->
+//        {
+//            RequestBookCell requestBookCell = new RequestBookCell();
+//            requestBookCell.setListView(requestDetailContainer);
+//            requestBookCell.setParentController(this);
+//            return requestBookCell;
+//        });
+//        requestDetailContainer.getItems().setAll(reservations);
+//    }
+//
+//    @FXML
+//    private void showAllRequest(ActionEvent event) {
+//        reservations=getReservations();
+//        requestDetailContainer.setCellFactory(param->
+//        {
+//            RequestBookCell requestBookCell = new RequestBookCell();
+//            requestBookCell.setListView(requestDetailContainer);
+//            requestBookCell.setParentController(this);
+//            return requestBookCell;
+//        });
+//        requestDetailContainer.getItems().setAll(reservations);
+//        sortListView();
+//    }
+//}
+
+
 package com.library.controller.admin.books;
 
-    import com.library.controller.admin.dashboard.AdminDashboardController;
-    import com.library.controller.admin.members.MemInfoController;
-    import com.library.dao.ReservationDao;
-    import com.library.models.Reservation;
-    import javafx.concurrent.Task;
-    import javafx.event.ActionEvent;
-    import javafx.fxml.FXML;
-    import javafx.fxml.Initializable;
-    import javafx.scene.control.*;
-    import javafx.scene.layout.HBox;
-    import javafx.scene.layout.StackPane;
+import com.library.controller.admin.dashboard.AdminDashboardController;
+import com.library.controller.admin.members.MemInfoController;
+import com.library.dao.ReservationDao;
+import com.library.models.BorrowingRecord;
+import com.library.models.Reservation;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-    import java.net.URL;
-    import java.util.ArrayList;
-    import java.util.List;
-    import java.util.ResourceBundle;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-    import static com.library.utils.SceneSwitcher.*;
+//import static com.library.utils.FilterPopup.showPopup;
+import static com.library.controller.start.LoadView.loadView;
+import static com.library.controller.start.ShowView.showView;
+import static com.library.utils.SceneSwitcher.*;
 
 public class RequestBookController implements Initializable {
 
     @FXML
     StackPane requestBookRoot;
+    @FXML
+    private HBox aboutContainer;
 
     @FXML
     private Label addBookButton;
@@ -55,6 +274,9 @@ public class RequestBookController implements Initializable {
     private HBox returnNav;
 
     @FXML
+    private ImageView filter;
+
+    @FXML
     private ToggleButton allButton;
 
     @FXML
@@ -64,19 +286,25 @@ public class RequestBookController implements Initializable {
     private ToggleButton cancelledButton;
 
     @FXML
-    private Label countLabel;
+    private TextField searchField;
 
     @FXML
     private TextField searchField1;
+
+    @FXML
+    private Button logOut;
+
+    @FXML
+    private Label countLabel;
 
     private ReservationDao reservationDao=new ReservationDao();
     List<Reservation> reservations=new ArrayList<Reservation>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        reservations=getReservations();
-        countLabel.setText(String.valueOf(reservations.size()));
-
         loadReservationList();
+        updateRequestCount();
+
+        //reservations=getReservations();
 
         allNav.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
@@ -143,10 +371,10 @@ public class RequestBookController implements Initializable {
     }
 
     private void loadReservationList() {
-        Task<List<Reservation>> loadTask= new Task<>() {
+        Task<List<Reservation>> loadTask=new Task<>() {
             @Override
             protected List<Reservation> call() throws Exception {
-                return reservations;
+                return getReservations();
             }
         };
 
@@ -189,7 +417,7 @@ public class RequestBookController implements Initializable {
     @FXML
     private void cancelledFilter(ActionEvent event) {
         updateButtonStyles(cancelledButton, allButton, fulfilledButton);
-       applyFilter(()->reservationDao.getCancelledReservations());
+        applyFilter(()->reservationDao.getCancelledReservations());
     }
 
     @FXML
@@ -228,6 +456,18 @@ public class RequestBookController implements Initializable {
             System.err.println("fail to load reservation list: " + applyTask.getException());
         });
         new Thread(applyTask).start();
+    }
+
+    public void setLogOut(MouseEvent mouseEvent) {
+        logOut.setMouseTransparent(true);
+        Stage stage = (Stage) logOut.getScene().getWindow();
+        loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
+        showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
+    }
+
+    public void updateRequestCount() {
+        List<Reservation> bookList = reservationDao.getReservations();
+        countLabel.setText(String.valueOf(bookList.size()));
     }
 
     @FunctionalInterface

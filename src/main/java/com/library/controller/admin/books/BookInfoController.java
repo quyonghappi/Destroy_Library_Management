@@ -81,14 +81,17 @@ public class BookInfoController implements Initializable {
     @FXML
     private Button logOut;
 
-    private DocumentDao documentDao=new DocumentDao();
-//    List<Document> documentList=new ArrayList<>();
+    @FXML
+    private Label countLabel;
 
+    private DocumentDao documentDao=new DocumentDao();
+    ListView<String> listView = new ListView<>();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        updateBookCount();
+        listView.getItems().addAll("Title", "ISBN", "Author", "Category");
         loadBookList();
         lentNav.setOnMouseClicked(event -> {
             String userFullName=memNameLabel.getText();
@@ -220,6 +223,12 @@ public class BookInfoController implements Initializable {
         loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
         showView(stage, "/fxml/Start/Role.fxml", "Login", "/css/start/Role.css");
     }
+
+    public void updateBookCount() {
+        List<Document> bookList = documentDao.getAll();
+        countLabel.setText(String.valueOf(bookList.size()));
+    }
+
 
     @FunctionalInterface
     interface DataLoader {

@@ -1,9 +1,6 @@
 package com.library.api;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.library.config.APIConfig;
 import com.library.dao.DocumentDao;
 import com.library.models.Author;
@@ -62,20 +59,29 @@ public class GoogleBooksAPIClient {
         Request request = new Request.Builder().url(url).build();
 
         try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
-                String jsonData = response.body().string();
-                JsonObject jsonObject = gson.fromJson(jsonData, JsonObject.class);
-                JsonArray items = jsonObject.getAsJsonArray("items");
-                return items != null && items.size() > 0;
-            } else {
-                System.out.println("Error: " + response.code() + " - " + response.message());
+            if (!response.isSuccessful()) {
+                System.err.println("Error: " + response.code() + " - " + response.message());
                 return false;
             }
+
+            if (response.body() == null) {
+                System.err.println("Error: Response body is null");
+                return false;
+            }
+
+            String jsonData = response.body().string();
+            JsonObject jsonObject = gson.fromJson(jsonData, JsonObject.class);
+            JsonArray items = jsonObject.getAsJsonArray("items");
+            return items != null && !items.isEmpty();
         } catch (IOException e) {
             System.err.println("Request failed: " + e.getMessage());
             return false;
+        } catch (JsonSyntaxException e) {
+            System.err.println("JSON parsing error: " + e.getMessage());
+            return false;
         }
     }
+
 
     // Get book data and insert it into the database
     public void getBookData(String isbn, int quantity) {

@@ -76,6 +76,7 @@ public class AddBookController {
                     }
                     client.getBookData(isbn, quantity);
                     showAlert(Alert.AlertType.INFORMATION, "Success", "Book added successfully.");
+                    BookInfoCellController.updateBookCount();
 
                     //clear input
                     isbnField.clear();

@@ -146,7 +146,7 @@ public class AdminDashboardController implements Initializable {
         return fineDao.getAll();
     }
 
-    void sortListView() {
+    public void sortListView() {
         requestDetailContainer.getItems().sort((r1, r2) -> {
             if ("active".equals(r1.getStatus()) && !"active".equals(r2.getStatus())) {
                 return -1;

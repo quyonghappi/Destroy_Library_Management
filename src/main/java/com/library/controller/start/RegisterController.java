@@ -59,6 +59,10 @@ public class RegisterController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
+        if (fullName.isEmpty() || username.isEmpty() || email.isEmpty() && password.isEmpty() || confirmPassword.isEmpty()) {
+            showAlert(AlertType.ERROR, "Error", "Please fill all the fields");
+            return;
+        }
 
         if (!password.equals(confirmPassword)) {
             showAlert(AlertType.ERROR, "Error", "Passwords do not match");
