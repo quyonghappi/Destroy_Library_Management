@@ -48,7 +48,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="countLabel" styleClass="bar-label-right" text="Label" HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="countLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="25.0" styleClass="bar-label-right" text="Label" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="book-info-chosen-container" />
@@ -274,10 +274,17 @@
                         <Insets left="-11.0" />
                      </VBox.margin>
                   </HBox>
-                  <Button fx:id="logOut" onMouseClicked="#setlogOut" mnemonicParsing="false" prefHeight="29.0" prefWidth="180.0" text="Log Out">
+                  <Button fx:id="logOut" mnemonicParsing="false" onMouseClicked="#setlogOut" prefHeight="20.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" stylesheets="@../../../css/admin/AdminDashboardStyling.css">
                      <VBox.margin>
-                        <Insets left="30.0" top="160.0" />
+                        <Insets left="3.0" top="160.0" />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/logout_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
                <BorderPane.margin>
