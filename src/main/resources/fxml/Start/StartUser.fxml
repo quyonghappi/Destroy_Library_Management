@@ -12,25 +12,25 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: CDE A4D4E67F5;" stylesheets="@../../css/start/StartUser.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.start.StartUser">
    <children>
-      <HBox layoutX="269.0" layoutY="313.0" prefHeight="794.0" prefWidth="917.0" rotate="-123.7" style="-fx-background-radius: 25px; -fx-background-color: EDF5FD;" />
-      <HBox layoutX="352.0" layoutY="197.0" prefHeight="908.0" prefWidth="773.0" rotate="-20.0" style="-fx-background-radius: 25px; -fx-background-color: F7FBFF;" />
-      <HBox layoutX="373.0" layoutY="-3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="749.0" prefWidth="1162.0" rotate="-7.0" style="-fx-background-color: F1FAFF; -fx-background-radius: 30px;" styleClass="hbox-outer" stylesheets="@../../css/start/StartUser.css">
+      <HBox layoutX="449.0" layoutY="-179.0" prefHeight="1414.0" prefWidth="900.0" rotate="-125.0" style="-fx-background-radius: 25px; -fx-background-color: EDF5FD;" />
+      <HBox layoutX="304.0" layoutY="45.0" prefHeight="950.0" prefWidth="1400.0" rotate="-20.0" style="-fx-background-radius: 25px; -fx-background-color: F7FBFF;" />
+      <HBox layoutX="427.0" layoutY="-24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1460.0" rotate="-7.0" style="-fx-background-color: F1FAFF; -fx-background-radius: 30px;" styleClass="hbox-outer" stylesheets="@../../css/start/StartUser.css">
          <children>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="687.0" prefWidth="1162.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 30px;" stylesheets="@../../css/start/StartUser.css">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 30px;" stylesheets="@../../css/start/StartUser.css">
                <HBox.margin>
-                  <Insets left="30.0" top="30.0" />
+                  <Insets left="45.0" top="45.0" />
                </HBox.margin>
                <styleClass>
                   <String fx:value="hbox-outer" />
                   <String fx:value="hbox-inner" />
                </styleClass>
                <children>
-                  <ImageView fitHeight="664.0" fitWidth="1130.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="840.0" fitWidth="1504.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../ui/start/start.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="15.0" top="15.0" />
+                        <Insets left="30.0" top="30.0" />
                      </HBox.margin>
                   </ImageView>
                </children>
@@ -39,19 +39,14 @@
       </HBox>
       <Text fill="#1e3d8c" layoutX="29.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Library">
          <font>
-            <Font name="Book Antiqua Bold" size="48.0" />
+            <Font name="Book Antiqua Bold" size="72.0" />
          </font></Text>
-      <Text fill="#1e3d8c" layoutX="29.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Management">
+      <Text fill="#1e3d8c" layoutX="29.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Management">
          <font>
-            <Font name="Book Antiqua Bold" size="48.0" />
+            <Font name="Book Antiqua Bold" size="72.0" />
          </font>
       </Text>
-      <Text fill="#1e3d8c" layoutX="29.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="đoạn giới thiệu">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Button fx:id="loginButton" layoutX="29.0" layoutY="476.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="38.0" prefWidth="119.0" style="-fx-background-radius: 20px; -fx-background-color: #80abe2;" styleClass="login-button" text="Login" />
-      <Button fx:id="registerButton" layoutX="29.0" layoutY="544.0" mnemonicParsing="false" onAction="#handleSignUpButtonAction" prefHeight="38.0" prefWidth="107.0" style="-fx-background-radius: 20px; -fx-background-color: #80abe2;" styleClass="login-button" text="Sign up" />
+      <Button fx:id="loginButton" layoutX="59.0" layoutY="788.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="38.0" prefWidth="119.0" style="-fx-background-radius: 20px; -fx-background-color: #80abe2;" styleClass="login-button" text="Login" />
+      <Button fx:id="registerButton" layoutX="59.0" layoutY="713.0" mnemonicParsing="false" onAction="#handleSignUpButtonAction" prefHeight="38.0" prefWidth="107.0" style="-fx-background-radius: 20px; -fx-background-color: #80abe2;" styleClass="login-button" text="Sign up" />
    </children>
 </AnchorPane>

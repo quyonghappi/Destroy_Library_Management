@@ -101,7 +101,6 @@ public class RegisterController {
             HBox root = (HBox) fxmlLoader.load();
             Scene scene = new Scene(root);
 
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/UserLogin.css")).toExternalForm());
             stage.centerOnScreen();
             stage.setTitle("Login");
             stage.setScene(scene);

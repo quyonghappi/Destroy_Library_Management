@@ -153,10 +153,10 @@ public class SearchBooksScreenController implements Initializable {
             }
         };
 
-//        loadTask.setOnSucceeded(event -> {
-//            filteredDocuments = loadTask.getValue();
-////            showBooks(filteredDocuments);  // Hiển thị tất cả sách
-//        });
+        loadTask.setOnSucceeded(event -> {
+            filteredDocuments = loadTask.getValue();
+            showBooks(filteredDocuments);  // Hiển thị tất cả sách
+        });
 
         loadTask.setOnFailed(event -> {
             System.err.println("Failed to load books: " + loadTask.getException());
@@ -173,7 +173,7 @@ public class SearchBooksScreenController implements Initializable {
             searchResultsContainer.getChildren().add(bookCard);
         }
         int pageCount = (int) Math.ceil(books.size() / 40.0);
-//        pagination.setPageCount(pageCount);  // Cập nhật số trang cho pagination
+        pagination.setPageCount(pageCount);  // Cập nhật số trang cho pagination
     }
 
 

@@ -18,7 +18,7 @@
                <children>
                   <ImageView fitHeight="600.0" fitWidth="498.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-radius: 20px;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
                      <image>
-                        <Image url="@../../ui/start/Thiết%20kế%20chưa%20có%20tên.png" />
+                        <Image url="@../../ui/start/image_login.png" />
                      </image>
                   </ImageView>
                </children>

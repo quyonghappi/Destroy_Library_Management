@@ -111,7 +111,7 @@
                <children>
                   <ImageView fitHeight="546.0" fitWidth="443.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../ui/start/Thiết%20kế%20chưa%20có%20tên.png" />
+                        <Image url="@../../ui/start/image_login.png" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="30.0" right="30.0" top="30.0" />
