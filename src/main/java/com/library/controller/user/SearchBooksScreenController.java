@@ -177,6 +177,7 @@ public class SearchBooksScreenController implements Initializable {
 //        }
 //    }
 
+    /*
     private HBox createBookCard(Document document) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/BookCard.fxml"));
         try {
@@ -192,27 +193,14 @@ public class SearchBooksScreenController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;  
-    }
-
-    private void showBooks(List<Document> books) {
-        searchResultsContainer.getChildren().clear();  // Xóa all old
-
-        for (Document document : books) {
-            HBox bookCard = createBookCard(document);
-            searchResultsContainer.getChildren().add(bookCard);
-        }
-
-
-        int pageCount = (int) Math.ceil(books.size() / 40.0);
-        pagination.setPageCount(pageCount);
+        return null;
     }
 
     private void loadAllBooks() {
         Task<List<Document>> loadTask = new Task<>() {
             @Override
             protected List<Document> call() throws Exception {
-                return documentDao.getAll();  // Giả sử có phương thức này trong DocumentDao
+                return documentDao.getAll();
             }
         };
 
@@ -227,6 +215,109 @@ public class SearchBooksScreenController implements Initializable {
 
         new Thread(loadTask).start();
     }
+
+    private void showBooks(List<Document> books) {
+        searchResultsContainer.getChildren().clear();
+
+        for (Document document : books) {
+            HBox bookCard = createBookCard(document);
+            searchResultsContainer.getChildren().add(bookCard);
+        }
+        int pageCount = (int) Math.ceil(books.size() / 40.0);
+        pagination.setPageCount(pageCount);
+    }
+
+    */
+
+    private void loadAllBooks() {
+        // Tải tất cả sách từ database
+        Task<List<Document>> loadTask = new Task<>() {
+            @Override
+            protected List<Document> call() throws Exception {
+                return documentDao.getAll();  // Giả sử có phương thức này trong DocumentDao
+            }
+        };
+
+        loadTask.setOnSucceeded(event -> {
+            filteredDocuments = loadTask.getValue();
+            showBooks(filteredDocuments);  // Hiển thị tất cả sách
+        });
+
+        loadTask.setOnFailed(event -> {
+            System.err.println("Failed to load books: " + loadTask.getException());
+        });
+
+        new Thread(loadTask).start();
+    }
+
+    private void showBooks(List<Document> books) {
+        searchResultsContainer.getChildren().clear();  // Xóa các kết quả cũ
+
+        for (Document document : books) {
+            HBox bookCard = createBookCard(document);
+            searchResultsContainer.getChildren().add(bookCard);
+        }
+        int pageCount = (int) Math.ceil(books.size() / 40.0);
+        pagination.setPageCount(pageCount);  // Cập nhật số trang cho pagination
+    }
+
+
+
+    private HBox createBookCard(Document document) {
+        HBox bookCard = new HBox();
+        bookCard.setSpacing(10);
+        bookCard.setStyle("-fx-background-color: transparent; -fx-border-radius: 15; -fx-background-radius: 15;");
+        bookCard.setPrefSize(300, 200);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.75), bookCard);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+
+
+        ImageView bookCover = new ImageView();
+        bookCover.setFitWidth(100);
+        bookCover.setFitHeight(150);
+        if (!document.getImageLink().equals("N/A")) {
+            loadImageLazy(document.getImageLink(), bookCover, bookCover.getFitWidth(), bookCover.getFitHeight());
+        } else {
+            bookCover.setImage(new Image("/ui/admindashboard/bookcover.png", true));
+        }
+
+        VBox bookInfo = new VBox();
+        bookInfo.setSpacing(5);
+
+        Label titleLabel = new Label(document.getTitle() != null ? document.getTitle() : "Unknown Title");
+        titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        Author author = documentDao.getAuthor(document.getAuthorId());
+        String authorName = (author != null) ? author.getName() : "Unknown Author";
+
+        Label authorLabel = new Label(authorName);
+        authorLabel.getStyleClass().add("book-author");
+
+        Label pageLabel = new Label(document.getPage() > 0 ? document.getPage() + " pages" : "Page count not available");
+
+        bookInfo.getChildren().addAll(titleLabel, authorLabel, pageLabel);
+
+        bookInfo.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                showBookDetails(searchScreenRoot, username, document);
+            }
+        });
+
+        bookCover.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                showBookDetails(searchScreenRoot, username, document);
+            }
+        });
+        bookCard.getChildren().addAll(bookCover, bookInfo);
+
+        return bookCard;
+    }
+
+
+
 
     @FXML
     private void onSearchBooks() {
@@ -279,26 +370,25 @@ public class SearchBooksScreenController implements Initializable {
     }
 
 
-
     private void showSearchResults(String query) {
         if (!filteredDocuments.isEmpty()) {
             int column = 0;
             int row = 0;
 
             for (Document document : filteredDocuments) {
-                // Tạo HBox cho mỗi thẻ sách
+                // Create HBox for each book card
                 HBox bookCard = new HBox();
                 bookCard.setSpacing(10);
-                bookCard.setStyle("-fx-background-color: #95b1ee; -fx-border-radius: 15; -fx-background-radius: 15;");
+                bookCard.setStyle("-fx-background-color: transparent; -fx-border-radius: 15; -fx-background-radius: 15;");
                 bookCard.setPrefSize(300, 220);
 
-                // Thêm hiệu ứng chuyển động
+                // Add fade-in effect
                 FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.75), bookCard);
                 fadeIn.setFromValue(0);
                 fadeIn.setToValue(1);
                 fadeIn.play();
 
-                // Ảnh bìa sách
+                // Book cover image
                 ImageView bookCover = new ImageView();
                 bookCover.setFitWidth(150);
                 bookCover.setFitHeight(190);
@@ -308,7 +398,6 @@ public class SearchBooksScreenController implements Initializable {
                     bookCover.setImage(new Image("/ui/admindashboard/bookcover.png", true));
                 }
 
-                // Thông tin sách
                 VBox bookInfo = new VBox();
                 bookInfo.setSpacing(5);
 
@@ -323,17 +412,24 @@ public class SearchBooksScreenController implements Initializable {
 
                 Label pageLabel = new Label(document.getPage() > 0 ? document.getPage() + " pages" : "Page count not available");
 
-                Button viewDetailsButton = new Button("View Details");
-                viewDetailsButton.getStyleClass().add("back-button");
-
-                viewDetailsButton.setOnAction(e -> showBookDetails(searchScreenRoot, username, document));
-
-                bookInfo.getChildren().addAll(titleLabel, authorLabel, pageLabel, viewDetailsButton);
+                // Add book details to the VBox
+                bookInfo.getChildren().addAll(titleLabel, authorLabel, pageLabel);
                 bookCard.getChildren().addAll(bookCover, bookInfo);
+
+                bookInfo.setOnMouseClicked(e -> {
+                    if (e.getClickCount() == 2) {
+                        showBookDetails(searchScreenRoot, username, document); // Open book details on double click
+                    }
+                });
+
+                bookCover.setOnMouseClicked(e -> {
+                    if (e.getClickCount() == 2) {
+                        showBookDetails(searchScreenRoot, username, document); // Open book details on double click
+                    }
+                });
 
                 searchResultsContainer.getChildren().add(bookCard);
 
-                // Đảm bảo chỉ có 2 sách trên mỗi hàng
                 column++;
                 if (column == 2) {
                     column = 0;
@@ -341,6 +437,7 @@ public class SearchBooksScreenController implements Initializable {
                 }
             }
         } else {
+            // If no results found, show a message
             Label noResultsLabel = new Label("No results found for \"" + query + "\".");
             searchResultsContainer.getChildren().add(noResultsLabel);
         }
