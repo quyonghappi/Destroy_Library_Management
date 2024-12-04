@@ -14,6 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.Pagination?>
 <StackPane fx:id="searchScreenRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../css/user/BorrowedBooksStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.SearchBooksScreenController">
 
     <children>
@@ -145,7 +147,8 @@
                                     <!-- Search Results -->
                                     <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="460.0" VBox.vgrow="ALWAYS">
                               <content>
-                                 <VBox fx:id="searchResultsContainer" maxHeight="1.7976931348623157E308" prefHeight="450.0" prefWidth="1238.0" spacing="10.0" style="-fx-padding: 10;" styleClass="section-box2" stylesheets="@../../css/user/styling.css" />
+                                 <FlowPane fx:id="searchResultsContainer" maxHeight="1.7976931348623157E308" prefHeight="450.0" prefWidth="1238.0"
+                                           style="-fx-padding: 10;" styleClass="section-box2" stylesheets="@../../css/user/styling.css" />
 
                                   <!--                                  <StackPane fx:id="searchResultsContainer" maxHeight="450.0" maxWidth="700.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-padding: 10;" alignment="CENTER">-->
 <!--                                      &lt;!&ndash; This container will hold the search results inside a smaller area &ndash;&gt;-->
@@ -153,7 +156,9 @@
 
 
                               </content>
-                              <VBox.margin>
+
+
+                                        <VBox.margin>
                                  <Insets />
                               </VBox.margin>
                               <padding>
