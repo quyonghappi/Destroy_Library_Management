@@ -23,7 +23,6 @@ public interface ShowView {
                 scene.getStylesheets().add(stylesheets);
             }
 
-            // Thiết lập Scene và Stage
             stage.setTitle(title);
             stage.setScene(scene);
             stage.centerOnScreen();
