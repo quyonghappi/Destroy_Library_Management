@@ -102,7 +102,7 @@ public class RegisterController {
             Scene scene = new Scene(root);
 
             stage.centerOnScreen();
-            stage.setTitle("Login");
+            stage.setTitle("Destroy Library Management System");
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();

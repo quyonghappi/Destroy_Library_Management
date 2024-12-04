@@ -34,7 +34,7 @@ javafx {
 }
 
 application {
-    mainClass.set("com.library.controller.AppController")
+    mainClass.set("com.library.LibraryManagementApplication")
     applicationDefaultJvmArgs = listOf(
         "--add-modules=javafx.controls,javafx.fxml,javafx.web,javafx.graphics"
     )

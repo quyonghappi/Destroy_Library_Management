@@ -19,11 +19,11 @@ public class StartUser {
 
     public void handleLoginButtonAction(ActionEvent actionEvent) {
         stage = (Stage) loginButton.getScene().getWindow();
-        loadView(stage, "/fxml/Start/UserLogin.fxml", "Login", "/css/start/UserLogin.css");
+        loadView(stage, "/fxml/Start/UserLogin.fxml", "Destroy Library Management System", "/css/start/UserLogin.css");
     }
 
     public void handleSignUpButtonAction(ActionEvent actionEvent) {
         stage = (Stage) registerButton.getScene().getWindow();
-        loadView(stage, "/fxml/Start/Register.fxml", "Sign Up", "/css/start/register.css");
+        loadView(stage, "/fxml/Start/Register.fxml", "Destroy Library Management System", "/css/start/register.css");
     }
 }

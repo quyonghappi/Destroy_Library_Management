@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
@@ -87,6 +88,8 @@ public class BookInfoCellController extends ListCell<Document> implements Initia
             // Load the image using lazy loading
             if (!document.getImageLink().equals("N/A")) {
                 loadImageLazy(document.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());
+            } else {
+                bookImage.setImage(new Image("/ui/admindashboard/bookcover.png")); // Hình ảnh mặc định khi không có bìa
             }
         }
     }
