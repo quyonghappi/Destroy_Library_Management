@@ -13,10 +13,10 @@ Dự án được thiết kế để đảm bảo khả năng mở rộng và d�
 Dưới đây là danh sách các package của dự án:
 
 #### **Model**
-![img_2.png](img_2.png)
+![img_2.png](src/main/resources/ui/readme/img_2.png)
 - **Document**: Đại diện cho một cuốn sách trong thư viện.
 - **User**: Đại diện cho người dùng.
-- **Reservation**: Đại diện cho yêu cầu đặt trước sách.  
+- **Reservation**: Đại diện cho yêu cầu đặt trước sách.
 - **Admin**: Đại diện cho người quản lý người dùng.
 - **Favourite**: Đại diện cho sách yêu thích của người dùng.
 - **Fine**: Đại diện cho bản ghi phạt.
@@ -25,21 +25,21 @@ Dưới đây là danh sách các package của dự án:
 - **Category**: Đại diện cho thể loại của sách.
 - **BorrowingRecord**: Đại diện cho bản ghi mượn sách.
 - **Review**: Nội dung sẽ được phát triển trong tương lai gần.
-#### **Dao**: 
+#### **Dao**:
 - Gồm các lớp để tương tác với cơ sở dữ liệu nhằm lấy dữ liệu tương ứng của các đối tượng trong model.
-![img_1.png](img_1.png)
+  ![img_1.png](src/main/resources/ui/readme/img_1.png)
 #### **Controller**
 - Gồm các controller quản lý giao diện ứng dụng, có tích hợp đa luồng để cải thiện trải nghiệm người dùng.
-   
+
 #### **API**
-- Thực hiện request get để lấy được các thông tin cần thiết của sách: 
-![img.png](img.png)
+- Thực hiện request get để lấy được các thông tin cần thiết của sách:
+  ![img.png](src/main/resources/ui/readme/img.png)
 
 #### **Config**
 - Gồm các lớp thực hiện việc kết nối với database và điểm gọi API.
 #### **Utils**
 - Gồm các lớp tiện ích sử dụng xuyên suốt chương trình.
-![img_3.png](img_3.png)
+  ![img_3.png](src/main/resources/ui/readme/img_3.png)
 ---
 ### 2. Bảng đóng góp của thành viên
 | Thành viên         | Công việc chính                                                                                                                                                                                                                                                                                          |
@@ -64,69 +64,73 @@ Dưới đây là các dependencies chính:
 #### Cách cài đặt dependencies
 1. Đảm bảo bạn đã cài đặt *Java 17* trở lên.
 2. Chạy lệnh sau để tải tất cả dependencies:
-   
+
    ./gradlew build
-   
+
 3. Khởi chạy ứng dụng bằng lệnh:
-   
+
    ./gradlew run
 
 4. Cài đặt Configurations:
 
    **Mở Run/Debug Configurations**:
-   - Trong IntelliJ IDEA, vào **Run > Edit Configurations...**.
-   - Chọn cấu hình dự án bạn đang sử dụng (hoặc tạo một cấu hình mới nếu chưa có).
+    - Trong IntelliJ IDEA, vào **Run > Edit Configurations...**.
+    - Chọn cấu hình dự án bạn đang sử dụng (hoặc tạo một cấu hình mới nếu chưa có).
 
    **Thêm VM options**:
-   - Trong phần **VM options**, thêm các dòng sau vào: (nếu sử dụng javafx 22.0.2)
+    - Trong phần **VM options**, thêm các dòng sau vào: (nếu sử dụng javafx 22.0.2)
 
-     ```bash
-     --module-path "D:\javafx-sdk-22.0.2\lib" 
-     --add-modules javafx.controls,javafx.fxml 
-     --add-modules=javafx.swing,javafx.graphics,javafx.fxml,javafx.media,javafx.web 
-     --add-reads javafx.graphics=ALL-UNNAMED 
-     --add-opens javafx.controls/com.sun.javafx.charts=ALL-UNNAMED 
-     --add-opens javafx.graphics/com.sun.javafx.iio=ALL-UNNAMED 
-     --add-opens javafx.graphics/com.sun.javafx.iio.common=ALL-UNNAMED 
-     --add-opens javafx.graphics/com.sun.javafx.css=ALL-UNNAMED 
-     --add-opens javafx.base/com.sun.javafx.runtime=ALL-UNNAMED
-     ```
+      ```bash
+      --module-path "D:\javafx-sdk-22.0.2\lib" 
+      --add-modules javafx.controls,javafx.fxml 
+      --add-modules=javafx.swing,javafx.graphics,javafx.fxml,javafx.media,javafx.web 
+      --add-reads javafx.graphics=ALL-UNNAMED 
+      --add-opens javafx.controls/com.sun.javafx.charts=ALL-UNNAMED 
+      --add-opens javafx.graphics/com.sun.javafx.iio=ALL-UNNAMED 
+      --add-opens javafx.graphics/com.sun.javafx.iio.common=ALL-UNNAMED 
+      --add-opens javafx.graphics/com.sun.javafx.css=ALL-UNNAMED 
+      --add-opens javafx.base/com.sun.javafx.runtime=ALL-UNNAMED
+      ```
 
 ---
 
 ### 4. Demo dự án
 
-## User Home Screen: 
-   - Hiển thị My Book Shelf, Recommendations và Newly Arrivals, gợi ý cho người dùng chọn
+## User Home Screen:
+- Hiển thị My Book Shelf, Recommendations và Newly Arrivals, gợi ý cho người dùng chọn
 
-     ![image](https://github.com/user-attachments/assets/63436358-c7ae-41fe-9a43-a5ab120d0d6f)
+![home_sceen](src/main/resources/ui/readme/home_screen.png)
 
+## Favorites + Borrow Books:
+- Lưu sách vào yêu thích & mượn sách
 
+![home_sceen](src/main/resources/ui/readme/borrowed_screen.png)
 
-## Favorites + Borrow Books: 
-   - Lưu sách vào yêu thích & mượn sách
-
-     ![image](https://github.com/user-attachments/assets/8d94746d-83db-40f0-b2c5-e586823d28f3)
-
-     ![image](https://github.com/user-attachments/assets/ed229fef-59a1-4ab9-b6f6-3a879558ff15)
-
-
-
-## Admin Dashboard 
-   - Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng 
-
-     ![image](https://github.com/user-attachments/assets/be28160a-89fb-4e8c-9ff4-9ea5b2e86562)
+![home_sceen](src/main/resources/ui/readme/favo_screen.png)
 
 
 ## Reader management
-   - Quản lý thông tin người dùng
+- Quản lý thông tin người dùng
 
-     <Thêm ảnh vào đây>
+![home_sceen](src/main/resources/ui/readme/favo_screen.png)
+
+## Admin Dashboard
+- Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng
+
+![home_sceen](src/main/resources/ui/readme/admin_home.png)
 
 ## Book Management
-   - Quản lý thông tin sách nhập vào từ API
+- Quản lý thông tin sách nhập vào từ API
 
-     ![image](https://github.com/user-attachments/assets/7422f5bd-c346-4f6a-b402-fc2d01fd7a89)
+![home_sceen](src/main/resources/ui/readme/allBook_screen.png)
+
+![home_sceen](src/main/resources/ui/readme/lent_screen.png)
+
+![home_sceen](src/main/resources/ui/readme/return_screen.png)
+
+![home_sceen](src/main/resources/ui/readme/overDue_screen.png)
+
+![home_sceen](src/main/resources/ui/readme/request_screen.png)
 
    
 
