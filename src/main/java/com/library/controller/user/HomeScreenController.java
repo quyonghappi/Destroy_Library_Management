@@ -142,6 +142,7 @@ public class HomeScreenController implements Initializable {
         myBooks = borrowingRecordDao.getByUserName(username);
         try {
             for (int i = 0; i < myBooks.size(); i++) {
+//                BorrowingRecord myBook = myBooks.get(i);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
                 VBox bookInfo = loader.load();
                 BookCardController controller = loader.getController();

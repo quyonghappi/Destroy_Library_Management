@@ -6,12 +6,19 @@ import com.library.dao.FavouriteDao;
 import com.library.dao.ReservationDao;
 import com.library.models.*;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+
 import java.time.LocalDateTime;
 
+import static com.library.QrCode.BookQR.createQRCode;
 import static com.library.dao.UserDao.findUserByName;
 import static com.library.utils.LoadImage.loadImageLazy;
 
@@ -63,8 +70,12 @@ public class BookDetailController {
     @FXML
     private Button requestButton;
 
+    @FXML
+    private HBox qrCode;
+
     private ReservationDao reservationDao = new ReservationDao();
     private FavouriteDao favDao = new FavouriteDao();
+    private Document doc = new Document();
 
 
     public void setUsername(String username) {
@@ -81,6 +92,10 @@ public class BookDetailController {
      * @param document The Document object containing the book's details.
      */
     private void loadBookDetails(Document document) {
+
+        // document hien dang load
+        doc = document;
+
         // Set book title
         bookTitle.setText(document.getTitle());
         pageLabel.setText("Total pages: " + document.getPage());
@@ -186,5 +201,23 @@ public class BookDetailController {
         } else {
             addFavImage.setImage(new Image("/ui/user/heart-add-fill.png"));
         }
+    }
+
+    public void setOnQrCode(MouseEvent mouseEvent) {
+
+        String previewLink = doc.getPreviewLink();
+        ImageView imageView = createQRCode(previewLink);
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(imageView);
+
+        Scene scene = new Scene(stackPane, 300, 300);
+        Stage qrStage = new Stage();
+        qrStage.setHeight(300);
+        qrStage.setWidth(300);
+        qrStage.setX(mouseEvent.getScreenX());
+        qrStage.setY(mouseEvent.getScreenY());
+        qrStage.setResizable(false);
+        qrStage.setScene(scene);
+        qrStage.show();
     }
 }

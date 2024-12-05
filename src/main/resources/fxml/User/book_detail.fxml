@@ -12,17 +12,34 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: #95b1ee;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
+<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: #95b1ee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
    <children>
       <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #fffdf5; -fx-background-radius: 10;">
          <children>
             <HBox minHeight="-Infinity" prefHeight="480.0" prefWidth="1360.0" spacing="20">
                <children>
-                  <ImageView fx:id="bookCover" fitHeight="350.0" fitWidth="250.0">
-                     <image>
-                        <Image url="@../../ui/admindashboard/bookcover.png" />
-                     </image></ImageView>
-                  <VBox prefHeight="300.0" prefWidth="454.0" spacing="10">
+                  <VBox prefHeight="480.0" prefWidth="289.0">
+                     <children>
+                        <ImageView fx:id="bookCover" fitHeight="350.0" fitWidth="250.0">
+                           <image>
+                              <Image url="@../../ui/admindashboard/bookcover.png" />
+                           </image>
+                        </ImageView>
+                        <HBox fx:id="qrCode" onMouseClicked="#setOnQrCode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="68.0">
+                           <children>
+                              <ImageView fitHeight="69.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image  url="@../../ui/user/qr_code.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="90.0" top="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="480.0" prefWidth="295.0" spacing="10">
                      <children>
                         <Label fx:id="bookTitle" prefHeight="23.0" prefWidth="378.0" style="-fx-font-size: 27px; -fx-font-weight: bold;" styleClass="book-title" stylesheets="@../../css/user/styling.css" text="Book Title" textAlignment="JUSTIFY" wrapText="true">
                            <font>
