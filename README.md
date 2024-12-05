@@ -13,7 +13,7 @@ Dự án được thiết kế để đảm bảo khả năng mở rộng và d�
 Dưới đây là danh sách các package của dự án:
 
 #### **Model**
-![img_2.png](img_2.png)
+![img_2.png](src/main/resources/ui/readme/img_2.png)
 - **Document**: Đại diện cho một cuốn sách trong thư viện.
 - **User**: Đại diện cho người dùng.
 - **Reservation**: Đại diện cho yêu cầu đặt trước sách.  
@@ -27,26 +27,26 @@ Dưới đây là danh sách các package của dự án:
 - **Review**: Nội dung sẽ được phát triển trong tương lai gần.
 #### **Dao**: 
 - Gồm các lớp để tương tác với cơ sở dữ liệu nhằm lấy dữ liệu tương ứng của các đối tượng trong model.
-![img_1.png](img_1.png)
+![img_1.png](src/main/resources/ui/readme/img_1.png)
 #### **Controller**
 - Gồm các controller quản lý giao diện ứng dụng, có tích hợp đa luồng để cải thiện trải nghiệm người dùng.
    
 #### **API**
 - Thực hiện request get để lấy được các thông tin cần thiết của sách: 
-![img.png](img.png)
+![img.png](src/main/resources/ui/readme/img.png)
 
 #### **Config**
 - Gồm các lớp thực hiện việc kết nối với database và điểm gọi API.
 #### **Utils**
 - Gồm các lớp tiện ích sử dụng xuyên suốt chương trình.
-![img_3.png](img_3.png)
+![img_3.png](src/main/resources/ui/readme/img_3.png)
 ---
 ### 2. Bảng đóng góp của thành viên
-| Thành viên         | Công việc chính                                                                                                                                                                                                                                                                          |
-|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Nguyễn Thùy Linh   | - Thiết kế cấu trúc cơ sở dữ liệu<br/>- Tham gia xây dựng controller của giao diện admin<br/>-Thiết kế giao diện login, signup<br/>-Tham gia xây dựng các lớp DAO <br/>- Tham gia xây dựng utils                                                                                         |
-| Trần Hoàng Mai Anh | - Xây dựng controller tích hợp đa luồng của giao diện admin và user<br/>-Thiết kế giao diện admin, user<br/>-Tham gia xây dựng các lớp DAO<br/>- Xây dựng các lớp trong model đại diện cho đối tượng trong ứng dụng <br/>- Tham gia xây dựng utils<br/>- Tham gia xây dựng cơ sở dữ liệu |
-| Lê Huyền Linh      | - Thiết kế giao diện user<br/>- Tham gia xây dựng controller cho giao diện user                                                                                                                                                                                                          |
+| Thành viên         | Công việc chính                                                                                                                                                                                                                  |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Nguyễn Thùy Linh   | - Thiết kế cấu trúc cơ sở dữ liệu<br/>- Tham gia xây dựng controller của giao diện admin<br/>-Thiết kế giao diện login, signup<br/>-Tham gia xây dựng các lớp DAO <br/>- Tham gia xây dựng utils                                 |
+| Trần Hoàng Mai Anh | - Xây dựng controller của giao diện admin và user<br/>-Thiết kế giao diện admin, user<br/>-Tham gia xây dựng các lớp DAO<br/>- Xây dựng các lớp trong model đại diện cho đối tượng trong ứng dụng <br/>- Tham gia xây dựng utils |
+| Lê Huyền Linh      | - Thiết kế giao diện user<br/>- Tham gia xây dựng controller cho giao diện user                                                                                                                                                  |
 
 ---
 
@@ -98,27 +98,39 @@ Dưới đây là các dependencies chính:
 
 ## User Home Screen: 
    - Hiển thị My Book Shelf, Recommendations và Newly Arrivals, gợi ý cho người dùng chọn
-     <Thêm ảnh vào đây>
+
+![home_sceen](src/main/resources/ui/readme/home_screen.png)
 
 ## Favorites + Borrow Books: 
    - Lưu sách vào yêu thích & mượn sách
 
-     <Thêm ảnh vào đây>
+![home_sceen](src/main/resources/ui/readme/borrowed_screen.png)
 
-## Admin Dashboard 
-   - Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng 
+![home_sceen](src/main/resources/ui/readme/favo_screen.png)
 
-     <Thêm ảnh vào đây>
 
 ## Reader management
    - Quản lý thông tin người dùng
 
-     <Thêm ảnh vào đây>
+![home_sceen](src/main/resources/ui/readme/favo_screen.png)
+
+## Admin Dashboard 
+   - Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng
+
+![home_sceen](src/main/resources/ui/readme/admin_home.png)
 
 ## Book Management
    - Quản lý thông tin sách nhập vào từ API
 
-     <Thêm ảnh vào đây>
+![home_sceen](src/main/resources/ui/readme/allBook_screen.png)
+
+![home_sceen](src/main/resources/ui/readme/lent_screen.png)
+
+![home_sceen](src/main/resources/ui/readme/return_screen.png)
+
+![home_sceen](src/main/resources/ui/readme/overDue_screen.png)
+
+![home_sceen](src/main/resources/ui/readme/request_screen.png)
 
    
 
