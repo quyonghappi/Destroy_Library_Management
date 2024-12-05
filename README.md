@@ -99,17 +99,24 @@ Dưới đây là các dependencies chính:
 ## User Home Screen: 
    - Hiển thị My Book Shelf, Recommendations và Newly Arrivals, gợi ý cho người dùng chọn
 
-     <Thêm ảnh vào đây>
+     ![image](https://github.com/user-attachments/assets/63436358-c7ae-41fe-9a43-a5ab120d0d6f)
+
+
 
 ## Favorites + Borrow Books: 
    - Lưu sách vào yêu thích & mượn sách
 
-     <Thêm ảnh vào đây>
+     ![image](https://github.com/user-attachments/assets/8d94746d-83db-40f0-b2c5-e586823d28f3)
+
+     ![image](https://github.com/user-attachments/assets/ed229fef-59a1-4ab9-b6f6-3a879558ff15)
+
+
 
 ## Admin Dashboard 
    - Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng 
 
-     <Thêm ảnh vào đây>
+     ![image](https://github.com/user-attachments/assets/be28160a-89fb-4e8c-9ff4-9ea5b2e86562)
+
 
 ## Reader management
    - Quản lý thông tin người dùng
@@ -119,7 +126,7 @@ Dưới đây là các dependencies chính:
 ## Book Management
    - Quản lý thông tin sách nhập vào từ API
 
-     <Thêm ảnh vào đây>
+     ![image](https://github.com/user-attachments/assets/7422f5bd-c346-4f6a-b402-fc2d01fd7a89)
 
    
 
