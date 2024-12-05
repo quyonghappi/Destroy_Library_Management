@@ -386,7 +386,8 @@ public class DocumentDao implements DAO<Document> {
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, isbn);
             if (status.equals("returned")) ps.setInt(1, 1);
-            else if (status.equals("borrowed") || status.equals("lost")) ps.setInt(1, -1);
+            //else if (status.equals("borrowed") || status.equals("lost")) ps.setInt(1, -1);
+            else if (status.equals("borrowed")) ps.setInt(1, -1);
             ps.setString(2, isbn);
             //execute the update
             ps.executeUpdate();

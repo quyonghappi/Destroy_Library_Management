@@ -217,6 +217,12 @@ public class FineDao implements DAO<Fine> {
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
         ) {
+            BorrowingRecordDao brDao = new BorrowingRecordDao();
+            BorrowingRecord br=brDao.get(recordId);
+            if (br.getStatus().equals("late")) {
+                DocumentDao documentDao = new DocumentDao();
+                documentDao.updateQuantity(br.getISBN(), "returned");
+            }
             ps.setString(1,"PAID");
             ps.setInt(2, recordId);
             ps.executeUpdate();

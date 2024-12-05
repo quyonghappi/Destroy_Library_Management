@@ -166,7 +166,9 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (br.getStatus().equals("returned") || br.getStatus().equals("lost")) {
+        //if (br.getStatus().equals("returned") || br.getStatus().equals("lost")) {
+        //only update for return because when borrow quantity already -1
+        if (br.getStatus().equals("returned")) {
             DocumentDao documentDao = new DocumentDao();
             documentDao.updateQuantity(br.getISBN(), br.getStatus());
         }

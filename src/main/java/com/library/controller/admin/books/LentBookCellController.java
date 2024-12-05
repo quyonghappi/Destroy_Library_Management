@@ -108,8 +108,8 @@ public class LentBookCellController implements Initializable {
                     "ISBN: " + isbnLabel.getText());
             confirmationAlert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    borrowingRecordDao.update(currentBr);
                     currentBr.setStatus("lost");
+                    borrowingRecordDao.update(currentBr);
                     //khong can add fine dao vi
                     //fine list se tu dong cap nhat khi minh call fine dao getAll
                     listView.getItems().remove(currentBr);
