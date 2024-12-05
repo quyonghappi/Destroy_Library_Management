@@ -61,7 +61,7 @@ public class EditMemController {
             return;
         }
 
-        if (!UserDao.authenticateAdmin(userNameInput, currentPasswordInput)) {
+        if (!UserDao.authenticateAdmin(userNameInput, currentPasswordInput) && !UserDao.authenticateUser(userNameInput, currentPasswordInput)) {
             showAlert(Alert.AlertType.ERROR, "Authentication Error", "Invalid current password.");
             return;
         }
