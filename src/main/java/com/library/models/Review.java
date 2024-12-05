@@ -6,9 +6,30 @@ public class Review {
     private int reviewId;
     private int userId;
     private String isbn;
-    private int rating;
+    private double rating;
     private String comment;
     private LocalDateTime reviewDate;
+
+    public Review() {
+
+    }
+
+    public Review(int reviewId, int userId, String isbn, double rating, String comment, LocalDateTime reviewDate) {
+        this.reviewId = reviewId;
+        this.userId = userId;
+        this.isbn = isbn;
+        this.rating = rating;
+        this.comment = comment;
+        this.reviewDate = reviewDate;
+    }
+
+    public Review(int userId, String isbn, double rating, String comment, LocalDateTime reviewDate) {
+        this.userId = userId;
+        this.isbn = isbn;
+        this.rating = rating;
+        this.comment = comment;
+        this.reviewDate = reviewDate;
+    }
 
 
     public int getReviewId() {
@@ -35,11 +56,11 @@ public class Review {
         this.isbn = isbn;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

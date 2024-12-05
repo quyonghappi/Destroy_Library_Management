@@ -134,11 +134,7 @@ public class BookInfoCellController extends ListCell<Document> implements Initia
                     "ISBN: " + isbnLabel.getText());
             confirmationAlert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    try {
-                        documentDao.delete(documentDao.get(isbnLabel.getText()));
-                    } catch (SQLException e) {
-                        throw new RuntimeException("Can not delete book: " + isbnLabel.getText());
-                    }
+                    documentDao.delete(documentDao.get(isbnLabel.getText()));
                     listView.getItems().remove(currentDocument);
                 }
             });

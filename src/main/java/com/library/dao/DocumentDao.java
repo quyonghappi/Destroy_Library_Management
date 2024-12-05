@@ -15,9 +15,9 @@ import java.util.List;
 public class DocumentDao implements DAO<Document> {
 
     //insert document into database
-    public <U> void add(U d) throws SQLException {
+    public <U> void add(U d)  {
         if (!(d instanceof Document doc)) {
-            throw new SQLException("Not a Document");
+            throw new RuntimeException("Not a Document");
         }
         try {
             //get or create author id then insert if not exist
@@ -31,7 +31,6 @@ public class DocumentDao implements DAO<Document> {
             //get or create category id then insert if not exist
             int categoryId = getOrCreateCategoryId(doc.getCategory().getName());
             doc.setCategoryId(categoryId);
-
 
             //sql query to insert or update a document
             String insertSql = "INSERT INTO Documents (title, author_id, publisher_id, isbn, category_id, publication_year, " +
@@ -76,7 +75,6 @@ public class DocumentDao implements DAO<Document> {
             }
         } catch (SQLException e) {
             System.err.println("Error inserting document: " + e.getMessage());
-            throw e;
         }
     }
 
@@ -347,14 +345,16 @@ public class DocumentDao implements DAO<Document> {
     }
 
     //delete doc by its isbn, do not use title cuz books can have same title
-    public void delete(Document doc) throws SQLException {
-        Connection conn = DatabaseConfig.getConnection();
+    public void delete(Document doc) {
         String sql = "DELETE FROM Documents WHERE isbn= ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (
+                Connection conn = DatabaseConfig.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, doc.getISBN());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("cannot delete document with this isbn: "+ doc.getISBN());
         }
     }
 
