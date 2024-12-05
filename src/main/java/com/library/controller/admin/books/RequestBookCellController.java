@@ -7,14 +7,12 @@ import com.library.dao.UserDao;
 import com.library.models.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.time.LocalDateTime;
 
 import static com.library.utils.LoadImage.loadImageLazy;
-import static java.time.LocalDateTime.now;
 
 public class RequestBookCellController {
     @FXML
@@ -60,6 +58,7 @@ public class RequestBookCellController {
     private DocumentDao documentDao = new DocumentDao();
     private UserDao userDao = new UserDao();
     private ReservationDao reservationDao = new ReservationDao();
+    private Document doc = new Document();
 
     public void setListView(ListView<Reservation> lv) {
         this.lv = lv;
@@ -79,7 +78,7 @@ public class RequestBookCellController {
             userLabel.setText(user.getFullName());
         }
 
-        Document doc = documentDao.get(reservation.getIsbn());
+        doc = documentDao.get(reservation.getIsbn());
             if (doc != null) {
                 bookNameLabel.setText(doc.getTitle());
                 isbnLabel.setText(reservation.getIsbn());
@@ -124,23 +123,45 @@ public class RequestBookCellController {
                 break;
         }
     }
+
     @FXML
     private void handleApproveButtonAction(ActionEvent event) {
-        try {
-            BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
-            BorrowingRecord borrowingRecord = new BorrowingRecord(userIdLabel.getText(), isbnLabel.getText(), now(), "borrowed");
-            borrowingRecordDao.add(borrowingRecord);
-            current.setStatus("fulfilled");
-            reservationDao.updateStatus(current.getReservationId(), "fulfilled");
-            updateButtonVisibility("fulfilled");
-            lv.refresh();
-            if (parentController != null) {
-                parentController.sortListView();
+        if (doc.getQuantity() > 0) {
+            try {
+                BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
+                BorrowingRecord borrowingRecord = new BorrowingRecord(
+                        userIdLabel.getText(),
+                        isbnLabel.getText(),
+                        LocalDateTime.now(),
+                        "borrowed"
+                );
+                borrowingRecordDao.add(borrowingRecord);
+
+                current.setStatus("fulfilled");
+                reservationDao.updateStatus(current.getReservationId(), "fulfilled");
+
+                updateButtonVisibility("fulfilled");
+                lv.refresh();
+
+                if (parentController != null) {
+                    parentController.sortListView();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace(); //debug
+        } else {
+            String isbn = isbnLabel.getText();
+            int quantity = doc.getQuantity();
+            Alert warningAlert = new Alert(Alert.AlertType.WARNING);
+            warningAlert.setTitle("Book Unavailable");
+            warningAlert.setHeaderText("This book is currently unavailable.");
+            warningAlert.setContentText("Details:\n\n" +
+                    "ISBN: " + isbn + "\n" +
+                    "Quantity: " + quantity);
+            warningAlert.showAndWait();
         }
     }
+
 
     @FXML
     private void handleDenyButtonAction(ActionEvent event) {
