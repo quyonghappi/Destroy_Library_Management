@@ -4,6 +4,7 @@
 1. [Bản thiết kế các lớp của dự án](#bản-thiết-kế-các-lớp-của-dự-án)
 2. [Bảng đóng góp của thành viên](#bảng-đóng-góp-của-thành-viên)
 3. [Dependencies để chạy dự án](#dependencies-để-chạy-dự-án)
+4. [Demo dự án](#demo-dự-án)
 
 ---
 
@@ -48,3 +49,78 @@ Dưới đây là danh sách các package của dự án:
 | Lê Huyền Linh      | - Thiết kế giao diện user<br/>- Tham gia xây dựng controller cho giao diện user                                                                                                                                                  |
 
 ---
+
+
+### 3. Dependencies để chạy dự án
+Dự án sử dụng *Gradle* để quản lý các thư viện.  
+Dưới đây là các dependencies chính:
+
+- *JavaFX*: Dùng để xây dựng giao diện người dùng.
+- *MySQL Connector/J*: Để kết nối với cơ sở dữ liệu MySQL.
+- *Google Books API*: Hỗ trợ tìm kiếm thông tin sách.
+- *Gson*: Dùng để xử lý JSON (chuyển đổi dữ liệu).
+- *Junit 5*: Dùng để kiểm thử ứng dụng.
+
+#### Cách cài đặt dependencies
+1. Đảm bảo bạn đã cài đặt *Java 17* trở lên.
+2. Chạy lệnh sau để tải tất cả dependencies:
+   
+   ./gradlew build
+   
+3. Khởi chạy ứng dụng bằng lệnh:
+   
+   ./gradlew run
+
+4. Cài đặt Configurations:
+
+   **Mở Run/Debug Configurations**:
+   - Trong IntelliJ IDEA, vào **Run > Edit Configurations...**.
+   - Chọn cấu hình dự án bạn đang sử dụng (hoặc tạo một cấu hình mới nếu chưa có).
+
+   **Thêm VM options**:
+   - Trong phần **VM options**, thêm các dòng sau vào: (nếu sử dụng javafx 22.0.2)
+
+     ```bash
+     --module-path "D:\javafx-sdk-22.0.2\lib" 
+     --add-modules javafx.controls,javafx.fxml 
+     --add-modules=javafx.swing,javafx.graphics,javafx.fxml,javafx.media,javafx.web 
+     --add-reads javafx.graphics=ALL-UNNAMED 
+     --add-opens javafx.controls/com.sun.javafx.charts=ALL-UNNAMED 
+     --add-opens javafx.graphics/com.sun.javafx.iio=ALL-UNNAMED 
+     --add-opens javafx.graphics/com.sun.javafx.iio.common=ALL-UNNAMED 
+     --add-opens javafx.graphics/com.sun.javafx.css=ALL-UNNAMED 
+     --add-opens javafx.base/com.sun.javafx.runtime=ALL-UNNAMED
+     ```
+
+---
+
+### 4. Demo dự án
+
+## User Home Screen: 
+   - Hiển thị My Book Shelf, Recommendations và Newly Arrivals, gợi ý cho người dùng chọn
+
+     <Thêm ảnh vào đây>
+
+## Favorites + Borrow Books: 
+   - Lưu sách vào yêu thích & mượn sách
+
+     <Thêm ảnh vào đây>
+
+## Admin Dashboard 
+   - Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng 
+
+     <Thêm ảnh vào đây>
+
+## Reader management
+   - Quản lý thông tin người dùng
+
+     <Thêm ảnh vào đây>
+
+## Book Management
+   - Quản lý thông tin sách nhập vào từ API
+
+     <Thêm ảnh vào đây>
+
+   
+
+
