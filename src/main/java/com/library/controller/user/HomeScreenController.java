@@ -2,6 +2,7 @@ package com.library.controller.user;
 
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
+import com.library.dao.ReservationDao;
 import com.library.models.BorrowingRecord;
 import com.library.models.Document;
 import javafx.animation.FadeTransition;
@@ -22,9 +23,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static com.library.utils.LoadImage.loadImageLazy;
 import static com.library.utils.SceneSwitcher.navigateToScene;
@@ -175,21 +174,7 @@ public class HomeScreenController implements Initializable {
     }
 
     private void loadRecentAddedBooksAndRecommendation() {
-        recentlyAdded=documentDao.getRecentAddedBooks();
-        Random random = new Random();
-        int bestBookIndex= random.nextInt(54);
-        Document doc=recentlyAdded.get(bestBookIndex);
-        bestBookAuthor.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
-        bestBookTitle.setText(doc.getTitle());
-        pages.setText("Pages: " +doc.getPage());
-        publisher.setText("Publisher: "+(documentDao.getPublisher(doc.getPublisherId()).getName()));
-        category.setText("Genre: "+documentDao.getCategory(doc.getCategoryId()).getName());
-        bestBookImage.setOnMouseClicked(event -> showBookDetails(homeRoot, username, doc));
-
-        if (!doc.getImageLink().equals("N/A")) {
-            loadImageLazy(doc.getImageLink(),bestBookImage, bestBookImage.getFitWidth(), bestBookImage.getFitHeight());
-        }
-
+        recentlyAdded = documentDao.getRecentAddedBooks();
         int column =0;
         int row=1;
         try {
@@ -229,7 +214,57 @@ public class HomeScreenController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Map<String, Integer> bookRequestCounts = new HashMap<>();
+
+        for (Document doc : recentlyAdded) {
+            ReservationDao reservationDao = new ReservationDao();
+            int requestCount = reservationDao.getByISBN(doc.getISBN());
+            bookRequestCounts.put(doc.getISBN(), requestCount);
+        }
+
+        String bestBookIsbn = null;
+        int maxRequests = 0;
+
+        for (Map.Entry<String, Integer> entry : bookRequestCounts.entrySet()) {
+            if (entry.getValue() > maxRequests) {
+                maxRequests = entry.getValue();
+                bestBookIsbn = entry.getKey();
+            }
+        }
+
+        if (bestBookIsbn != null) {
+            Document bestBook = documentDao.get(bestBookIsbn);
+
+            bestBookAuthor.setText(documentDao.getAuthor(bestBook.getAuthorId()).getName());
+            bestBookTitle.setText(bestBook.getTitle());
+            pages.setText("Pages: " + bestBook.getPage());
+            publisher.setText("Publisher: " + documentDao.getPublisher(bestBook.getPublisherId()).getName());
+            category.setText("Genre: " + documentDao.getCategory(bestBook.getCategoryId()).getName());
+
+            bestBookImage.setOnMouseClicked(event -> showBookDetails(homeRoot, username, bestBook));
+
+            if (!bestBook.getImageLink().equals("N/A")) {
+                loadImageLazy(bestBook.getImageLink(), bestBookImage, bestBookImage.getFitWidth(), bestBookImage.getFitHeight());
+            }
+        } else {
+            Random random = new Random();
+            int bestBookIndex= random.nextInt(54);
+            Document doc=recentlyAdded.get(bestBookIndex);
+            bestBookAuthor.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
+            bestBookTitle.setText(doc.getTitle());
+            pages.setText("Pages: " +doc.getPage());
+            publisher.setText("Publisher: "+(documentDao.getPublisher(doc.getPublisherId()).getName()));
+            category.setText("Genre: "+documentDao.getCategory(doc.getCategoryId()).getName());
+             bestBookImage.setOnMouseClicked(event -> showBookDetails(homeRoot, username, doc));
+
+            if (!doc.getImageLink().equals("N/A")) {
+                loadImageLazy(doc.getImageLink(),bestBookImage, bestBookImage.getFitWidth(), bestBookImage.getFitHeight());
+            }
+        }
     }
+
+
 
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
