@@ -1,13 +1,13 @@
-package com.library.controller.start;
+package com.library.utils;
 
 import javafx.scene.control.Alert;
 
 import java.util.regex.Pattern;
 
-import static com.library.controller.start.LoadView.showAlert;
+import static com.library.utils.LoadView.showAlert;
 //import static com.library.controller.start.ViewLoader.showAlert;
 
-public interface Check {
+public class Check {
 
 
     static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@(gmail\\.com|[a-zA-Z0-9.-]+\\.edu.vn)$"; // gamil sv hoac gmail thuong
@@ -51,7 +51,7 @@ public interface Check {
     }
 
 
-    static boolean validateInput(String username, String password) {
+    public static boolean validateInput(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Input Error", "Please enter both username and password.");
             return false;

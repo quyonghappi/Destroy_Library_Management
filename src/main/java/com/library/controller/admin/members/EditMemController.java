@@ -1,6 +1,6 @@
 package com.library.controller.admin.members;
 
-import com.library.controller.start.Check;
+import com.library.utils.Check;
 import com.library.dao.UserDao;
 import com.library.models.User;
 import javafx.event.ActionEvent;
@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
-import static com.library.controller.start.LoadView.showAlert;
+import static com.library.utils.LoadView.showAlert;
 
 public class EditMemController {
 

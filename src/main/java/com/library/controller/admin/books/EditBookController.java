@@ -1,6 +1,5 @@
 package com.library.controller.admin.books;
 
-import com.library.api.GoogleBooksAPIClient;
 import com.library.dao.DocumentDao;
 import com.library.models.Document;
 import javafx.event.ActionEvent;
@@ -10,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
-import static com.library.controller.start.LoadView.showAlert;
+import static com.library.utils.LoadView.showAlert;
 
 public class EditBookController {
     @FXML

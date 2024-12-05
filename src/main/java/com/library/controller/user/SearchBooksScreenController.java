@@ -93,6 +93,7 @@ public class SearchBooksScreenController implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         searchField.textProperty().addListener(event -> onSearchBooks());
+        loadAllBooks();
 
         homeNav.setOnMouseClicked(event -> {
             String userFullName = memNameLabel.getText();

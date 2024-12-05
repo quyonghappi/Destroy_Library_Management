@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import static com.library.controller.start.LoadView.loadView;
+import static com.library.utils.LoadView.loadView;
 
 public class StartUser {
 

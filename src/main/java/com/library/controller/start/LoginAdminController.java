@@ -3,6 +3,7 @@ package com.library.controller.start;
 import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.dao.UserDao;
 import com.library.models.User;
+import com.library.utils.Check;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +18,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.EventObject;
-import java.util.Objects;
-
-import static com.library.controller.start.Check.validateInput;
-import static com.library.controller.start.LoadView.loadView;
-import static com.library.controller.start.LoadView.showAlert;
+import static com.library.utils.Check.validateInput;
+import static com.library.utils.LoadView.loadView;
+import static com.library.utils.LoadView.showAlert;
 import static com.library.dao.UserDao.findUserByName;
 
 public class LoginAdminController {

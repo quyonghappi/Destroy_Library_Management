@@ -1,18 +1,14 @@
-package com.library.controller.start;
+package com.library.utils;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
-public interface  LoadView {
+public class  LoadView {
 
     /**
      * hiệu ứng (chưa áp dụng đươc)
@@ -22,7 +18,7 @@ public interface  LoadView {
      * @param title        Tiêu đề cửa sổ.
      * @param stylesheets  Đường dẫn đến stylesheet (nếu có).
      */
-    static void loadView(Stage stage, String fxmlPath, String title, String stylesheets) {
+    public static void loadView(Stage stage, String fxmlPath, String title, String stylesheets) {
         try {
             // Tải FXML
             FXMLLoader fxmlLoader = new FXMLLoader(LoadView.class.getResource(fxmlPath));
@@ -45,7 +41,7 @@ public interface  LoadView {
         }
     }
 
-    static void showAlert(Alert.AlertType alertType, String title, String message) {
+    public static void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setContentText(message);

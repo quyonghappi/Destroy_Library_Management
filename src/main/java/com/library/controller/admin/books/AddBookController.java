@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
-import static com.library.controller.start.LoadView.showAlert;
+import static com.library.utils.LoadView.showAlert;
 
 public class AddBookController {
 

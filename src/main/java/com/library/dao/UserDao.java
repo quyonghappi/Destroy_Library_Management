@@ -259,11 +259,4 @@ public class UserDao implements DAO<User> {
         return BCrypt.checkpw(password, user.getPassword()) && user.getUserRole().equals("reader");
     }
 
-//    public static boolean AccountLocked(String username) throws Exception {
-//        User user = findUserByName(username);
-//        if (user == null) return false;
-//
-//
-//    }
-
 }

@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 //import static com.library.utils.FilterPopup.showPopup;
-import static com.library.controller.start.LoadView.loadView;
-import static com.library.controller.start.LoadView.showAlert;
+import static com.library.utils.LoadView.loadView;
 import static com.library.utils.SceneSwitcher.*;
 
 public class LentBookController implements Initializable {

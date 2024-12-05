@@ -1,8 +1,7 @@
 package com.library.controller.start;
 
-import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.controller.user.HomeScreenController;
-import com.library.controller.user.UserRequestController;
+import com.library.utils.Check;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import com.library.dao.UserDao;
@@ -19,9 +18,9 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import static com.library.controller.start.Check.validateInput;
-import static com.library.controller.start.LoadView.loadView;
-import static com.library.controller.start.LoadView.showAlert;
+import static com.library.utils.Check.validateInput;
+import static com.library.utils.LoadView.loadView;
+import static com.library.utils.LoadView.showAlert;
 import static com.library.dao.UserDao.findUserByName;
 
 public class LoginUserController {
