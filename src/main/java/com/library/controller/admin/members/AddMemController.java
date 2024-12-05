@@ -47,7 +47,9 @@ public class AddMemController {
                     "username: " + username);
             confirmationAlert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    userDao.add(new User(email, fullName, username, username));
+                    User user = new User(fullName, username, email, username);
+                    user.setUserRole("admin");
+                    userDao.add(user);
                 }
             });
         }

@@ -1,11 +1,8 @@
 package com.library.utils;
 
 import javafx.scene.control.Alert;
-
 import java.util.regex.Pattern;
-
 import static com.library.utils.LoadView.showAlert;
-//import static com.library.controller.start.ViewLoader.showAlert;
 
 public class Check {
 

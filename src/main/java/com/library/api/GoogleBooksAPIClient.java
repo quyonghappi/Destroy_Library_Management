@@ -151,7 +151,7 @@ public class GoogleBooksAPIClient {
 
                 String previewLink;
                 if (accessInfo == null || checkViewability.equals("NO_PAGES")) {
-                    previewLink = "There is no preview for this book.";
+                    previewLink = "No preview available.";
                 } else {
                     previewLink = volumeInfo.has("previewLink") ? volumeInfo.get("previewLink").getAsString() : "N/A";
                 }
@@ -279,7 +279,3 @@ public class GoogleBooksAPIClient {
 
     }
 }
-
-
-
-

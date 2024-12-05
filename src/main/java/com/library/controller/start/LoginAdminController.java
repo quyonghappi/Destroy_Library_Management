@@ -68,7 +68,12 @@ public class LoginAdminController {
             return;
         }
 
-        User user = userDao.findUserByName(username);
+        User user = findUserByName(username);
+
+        if (user == null) {
+            showAlert(AlertType.ERROR, "Login Failed", "Please enter a valid user name.");
+            return;
+        }
 
         if (!user.getAccountStatus().equals("active")) {
             showAlert(AlertType.ERROR, "Login Failed", "Your account has been locked.");
@@ -97,8 +102,6 @@ public class LoginAdminController {
             }
         }
     }
-
-
 
     public String getUserFullName() throws Exception {
         User user = findUserByName(userNameField.getText());
