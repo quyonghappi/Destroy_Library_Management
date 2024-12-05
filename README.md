@@ -42,11 +42,11 @@ Dưới đây là danh sách các package của dự án:
 ![img_3.png](img_3.png)
 ---
 ### 2. Bảng đóng góp của thành viên
-| Thành viên         | Công việc chính                                                                                                                                                                                                                  |
-|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Nguyễn Thùy Linh   | - Thiết kế cấu trúc cơ sở dữ liệu<br/>- Tham gia xây dựng controller của giao diện admin<br/>-Thiết kế giao diện login, signup<br/>-Tham gia xây dựng các lớp DAO <br/>- Tham gia xây dựng utils                                 |
-| Trần Hoàng Mai Anh | - Xây dựng controller của giao diện admin và user<br/>-Thiết kế giao diện admin, user<br/>-Tham gia xây dựng các lớp DAO<br/>- Xây dựng các lớp trong model đại diện cho đối tượng trong ứng dụng <br/>- Tham gia xây dựng utils |
-| Lê Huyền Linh      | - Thiết kế giao diện user<br/>- Tham gia xây dựng controller cho giao diện user<br/>- Sáng tạo tính năng người dùng: Yêu thích + preview on screen tăng trải nghiệm người dùng<br/>- Hệ thống recommend books dựa trên lượt request cao                                                                                                                                                  |
+| Thành viên         | Công việc chính                                                                                                                                                                                                                                                                                          |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Nguyễn Thùy Linh   | - Thiết kế cấu trúc cơ sở dữ liệu<br/>- Tham gia xây dựng controller của giao diện admin<br/>-Thiết kế giao diện login, signup<br/>-Tham gia xây dựng các lớp DAO <br/>- Tham gia xây dựng utils                                                                                                         |
+| Trần Hoàng Mai Anh | - Xây dựng controller tích hợp đa luồng của giao diện admin và user<br/>-Thiết kế giao diện admin, user(có sự sáng tạo)<br/>-Tham gia xây dựng các lớp DAO<br/>- Xây dựng các lớp trong model đại diện cho đối tượng trong ứng dụng <br/>- Tham gia xây dựng utils<br/>- Tham gia xây dựng cơ sở dữ liệu |
+| Lê Huyền Linh      | - Thiết kế giao diện user<br/>- Tham gia xây dựng controller cho giao diện user<br/>- Sáng tạo tính năng người dùng: Yêu thích + preview on screen tăng trải nghiệm người dùng<br/>- Thêm thao tác log out ở giao diện admin.                                                                            |
 
 ---
 
