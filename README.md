@@ -13,7 +13,7 @@ Dự án được thiết kế để đảm bảo khả năng mở rộng và d�
 Dưới đây là danh sách các package của dự án:
 
 #### **Model**
-![img_2.png](src/main/resources/ui/readme/img_2.png)
+![img_2.png](img_2.png)
 - **Document**: Đại diện cho một cuốn sách trong thư viện.
 - **User**: Đại diện cho người dùng.
 - **Reservation**: Đại diện cho yêu cầu đặt trước sách.  
@@ -27,26 +27,26 @@ Dưới đây là danh sách các package của dự án:
 - **Review**: Nội dung sẽ được phát triển trong tương lai gần.
 #### **Dao**: 
 - Gồm các lớp để tương tác với cơ sở dữ liệu nhằm lấy dữ liệu tương ứng của các đối tượng trong model.
-![img_1.png](src/main/resources/ui/readme/img_1.png)
+![img_1.png](img_1.png)
 #### **Controller**
 - Gồm các controller quản lý giao diện ứng dụng, có tích hợp đa luồng để cải thiện trải nghiệm người dùng.
    
 #### **API**
 - Thực hiện request get để lấy được các thông tin cần thiết của sách: 
-![img.png](src/main/resources/ui/readme/img.png)
+![img.png](img.png)
 
 #### **Config**
 - Gồm các lớp thực hiện việc kết nối với database và điểm gọi API.
 #### **Utils**
 - Gồm các lớp tiện ích sử dụng xuyên suốt chương trình.
-![img_3.png](src/main/resources/ui/readme/img_3.png)
+![img_3.png](img_3.png)
 ---
 ### 2. Bảng đóng góp của thành viên
 | Thành viên         | Công việc chính                                                                                                                                                                                                                  |
 |--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Nguyễn Thùy Linh   | - Thiết kế cấu trúc cơ sở dữ liệu<br/>- Tham gia xây dựng controller của giao diện admin<br/>-Thiết kế giao diện login, signup<br/>-Tham gia xây dựng các lớp DAO <br/>- Tham gia xây dựng utils                                 |
 | Trần Hoàng Mai Anh | - Xây dựng controller của giao diện admin và user<br/>-Thiết kế giao diện admin, user<br/>-Tham gia xây dựng các lớp DAO<br/>- Xây dựng các lớp trong model đại diện cho đối tượng trong ứng dụng <br/>- Tham gia xây dựng utils |
-| Lê Huyền Linh      | - Thiết kế giao diện user<br/>- Tham gia xây dựng controller cho giao diện user                                                                                                                                                  |
+| Lê Huyền Linh      | - Thiết kế giao diện user<br/>- Tham gia xây dựng controller cho giao diện user<br/>- Sáng tạo tính năng người dùng: Yêu thích + preview on screen tăng trải nghiệm người dùng<br/>                                                                                                                                                  |
 
 ---
 
@@ -99,38 +99,34 @@ Dưới đây là các dependencies chính:
 ## User Home Screen: 
    - Hiển thị My Book Shelf, Recommendations và Newly Arrivals, gợi ý cho người dùng chọn
 
-![home_sceen](src/main/resources/ui/readme/home_screen.png)
+     ![image](https://github.com/user-attachments/assets/63436358-c7ae-41fe-9a43-a5ab120d0d6f)
+
+
 
 ## Favorites + Borrow Books: 
    - Lưu sách vào yêu thích & mượn sách
 
-![home_sceen](src/main/resources/ui/readme/borrowed_screen.png)
+     ![image](https://github.com/user-attachments/assets/8d94746d-83db-40f0-b2c5-e586823d28f3)
 
-![home_sceen](src/main/resources/ui/readme/favo_screen.png)
+     ![image](https://github.com/user-attachments/assets/ed229fef-59a1-4ab9-b6f6-3a879558ff15)
+
+
+
+## Admin Dashboard 
+   - Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng 
+
+     ![image](https://github.com/user-attachments/assets/be28160a-89fb-4e8c-9ff4-9ea5b2e86562)
 
 
 ## Reader management
    - Quản lý thông tin người dùng
 
-![home_sceen](src/main/resources/ui/readme/favo_screen.png)
-
-## Admin Dashboard 
-   - Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng
-
-![home_sceen](src/main/resources/ui/readme/admin_home.png)
+     <Thêm ảnh vào đây>
 
 ## Book Management
    - Quản lý thông tin sách nhập vào từ API
 
-![home_sceen](src/main/resources/ui/readme/allBook_screen.png)
-
-![home_sceen](src/main/resources/ui/readme/lent_screen.png)
-
-![home_sceen](src/main/resources/ui/readme/return_screen.png)
-
-![home_sceen](src/main/resources/ui/readme/overDue_screen.png)
-
-![home_sceen](src/main/resources/ui/readme/request_screen.png)
+     ![image](https://github.com/user-attachments/assets/7422f5bd-c346-4f6a-b402-fc2d01fd7a89)
 
    
 
