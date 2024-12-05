@@ -142,12 +142,11 @@ public class HomeScreenController implements Initializable {
         myBooks = borrowingRecordDao.getByUserName(username);
         try {
             for (int i = 0; i < myBooks.size(); i++) {
-                BorrowingRecord myBook = myBooks.get(i);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
                 VBox bookInfo = loader.load();
                 BookCardController controller = loader.getController();
-                Document document = documentDao.get(recentlyAdded.get(i).getISBN());
-                controller.loadBookInfo(documentDao.get(recentlyAdded.get(i).getISBN()));
+                Document document = documentDao.get(myBooks.get(i).getISBN());
+                controller.loadBookInfo(documentDao.get(myBooks.get(i).getISBN()));
 
                 bookInfo.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2) {
@@ -178,7 +177,7 @@ public class HomeScreenController implements Initializable {
         int column =0;
         int row=1;
         try {
-            for (int i=0; i<recentlyAdded.size()-1; i++) {
+            for (int i=0; i<recentlyAdded.size(); i++) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
                 VBox bookInfo = loader.load();
                 BookCardController controller = loader.getController();
