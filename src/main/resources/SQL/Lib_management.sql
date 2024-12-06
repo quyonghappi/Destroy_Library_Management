@@ -145,6 +145,16 @@ create table FavouriteBooks (
                         FOREIGN KEY (isbn) REFERENCES Documents(isbn)
 );
 
+-- create event to automatically increase fine amount day by day
+set global event_scheduler = ON;
+drop event if exists increment_amount_daily;
+create event increment_fine_amount_daily
+    on schedule every 1 day
+        starts current_timestamp
+    do update fines
+    set fine_amount = fine_amount + 5000
+    where status = 'UNPAID';
+
 -- insert data if user_role is admin
 DELIMITER //
 

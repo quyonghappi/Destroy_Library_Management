@@ -75,6 +75,7 @@ public class BorrowedBooksCellController {
             switch(br.getStatus()) {
                 case "borrowed":
                     statusLabel.setText("Borrowed");
+                    fineAmountLabel.setVisible(false);
                     break;
                 case "late":
                     statusLabel.setText("Late");
