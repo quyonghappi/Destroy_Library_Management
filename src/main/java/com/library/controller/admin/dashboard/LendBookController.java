@@ -4,6 +4,7 @@ import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.dao.UserDao;
 import com.library.models.BorrowingRecord;
+import com.library.models.Document;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -42,11 +43,6 @@ public class LendBookController {
             return;
         }
 
-
-
-
-
-
         try {
 
             if (UserDao.findUserByName(username) == null) {
@@ -54,8 +50,14 @@ public class LendBookController {
                 return;
             }
 
-            if (DocumentDao.findByIsbn(bookId) == null) {
+            Document doc = DocumentDao.findByIsbn(bookId);
+            if (doc == null) {
                 showAlert(Alert.AlertType.ERROR, "Validation Error", "Book not found: " + bookId);
+                return;
+            }
+
+            if (doc.getQuantity() == 0) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Book is empty");
                 return;
             }
 
@@ -68,7 +70,6 @@ public class LendBookController {
             confirmationAlert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     try {
-//
                         String userId = String.valueOf(UserDao.findUserByName(username).getUserId());
                         LocalDateTime borrowDate=LocalDateTime.now();
                         borrowingRecordDao.add(new BorrowingRecord(userId,bookId.trim(),borrowDate, "borrowed"));

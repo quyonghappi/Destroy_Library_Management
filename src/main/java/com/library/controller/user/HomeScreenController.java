@@ -293,6 +293,7 @@ public class HomeScreenController implements Initializable {
                 }
             }
         });
+        new Thread(loadTask).start();
     }
 
 

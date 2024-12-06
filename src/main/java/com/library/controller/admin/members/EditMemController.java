@@ -39,7 +39,7 @@ public class EditMemController {
     }
 
     public void editMem(ActionEvent actionEvent) throws Exception {
-        String userNameInput = this.userName.getText();
+        String userNameInput = this.user.getUsername();
         String currentPasswordInput = this.currentPassword.getText();
         String newPasswordInput = this.newPassword.getText();
         String confirmPasswordInput = this.confirmPassword.getText();

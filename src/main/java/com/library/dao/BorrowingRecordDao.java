@@ -81,29 +81,6 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         return getRecord(sql);
     }
 
-    //    //get late
-//    public List<BorrowingRecord> getLate() {
-//        List<BorrowingRecord> list = getLent();
-//        FineDao fineDao = new FineDao();
-//        for (BorrowingRecord borrowingRecord : list) {
-//            fineDao.checkAndAddFine(borrowingRecord);
-//        }
-//        String sql = "select * from borrowingrecords where status='late'";
-//        List<BorrowingRecord> lateList = getRecord(sql);
-//        return lateList;
-//    }
-//
-//    //get lost, already have this in doc dao
-//    public List<BorrowingRecord> getLost() {
-//        List<BorrowingRecord> list = getLent();
-//        FineDao fineDao = new FineDao();
-//        for (BorrowingRecord borrowingRecord : list) {
-//            fineDao.checkAndAddFine(borrowingRecord);
-//        }
-//        String sql = "select * from borrowingrecords where status='Lost'";
-//        return getRecord(sql);
-//    }
-
     private List<BorrowingRecord> getRecord(String sql) {
         List<BorrowingRecord> list = new ArrayList<>();
         try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
