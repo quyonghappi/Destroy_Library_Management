@@ -27,7 +27,8 @@ Dưới đây là danh sách các package của dự án:
 - **Review**: Nội dung sẽ được phát triển trong tương lai gần.
 
 #### **Database**
-![sql.png](src\main\resources\ui\readme\sql.png)
+ 
+  ![sql.png](src/main/resources/ui/readme/sql.png)
 
 #### **Dao**:
 - Gồm các lớp để tương tác với cơ sở dữ liệu nhằm lấy dữ liệu tương ứng của các đối tượng trong model.
@@ -103,14 +104,14 @@ Dưới đây là các dependencies chính:
 ## User Home Screen:
 - Hiển thị My Book Shelf, Recommendations và Newly Arrivals, gợi ý cho người dùng chọn
 
-![home_screen.png](src\main\resources\ui\readme\home_screen.png)
+![home_screen.png](src/main/resources/ui/readme/home_screen.png)
 
 ## Favorites + Borrow Books:
 - Lưu sách vào yêu thích & mượn sách
 
-![borrowed_screen.png](src\main\resources\ui\readme\borrowed_screen.png)
+![borrowed_screen.png](src/main/resources/ui/readme/borrowed_screen.png)
 
-![favo_screen.png](src\main\resources\ui\readme\favo_screen.png)
+![favo_screen.png](src/main/resources/ui/readme/favo_screen.png)
 
 
 ## Admin Dashboard
