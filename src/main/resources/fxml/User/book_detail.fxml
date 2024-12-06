@@ -25,11 +25,11 @@
                               <Image url="@../../ui/admindashboard/bookcover.png" />
                            </image>
                         </ImageView>
-                        <HBox fx:id="qrCode" onMouseClicked="#setOnQrCode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="68.0">
+                        <HBox  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="68.0">
                            <children>
-                              <ImageView fitHeight="69.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="qrCode" fitHeight="69.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image  url="@../../ui/user/qr_code.png" />
+                                    <Image   url="@../../ui/user/qr_code.png" />
                                  </image>
                               </ImageView>
                            </children>

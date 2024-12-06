@@ -6,16 +6,10 @@ import com.library.dao.FavouriteDao;
 import com.library.dao.ReservationDao;
 import com.library.models.*;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
-
 import java.time.LocalDateTime;
 
 import static com.library.QrCode.BookQR.createQRCode;
@@ -71,7 +65,7 @@ public class BookDetailController {
     private Button requestButton;
 
     @FXML
-    private HBox qrCode;
+    private ImageView qrCode;
 
     private ReservationDao reservationDao = ReservationDao.getInstance();
     private FavouriteDao favDao = FavouriteDao.getInstance();
@@ -95,6 +89,7 @@ public class BookDetailController {
     private void loadBookDetails(Document document) {
         // document hien dang load
         doc = document;
+        loadQrCode();
 
         // Set book title
         bookTitle.setText(document.getTitle());
@@ -207,21 +202,9 @@ public class BookDetailController {
         }
     }
 
-    public void setOnQrCode(MouseEvent mouseEvent) {
-
+    public void loadQrCode() {
         String previewLink = doc.getPreviewLink();
         ImageView imageView = createQRCode(previewLink);
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(imageView);
-
-        Scene scene = new Scene(stackPane, 300, 300);
-        Stage qrStage = new Stage();
-        qrStage.setHeight(300);
-        qrStage.setWidth(300);
-        qrStage.setX(mouseEvent.getScreenX());
-        qrStage.setY(mouseEvent.getScreenY());
-        qrStage.setResizable(false);
-        qrStage.setScene(scene);
-        qrStage.show();
+        qrCode.setImage(imageView.getImage());
     }
 }
