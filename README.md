@@ -38,7 +38,8 @@ Dưới đây là danh sách các package của dự án:
 
 #### **API**
 - Thực hiện request get để lấy được các thông tin cần thiết của sách:
-  ![img.png](src/main/resources/ui/readme/img.png)
+
+![img.png](src/main/resources/ui/readme/img.png)
 
 #### **Config**
 - Gồm các lớp thực hiện việc kết nối với database và điểm gọi API.
