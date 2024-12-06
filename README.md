@@ -25,6 +25,10 @@ Dưới đây là danh sách các package của dự án:
 - **Category**: Đại diện cho thể loại của sách.
 - **BorrowingRecord**: Đại diện cho bản ghi mượn sách.
 - **Review**: Nội dung sẽ được phát triển trong tương lai gần.
+
+#### **Database**
+![img_2.png](src\main\resources\ui\readme\sql.png)
+
 #### **Dao**:
 - Gồm các lớp để tương tác với cơ sở dữ liệu nhằm lấy dữ liệu tương ứng của các đối tượng trong model.
   ![img_1.png](src/main/resources/ui/readme/img_1.png)
@@ -99,14 +103,14 @@ Dưới đây là các dependencies chính:
 ## User Home Screen:
 - Hiển thị My Book Shelf, Recommendations và Newly Arrivals, gợi ý cho người dùng chọn
 
-![image](https://github.com/user-attachments/assets/0a5ec79d-be8e-42e2-a7d8-87d5b93c530b)
+![image](src\main\resources\ui\readme\home_screen.png)
 
 ## Favorites + Borrow Books:
 - Lưu sách vào yêu thích & mượn sách
 
-![image](https://github.com/user-attachments/assets/ad05c456-3b83-4cbc-8be3-c1640affd79a)
+![image](src\main\resources\ui\readme\borrowed_screen.png)
 
-![image](https://github.com/user-attachments/assets/92957abc-ab63-4563-8ba1-8f620777f468)
+![image](src\main\resources\ui\readme\favo_screen.png)
 
 
 ## Admin Dashboard
