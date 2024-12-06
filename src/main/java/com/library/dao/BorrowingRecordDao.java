@@ -71,7 +71,8 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         }
 
         // Trả về danh sách đã cập nhật
-        return getRecord("SELECT * FROM borrowingrecords WHERE status IN ('borrowed', 'late', 'lost')");
+        return getRecord("SELECT * FROM borrowingrecords WHERE status IN ('borrowed', 'late', 'lost')\n" +
+                "order by status asc");
     }
 
     //get returned

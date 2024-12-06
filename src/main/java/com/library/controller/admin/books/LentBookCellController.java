@@ -77,6 +77,7 @@ public class LentBookCellController implements Initializable {
             isbnLabel.setText(doc.getISBN());
             bookNameLabel.setText(doc.getTitle());
             statusLabel.setText(br.getStatus());
+            updateImageVisibility(statusLabel.getText());
             User user= userDao.get(br.getUserId());
             userIdLabel.setText(String.valueOf(user.getUserId()));
             userLabel.setText(user.getFullName());
@@ -89,6 +90,20 @@ public class LentBookCellController implements Initializable {
             } else {
                 bookImage.setImage(new Image("/ui/admindashboard/bookcover.png")); // Hình ảnh mặc định khi không có bìa
             }
+        }
+    }
+
+    private void updateImageVisibility(String status) {
+        if (status.equals("lost")) {
+            returnImage.setVisible(false);
+            lostImage.setVisible(false);
+        } else if (status.equals("late")) {
+            returnImage.setVisible(false);
+            lostImage.setVisible(true);
+        }
+        else {
+            returnImage.setVisible(true);
+            lostImage.setVisible(true);
         }
     }
 
