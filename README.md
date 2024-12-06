@@ -27,7 +27,7 @@ Dưới đây là danh sách các package của dự án:
 - **Review**: Nội dung sẽ được phát triển trong tương lai gần.
 
 #### **Database**
-![img_2.png](src\main\resources\ui\readme\sql.png)
+![sql.png](src\main\resources\ui\readme\sql.png)
 
 #### **Dao**:
 - Gồm các lớp để tương tác với cơ sở dữ liệu nhằm lấy dữ liệu tương ứng của các đối tượng trong model.
@@ -103,33 +103,33 @@ Dưới đây là các dependencies chính:
 ## User Home Screen:
 - Hiển thị My Book Shelf, Recommendations và Newly Arrivals, gợi ý cho người dùng chọn
 
-![image](src\main\resources\ui\readme\home_screen.png)
+![home_screen.png](src\main\resources\ui\readme\home_screen.png)
 
 ## Favorites + Borrow Books:
 - Lưu sách vào yêu thích & mượn sách
 
-![image](src\main\resources\ui\readme\borrowed_screen.png)
+![borrowed_screen.png](src\main\resources\ui\readme\borrowed_screen.png)
 
-![image](src\main\resources\ui\readme\favo_screen.png)
+![favo_screen.png](src\main\resources\ui\readme\favo_screen.png)
 
 
 ## Admin Dashboard
 - Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng
 
-![home_sceen](src/main/resources/ui/readme/admin_home.png)
+![admin_home.png](src/main/resources/ui/readme/admin_home.png)
 
 ## Book Management
 - Quản lý thông tin sách nhập vào từ API
 
-![home_sceen](src/main/resources/ui/readme/allBook_screen.png)
+![allBook_screen.png](src/main/resources/ui/readme/allBook_screen.png)
 
-![home_sceen](src/main/resources/ui/readme/lent_screen.png)
+![lent_screen.png](src/main/resources/ui/readme/lent_screen.png)
 
-![home_sceen](src/main/resources/ui/readme/return_screen.png)
+![return_screen.png](src/main/resources/ui/readme/return_screen.png)
 
-![home_sceen](src/main/resources/ui/readme/overDue_screen.png)
+![overDue_screen.png](src/main/resources/ui/readme/overDue_screen.png)
 
-![home_sceen](src/main/resources/ui/readme/request_screen.png)
+![request_screen.png](src/main/resources/ui/readme/request_screen.png)
 
    
 
