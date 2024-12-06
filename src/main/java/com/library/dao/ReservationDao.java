@@ -1,10 +1,9 @@
 package com.library.dao;
 
 import com.library.config.DatabaseConfig;
-import com.library.models.BorrowingRecord;
+import com.library.controller.Subject;
 import com.library.models.Reservation;
 import com.library.utils.DateFormat;
-import javafx.scene.control.ListView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +13,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservationDao implements DAO<Reservation>  {
+public class ReservationDao extends Subject implements DAO<Reservation>  {
+    private static ReservationDao instance;
+
+    private ReservationDao() {}
+
+    public static ReservationDao getInstance() {
+        if (instance == null) {
+            instance = new ReservationDao();
+        }
+        return instance;
+    }
+
     //use when users change their mind
     public void delete(String isbn, int userId) {
         String sql = "delete from reservations where isbn = ? and user_id = ?";
@@ -25,6 +35,7 @@ public class ReservationDao implements DAO<Reservation>  {
             ps.setInt(2, userId);
 
             int rowsAffected = ps.executeUpdate();
+            notifyObservers();
             if (rowsAffected > 0) {
                 System.out.println("Reservation deleted successfully.");
             } else {
@@ -43,6 +54,7 @@ public class ReservationDao implements DAO<Reservation>  {
             PreparedStatement pst=con.prepareStatement(sql)){
             pst.setInt(1,reservation.getReservationId());
             pst.executeUpdate();
+            notifyObservers();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -64,6 +76,7 @@ public class ReservationDao implements DAO<Reservation>  {
             ps.setTimestamp(3, DateFormat.toSqlTimestamp(reservation.getReservationDate()));
             ps.setString(4,"active");
             ps.executeUpdate();
+            notifyObservers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -172,20 +185,28 @@ public class ReservationDao implements DAO<Reservation>  {
         return 0;
     }
 
-    public boolean reservationExists(String isbn, int userId) {
-        String sql = "select * from reservations where isbn = ? and user_id = ?";
+    //tim ra request moi nhat cua nguoi dung va lay status hien thi trong book detail scene
+    public Reservation reservationExists(String isbn, int userId) {
+        String sql = "select * from reservations where isbn = ? and user_id = ? " +
+                "order by reservation_date desc " + "limit 1";
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, isbn);
             pstmt.setInt(2, userId);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0;
+                Reservation reservation = new Reservation();
+                reservation.setReservationId(rs.getInt("reservation_id"));
+                reservation.setUserId(rs.getInt("user_id"));
+                reservation.setIsbn(rs.getString("isbn"));
+                reservation.setStatus(rs.getString("status"));
+                reservation.setReservationDate(rs.getTimestamp("reservation_date").toLocalDateTime());
+                return reservation;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return false;
+        return null;
     }
 
     public void updateStatus(int reservation_id, String status) {
@@ -204,6 +225,7 @@ public class ReservationDao implements DAO<Reservation>  {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        notifyObservers();
     }
 
     public List<Reservation> getByUserName(String username) {

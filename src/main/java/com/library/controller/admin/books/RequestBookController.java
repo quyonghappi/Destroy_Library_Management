@@ -1,5 +1,6 @@
 package com.library.controller.admin.books;
 
+    import com.library.controller.Observer;
     import com.library.controller.admin.dashboard.AdminDashboardController;
     import com.library.controller.admin.members.MemInfoController;
     import com.library.dao.ReservationDao;
@@ -22,7 +23,7 @@ package com.library.controller.admin.books;
     import static com.library.utils.LoadView.loadView;
     import static com.library.utils.SceneSwitcher.*;
 
-public class RequestBookController implements Initializable {
+public class RequestBookController implements Initializable, Observer {
 
     @FXML
     StackPane requestBookRoot;
@@ -75,10 +76,11 @@ public class RequestBookController implements Initializable {
     @FXML
     private Button logOut;
 
-    private ReservationDao reservationDao=new ReservationDao();
+    private ReservationDao reservationDao=ReservationDao.getInstance();
     List<Reservation> reservations=new ArrayList<Reservation>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        reservationDao.addObserver(this);
         reservations=getReservations();
         countLabel.setText(String.valueOf(reservations.size()));
 
@@ -135,6 +137,12 @@ public class RequestBookController implements Initializable {
         });
     }
 
+    @Override
+    public void update() {
+        requestDetailContainer.refresh();
+        sortListView();
+    }
+
     //minh search bang username cuz users cannot know their requestId
     private void searchRequest(String username) {
         if (username == null || username.trim().isEmpty()) {
@@ -144,7 +152,6 @@ public class RequestBookController implements Initializable {
         }
         loadReservationList();
     }
-
 
     private List<Reservation> getReservations(){
         return reservationDao.getAll();
@@ -166,7 +173,7 @@ public class RequestBookController implements Initializable {
         Task<List<Reservation>> loadTask= new Task<>() {
             @Override
             protected List<Reservation> call() throws Exception {
-                return reservations;
+                return getReservations();
             }
         };
 
@@ -187,10 +194,9 @@ public class RequestBookController implements Initializable {
     private void refreshListView(List<Reservation> reservations) {
         requestDetailContainer.setCellFactory(param->
         {
-            RequestBookCell requestBookCell = new RequestBookCell();
-            requestBookCell.setListView(requestDetailContainer);
-            requestBookCell.setParentController(this);
-            return requestBookCell;
+            //requestBookCell.setListView(requestDetailContainer);
+            //requestBookCell.setParentController(this);
+            return new RequestBookCell();
         });
         requestDetailContainer.getItems().setAll(reservations);
         sortListView();

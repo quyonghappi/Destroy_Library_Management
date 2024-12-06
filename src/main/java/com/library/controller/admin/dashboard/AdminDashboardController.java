@@ -71,8 +71,8 @@ public class AdminDashboardController implements Initializable {
 
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
     private UserDao userDa0=new UserDao();
-    private FineDao fineDao = new FineDao();
-    private ReservationDao reservationDao=new ReservationDao();
+    private FineDao fineDao = FineDao.getInstance();
+    private ReservationDao reservationDao=ReservationDao.getInstance();
     private List<Fine> fineList;
 
 
@@ -137,18 +137,17 @@ public class AdminDashboardController implements Initializable {
             System.out.println("fail to load request info" + loadTask.getException());
         });
         new Thread(loadTask).start();
-
-
     }
-
 
     private void refreshListView(List<Fine> fine) {
         overdueDetailContainer.setCellFactory(param-> {
             OverdueCell overdueCell=new OverdueCell();
             overdueCell.setListView(overdueDetailContainer);
+            overdueCell.setParentController(this);
             return overdueCell;
         });
         overdueDetailContainer.getItems().addAll(fineList);
+        sortListView();
     }
 
     private void refreshListView1(List<Reservation> reservations) {
@@ -160,7 +159,7 @@ public class AdminDashboardController implements Initializable {
             return requestCell;
         });
         requestDetailContainer.getItems().addAll(reservations);
-        sortListView();
+        sortListView1();
     }
 
     private List<Reservation> getReservationList() {
@@ -171,12 +170,23 @@ public class AdminDashboardController implements Initializable {
         return fineDao.getAll();
     }
 
-    public void sortListView() {
+    public void sortListView1() {
         requestDetailContainer.getItems().sort((r1, r2) -> {
             if ("active".equals(r1.getStatus()) && !"active".equals(r2.getStatus())) {
                 return -1;
             } else if (!"active".equals(r1.getStatus()) && "active".equals(r2.getStatus())) {
                 return 1;
+            }
+            return 0;
+        });
+    }
+
+    public void sortListView() {
+        overdueDetailContainer.getItems().sort((r1, r2) -> {
+            if ("UNPAID".equals(r1.getStatus()) && !"UNPAID".equals(r2.getStatus())) {
+                return -1;  // r1 comes before r2
+            } else if (!"UNPAID".equals(r1.getStatus()) && "UNPAID".equals(r2.getStatus())) {
+                return 1;   // r2 comes before r1
             }
             return 0;
         });

@@ -56,7 +56,7 @@ public class RequestController {
 
     private DocumentDao documentDao = new DocumentDao();
     private UserDao userDao = new UserDao();
-    private ReservationDao reservationDao = new ReservationDao();
+    private ReservationDao reservationDao = ReservationDao.getInstance();
     private AdminDashboardController parentController;
 
     public void setParentController(AdminDashboardController parentController) {
@@ -127,7 +127,7 @@ public class RequestController {
             updateButtonVisibility("fulfilled");
             lv.refresh();
             if (parentController != null) {
-                parentController.sortListView();
+                parentController.sortListView1();
             }
         } catch (Exception e) {
             e.printStackTrace(); //debug

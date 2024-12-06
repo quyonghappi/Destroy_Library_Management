@@ -1,5 +1,6 @@
 package com.library.dao;
 import com.library.config.DatabaseConfig;
+import com.library.controller.Subject;
 import com.library.models.BorrowingRecord;
 import com.library.models.Fine;
 import java.sql.Connection;
@@ -11,7 +12,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FineDao implements DAO<Fine> {
+public class FineDao extends Subject implements DAO<Fine> {
+    private static FineDao instance = null;
+
+    private FineDao() {
+    }
+
+    public static FineDao getInstance() {
+        if (instance==null) {
+            instance = new FineDao();
+        }
+        return instance;
+    }
 
     //get all fines in db
     public List<Fine> getAll() {
@@ -143,10 +155,11 @@ public class FineDao implements DAO<Fine> {
         try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)) {
             pstm.setInt(1, fine.getRecordId());
             pstm.executeUpdate();
-
+            notifyObservers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public void checkAndAddFine(BorrowingRecord br) {
@@ -226,6 +239,7 @@ public class FineDao implements DAO<Fine> {
             ps.setString(1,"PAID");
             ps.setInt(2, recordId);
             ps.executeUpdate();
+            notifyObservers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

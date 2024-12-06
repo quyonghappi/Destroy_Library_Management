@@ -3,7 +3,6 @@ package com.library.controller.user;
 import com.library.models.Reservation;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
@@ -20,12 +19,6 @@ public class UserRequestCell extends ListCell<Reservation> {
             controller = loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void setListView(ListView<Reservation> lv) {
-        if (requestBox != null) {
-            controller.setListView(lv);
         }
     }
 

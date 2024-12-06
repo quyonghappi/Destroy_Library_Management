@@ -49,7 +49,7 @@ public class MemInfoCellController {
     private ListView<User> listView;
     private User currentUser;
     private UserDao userDao = new UserDao();
-    private FineDao fineDao=new FineDao();
+    private FineDao fineDao=FineDao.getInstance();
 
     public void initialize() {
         editImage.setOnMouseClicked(event->handleEditButtonAction());

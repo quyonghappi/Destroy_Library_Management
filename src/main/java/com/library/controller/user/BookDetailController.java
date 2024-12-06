@@ -73,8 +73,8 @@ public class BookDetailController {
     @FXML
     private HBox qrCode;
 
-    private ReservationDao reservationDao = new ReservationDao();
-    private FavouriteDao favDao = new FavouriteDao();
+    private ReservationDao reservationDao = ReservationDao.getInstance();
+    private FavouriteDao favDao = FavouriteDao.getInstance();
     private Document doc = new Document();
 
 
@@ -86,13 +86,13 @@ public class BookDetailController {
         loadBookDetails(doc);
     }
 
+
     /**
      * Load book details into the view components.
      *
      * @param document The Document object containing the book's details.
      */
     private void loadBookDetails(Document document) {
-
         // document hien dang load
         doc = document;
 
@@ -139,10 +139,15 @@ public class BookDetailController {
         User user = findUserByName(username);
 
         if (user != null) {
-            isReserved = reservationDao.reservationExists(isbn, user.getUserId());
+            Reservation re = reservationDao.reservationExists(isbn, user.getUserId());
+            //System.out.println(re.getStatus());
+            if (re != null && re.getStatus().equals("active")) {
+                isReserved = true;
+            } else {
+                isReserved = false;
+            }
             if (isReserved) {
                 updateRequestButtonStyle(requestButton, isReserved);
-
             }
             isFavourite = favDao.favExists(isbn, user.getUserId());
             if (isFavourite) {
@@ -150,7 +155,6 @@ public class BookDetailController {
             }
         }
     }
-
 
     @FXML
     private void onRequestClicked() {

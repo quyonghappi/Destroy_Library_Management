@@ -1,11 +1,13 @@
 package com.library.controller.admin.books;
 
+import com.library.controller.Observer;
 import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.controller.admin.dashboard.OverdueCell;
 import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.FineDao;
 import com.library.models.Fine;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +19,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,7 +26,7 @@ import java.util.ResourceBundle;
 import static com.library.utils.LoadView.loadView;
 import static com.library.utils.SceneSwitcher.*;
 
-public class OverdueBookController implements Initializable {
+public class OverdueBookController implements Initializable, Observer {
 
     @FXML
     StackPane overdueRoot;
@@ -79,11 +80,12 @@ public class OverdueBookController implements Initializable {
     private Button logOut;
 
     private BorrowingRecordDao borrowingRecordDao= new BorrowingRecordDao();
-    private FineDao fineDao= new FineDao();
-    List<Fine> fines=new ArrayList<>();
+    private FineDao fineDao= FineDao.getInstance();
+    List<Fine> fines;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        fineDao.addObserver(this);
         fines = getOverdueList();
         countLabel.setText(String.valueOf(fines.size()));
 
@@ -100,25 +102,32 @@ public class OverdueBookController implements Initializable {
 
     private void searchOverDue(String username) {
         if (username.isEmpty()) {
-            fines = fineDao.getAll();
+            fines = (ObservableList<Fine>) fineDao.getAll();
         } else {
-            fines = fineDao.getFinesByUsername(username);
+            fines = (ObservableList<Fine>) fineDao.getFinesByUsername(username);
         }
         loadOverdueList();
+    }
+
+    @Override
+    public void update() {
+        overdueDetailContainer.refresh();
+        sortListView();
+        //loadOverdueList();
     }
 
     private void loadOverdueList() {
         //use a background task for loading data
         Task<List<Fine>> loadTask = new Task<>() {
             @Override
-            protected List<Fine> call() {
-                return fines; // Database call
+            protected List<Fine> call() {;
+                return fineDao.getAll(); // Database call
             }
         };
 
         //if task is success
         loadTask.setOnSucceeded(event -> {
-            fines = loadTask.getValue();
+            fines=loadTask.getValue();
             refreshListView(fines);
         });
 
@@ -135,10 +144,9 @@ public class OverdueBookController implements Initializable {
     private void refreshListView(List<Fine> fines) {
         overdueDetailContainer.setCellFactory(param->
         {
-            OverdueCell overdueCell = new OverdueCell();
-            overdueCell.setListView(overdueDetailContainer);
-            overdueCell.setParentController(this);
-            return overdueCell;
+            //OverdueCell overdueCell = new OverdueCell();
+            //overdueCell.setListView(overdueDetailContainer);
+            return new OverdueCell();
         });
         overdueDetailContainer.getItems().setAll(fines);
         sortListView();

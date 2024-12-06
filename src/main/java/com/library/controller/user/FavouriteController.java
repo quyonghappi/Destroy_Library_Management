@@ -1,7 +1,7 @@
 package com.library.controller.user;
+import com.library.controller.Observer;
 import com.library.dao.DocumentDao;
 import com.library.dao.FavouriteDao;
-import com.library.models.BorrowingRecord;
 import com.library.models.Favourite;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showBookDetails;
 
-public class FavouriteController implements Initializable {
+public class FavouriteController implements Initializable, Observer {
     @FXML
     private StackPane favRoot;
     @FXML
@@ -50,7 +50,7 @@ public class FavouriteController implements Initializable {
     private HBox searchNav;
 
     private String username;
-    private FavouriteDao favouriteDao = new FavouriteDao();
+    private FavouriteDao favouriteDao = FavouriteDao.getInstance();
     private DocumentDao documentDao = new DocumentDao();
 
     public void setUsername(String username) {
@@ -75,7 +75,6 @@ public class FavouriteController implements Initializable {
             favoriteListContainer.setCellFactory(param->
             {
                 FavouriteBooksCell favouriteBooksCell = new FavouriteBooksCell();
-                favouriteBooksCell.setListView(favoriteListContainer);
                 return favouriteBooksCell;
             });
             favoriteListContainer.getItems().setAll(loadTask.getValue());
@@ -88,6 +87,7 @@ public class FavouriteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        favouriteDao.addObserver(this);
         favoriteListContainer.setOnMouseClicked(event -> {
 
             if (event.getClickCount() == 2) {
@@ -155,5 +155,10 @@ public class FavouriteController implements Initializable {
                 searchController.setUserFullName(userFullName);
             }
         }
+    }
+
+    @Override
+    public void update() {
+        loadFavList();
     }
 }

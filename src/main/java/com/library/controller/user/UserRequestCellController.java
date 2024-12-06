@@ -1,15 +1,14 @@
 package com.library.controller.user;
 
+import com.library.controller.Observer;
 import com.library.dao.DocumentDao;
 import com.library.dao.ReservationDao;
 import com.library.models.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -45,18 +44,19 @@ public class UserRequestCellController implements Initializable {
     @FXML
     private Label statusLabel;
 
-    private ListView<Reservation> listView;
+    //private UserRequestController parent;
+    //private ListView<Reservation> listView;
     private Reservation current;
     private DocumentDao documentDao=new DocumentDao();
-    private ReservationDao reservationDao = new ReservationDao();
+    private ReservationDao reservationDao = ReservationDao.getInstance();
 
-    public void setListView(ListView<Reservation> lv){
-        this.listView=lv;
-    }
+//    public void setListView(ListView<Reservation> lv){
+//        this.listView=lv;
+//    }
 
     public void loadUserRequest(Reservation r) throws SQLException {
         if (r != null) {
-            current=r;
+            current = r;
             Document doc = documentDao.get(r.getIsbn());
             Author author = documentDao.getAuthor(doc.getAuthorId());
             authorLabel.setText(author.getName());
@@ -64,10 +64,20 @@ public class UserRequestCellController implements Initializable {
             bookNameLabel.setText(doc.getTitle());
 
             Category category = documentDao.getCategory(doc.getCategoryId());
-            categoryLabel.setText("Category: "+ category.getName());
+            categoryLabel.setText("Category: " + category.getName());
             pageLabel.setText("Total pages: " + doc.getPage());
 
             reqdateLabel.setText(String.valueOf(r.getReservationDate()));
+            updateVisibility(r);
+            if (!doc.getImageLink().equals("N/A")) {
+                loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());
+            } else {
+                bookImage.setImage(new Image("/ui/admindashboard/bookcover.png")); // Hình ảnh mặc định khi không có bìa
+            }
+        }
+    }
+
+        private void updateVisibility(Reservation r) {
             switch (r.getStatus()) {
                 case "active":
                     statusLabel.setVisible(false);
@@ -86,20 +96,13 @@ public class UserRequestCellController implements Initializable {
             }
 
 
-            if (!doc.getImageLink().equals("N/A")) {
-                loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());
-            } else {
-                bookImage.setImage(new Image("/ui/admindashboard/bookcover.png")); // Hình ảnh mặc định khi không có bìa
-            }
         }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         deleteImage.setOnMouseClicked(event -> {
-            if (current != null && listView != null) {
+            if (current != null) {
                 reservationDao.delete(current);
-                listView.getItems().remove(current);
             }
         });
     }

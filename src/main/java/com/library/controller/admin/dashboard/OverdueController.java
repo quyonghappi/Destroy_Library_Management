@@ -1,7 +1,6 @@
 package com.library.controller.admin.dashboard;
 
 import com.library.controller.admin.books.OverdueBookController;
-import com.library.controller.admin.books.RequestBookController;
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.dao.FineDao;
@@ -10,15 +9,12 @@ import com.library.models.BorrowingRecord;
 import com.library.models.Document;
 import com.library.models.Fine;
 import com.library.models.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 
 import static com.library.utils.LoadImage.loadImageLazy;
@@ -53,10 +49,10 @@ public class OverdueController {
     private Label statusLabel;
 
     private DocumentDao documentDao = new DocumentDao();
-    private UserDao userDao=new UserDao();
-    private FineDao fineDao=new FineDao();
-    private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
-    private OverdueBookController parentController;
+    private UserDao userDao = new UserDao();
+    private FineDao fineDao = FineDao.getInstance();
+    private BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
+    private AdminDashboardController parentController;
     private ListView<Fine> lv;
     private Fine currentFine;
 
@@ -64,9 +60,9 @@ public class OverdueController {
         this.lv = lv;
     }
 
-    public void setParentController(OverdueBookController parentController) {
-        this.parentController = parentController; // Set the parent controller
-    }
+    public void setParentController(AdminDashboardController controller) {
+    parentController=controller;
+}
 
     public void loadOverdueData(Fine fine) {
         currentFine=fine;
@@ -79,11 +75,6 @@ public class OverdueController {
             useridLabel.setText(String.valueOf(user.getUserId()));
             usernameLabel.setText(user.getFullName());
         }
-//            } else {
-//                useridLabel.setText("N/A");
-//                usernameLabel.setText("Unknown User");
-//            }
-
             //load borrowing record
         BorrowingRecord borrowingRecord = borrowingRecordDao.get(recordId);
         if (borrowingRecord != null) {
@@ -120,11 +111,11 @@ public class OverdueController {
     private void handlePaidButtonAction() {
         try {
             //fineDao.delete(fineDao.get(Integer.parseInt(recordIdLabel.getText())));
-            fineDao.changeFineStatus(Integer.parseInt(recordIdLabel.getText()));
             currentFine.setStatus("PAID");
             updateButtonVisibility("PAID");
-            lv.refresh();
+            fineDao.changeFineStatus(Integer.parseInt(recordIdLabel.getText()));
             if (parentController != null) {
+                lv.refresh();
                 parentController.sortListView();
             }
         } catch (Exception e) {

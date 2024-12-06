@@ -1,5 +1,6 @@
 package com.library.controller.admin.books;
 
+import com.library.controller.Observer;
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
 import com.library.dao.ReservationDao;
@@ -57,16 +58,8 @@ public class RequestBookCellController {
 
     private DocumentDao documentDao = new DocumentDao();
     private UserDao userDao = new UserDao();
-    private ReservationDao reservationDao = new ReservationDao();
+    private ReservationDao reservationDao = ReservationDao.getInstance();
     private Document doc = new Document();
-
-    public void setListView(ListView<Reservation> lv) {
-        this.lv = lv;
-    }
-
-    public void setParentController(RequestBookController parentController) {
-        this.parentController = parentController; // Set the parent controller
-    }
 
     public void loadReservation(Reservation reservation) {
         current = reservation;
@@ -139,13 +132,6 @@ public class RequestBookCellController {
 
                 current.setStatus("fulfilled");
                 reservationDao.updateStatus(current.getReservationId(), "fulfilled");
-
-                updateButtonVisibility("fulfilled");
-                lv.refresh();
-
-                if (parentController != null) {
-                    parentController.sortListView();
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -166,17 +152,9 @@ public class RequestBookCellController {
     @FXML
     private void handleDenyButtonAction(ActionEvent event) {
         try {
-            //reservationDao.delete(reservationDao.getById(Integer.parseInt(requestIdLabel.getText())));
-            //lv.getItems().remove(current);
             current.setStatus("cancelled");
-            System.out.println(current.getReservationId());
+            updateButtonVisibility(current.getStatus());
             reservationDao.updateStatus(current.getReservationId(), "cancelled");
-            updateButtonVisibility("cancelled");
-           // lv.getItems().remove(current);
-            lv.refresh();
-            if (parentController != null) {
-                parentController.sortListView();
-            }
         }
         catch (Exception e) {
             throw new RuntimeException(e);

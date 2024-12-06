@@ -37,14 +37,9 @@ public class FavouriteBooksCellController implements Initializable {
     @FXML
     private ImageView favImage;
 
-    private ListView<Favourite> listView;
     private Favourite current;
     private DocumentDao documentDao=new DocumentDao();
-    private FavouriteDao favouriteDao=new FavouriteDao();
-
-    public void setListView(ListView<Favourite> lv){
-        this.listView=lv;
-    }
+    private FavouriteDao favouriteDao= FavouriteDao.getInstance();
 
     public void loadUserFavourite(Favourite r) throws SQLException {
         if (r != null) {
@@ -71,9 +66,8 @@ public class FavouriteBooksCellController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         favImage.setOnMouseClicked(event -> {
-            if (current != null && listView != null) {
+            if (current != null) {
                 favouriteDao.delete(current);
-                listView.getItems().remove(current);
             }
         });
     }

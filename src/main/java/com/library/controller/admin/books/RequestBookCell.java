@@ -3,7 +3,6 @@ package com.library.controller.admin.books;
 import com.library.models.Reservation;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 
 public class RequestBookCell extends ListCell<Reservation> {
@@ -17,18 +16,6 @@ public class RequestBookCell extends ListCell<Reservation> {
             controller = loader.getController();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void setListView(ListView<Reservation> listView) {
-        if (controller != null) {
-            controller.setListView(listView);
-        }
-    }
-
-    public void setParentController(RequestBookController parentController) {
-        if (controller != null) {
-            controller.setParentController(parentController);
         }
     }
 

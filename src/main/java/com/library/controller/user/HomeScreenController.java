@@ -9,6 +9,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -95,8 +96,10 @@ public class HomeScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        loadRecentAddedBooksAndRecommendation();
+        recentlyAdded = documentDao.getRecentAddedBooks();
+        loadRecentAddedBooks();
+        loadMyBooks();
+        loadBestBook();
 
         searchNav.setOnMouseClicked(event -> {
             String userFullName= memNameLabel.getText();
@@ -139,130 +142,159 @@ public class HomeScreenController implements Initializable {
     }
 
     private void loadMyBooks() {
-        myBooks = borrowingRecordDao.getByUserName(username);
-        try {
-            for (int i = 0; i < myBooks.size(); i++) {
-//                BorrowingRecord myBook = myBooks.get(i);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
-                VBox bookInfo = loader.load();
-                BookCardController controller = loader.getController();
-                Document document = documentDao.get(myBooks.get(i).getISBN());
-                controller.loadBookInfo(documentDao.get(myBooks.get(i).getISBN()));
-
-                bookInfo.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 2) {
-                        showBookDetails(homeRoot, username, document);
-                    }
-                });
-
-
-                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), bookInfo);
-                fadeIn.setFromValue(0);
-                fadeIn.setToValue(1);
-                TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), bookInfo);
-                slideIn.setFromX(-300);
-                slideIn.setToX(0);
-                SequentialTransition sequentialTransition = new SequentialTransition();
-                sequentialTransition.getChildren().addAll(fadeIn, slideIn);
-                sequentialTransition.play();
-                myBooksContainer.getChildren().add(bookInfo);
-                sequentialTransition.setDelay(Duration.seconds(i * 0.1)); // Delay
+        Task<List<BorrowingRecord>> loadTask = new Task<>() {
+            @Override
+            protected List<BorrowingRecord> call() throws Exception {
+                myBooks = borrowingRecordDao.getByUserName(username);
+                return myBooks;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+        };
+        loadTask.setOnSucceeded(event -> {
+            try {
+                for (int i = 0; i < myBooks.size(); i++) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
+                    VBox bookInfo = loader.load();
+                    BookCardController controller = loader.getController();
+                    Document document = documentDao.get(myBooks.get(i).getISBN());
+                    controller.loadBookInfo(documentDao.get(myBooks.get(i).getISBN()));
 
-    private void loadRecentAddedBooksAndRecommendation() {
-        recentlyAdded = documentDao.getRecentAddedBooks();
-        int column =0;
-        int row=1;
-        try {
-            for (int i=0; i<recentlyAdded.size(); i++) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
-                VBox bookInfo = loader.load();
-                BookCardController controller = loader.getController();
-                controller.loadBookInfo(recentlyAdded.get(i));
-                Document document = recentlyAdded.get(i);
+                    bookInfo.setOnMouseClicked(event1 -> {
+                        if (event1.getClickCount() == 2) {
+                            showBookDetails(homeRoot, username, document);
+                        }
+                    });
 
-                bookInfo.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 2) {
-                        showBookDetails(homeRoot, username, document);
-                    }
-                });
-
-                // (pop-up effect)
-                TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), bookInfo);
-                translateTransition.setFromY(100); // Start off the screen (Y-axis)
-                translateTransition.setToY(0);    // End at normal position
-                translateTransition.setInterpolator(Interpolator.EASE_OUT); // Make the movement smoother
-                // (fade-in effect)
-                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), bookInfo);
-                fadeIn.setFromValue(0);  // bắt đàu = no visibility
-                fadeIn.setToValue(1);    // kthuc = full visibility
-                SequentialTransition sequentialTransition = new SequentialTransition(translateTransition, fadeIn);
-                sequentialTransition.setDelay(Duration.seconds(0.1 * i)); // delay
-                sequentialTransition.play();
-
-                if (column == 9) {
-                    column = 0;
-                    ++row;
+                    FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), bookInfo);
+                    fadeIn.setFromValue(0);
+                    fadeIn.setToValue(1);
+                    TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), bookInfo);
+                    slideIn.setFromX(-300);
+                    slideIn.setToX(0);
+                    SequentialTransition sequentialTransition = new SequentialTransition();
+                    sequentialTransition.getChildren().addAll(fadeIn, slideIn);
+                    sequentialTransition.play();
+                    myBooksContainer.getChildren().add(bookInfo);
+                    sequentialTransition.setDelay(Duration.seconds(i * 0.1)); // Delay
                 }
-
-                recentlyAddedContainer.add(bookInfo, column++, row);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Map<String, Integer> bookRequestCounts = new HashMap<>();
-
-        for (Document doc : recentlyAdded) {
-            ReservationDao reservationDao = new ReservationDao();
-            int requestCount = reservationDao.getByISBN(doc.getISBN());
-            bookRequestCounts.put(doc.getISBN(), requestCount);
-        }
-
-        String bestBookIsbn = null;
-        int maxRequests = 0;
-
-        for (Map.Entry<String, Integer> entry : bookRequestCounts.entrySet()) {
-            if (entry.getValue() > maxRequests) {
-                maxRequests = entry.getValue();
-                bestBookIsbn = entry.getKey();
-            }
-        }
-
-        if (bestBookIsbn != null) {
-            Document bestBook = documentDao.get(bestBookIsbn);
-
-            bestBookAuthor.setText(documentDao.getAuthor(bestBook.getAuthorId()).getName());
-            bestBookTitle.setText(bestBook.getTitle());
-            pages.setText("Pages: " + bestBook.getPage());
-            publisher.setText("Publisher: " + documentDao.getPublisher(bestBook.getPublisherId()).getName());
-            category.setText("Genre: " + documentDao.getCategory(bestBook.getCategoryId()).getName());
-
-            bestBookImage.setOnMouseClicked(event -> showBookDetails(homeRoot, username, bestBook));
-
-            if (!bestBook.getImageLink().equals("N/A")) {
-                loadImageLazy(bestBook.getImageLink(), bestBookImage, bestBookImage.getFitWidth(), bestBookImage.getFitHeight());
-            }
-        } else {
-            Random random = new Random();
-            int bestBookIndex= random.nextInt(54);
-            Document doc=recentlyAdded.get(bestBookIndex);
-            bestBookAuthor.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
-            bestBookTitle.setText(doc.getTitle());
-            pages.setText("Pages: " +doc.getPage());
-            publisher.setText("Publisher: "+(documentDao.getPublisher(doc.getPublisherId()).getName()));
-            category.setText("Genre: "+documentDao.getCategory(doc.getCategoryId()).getName());
-             bestBookImage.setOnMouseClicked(event -> showBookDetails(homeRoot, username, doc));
-
-            if (!doc.getImageLink().equals("N/A")) {
-                loadImageLazy(doc.getImageLink(),bestBookImage, bestBookImage.getFitWidth(), bestBookImage.getFitHeight());
-            }
-        }
+        });
+        loadTask.setOnFailed(event -> {
+            System.out.println("failed to load my books");
+        });
+        new Thread(loadTask).start();
     }
+
+    private void loadRecentAddedBooks() {
+        Task<List<Document>> loadTask = new Task<>() {
+            @Override
+            protected List<Document> call() throws Exception {
+                return recentlyAdded;
+            }
+        };
+        loadTask.setOnSucceeded(event -> {
+            int column =0;
+            int row=1;
+            try {
+                for (int i=0; i<recentlyAdded.size(); i++) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/book_card.fxml"));
+                    VBox bookInfo = loader.load();
+                    BookCardController controller = loader.getController();
+                    controller.loadBookInfo(recentlyAdded.get(i));
+                    Document document = recentlyAdded.get(i);
+
+                    bookInfo.setOnMouseClicked(event1 -> {
+                        if (event1.getClickCount() == 2) {
+                            showBookDetails(homeRoot, username, document);
+                        }
+                    });
+
+                    // (pop-up effect)
+                    TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), bookInfo);
+                    translateTransition.setFromY(100); // Start off the screen (Y-axis)
+                    translateTransition.setToY(0);    // End at normal position
+                    translateTransition.setInterpolator(Interpolator.EASE_OUT); // Make the movement smoother
+                    // (fade-in effect)
+                    FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), bookInfo);
+                    fadeIn.setFromValue(0);  // bắt đàu = no visibility
+                    fadeIn.setToValue(1);    // kthuc = full visibility
+                    SequentialTransition sequentialTransition = new SequentialTransition(translateTransition, fadeIn);
+                    sequentialTransition.setDelay(Duration.seconds(0.1 * i)); // delay
+                    sequentialTransition.play();
+
+                    if (column == 9) {
+                        column = 0;
+                        ++row;
+                    }
+
+                    recentlyAddedContainer.add(bookInfo, column++, row);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        new Thread(loadTask).start();
+    }
+
+    private void loadBestBook() {
+        Task<List<Document>> loadTask = new Task<>() {
+            @Override
+            protected List<Document> call() throws Exception {
+                return recentlyAdded;
+            }
+        };
+        loadTask.setOnSucceeded(event1 -> {
+            Map<String, Integer> bookRequestCounts = new HashMap<>();
+
+            for (Document doc : recentlyAdded) {
+                ReservationDao reservationDao = ReservationDao.getInstance();
+                int requestCount = reservationDao.getByISBN(doc.getISBN());
+                bookRequestCounts.put(doc.getISBN(), requestCount);
+            }
+
+            String bestBookIsbn = null;
+            int maxRequests = 0;
+
+            for (Map.Entry<String, Integer> entry : bookRequestCounts.entrySet()) {
+                if (entry.getValue() > maxRequests) {
+                    maxRequests = entry.getValue();
+                    bestBookIsbn = entry.getKey();
+                }
+            }
+
+            if (bestBookIsbn != null) {
+                Document bestBook = documentDao.get(bestBookIsbn);
+
+                bestBookAuthor.setText(documentDao.getAuthor(bestBook.getAuthorId()).getName());
+                bestBookTitle.setText(bestBook.getTitle());
+                pages.setText("Pages: " + bestBook.getPage());
+                publisher.setText("Publisher: " + documentDao.getPublisher(bestBook.getPublisherId()).getName());
+                category.setText("Genre: " + documentDao.getCategory(bestBook.getCategoryId()).getName());
+
+                bestBookImage.setOnMouseClicked(event -> showBookDetails(homeRoot, username, bestBook));
+
+                if (!bestBook.getImageLink().equals("N/A")) {
+                    loadImageLazy(bestBook.getImageLink(), bestBookImage, bestBookImage.getFitWidth(), bestBookImage.getFitHeight());
+                }
+            } else {
+                Random random = new Random();
+                int bestBookIndex= random.nextInt(54);
+                Document doc=recentlyAdded.get(bestBookIndex);
+                bestBookAuthor.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
+                bestBookTitle.setText(doc.getTitle());
+                pages.setText("Pages: " +doc.getPage());
+                publisher.setText("Publisher: "+(documentDao.getPublisher(doc.getPublisherId()).getName()));
+                category.setText("Genre: "+documentDao.getCategory(doc.getCategoryId()).getName());
+                bestBookImage.setOnMouseClicked(event -> showBookDetails(homeRoot, username, doc));
+
+                if (!doc.getImageLink().equals("N/A")) {
+                    loadImageLazy(doc.getImageLink(),bestBookImage, bestBookImage.getFitWidth(), bestBookImage.getFitHeight());
+                }
+            }
+        });
+    }
+
 
 
 

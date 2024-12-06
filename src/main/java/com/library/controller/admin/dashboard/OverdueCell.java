@@ -1,7 +1,5 @@
 package com.library.controller.admin.dashboard;
 
-import com.library.controller.admin.books.OverdueBookController;
-import com.library.controller.admin.books.RequestBookController;
 import com.library.models.Fine;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
@@ -29,12 +27,11 @@ public class OverdueCell extends ListCell<Fine> {
         }
     }
 
-    public void setParentController(OverdueBookController parentController) {
+    public void setParentController(AdminDashboardController parentController) {
         if (overdueController != null) {
             overdueController.setParentController(parentController);
         }
     }
-
 
     @Override
     protected void updateItem(Fine fine, boolean empty) {

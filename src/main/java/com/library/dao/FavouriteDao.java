@@ -1,6 +1,7 @@
 package com.library.dao;
 
 import com.library.config.DatabaseConfig;
+import com.library.controller.Subject;
 import com.library.models.Favourite;
 
 import java.sql.Connection;
@@ -10,7 +11,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteDao implements DAO<Favourite> {
+public class FavouriteDao extends Subject implements DAO<Favourite> {
+    private static FavouriteDao instance;
+
+    private FavouriteDao() {}
+
+    public static FavouriteDao getInstance() {
+        if (instance == null) {
+            instance = new FavouriteDao();
+        }
+        return instance;
+    }
+    
     public List<Favourite> getAll() {
         String sql = "select * from favouritebooks";
         List<Favourite> favourites = new ArrayList<Favourite>();
@@ -75,6 +87,7 @@ public class FavouriteDao implements DAO<Favourite> {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+        notifyObservers();
 
     }
 
@@ -88,6 +101,7 @@ public class FavouriteDao implements DAO<Favourite> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        notifyObservers();
     }
 
     //overload delete method
@@ -109,6 +123,7 @@ public class FavouriteDao implements DAO<Favourite> {
             e.printStackTrace();
             throw new RuntimeException("cannot deleting favourite book sent by" + userId, e);
         }
+        notifyObservers();
     }
 
     public boolean favExists(String isbn, int userId) {

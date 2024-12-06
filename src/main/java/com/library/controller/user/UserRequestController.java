@@ -1,5 +1,6 @@
 package com.library.controller.user;
 
+import com.library.controller.Observer;
 import com.library.dao.DocumentDao;
 import com.library.dao.ReservationDao;
 import com.library.models.Reservation;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 import static com.library.utils.SceneSwitcher.showBookDetails;
 
-public class UserRequestController implements Initializable {
+public class UserRequestController implements Initializable, Observer {
     @FXML
     private StackPane userRequestRoot;
 
@@ -47,14 +48,14 @@ public class UserRequestController implements Initializable {
     @FXML
     private HBox searchNav;
 
+    //private boolean observerAdded = false;
     private String username;
-    private ReservationDao reservationDao = new ReservationDao();
+    private ReservationDao reservationDao;
     private DocumentDao documentDao = new DocumentDao();
 
     public void setUsername(String username) {
         this.username = username;
         //System.out.println("Username set: " + username);
-
         loadUserRequestList();
 
     }
@@ -70,7 +71,6 @@ public class UserRequestController implements Initializable {
             requestListContainer.setCellFactory(param ->
             {
                 UserRequestCell cell = new UserRequestCell();
-                cell.setListView(requestListContainer);
                 return cell;
             });
             requestListContainer.getItems().setAll(loadTask.getValue());
@@ -83,7 +83,15 @@ public class UserRequestController implements Initializable {
     }
 
     @Override
+    public void update() {
+        loadUserRequestList();
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        reservationDao = ReservationDao.getInstance();
+        reservationDao.addObserver(this);
+
         requestListContainer.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 Reservation selectedReservation = requestListContainer.getSelectionModel().getSelectedItem();
