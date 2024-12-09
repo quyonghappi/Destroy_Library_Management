@@ -2,8 +2,8 @@ package com.library.controller.user;
 
 import com.library.dao.BorrowingRecordDao;
 import com.library.dao.DocumentDao;
+import com.library.dao.FineDao;
 import com.library.models.BorrowingRecord;
-import com.library.models.Favourite;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -65,7 +65,12 @@ public class BorrowedBooksController implements Initializable {
         Task<List<BorrowingRecord>> loadTask = new Task<>() {
             @Override
             protected List<BorrowingRecord> call() {
-                return borrowingRecordDao.getByUserName(username);
+                List<BorrowingRecord> myBookList = borrowingRecordDao.getByUserName(username);
+                FineDao fineDao = FineDao.getInstance();
+                for (BorrowingRecord book : myBookList) {
+                    fineDao.checkAndAddFine(book);
+                }
+                return myBookList;
             }
         };
         loadTask.setOnSucceeded(event -> {
@@ -78,7 +83,7 @@ public class BorrowedBooksController implements Initializable {
             borrowListContainer.getItems().setAll(loadTask.getValue());
         });
         loadTask.setOnFailed(event -> {
-            System.out.println("fail to load user" + username +"favorite books" + loadTask.getException());
+            System.out.println("fail to load user " + username +" borrowed books" + loadTask.getException());
         });
         new Thread(loadTask).start();
 

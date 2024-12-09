@@ -18,7 +18,27 @@ public class ReviewDao implements DAO<Review> {
     public List<Review> getAll() {
         String sql="select * from Reviews " +
                 "order by rating desc";
-        return getRecord(sql);
+        List<Review> reviews = new ArrayList<>();
+        try (
+                Connection conn= DatabaseConfig.getConnection();
+                PreparedStatement ps=conn.prepareStatement(sql);
+        ) {
+            ResultSet rs=ps.executeQuery();
+            Review review = new Review();
+            while(rs.next()) {
+                review.setReviewId(rs.getInt("review_id"));
+                review.setIsbn(rs.getString("isbn"));
+                review.setUserId(rs.getInt("user_id"));
+                review.setRating(rs.getDouble("rating"));
+                review.setComment(rs.getString("comment"));
+                review.setReviewDate(DateFormat.toLocalDateTime(rs.getTimestamp("review_date")));
+                reviews.add(review);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("can not retrieve reviews");
+        }
+        return reviews;
     }
 
     //get review by its id
@@ -94,12 +114,15 @@ public class ReviewDao implements DAO<Review> {
         }
     }
 
-    public List<Review> getRecord(String sql) {
+    //use to display all reviews for each book
+    public List<Review> getByIsbn(String isbn) {
+        String sql = "select * from Reviews where isbn=?";
         List<Review> reviews = new ArrayList<>();
         try (
                 Connection conn= DatabaseConfig.getConnection();
                 PreparedStatement ps=conn.prepareStatement(sql);
         ) {
+            ps.setString(1, isbn);
             ResultSet rs=ps.executeQuery();
             Review review = new Review();
             while(rs.next()) {
@@ -118,16 +141,32 @@ public class ReviewDao implements DAO<Review> {
         return reviews;
     }
 
-    //use to display all reviews for each book
-    public List<Review> getByIsbn(String isbn) {
-        String sql = "select * from Reviews where isbn=?";
-        return getRecord(sql);
-    }
-
     //filter để display reviews
     public List<Review> getByRating(double smallRating, double largeRating) {
         String sql = "select * from Reviews where rating>=? and rating<=?";
-        return getRecord(sql);
+        List<Review> reviews = new ArrayList<>();
+        try (
+                Connection conn= DatabaseConfig.getConnection();
+                PreparedStatement ps=conn.prepareStatement(sql);
+        ) {
+            ps.setDouble(1, smallRating);
+            ps.setDouble(2, largeRating);
+            ResultSet rs=ps.executeQuery();
+            Review review = new Review();
+            while(rs.next()) {
+                review.setReviewId(rs.getInt("review_id"));
+                review.setIsbn(rs.getString("isbn"));
+                review.setUserId(rs.getInt("user_id"));
+                review.setRating(rs.getDouble("rating"));
+                review.setComment(rs.getString("comment"));
+                review.setReviewDate(DateFormat.toLocalDateTime(rs.getTimestamp("review_date")));
+                reviews.add(review);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("can not retrieve reviews");
+        }
+        return reviews;
 
     }
 

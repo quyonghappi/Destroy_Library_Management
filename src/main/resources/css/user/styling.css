@@ -550,17 +550,17 @@
 }
 
 /* Transparent Button - No Border */
-.transparent-button {
-    background-color: transparent; /*#f4f0e7;*/
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+.review-button {
+    -fx-background-color: #e7f1a8;
+    -fx-font-family: "rockwell";
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
 }
 
 /* Hover effect for the button */
-.transparent-button:hover {
-    color: #0056b3;
+.review-button:hover {
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 .section-box1 {

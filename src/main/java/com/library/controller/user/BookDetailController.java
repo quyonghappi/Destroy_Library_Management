@@ -21,6 +21,8 @@ import java.util.List;
 import static com.library.QrCode.BookQR.createQRCode;
 import static com.library.dao.UserDao.findUserByName;
 import static com.library.utils.LoadImage.loadImageLazy;
+import static javafx.scene.layout.StackPane.setAlignment;
+
 import com.library.dao.ReviewDao;
 
 
@@ -285,7 +287,11 @@ public class BookDetailController {
 
         loadTask.setOnSucceeded(event -> {
             if (reviewsListView.getCellFactory() == null) {
-                reviewsListView.setCellFactory(param -> new ReviewCell());
+                reviewsListView.setCellFactory(param -> {
+                    ReviewCell reviewCell = new ReviewCell();
+                    reviewCell.setUsername(username);
+                    return reviewCell;
+                });
             }
 
             reviews.clear();
@@ -303,7 +309,6 @@ public class BookDetailController {
 
 
 
-
     @FXML
     private AnchorPane reviewModal;
 
@@ -317,6 +322,7 @@ public class BookDetailController {
     @FXML
     private void openReviewModal() {
         reviewModal.setVisible(true);
+
     }
 
     @FXML

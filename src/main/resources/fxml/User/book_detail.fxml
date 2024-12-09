@@ -15,15 +15,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: #95b1ee;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
+<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: #95b1ee;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
    <children>
-      <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #fffdf5; -fx-background-radius: 10;">
+      <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #fffdf5; -fx-background-radius: 10;">
          <children>
-            <HBox minHeight="-Infinity" prefHeight="480.0" prefWidth="1360.0" spacing="20">
+            <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="512.0" prefWidth="1340.0" spacing="10.0">
                <children>
                   <VBox prefHeight="480.0" prefWidth="289.0">
                      <children>
-                        <ImageView fx:id="bookCover" fitHeight="350.0" fitWidth="250.0">
+                        <ImageView fx:id="bookCover" fitHeight="381.0" fitWidth="258.0">
                            <image>
                               <Image url="@../../ui/admindashboard/bookcover.png" />
                            </image>
@@ -37,7 +37,7 @@
                               </ImageView>
                            </children>
                            <VBox.margin>
-                              <Insets left="90.0" top="30.0" />
+                              <Insets left="90.0" top="20.0" />
                            </VBox.margin>
                         </HBox>
                      </children>
@@ -62,21 +62,24 @@
                         <Label fx:id="bookDescription" style="-fx-font-size: 15;" styleClass="book-info" stylesheets="@../../css/user/styling.css" text="Description not available." textAlignment="JUSTIFY" wrapText="true" />
                      </children>
                   </VBox>
-                  <WebView fx:id="previewWebView" prefHeight="480.0" prefWidth="522.0" />
-                  <HBox prefHeight="480.0" prefWidth="291.0" spacing="15.0">
+                  <WebView fx:id="previewWebView" prefHeight="480.0" prefWidth="500.0" />
+                  <VBox fx:id="reviewsVBox" alignment="TOP_CENTER" prefHeight="480.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: transparent; -fx-border-width: 0;" styleClass="section-box1" stylesheets="@../../css/user/styling.css">
                      <children>
-                        <VBox fx:id="reviewsVBox" prefHeight="480.0" prefWidth="277.0" spacing="10" styleClass="section-box1" stylesheets="@../../css/user/styling.css">
-                           <children>
-                              <Button onAction="#openReviewModal" style="-fx-font-size: 16px; -fx-font-weight: bold;" styleClass="transparent-button" stylesheets="@../../css/user/styling.css" text="Review now" />
-                              <ListView fx:id="reviewsListView" prefHeight="411.0" prefWidth="217.0" styleClass="section-box2" stylesheets="@../../css/user/styling.css" xmlns:fx="http://javafx.com/fxml" />
-
-                           </children>
-                        </VBox>
+                        <Button alignment="CENTER" onAction="#openReviewModal" styleClass="review-button" stylesheets="@../../css/user/styling.css" text="Click here to share your thoughts on this book!" textAlignment="CENTER" textFill="#364c84" wrapText="true">
+                           <font>
+                              <Font name="Rockwell" size="12.0" />
+                           </font>
+                        </Button>
+                        <ListView fx:id="reviewsListView" maxWidth="1.7976931348623157E308" prefHeight="430.0" prefWidth="217.0" style="-fx-background-color: #364c84;" styleClass="section-box2" stylesheets="@../../css/user/styling.css">
+                           <VBox.margin>
+                              <Insets bottom="-10.0" />
+                           </VBox.margin>
+                        </ListView>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
                <padding>
-                  <Insets left="20.0" right="30.0" />
+                  <Insets left="20.0" right="7.0" />
                </padding>
             </HBox>
             <VBox alignment="BASELINE_LEFT" prefHeight="72.0" prefWidth="1340.0" spacing="10">
@@ -104,7 +107,7 @@
                               </Button>
                            </children>
                            <padding>
-                              <Insets left="55.0" />
+                              <Insets left="90.0" />
                            </padding>
                         </HBox>
                      </children>
@@ -124,11 +127,17 @@
       </VBox>
 
       <!-- Modal Review -->
-      <AnchorPane fx:id="reviewModal" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
-         <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; padding: 20;">
+      <AnchorPane fx:id="reviewModal" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false" StackPane.alignment="CENTER">
+         <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10; padding: 20;" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="150.0">
             <Label style="-fx-font-size: 20px; font-weight: bold;" text="Write a Review" />
-            <Slider fx:id="ratingSlider" max="5" min="1" showTickLabels="true" showTickMarks="true" value="3" />
-            <TextArea fx:id="commentField" promptText="Write your comment here..." wrapText="true" />
+            <Slider fx:id="ratingSlider" max="5" min="1" showTickLabels="true" showTickMarks="true" value="3">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin></Slider>
+            <TextArea fx:id="commentField" prefHeight="130.0" promptText="Write your comment here..." wrapText="true">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin></TextArea>
             <Button onAction="#submitReview" text="Submit Review" />
             <Button onAction="#closeReviewModal" style="-fx-background-color: #E05864; -fx-text-fill: white;" text="Cancel" />
          </VBox>
@@ -136,6 +145,6 @@
 
    </children>
    <padding>
-      <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+      <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
    </padding>
 </StackPane>

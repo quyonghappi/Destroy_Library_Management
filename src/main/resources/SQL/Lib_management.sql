@@ -147,7 +147,7 @@ create table FavouriteBooks (
 
 -- create event to automatically increase fine amount day by day
 set global event_scheduler = ON;
-drop event if exists increment_amount_daily;
+drop event if exists increment_fine_amount_daily;
 create event increment_fine_amount_daily
     on schedule every 1 day
         starts current_timestamp

@@ -125,7 +125,7 @@ public class FineDao extends Subject implements DAO<Fine> {
         }
         int recordId = (Integer) id;
         String sql = "SELECT f.user_id, f.record_id, f.fine_amount, f.due_date, f.status, br.isbn " +
-                "FROM Fines f JOIN BorrowingRecords br ON f.record_id = br.record_id " +
+                "FROM fines f JOIN BorrowingRecords br ON f.record_id = br.record_id " +
                 "WHERE f.record_id = ?";
 
         Fine fine = null;

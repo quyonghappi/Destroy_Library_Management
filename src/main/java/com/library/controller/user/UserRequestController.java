@@ -76,7 +76,7 @@ public class UserRequestController implements Initializable, Observer {
             requestListContainer.getItems().setAll(loadTask.getValue());
         });
         loadTask.setOnFailed(event -> {
-            System.out.println("fail to load user" + username +"favorite books" + loadTask.getException());
+            System.out.println("fail to load user" + username +"request books" + loadTask.getException());
         });
         new Thread(loadTask).start();
 
