@@ -10,7 +10,7 @@ public class ReviewCell extends ListCell<Review> {
 
     private UserDao userDao = new UserDao();
     private String username;
-    //private ReviewController reviewController;
+    private ReviewController reviewController;
 
     @Override
     protected void updateItem(Review review, boolean empty) {
@@ -26,7 +26,11 @@ public class ReviewCell extends ListCell<Review> {
             Label usernameLabel = new Label(username);
             usernameLabel.setStyle("-fx-font-weight: bold;");
 
-            Label ratingLabel = new Label("Rating: " + Math.round((review.getRating()*100)/100));
+            //Label ratingLabel = new Label("Rating: " + Math.round((review.getRating()*100)/100));
+            double rating = review.getRating();
+            rating = Math.round(rating * 2.0) / 2.0;  // Round-> 0.5
+            Label ratingLabel = new Label("Rating: " + rating);
+
             Label commentLabel = new Label(review.getComment());
 
             reviewBox.getChildren().addAll(usernameLabel, ratingLabel, commentLabel);
@@ -36,22 +40,22 @@ public class ReviewCell extends ListCell<Review> {
     }
 
 
-//    private String getUsernameByReview(Review review) {
-//        String username = "Unknown User";
-//
-//        if (review != null) {
-//            try {
-//                username = userDao.findUserByName(review.getIsbn()).getUsername();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return username;
-//    }
+    private String getUsernameByReview(Review review) {
+        String username = "Unknown User";
 
-//    public void setReviewController(ReviewController reviewController) {
-//        this.reviewController = reviewController;
-//    }
+        if (review != null) {
+            try {
+                username = userDao.findUserByName(review.getIsbn()).getUsername();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return username;
+    }
+
+    public void setReviewController(ReviewController reviewController) {
+        this.reviewController = reviewController;
+    }
 
     public void setUsername(String username) {
        this.username = username;
