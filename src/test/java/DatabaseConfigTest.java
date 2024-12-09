@@ -1,5 +1,4 @@
-package com.library.config;
-
+import com.library.config.DatabaseConfig;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

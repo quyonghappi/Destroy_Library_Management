@@ -17,7 +17,8 @@ dependencies {
     implementation("org.openjfx:javafx-controls:22.0.2") //JavaFX version, adjust if needed
     implementation("org.openjfx:javafx-fxml:22.0.2")    // using FXML
     implementation ("org.openjfx:javafx-web:22.0.2")
-
+    implementation("com.google.zxing:core:3.5.2")
+    implementation("com.google.zxing:javase:3.5.2")
     implementation("mysql:mysql-connector-java:8.0.33") //add sql connector
 
     implementation("com.squareup.okhttp3:okhttp:4.10.0") //updated OkHttp dependency
