@@ -151,7 +151,7 @@ public class GoogleBooksAPIClient {
 
                 String previewLink;
                 if (accessInfo == null || checkViewability.equals("NO_PAGES")) {
-                    previewLink = "No preview available.";
+                    previewLink = "There is no preview for this book.";
                 } else {
                     previewLink = volumeInfo.has("previewLink") ? volumeInfo.get("previewLink").getAsString() : "N/A";
                 }
@@ -266,7 +266,7 @@ public class GoogleBooksAPIClient {
     }
 
     public static void main(String[] args) {
-        String file = "src/main/java/com/library/api/isbn_count.txt";
+        String file = "src/main/java/com/library/api/love_books.txt";
         GoogleBooksAPIClient newClient = new GoogleBooksAPIClient();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             while (br.readLine() != null) {
@@ -279,3 +279,7 @@ public class GoogleBooksAPIClient {
 
     }
 }
+
+
+
+

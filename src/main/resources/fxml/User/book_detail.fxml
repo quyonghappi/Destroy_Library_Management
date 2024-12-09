@@ -3,6 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: #95b1ee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
+<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: #95b1ee;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
    <children>
       <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #fffdf5; -fx-background-radius: 10;">
          <children>
@@ -25,11 +28,11 @@
                               <Image url="@../../ui/admindashboard/bookcover.png" />
                            </image>
                         </ImageView>
-                        <HBox  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="68.0">
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="68.0">
                            <children>
                               <ImageView fx:id="qrCode" fitHeight="69.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image   url="@../../ui/user/qr_code.png" />
+                                    <Image url="@../../ui/user/qr_code.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -59,44 +62,78 @@
                         <Label fx:id="bookDescription" style="-fx-font-size: 15;" styleClass="book-info" stylesheets="@../../css/user/styling.css" text="Description not available." textAlignment="JUSTIFY" wrapText="true" />
                      </children>
                   </VBox>
-                  <WebView fx:id="previewWebView" prefHeight="418.0" prefWidth="700.0" />
+                  <WebView fx:id="previewWebView" prefHeight="480.0" prefWidth="522.0" />
+                  <HBox prefHeight="480.0" prefWidth="291.0" spacing="15.0">
+                     <children>
+                        <VBox fx:id="reviewsVBox" prefHeight="480.0" prefWidth="277.0" spacing="10" styleClass="section-box1" stylesheets="@../../css/user/styling.css">
+                           <children>
+                              <Button onAction="#openReviewModal" style="-fx-font-size: 16px; -fx-font-weight: bold;" styleClass="transparent-button" stylesheets="@../../css/user/styling.css" text="Review now" />
+                              <ListView fx:id="reviewsListView" prefHeight="411.0" prefWidth="217.0" styleClass="section-box2" stylesheets="@../../css/user/styling.css" xmlns:fx="http://javafx.com/fxml" />
+
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets left="20.0" right="30.0" />
                </padding>
             </HBox>
-            <VBox alignment="BASELINE_LEFT" prefHeight="60.0" prefWidth="1360.0" spacing="10">
+            <VBox alignment="BASELINE_LEFT" prefHeight="72.0" prefWidth="1340.0" spacing="10">
                <children>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="700.0" spacing="40.0">
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="1335.0" spacing="50.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                      <children>
-                        <Button fx:id="requestButton" minHeight="-Infinity" onAction="#onRequestClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #364c84; -fx-text-fill: white; -fx-background-radius: 7;" text="Request Book">
-                           <font>
-                              <Font name="Segoe UI" size="13.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="addFavButton" mnemonicParsing="false" onAction="#addFav" style="-fx-background-color: transparent;">
-                           <graphic>
-                              <ImageView fx:id="addFavImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../ui/user/heart-add-line.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                        <HBox prefHeight="40.0" prefWidth="522.0" spacing="40.0">
+                           <children>
+                              <Button fx:id="requestButton" minHeight="-Infinity" onAction="#onRequestClicked" prefHeight="35.0" prefWidth="190.0" style="-fx-background-color: #364c84; -fx-text-fill: white; -fx-background-radius: 7;" text="Request Book">
+                                 <font>
+                                    <Font name="Segoe UI" size="13.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="addFavButton" mnemonicParsing="false" onAction="#addFav" prefHeight="40.0" prefWidth="42.0" style="-fx-background-color: transparent;">
+                                 <graphic>
+                                    <ImageView fx:id="addFavImage" fitHeight="32.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../ui/user/heart-add-line.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="55.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <HBox alignment="BOTTOM_CENTER" minHeight="-Infinity" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <HBox alignment="BOTTOM_CENTER" minHeight="-Infinity" prefHeight="54.0" prefWidth="1340.0" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
                <children>
-                  <Button fx:id="backButton" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #E05864; -fx-text-fill: white; -fx-background-radius: 7;" text="Back" />
+                  <VBox alignment="CENTER" spacing="10">
+                     <children>
+                        <Button fx:id="backButton" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #E05864; -fx-text-fill: white; -fx-background-radius: 7;" text="Back" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </children>
       </VBox>
+
+      <!-- Modal Review -->
+      <AnchorPane fx:id="reviewModal" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; padding: 20;">
+            <Label style="-fx-font-size: 20px; font-weight: bold;" text="Write a Review" />
+            <Slider fx:id="ratingSlider" max="5" min="1" showTickLabels="true" showTickMarks="true" value="3" />
+            <TextArea fx:id="commentField" promptText="Write your comment here..." wrapText="true" />
+            <Button onAction="#submitReview" text="Submit Review" />
+            <Button onAction="#closeReviewModal" style="-fx-background-color: #E05864; -fx-text-fill: white;" text="Cancel" />
+         </VBox>
+      </AnchorPane>
+
    </children>
    <padding>
       <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />

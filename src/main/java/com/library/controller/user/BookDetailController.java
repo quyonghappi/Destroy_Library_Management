@@ -5,16 +5,24 @@ import com.library.dao.DocumentDao;
 import com.library.dao.FavouriteDao;
 import com.library.dao.ReservationDao;
 import com.library.models.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.library.QrCode.BookQR.createQRCode;
 import static com.library.dao.UserDao.findUserByName;
 import static com.library.utils.LoadImage.loadImageLazy;
+import com.library.dao.ReviewDao;
+
 
 public class BookDetailController {
 
@@ -66,6 +74,9 @@ public class BookDetailController {
 
     @FXML
     private ImageView qrCode;
+
+    @FXML
+    private VBox reviewsVBox;
 
     private ReservationDao reservationDao = ReservationDao.getInstance();
     private FavouriteDao favDao = FavouriteDao.getInstance();
@@ -148,6 +159,8 @@ public class BookDetailController {
             if (isFavourite) {
                 updateFavButtonStyle(addFavImage, isFavourite);
             }
+            loadBookReviews(document.getISBN());
+
         }
     }
 
@@ -207,4 +220,137 @@ public class BookDetailController {
         ImageView imageView = createQRCode(previewLink);
         qrCode.setImage(imageView.getImage());
     }
+
+    /**
+     * Load review o day ne
+     */
+    @FXML
+    private ListView<Review> reviewsListView;
+
+    private ObservableList<Review> reviews = FXCollections.observableArrayList();
+
+
+
+    /*
+    private void loadBookReviews(String isbn) {
+        Task<List<Review>> loadTask = new Task<>() {
+            @Override
+            protected List<Review> call() {
+                return new ReviewDao().getByIsbn(isbn);  // Load reviews by ISBN
+            }
+        };
+
+        loadTask.setOnSucceeded(event -> {
+            reviewsListView.setCellFactory(param -> new ReviewCell());  // Set custom cell factory for ListView
+            reviewsListView.getItems().setAll(loadTask.getValue());  // Set the loaded reviews to the ListView
+
+            reviewsVBox.getChildren().clear();  // Clear any existing content
+            if (loadTask.getValue().isEmpty()) {
+                Label noReviewsLabel = new Label("No reviews yet.");
+                reviewsVBox.getChildren().add(noReviewsLabel);  // Add "No reviews" label
+            } else {
+                // Add each review to the VBox
+                for (Review review : loadTask.getValue()) {
+                    VBox reviewBox = new VBox();
+                    reviewBox.setSpacing(5);
+
+                    Label ratingLabel = new Label("Rating: " + review.getRating());
+                    Label commentLabel = new Label("Comment: " + review.getComment());
+
+                    reviewBox.getChildren().addAll(ratingLabel, commentLabel);
+                    reviewsVBox.getChildren().add(reviewBox);
+                }
+            }
+        });
+
+        loadTask.setOnFailed(event -> {
+            System.out.println("Failed to load reviews for ISBN " + isbn + ": " + loadTask.getException());
+        });
+
+        new Thread(loadTask).start();
+    }
+    */
+
+
+
+
+
+    public void loadBookReviews(String isbn) {
+        Task<List<Review>> loadTask = new Task<>() {
+            @Override
+            protected List<Review> call() {
+                return new ReviewDao().getByIsbn(isbn);  // Load reviews by ISBN
+            }
+        };
+
+        loadTask.setOnSucceeded(event -> {
+            if (reviewsListView.getCellFactory() == null) {
+                reviewsListView.setCellFactory(param -> new ReviewCell());
+            }
+
+            reviews.clear();
+            reviews.addAll(loadTask.getValue());
+
+            reviewsListView.setItems(reviews);
+        });
+
+        loadTask.setOnFailed(event -> {
+            System.out.println("Failed to load reviews for ISBN " + isbn + ": " + loadTask.getException());
+        });
+
+        new Thread(loadTask).start();
+    }
+
+
+
+
+    @FXML
+    private AnchorPane reviewModal;
+
+    @FXML
+    private Slider ratingSlider;
+
+    @FXML
+    private TextArea commentField;
+
+
+    @FXML
+    private void openReviewModal() {
+        reviewModal.setVisible(true);
+    }
+
+    @FXML
+    private void submitReview() {
+        double rating = ratingSlider.getValue();
+        String comment = commentField.getText();
+
+        User user = findUserByName(username);
+
+        if (user != null) {
+            int userId = user.getUserId();
+
+            String isbn = doc.getISBN();
+
+            LocalDateTime reviewDate = LocalDateTime.now();
+
+            ReviewDao reviewDao = new ReviewDao();
+            reviewDao.add(new Review(userId, isbn, rating, comment, reviewDate));
+
+            loadBookReviews(isbn);
+
+            closeReviewModal();
+        } else {
+            System.out.println("User not found.");
+        }
+    }
+
+
+    @FXML
+    private void closeReviewModal() {
+        reviewModal.setVisible(false);
+    }
 }
+
+
+
+
