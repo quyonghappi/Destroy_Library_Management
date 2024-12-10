@@ -239,9 +239,7 @@ public class BookDetailController {
         loadTask.setOnSucceeded(event -> {
             if (reviewsListView.getCellFactory() == null) {
                 reviewsListView.setCellFactory(param -> {
-                    ReviewCell reviewCell = new ReviewCell();
-                    reviewCell.setUsername(username);
-                    return reviewCell;
+                    return new ReviewCell();
                 });
             }
 
