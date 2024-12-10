@@ -28,10 +28,6 @@ public class LentBookCell extends ListCell<BorrowingRecord> {
         }
     }
 
-    public void setParentController(LentBookController parentController) {
-        if (lentBookCellController != null) {
-        }
-    }
 
     @Override
     protected void updateItem(BorrowingRecord item, boolean empty) {

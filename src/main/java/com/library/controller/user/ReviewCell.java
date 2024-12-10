@@ -10,7 +10,7 @@ public class ReviewCell extends ListCell<Review> {
 
     private UserDao userDao = new UserDao();
     private String username;
-    private ReviewController reviewController;
+    //private ReviewController reviewController;
 
     @Override
     protected void updateItem(Review review, boolean empty) {
@@ -45,16 +45,13 @@ public class ReviewCell extends ListCell<Review> {
 
         if (review != null) {
             try {
+                // what does this mean
                 username = userDao.findUserByName(review.getIsbn()).getUsername();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return username;
-    }
-
-    public void setReviewController(ReviewController reviewController) {
-        this.reviewController = reviewController;
     }
 
     public void setUsername(String username) {

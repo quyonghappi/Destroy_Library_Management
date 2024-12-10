@@ -621,7 +621,24 @@
     -fx-background-color: transparent; /* Transparent background for the viewport */
 }
 
+.slider {
+    -fx-background-color: transparent;
+}
 
+.slider .track {
+    -fx-background-color: #fffdf5;
+    -fx-background-radius: 5;
+}
+
+.slider .thumb {
+    -fx-background-color: #364c84;
+    -fx-effect: dropshadow(three-pass-box, rgb(8, 20, 50),4, 0, 0, 1);
+}
+
+.slider .value-label {
+    -fx-text-fill: #364c84;
+    -fx-font-size: 15px;
+}
 
 
 

@@ -231,52 +231,6 @@ public class BookDetailController {
 
     private ObservableList<Review> reviews = FXCollections.observableArrayList();
 
-
-
-    /*
-    private void loadBookReviews(String isbn) {
-        Task<List<Review>> loadTask = new Task<>() {
-            @Override
-            protected List<Review> call() {
-                return new ReviewDao().getByIsbn(isbn);  // Load reviews by ISBN
-            }
-        };
-
-        loadTask.setOnSucceeded(event -> {
-            reviewsListView.setCellFactory(param -> new ReviewCell());  // Set custom cell factory for ListView
-            reviewsListView.getItems().setAll(loadTask.getValue());  // Set the loaded reviews to the ListView
-
-            reviewsVBox.getChildren().clear();  // Clear any existing content
-            if (loadTask.getValue().isEmpty()) {
-                Label noReviewsLabel = new Label("No reviews yet.");
-                reviewsVBox.getChildren().add(noReviewsLabel);  // Add "No reviews" label
-            } else {
-                // Add each review to the VBox
-                for (Review review : loadTask.getValue()) {
-                    VBox reviewBox = new VBox();
-                    reviewBox.setSpacing(5);
-
-                    Label ratingLabel = new Label("Rating: " + review.getRating());
-                    Label commentLabel = new Label("Comment: " + review.getComment());
-
-                    reviewBox.getChildren().addAll(ratingLabel, commentLabel);
-                    reviewsVBox.getChildren().add(reviewBox);
-                }
-            }
-        });
-
-        loadTask.setOnFailed(event -> {
-            System.out.println("Failed to load reviews for ISBN " + isbn + ": " + loadTask.getException());
-        });
-
-        new Thread(loadTask).start();
-    }
-    */
-
-
-
-
-
     public void loadBookReviews(String isbn) {
         Task<List<Review>> loadTask = new Task<>() {
             @Override

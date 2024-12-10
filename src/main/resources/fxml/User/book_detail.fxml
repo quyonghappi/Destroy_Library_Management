@@ -128,19 +128,28 @@
 
       <!-- Modal Review -->
       <AnchorPane fx:id="reviewModal" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false" StackPane.alignment="CENTER">
-         <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10; padding: 20;" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="150.0">
-            <Label style="-fx-font-size: 20px; font-weight: bold;" text="Write a Review" />
+         <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; padding: 20;" AnchorPane.bottomAnchor="170.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="150.0">
+            <Label style="-fx-font-family: Rockwell; -fx-text-fill: linear-gradient(to right, #364c84, #e7f1a8, #364c84);" text="Share you thought about this book!">
+               <font>
+                  <Font name="Rockwell" size="23.0" />
+               </font></Label>
 <!--            <Slider fx:id="ratingSlider" max="5" min="1" showTickLabels="true" showTickMarks="true" value="3">-->
-            <Slider fx:id="ratingSlider" max="5" min="1" value="3" showTickLabels="true" showTickMarks="true" blockIncrement="0.5" majorTickUnit="0.5" >
+            <Slider fx:id="ratingSlider" blockIncrement="0.5" majorTickUnit="0.5" max="5" min="1" showTickLabels="true" showTickMarks="true" stylesheets="@../../css/user/styling.css" value="3">
             <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin></Slider>
-            <TextArea fx:id="commentField" prefHeight="130.0" promptText="Write your comment here..." wrapText="true">
+            <TextArea fx:id="commentField" prefHeight="130.0" promptText="Write your comment here..." style="-fx-background-color: #e7f1a8;" wrapText="true">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin></TextArea>
-            <Button onAction="#submitReview" text="Submit Review" />
-            <Button onAction="#closeReviewModal" style="-fx-background-color: #E05864; -fx-text-fill: white;" text="Cancel" />
+            <Button onAction="#submitReview" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #e7f1a8;" text="Submit Review" textFill="#364c83">
+               <font>
+                  <Font name="Rockwell" size="13.0" />
+               </font></Button>
+            <Button onAction="#closeReviewModal" style="-fx-background-color: #364c84; -fx-text-fill: #fffdf5;" text="Cancel">
+               <font>
+                  <Font name="Rockwell" size="13.0" />
+               </font></Button>
          </VBox>
       </AnchorPane>
 

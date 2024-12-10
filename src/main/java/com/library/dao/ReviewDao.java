@@ -24,8 +24,8 @@ public class ReviewDao implements DAO<Review> {
                 PreparedStatement ps=conn.prepareStatement(sql);
         ) {
             ResultSet rs=ps.executeQuery();
-            Review review = new Review();
             while(rs.next()) {
+                Review review = new Review();
                 review.setReviewId(rs.getInt("review_id"));
                 review.setIsbn(rs.getString("isbn"));
                 review.setUserId(rs.getInt("user_id"));
@@ -124,8 +124,8 @@ public class ReviewDao implements DAO<Review> {
         ) {
             ps.setString(1, isbn);
             ResultSet rs=ps.executeQuery();
-            Review review = new Review();
             while(rs.next()) {
+                Review review = new Review();
                 review.setReviewId(rs.getInt("review_id"));
                 review.setIsbn(rs.getString("isbn"));
                 review.setUserId(rs.getInt("user_id"));
@@ -152,8 +152,8 @@ public class ReviewDao implements DAO<Review> {
             ps.setDouble(1, smallRating);
             ps.setDouble(2, largeRating);
             ResultSet rs=ps.executeQuery();
-            Review review = new Review();
             while(rs.next()) {
+                Review review = new Review();
                 review.setReviewId(rs.getInt("review_id"));
                 review.setIsbn(rs.getString("isbn"));
                 review.setUserId(rs.getInt("user_id"));
