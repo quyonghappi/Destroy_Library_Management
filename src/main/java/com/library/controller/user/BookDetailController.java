@@ -1,9 +1,7 @@
 package com.library.controller.user;
 
-import com.library.dao.DocumentDao;
+import com.library.dao.*;
 
-import com.library.dao.FavouriteDao;
-import com.library.dao.ReservationDao;
 import com.library.models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,9 +19,8 @@ import java.util.List;
 import static com.library.QrCode.BookQR.createQRCode;
 import static com.library.dao.UserDao.findUserByName;
 import static com.library.utils.LoadImage.loadImageLazy;
+import static com.library.utils.LoadView.showAlert;
 import static javafx.scene.layout.StackPane.setAlignment;
-
-import com.library.dao.ReviewDao;
 
 
 public class BookDetailController {
@@ -83,7 +80,7 @@ public class BookDetailController {
     private ReservationDao reservationDao = ReservationDao.getInstance();
     private FavouriteDao favDao = FavouriteDao.getInstance();
     private Document doc = new Document();
-
+    private BorrowingRecordDao recordDao = new BorrowingRecordDao();
 
     public void setUsername(String username) {
         this.username = username;
@@ -276,7 +273,6 @@ public class BookDetailController {
     @FXML
     private void openReviewModal() {
         reviewModal.setVisible(true);
-
     }
 
     @FXML
@@ -285,6 +281,11 @@ public class BookDetailController {
         String comment = commentField.getText();
 
         User user = findUserByName(username);
+
+        if (recordDao.getByUserName(username).isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error ", "You haven't borrowed the book yet");
+            return;
+        }
 
         if (user != null) {
             int userId = user.getUserId();
@@ -299,6 +300,7 @@ public class BookDetailController {
             loadBookReviews(isbn);
 
             closeReviewModal();
+            commentField.clear();
         } else {
             System.out.println("User not found.");
         }
