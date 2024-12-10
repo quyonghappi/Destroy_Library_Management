@@ -516,27 +516,6 @@
 /*can dep hon*/
 }
 
-
-/* Styling for the Back Button */
-.back-button {
-    -fx-background-color: #f6f6f5; /* Dark background for the button */
-    -fx-text-fill: #555; /* White text for contrast */
-    -fx-font-size: 14px; /* Medium font size */
-    -fx-font-weight: bold; /* Bold text for emphasis */
-    -fx-padding: 10 20; /* Padding inside the button */
-    -fx-border-radius: 20; /* Rounded corners for the button */
-    -fx-background-radius: 20; /* Rounded background corners */
-    -fx-cursor: hand; /* Cursor changes to hand on hover */
-}
-
-/* Hover Effect for Back Button */
-.back-button:hover {
-    -fx-background-color: #555; /* Darken background when hovered */
-}
-
-
-
-
 /* Transparent Search Box - No Border */
 .transparent-search-box {
     background-color: transparent;   /* No background color */
@@ -562,6 +541,18 @@
     -fx-scale-x: 1.03;
     -fx-scale-y: 1.03;
 }
+
+.submit-button:hover {
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.cancel-button:hover {
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+
 
 .section-box1 {
     /*-fx-background-color: #95b1ee; */
@@ -639,6 +630,8 @@
     -fx-text-fill: #364c84;
     -fx-font-size: 15px;
 }
+
+
 
 
 

@@ -75,31 +75,20 @@ public class ReviewDao implements DAO<Review> {
         if (!(r instanceof Review review)) {
             throw new IllegalArgumentException("review must be an instance of Review");
         }
-        int userId = review.getUserId();
-        UserDao userDao = new UserDao();
-        User user = userDao.get(userId);
-        BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
-        List<BorrowingRecord> userBooksList = borrowingRecordDao.getByUserName(user.getUsername());
-        for (BorrowingRecord borrowingRecord : userBooksList) {
-            //means that user nay da muon cuon sach nay
-            if(borrowingRecord.getISBN().equals(review.getIsbn())) {
-                String sql = "insert into reviews(user_id, isbn, rating, comment, review_date) values(?,?,?,?,?)";
-                try (
-                        Connection conn=DatabaseConfig.getConnection();
-                        PreparedStatement ps=conn.prepareStatement(sql);
-                ) {
-                    ps.setInt(1, review.getUserId());
-                    ps.setString(2, review.getIsbn());
-                    ps.setDouble(3, review.getRating());
-                    ps.setString(4, review.getComment());
-                    ps.setTimestamp(5, DateFormat.toSqlTimestamp(review.getReviewDate()));
 
-                    ps.executeUpdate();
-                } catch (SQLException e) {
-                    throw new RuntimeException("cannot add new review" + e.getMessage());
-                }
-                return;
-            }
+        String sql = "insert into reviews(user_id, isbn, rating, comment, review_date) values(?,?,?,?,?)";
+        try (
+                Connection conn=DatabaseConfig.getConnection();
+                PreparedStatement ps=conn.prepareStatement(sql);)
+        {
+            ps.setInt(1, review.getUserId());
+            ps.setString(2, review.getIsbn());
+            ps.setDouble(3, review.getRating());
+            ps.setString(4, review.getComment());
+            ps.setTimestamp(5, DateFormat.toSqlTimestamp(review.getReviewDate()));
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("cannot add new review" + e.getMessage());
         }
     }
 

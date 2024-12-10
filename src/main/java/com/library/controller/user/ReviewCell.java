@@ -11,10 +11,6 @@ import static com.library.dao.UserDao.findUserByName;
 
 public class ReviewCell extends ListCell<Review> {
 
-    private UserDao userDao = new UserDao();
-    private String username;
-    //private ReviewController reviewController;
-
     @Override
     protected void updateItem(Review review, boolean empty) {
         super.updateItem(review, empty);
@@ -44,19 +40,5 @@ public class ReviewCell extends ListCell<Review> {
         }
     }
 
-
-    private String getUsernameByReview(Review review) {
-        String username = "Unknown User";
-
-        if (review != null) {
-            try {
-                // what does this mean
-                username = findUserByName(review.getIsbn()).getUsername();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return username;
-    }
 
 }

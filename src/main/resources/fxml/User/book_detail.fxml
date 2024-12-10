@@ -16,20 +16,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="843.0" prefWidth="1400.0" style="-fx-background-color: #95b1ee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
+<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: #95b1ee;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.user.BookDetailController">
    <children>
       <VBox alignment="CENTER" prefHeight="759.0" prefWidth="1340.0" spacing="10.0" style="-fx-background-color: #fffdf5; -fx-background-radius: 10;">
          <children>
-            <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="680.0" prefWidth="1340.0" spacing="10.0">
+            <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="650.0" prefWidth="1340.0" spacing="10.0">
                <children>
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="302.0">
                      <children>
-                        <ImageView fx:id="bookCover" fitHeight="265.0" fitWidth="211.0">
+                        <ImageView fx:id="bookCover" fitHeight="290.0" fitWidth="235.0">
                            <image>
                               <Image url="@../../ui/admindashboard/bookcover.png" />
                            </image>
                            <VBox.margin>
-                              <Insets left="40.0" />
+                              <Insets left="30.0" />
                            </VBox.margin>
                         </ImageView>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="73.0">
@@ -51,9 +51,9 @@
                                     <Insets right="30.0" />
                                  </VBox.margin>
                                  <children>
-                                    <HBox prefHeight="38.0" prefWidth="288.0" spacing="40.0">
+                                    <HBox alignment="CENTER" prefHeight="38.0" prefWidth="288.0" spacing="30.0">
                                        <children>
-                                          <Button fx:id="requestButton" minHeight="-Infinity" onAction="#onRequestClicked" prefHeight="35.0" prefWidth="190.0" style="-fx-background-color: #364c84; -fx-text-fill: white; -fx-background-radius: 7;" text="Request Book">
+                                          <Button fx:id="requestButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#onRequestClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #364c84; -fx-text-fill: white; -fx-background-radius: 7;" text="Request Book">
                                              <font>
                                                 <Font name="Segoe UI" size="13.0" />
                                              </font>
@@ -82,28 +82,24 @@
                               </HBox>
                            </children>
                            <VBox.margin>
-                              <Insets top="130.0" />
+                              <Insets top="80.0" />
                            </VBox.margin>
                         </VBox>
-                        <HBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="108.0">
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="108.0">
                            <children>
-                              <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="77.0" spacing="10">
-                                 <children>
-                                    <Button fx:id="backButton" prefHeight="29.0" prefWidth="77.0" style="-fx-background-color: #E05864; -fx-text-fill: white; -fx-background-radius: 7;" text="Back" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </VBox>
+                              <Button fx:id="backButton" prefHeight="32.0" prefWidth="77.0" style="-fx-background-color: #E05864; -fx-text-fill: white; -fx-background-radius: 7;" text="Back" />
                            </children>
                            <VBox.margin>
-                              <Insets left="70.0" top="10.0" />
+                              <Insets left="80.0" top="10.0" />
                            </VBox.margin>
                         </HBox>
                      </children>
                      <HBox.margin>
-                        <Insets right="40.0" />
+                        <Insets />
                      </HBox.margin>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
                   </VBox>
                   <VBox prefHeight="680.0" prefWidth="342.0" spacing="10">
                      <children>
@@ -127,10 +123,13 @@
                      <HBox.margin>
                         <Insets right="40.0" />
                      </HBox.margin>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
                   </VBox>
                   <Pane prefHeight="719.0" prefWidth="595.0">
                      <children>
-                        <WebView fx:id="previewWebView" layoutX="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="423.0" minWidth="595.0" prefHeight="423.0" prefWidth="595.0" />
+                        <WebView fx:id="previewWebView" layoutX="-2.0" maxHeight="-Infinity" minHeight="423.0" minWidth="570.0" prefHeight="423.0" prefWidth="570.0" />
                         <VBox fx:id="reviewsVBox" alignment="TOP_CENTER" layoutX="-2.0" layoutY="441.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: transparent; -fx-border-width: 0;" styleClass="section-box1" stylesheets="@../../css/user/styling.css">
                            <children>
                               <Button alignment="CENTER" onAction="#openReviewModal" prefHeight="40.0" prefWidth="340.0" styleClass="review-button" stylesheets="@../../css/user/styling.css" text="Click here to share your thoughts on this book!" textAlignment="CENTER" textFill="#364c84" wrapText="true">
@@ -138,7 +137,7 @@
                                     <Font name="Rockwell" size="12.0" />
                                  </font>
                               </Button>
-                              <ListView fx:id="reviewsListView" maxWidth="1.7976931348623157E308" prefHeight="176.0" prefWidth="570.0" style="-fx-background-color: #FFFFFF;" styleClass="section-box2" stylesheets="@../../css/user/styling.css">
+                              <ListView fx:id="reviewsListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="176.0" prefWidth="570.0" style="-fx-background-color: #FFFFFF;" styleClass="section-box2" stylesheets="@../../css/user/styling.css">
                                  <VBox.margin>
                                     <Insets bottom="-10.0" />
                                  </VBox.margin>
@@ -148,28 +147,35 @@
                      </children>
                   </Pane>
                </children>
-               <padding>
-                  <Insets left="20.0" />
-               </padding>
             </HBox>
          </children>
       </VBox>
 
       <!-- Modal Review -->
+      <!-- Modal Review -->
       <AnchorPane fx:id="reviewModal" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false" StackPane.alignment="CENTER">
-         <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10; padding: 20;" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="150.0">
-            <Label style="-fx-font-size: 20px; font-weight: bold;" text="Write a Review" />
+         <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; padding: 20;" AnchorPane.bottomAnchor="170.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="150.0">
+            <Label style="-fx-font-family: Rockwell; -fx-text-fill: linear-gradient(to right, #364c84, #e7f1a8, #364c84);" text="Share you thought about this book!">
+               <font>
+                  <Font name="Rockwell" size="23.0" />
+               </font></Label>
             <!--            <Slider fx:id="ratingSlider" max="5" min="1" showTickLabels="true" showTickMarks="true" value="3">-->
-            <Slider fx:id="ratingSlider" blockIncrement="0.5" majorTickUnit="0.5" max="5" min="1" showTickLabels="true" showTickMarks="true" value="3">
+            <Slider fx:id="ratingSlider" blockIncrement="0.5" majorTickUnit="0.5" max="5" min="1" showTickLabels="true" showTickMarks="true" stylesheets="@../../css/user/styling.css" value="3">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin></Slider>
-            <TextArea fx:id="commentField" prefHeight="130.0" promptText="Write your comment here..." wrapText="true">
+            <TextArea fx:id="commentField" prefHeight="130.0" promptText="Write your comment here..." style="-fx-background-color: #e7f1a8;" wrapText="true">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin></TextArea>
-            <Button onAction="#submitReview" text="Submit Review" />
-            <Button onAction="#closeReviewModal" style="-fx-background-color: #E05864; -fx-text-fill: white;" text="Cancel" />
+            <Button onAction="#submitReview" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #e7f1a8;" styleClass="submit-button" stylesheets="@../../css/user/styling.css" text="Submit Review" textFill="#364c83">
+               <font>
+                  <Font name="Rockwell" size="13.0" />
+               </font></Button>
+            <Button onAction="#closeReviewModal" style="-fx-background-color: #364c84; -fx-text-fill: #fffdf5;" styleClass="cancel-button" stylesheets="@../../css/user/styling.css" text="Cancel">
+               <font>
+                  <Font name="Rockwell" size="13.0" />
+               </font></Button>
          </VBox>
       </AnchorPane>
 

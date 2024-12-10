@@ -2,10 +2,7 @@ package com.library.controller.user;
 
 import com.library.dao.DocumentDao;
 import com.library.dao.FineDao;
-import com.library.models.Author;
-import com.library.models.BorrowingRecord;
-import com.library.models.Category;
-import com.library.models.Document;
+import com.library.models.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -80,13 +77,15 @@ public class BorrowedBooksCellController {
                 case "late":
                     statusLabel.setText("Late");
                     DecimalFormat decimalFormat = new DecimalFormat("#,###");
-                    fineAmountLabel.setText("Fine: " + decimalFormat.format(fineDao.get(br.getRecordId()).getFineAmount()));
+                    Fine fine = fineDao.get(br.getRecordId());
+                    fineAmountLabel.setText("Fine: " + decimalFormat.format(fine.getFineAmount()) + '['+ fine.getStatus()+']');
                     fineAmountLabel.setVisible(true);
                     break;
                 case "lost":
                     statusLabel.setText("Lost");
                     DecimalFormat decimalFormat1 = new DecimalFormat("#,###");
-                    fineAmountLabel.setText("Fine: " + decimalFormat1.format(fineDao.get(br.getRecordId()).getFineAmount()));
+                    Fine fine1 = fineDao.get(br.getRecordId());
+                    fineAmountLabel.setText("Fine: " + decimalFormat1.format(fine1.getFineAmount()) + '['+ fine1.getStatus()+']');
                     fineAmountLabel.setVisible(true);
                     break;
             }

@@ -270,7 +270,17 @@ public class BookDetailController {
 
     @FXML
     private void openReviewModal() {
-        reviewModal.setVisible(true);
+        BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
+        List<BorrowingRecord> userBooksList = borrowingRecordDao.getByUserName(username);
+        for (BorrowingRecord borrowingRecord : userBooksList) {
+            //means that user nay da muon cuon sach nay
+            if (borrowingRecord.getISBN().equals(doc.getISBN())) {
+                reviewModal.setVisible(true);
+                return;
+            }
+        }
+        showAlert(Alert.AlertType.ERROR, "You cannot submit a review.", "You haven't borrowed the book yet! Please borrow the book first.");
+
     }
 
     @FXML
@@ -278,29 +288,20 @@ public class BookDetailController {
         double rating = ratingSlider.getValue();
         String comment = commentField.getText();
 
+
         User user = findUserByName(username);
-
-        if (recordDao.getByUserName(username).isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Error ", "You haven't borrowed the book yet");
-            return;
-        }
-
         if (user != null) {
-            int userId = user.getUserId();
-
             String isbn = doc.getISBN();
-
             LocalDateTime reviewDate = LocalDateTime.now();
-
             ReviewDao reviewDao = new ReviewDao();
-            reviewDao.add(new Review(userId, isbn, rating, comment, reviewDate));
+            reviewDao.add(new Review(user.getUserId(), isbn, rating, comment, reviewDate));
 
             loadBookReviews(isbn);
 
             closeReviewModal();
             commentField.clear();
         } else {
-            System.out.println("User not found.");
+            System.out.println("Cannot find user with user name " + username);
         }
     }
 
