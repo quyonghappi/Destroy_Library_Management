@@ -98,7 +98,6 @@ public class HomeScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         recentlyAdded = documentDao.getRecentAddedBooks();
         loadRecentAddedBooks();
-        loadMyBooks();
         loadBestBook();
 
         searchNav.setOnMouseClicked(event -> {
