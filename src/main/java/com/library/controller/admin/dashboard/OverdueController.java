@@ -53,12 +53,8 @@ public class OverdueController {
     private FineDao fineDao = FineDao.getInstance();
     private BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
     private AdminDashboardController parentController;
-    private ListView<Fine> lv;
     private Fine currentFine;
 
-    public void setListView(ListView<Fine> lv) {
-        this.lv = lv;
-    }
 
     public void setParentController(AdminDashboardController controller) {
     parentController=controller;
@@ -115,7 +111,6 @@ public class OverdueController {
             updateButtonVisibility("PAID");
             fineDao.changeFineStatus(Integer.parseInt(recordIdLabel.getText()));
             if (parentController != null) {
-                lv.refresh();
                 parentController.sortListView();
             }
         } catch (Exception e) {

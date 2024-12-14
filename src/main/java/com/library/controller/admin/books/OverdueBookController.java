@@ -102,18 +102,16 @@ public class OverdueBookController implements Initializable, Observer {
 
     private void searchOverDue(String username) {
         if (username.isEmpty()) {
-            fines = (ObservableList<Fine>) fineDao.getAll();
+            fines = fineDao.getAll();
         } else {
-            fines = (ObservableList<Fine>) fineDao.getFinesByUsername(username);
+            fines = fineDao.getFinesByUsername(username);
         }
         loadOverdueList();
     }
 
     @Override
     public void update() {
-        overdueDetailContainer.refresh();
         sortListView();
-        //loadOverdueList();
     }
 
     private void loadOverdueList() {
@@ -121,7 +119,7 @@ public class OverdueBookController implements Initializable, Observer {
         Task<List<Fine>> loadTask = new Task<>() {
             @Override
             protected List<Fine> call() {;
-                return fineDao.getAll(); // Database call
+                return fines; // Database call
             }
         };
 
@@ -144,8 +142,6 @@ public class OverdueBookController implements Initializable, Observer {
     private void refreshListView(List<Fine> fines) {
         overdueDetailContainer.setCellFactory(param->
         {
-            //OverdueCell overdueCell = new OverdueCell();
-            //overdueCell.setListView(overdueDetailContainer);
             return new OverdueCell();
         });
         overdueDetailContainer.getItems().setAll(fines);

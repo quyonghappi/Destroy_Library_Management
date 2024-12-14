@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 import static com.library.utils.LoadImage.loadImageLazy;
 import static com.library.utils.SceneSwitcher.navigateToScene;
 
-public class BookCardController implements Initializable {
+public class BookCardController {
     @FXML
     private Label authorLabel;
 
@@ -26,19 +26,11 @@ public class BookCardController implements Initializable {
 
     private DocumentDao documentDao = new DocumentDao();
 
-
-
     public void loadBookInfo(Document doc) {
         authorLabel.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
         titleLabel.setText(doc.getTitle());
         if (!doc.getImageLink().equals("N/A")) {
             loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());
         }
-    }
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //bookImage.setOnMouseClicked(event -> )
     }
 }

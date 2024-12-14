@@ -139,7 +139,6 @@ public class RequestBookController implements Initializable, Observer {
 
     @Override
     public void update() {
-        requestDetailContainer.refresh();
         sortListView();
     }
 
@@ -173,7 +172,7 @@ public class RequestBookController implements Initializable, Observer {
         Task<List<Reservation>> loadTask= new Task<>() {
             @Override
             protected List<Reservation> call() throws Exception {
-                return getReservations();
+                return reservations;
             }
         };
 

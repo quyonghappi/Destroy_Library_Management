@@ -30,20 +30,12 @@ public class ReturnBookController implements Initializable {
 
     @FXML
     StackPane returnedBookRoot;
+
     @FXML
     private Label addBookButton;
 
     @FXML
-    private Label allCountLabel;
-
-    @FXML
-    private HBox booksContainer1;
-
-    @FXML
     private Button lendButton;
-
-    @FXML
-    private Label lentCountLabel;
 
     @FXML
     private ListView<BorrowingRecord> returnDetailContainer;
@@ -166,7 +158,6 @@ public class ReturnBookController implements Initializable {
                     returnDetailContainer.setCellFactory(param ->
                     {
                         ReturnBookCell returnBookCell=new ReturnBookCell();
-                        returnBookCell.setListView(returnDetailContainer);
                         return returnBookCell;
                     });
                     returnDetailContainer.getItems().setAll(loadTask.getValue());
@@ -189,9 +180,7 @@ public class ReturnBookController implements Initializable {
         brList = borrowingRecordDao.getReturnByISBN(isbn);
         returnDetailContainer.setCellFactory(param ->
         {
-            ReturnBookCell returnBookCell=new ReturnBookCell();
-            returnBookCell.setListView(returnDetailContainer);
-            return returnBookCell;
+            return new ReturnBookCell();
         });
         returnDetailContainer.getItems().setAll(brList);
     }

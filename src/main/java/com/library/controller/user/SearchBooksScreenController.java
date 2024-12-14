@@ -350,8 +350,4 @@ public class SearchBooksScreenController implements Initializable {
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
     }
-
-    public void setSearchQuery(String searchQuery) {
-
-    }
 }

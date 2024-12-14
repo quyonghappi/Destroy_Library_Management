@@ -21,11 +21,6 @@ public class OverdueCell extends ListCell<Fine> {
         }
     }
 
-    public void setListView(ListView<Fine> listView) {
-        if(overdueController!=null) {
-            overdueController.setListView(listView);
-        }
-    }
 
     public void setParentController(AdminDashboardController parentController) {
         if (overdueController != null) {
