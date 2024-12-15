@@ -61,7 +61,7 @@ public class LentBookCellController implements Initializable {
     private BorrowingRecord currentBr;
 
     private BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
     private UserDao userDao = new UserDao();
 
     public void setListView(ListView<BorrowingRecord> listView) {

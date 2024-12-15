@@ -74,7 +74,7 @@ public class LoginUserController {
         }
 
         if (validateInput(username, password) && Check.isValidUsername(username)) {
-            if (userDao.authenticateUser(username, password)) {
+            if (UserDao.authenticateUser(username, password)) {
                 userDao.updateLastLogin(username);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/home_screen.fxml"));
                 root = loader.load();

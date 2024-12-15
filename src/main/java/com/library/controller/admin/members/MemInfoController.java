@@ -125,9 +125,7 @@ public class MemInfoController implements Initializable {
     private void refreshListView(List<User> users) {
         memDetailContainer.setCellFactory(param->
         {
-            MemInfoCell cell = new MemInfoCell();
-            cell.setListView(memDetailContainer);
-            return cell;
+            return new MemInfoCell();
         });
         memDetailContainer.getItems().setAll(users);
     }

@@ -51,7 +51,7 @@ public class FavouriteController implements Initializable, Observer {
 
     private String username;
     private FavouriteDao favouriteDao = FavouriteDao.getInstance();
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
 
     public void setUsername(String username) {
         this.username = username;

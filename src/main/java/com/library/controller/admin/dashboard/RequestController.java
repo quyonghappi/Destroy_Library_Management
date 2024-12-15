@@ -51,10 +51,9 @@ public class RequestController {
     @FXML
     private Label usernameLabel;
 
-    private ListView<Reservation> lv;
     private Reservation current;
 
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
     private UserDao userDao = new UserDao();
     private ReservationDao reservationDao = ReservationDao.getInstance();
     private AdminDashboardController parentController;
@@ -63,9 +62,6 @@ public class RequestController {
         this.parentController = parentController; // Set the parent controller
     }
 
-    public void setListView(ListView<Reservation> lv) {
-        this.lv = lv;
-    }
     public void loadReservation(Reservation reservation) {
         current = reservation;
         int userId = reservation.getUserId();
@@ -125,7 +121,6 @@ public class RequestController {
             current.setStatus("fulfilled");
             reservationDao.updateStatus(current.getReservationId(), "fulfilled");
             updateButtonVisibility("fulfilled");
-            lv.refresh();
             if (parentController != null) {
                 parentController.sortListView1();
             }
@@ -143,8 +138,6 @@ public class RequestController {
             System.out.println(current.getReservationId());
             reservationDao.updateStatus(current.getReservationId(), "cancelled");
             updateButtonVisibility("cancelled");
-            // lv.getItems().remove(current);
-            lv.refresh();
             if (parentController != null) {
                 parentController.sortListView();
             }

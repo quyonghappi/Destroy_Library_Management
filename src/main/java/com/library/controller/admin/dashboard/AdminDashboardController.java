@@ -142,7 +142,6 @@ public class AdminDashboardController implements Initializable {
     private void refreshListView(List<Fine> fine) {
         overdueDetailContainer.setCellFactory(param-> {
             OverdueCell overdueCell=new OverdueCell();
-            overdueCell.setListView(overdueDetailContainer);
             overdueCell.setParentController(this);
             return overdueCell;
         });
@@ -154,7 +153,6 @@ public class AdminDashboardController implements Initializable {
         requestDetailContainer.setCellFactory(param ->
         {
             RequestCell requestCell = new RequestCell();
-            requestCell.setListView(requestDetailContainer);
             requestCell.setParentController(this);
             return requestCell;
         });

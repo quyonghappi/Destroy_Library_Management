@@ -19,12 +19,6 @@ public class MemInfoCell extends ListCell<User> {
         }
     }
 
-    public void setListView(ListView<User> listView) {
-        if(memInfoBox != null) {
-            memInfoCellController.setListView(listView);
-        }
-    }
-
     @Override
     protected void updateItem(User item, boolean empty) {
         super.updateItem(item, empty);

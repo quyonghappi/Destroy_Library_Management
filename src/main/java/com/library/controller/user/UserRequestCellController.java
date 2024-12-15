@@ -47,7 +47,7 @@ public class UserRequestCellController implements Initializable {
     //private UserRequestController parent;
     //private ListView<Reservation> listView;
     private Reservation current;
-    private DocumentDao documentDao=new DocumentDao();
+    private DocumentDao documentDao= DocumentDao.getInstance();
     private ReservationDao reservationDao = ReservationDao.getInstance();
 
 //    public void setListView(ListView<Reservation> lv){

@@ -6,15 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import static com.library.utils.LoadImage.loadImageLazy;
-import static com.library.utils.SceneSwitcher.navigateToScene;
 
-public class BookCardController implements Initializable {
+public class BookCardController {
     @FXML
     private Label authorLabel;
 
@@ -24,9 +18,7 @@ public class BookCardController implements Initializable {
     @FXML
     private Label titleLabel;
 
-    private DocumentDao documentDao = new DocumentDao();
-
-
+    private DocumentDao documentDao = DocumentDao.getInstance();
 
     public void loadBookInfo(Document doc) {
         authorLabel.setText(documentDao.getAuthor(doc.getAuthorId()).getName());
@@ -34,11 +26,5 @@ public class BookCardController implements Initializable {
         if (!doc.getImageLink().equals("N/A")) {
             loadImageLazy(doc.getImageLink(), bookImage, bookImage.getFitWidth(), bookImage.getFitHeight());
         }
-    }
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //bookImage.setOnMouseClicked(event -> )
     }
 }

@@ -22,11 +22,6 @@ public class ReturnBookCell extends ListCell<BorrowingRecord> {
         }
     }
 
-    public void setListView(ListView<BorrowingRecord> listView) {
-        if(returnBox != null) {
-            returnBookCellController.setListView(listView);
-        }
-    }
 
     @Override
     protected void updateItem(BorrowingRecord item, boolean empty) {

@@ -108,7 +108,7 @@ public class BookDetailController {
 
 
         // Set author name
-        DocumentDao documentDao = new DocumentDao();
+        DocumentDao documentDao = DocumentDao.getInstance();
         Author author = documentDao.getAuthor(document.getAuthorId());
         String authorName = author.getName();
         bookAuthor.setText("Author: " + authorName);

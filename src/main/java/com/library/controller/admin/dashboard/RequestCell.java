@@ -20,11 +20,6 @@ public class RequestCell extends ListCell<Reservation> {
         }
     }
 
-    public void setListView(ListView<Reservation> listView) {
-        if(requestController!=null) {
-            requestController.setListView(listView);
-        }
-    }
 
     public void setParentController(AdminDashboardController parentController) {
         if (requestController != null) {

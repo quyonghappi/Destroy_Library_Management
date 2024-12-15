@@ -51,7 +51,7 @@ public class UserRequestController implements Initializable, Observer {
     //private boolean observerAdded = false;
     private String username;
     private ReservationDao reservationDao;
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
 
     public void setUsername(String username) {
         this.username = username;

@@ -81,7 +81,7 @@ public class SearchBooksScreenController implements Initializable {
     private FlowPane searchResultsContainer;
 
     private String username;
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
     private List<Document> filteredDocuments;
     private List<Document> allDocuments;
 
@@ -349,9 +349,5 @@ public class SearchBooksScreenController implements Initializable {
 
     public void setUserFullName(String userFullName) {
         memNameLabel.setText(userFullName);
-    }
-
-    public void setSearchQuery(String searchQuery) {
-
     }
 }

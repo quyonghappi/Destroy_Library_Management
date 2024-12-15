@@ -111,13 +111,6 @@ public class MemInfoCellController {
                     }
                 });
             }
-
-
-
-
-
-
-
         }
         catch (Exception e) {
             throw new RuntimeException(e);

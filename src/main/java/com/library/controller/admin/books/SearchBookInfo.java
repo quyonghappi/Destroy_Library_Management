@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SearchBookInfo {
 
-    private static DocumentDao documentDao = new DocumentDao();
+    private static DocumentDao documentDao = DocumentDao.getInstance();
 
     static void handleSearch(ListView<Document> bookDetailContainer, String searchText, String selectedCriteria) {
         if (searchText != null && !searchText.isEmpty()) {

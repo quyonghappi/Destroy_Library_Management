@@ -87,7 +87,7 @@ public class HomeScreenController implements Initializable {
     private List<BorrowingRecord> myBooks;
     private List<Document> recentlyAdded;
     private BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
 
     public void setUsername(String username) {
         this.username=username;
@@ -98,7 +98,6 @@ public class HomeScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         recentlyAdded = documentDao.getRecentAddedBooks();
         loadRecentAddedBooks();
-        loadMyBooks();
         loadBestBook();
 
         searchNav.setOnMouseClicked(event -> {
