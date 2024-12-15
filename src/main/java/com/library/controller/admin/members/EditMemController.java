@@ -15,9 +15,6 @@ import static com.library.utils.LoadView.showAlert;
 public class EditMemController {
 
     @FXML
-    private TextField userName;
-
-    @FXML
     private TextField currentPassword;
 
     @FXML
@@ -40,29 +37,11 @@ public class EditMemController {
 
     public void editMem(ActionEvent actionEvent) throws Exception {
         String userNameInput = this.user.getUsername();
-        String currentPasswordInput = this.currentPassword.getText();
         String newPasswordInput = this.newPassword.getText();
         String confirmPasswordInput = this.confirmPassword.getText();
 
-
-        if (userNameInput.isEmpty() || currentPasswordInput.isEmpty() || newPasswordInput.isEmpty() || confirmPasswordInput.isEmpty()) {
+        if (newPasswordInput.isEmpty() || confirmPasswordInput.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Input Error", "Please enter all fields.");
-            return;
-        }
-
-        // Validate input
-        if (!Check.validateInput(userNameInput, currentPasswordInput)) {
-            showAlert(Alert.AlertType.ERROR, "Input Error", "Please enter both username and password.");
-            return;
-        }
-
-        if (!Check.isValidUsername(userNameInput)) {
-            showAlert(Alert.AlertType.ERROR, "Input Error", "Please enter a valid username.");
-            return;
-        }
-
-        if (!UserDao.authenticateAdmin(userNameInput, currentPasswordInput) && !UserDao.authenticateUser(userNameInput, currentPasswordInput)) {
-            showAlert(Alert.AlertType.ERROR, "Authentication Error", "Invalid current password.");
             return;
         }
 

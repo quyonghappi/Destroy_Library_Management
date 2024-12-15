@@ -220,7 +220,7 @@ public class UserDao implements DAO<User> {
      * get a list of all users having fines
      * @return list of users having fines
      */
-    public List<User> getUserHasFine() {
+    public static List<User> getUserHasFine() {
         List<User> users = new ArrayList<>();
         String sql = "SELECT DISTINCT u.user_id, u.full_name, u.user_name, u.email, u.password_hash, \n" +
                 "                        u.user_role, u.account_status, u.join_date, u.last_login, u.account_locked from users u\n"

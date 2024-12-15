@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="600.0" stylesheets="@../../../css/admin/addMemStyling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.members.EditMemController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="396.0" prefWidth="600.0" stylesheets="@../../../css/admin/addMemStyling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.members.EditMemController">
     <children>
-        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="600.0" spacing="5.0" StackPane.alignment="CENTER">
+        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="600.0" spacing="5.0" StackPane.alignment="CENTER">
             <children>
                 <HBox alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="100.0" styleClass="box">
                     <children>
@@ -42,18 +42,6 @@
                         <Insets bottom="20.0" />
                     </VBox.margin>
                 </HBox>
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="74.0" prefWidth="600.0" spacing="7.0">
-                    <children>
-                        <Label styleClass="small-label" text="Curent Password" />
-                        <TextField fx:id="currentPassword" minHeight="-Infinity" prefHeight="35.0" promptText="Enter the password" styleClass="text-field" />
-                    </children>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                    <padding>
-                        <Insets bottom="40.0" left="20.0" right="20.0" />
-                    </padding>
-                </VBox>
                 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="74.0" prefWidth="600.0" spacing="7.0">
                     <children>
                         <Label styleClass="small-label" text="New Password" />

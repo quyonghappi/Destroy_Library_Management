@@ -26,10 +26,10 @@ import static com.library.dao.UserDao.findUserByName;
 public class LoginUserController {
 
     @FXML
-    private TextField userNameField;
+    public TextField userNameField;
 
     @FXML
-    private PasswordField passwordField;
+    public PasswordField passwordField;
 
     @FXML
     private CheckBox rememberMeCheckBox;
@@ -53,10 +53,10 @@ public class LoginUserController {
      * login User.
      */
 
-    private final UserDao userDao = new UserDao();
+    public UserDao userDao = new UserDao();
     private Parent root;
     private Scene scene;
-    private Stage stage;
+    public Stage stage;
 
     @FXML
     void login(ActionEvent event) throws Exception {
@@ -109,9 +109,6 @@ public class LoginUserController {
         passwordField.clear();
     }
 
-    /**
-     * Xử lý sự kiện khi nhấn vào liên kết 'Sign Up'
-     */
     @FXML
     private void openSignUp(ActionEvent event) {
         Stage stage = (Stage) signUpLink.getScene().getWindow();

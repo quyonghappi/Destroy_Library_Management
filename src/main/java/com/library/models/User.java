@@ -39,6 +39,9 @@ public class User {
         this.password = passwordHash;
     }
 
+    public User(String validUsername, String active, String validUser) {
+    }
+
     public LocalDate getLastLoginDate() {
         return lastLoginDate;
     }

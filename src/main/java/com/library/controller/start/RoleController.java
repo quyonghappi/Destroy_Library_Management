@@ -30,23 +30,17 @@ public class RoleController {
     public static String role;
     private Stage stage;
 
-    /**
-     * Method called when the User button is pressed
-     */
+
     @FXML
     private void handleUserButtonAction(ActionEvent event) {
-//        chooseRole(Role.USER);
         role = "reader";
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         loadView(stage, "/fxml/Start/StartUser.fxml", "Destroy Library Management System", "/css/start/StartUser.css");
     }
 
-    /**
-     * Method called when the Admin button is pressed
-     */
+
     @FXML
     private void handleAdminButtonAction(ActionEvent event) {
-//        chooseRole(Role.ADMIN);
         role = "admin";
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         loadView(stage, "/fxml/Start/adminLogin.fxml", "Destroy Library Management System", "/css/start/adminLogin.css");
@@ -55,8 +49,6 @@ public class RoleController {
     @FXML
     public void showRoleView(Stage primaryStage) {
         try {
-
-//            displayViewWithAnimation()
             FXMLLoader loader = new FXMLLoader(RoleController.class.getResource("/fxml/Start/Role.fxml"));
             Scene scene = new Scene(loader.load());
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/start/Role.css")).toExternalForm());
