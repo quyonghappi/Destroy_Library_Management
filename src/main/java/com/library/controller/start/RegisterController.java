@@ -3,6 +3,7 @@ package com.library.controller.start;
 import com.library.config.DatabaseConfig;
 import com.library.dao.UserDao;
 import com.library.models.User;
+import com.library.utils.Check;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +61,21 @@ public class RegisterController {
 
         if (fullName.isEmpty() || username.isEmpty() || email.isEmpty() && password.isEmpty() || confirmPassword.isEmpty()) {
             showAlert(AlertType.ERROR, "Error", "Please fill all the fields");
+            return;
+        }
+
+        if (!Check.isValidFullName(fullName)) {
+            showAlert(AlertType.ERROR, "Error", "Please enter a valid full name");
+            return;
+        }
+
+        if (!Check.isValidEmail(email)) {
+            showAlert(AlertType.ERROR, "Error", "Please enter a valid email");
+            return;
+        }
+
+        if (!Check.isValidUsername(username)) {
+            showAlert(AlertType.ERROR, "Error", "Please enter a valid username");
             return;
         }
 

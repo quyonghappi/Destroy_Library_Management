@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="returnedBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.ReturnBookController">
+<StackPane fx:id="returnedBookRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../../../css/admin/AdminDashboardStyling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.controller.admin.books.ReturnBookController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" StackPane.alignment="CENTER">
          <left>
@@ -105,72 +105,32 @@
                      </VBox.margin>
                   </HBox>
                   <HBox id="settingContainer" fx:id="settingContainer" alignment="CENTER_LEFT" prefHeight="40.0" styleClass="nav-container">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../ui/admindashboard/settings.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Setting">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
                      <VBox.margin>
                         <Insets left="-11.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox id="aboutContainer" fx:id="aboutContainer" alignment="CENTER_LEFT" prefHeight="40.0" styleClass="nav-container">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../ui/admindashboard/info.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="About">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
                      <VBox.margin>
                         <Insets left="-11.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox id="helpContainer" fx:id="helpContainer" alignment="CENTER_LEFT" prefHeight="40.0" styleClass="nav-container">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../ui/admindashboard/headphones.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="18.0" prefWidth="137.0" styleClass="small-label" text="Help and support">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
                      <VBox.margin>
                         <Insets left="-11.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="51.0" prefWidth="244.0">
-                     <children>
-                        <Button fx:id="logOut" mnemonicParsing="false" onMouseClicked="#setLogOut" prefHeight="20.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" stylesheets="@../../../css/admin/AdminDashboardStyling.css">
-                           <graphic>
-                              <ImageView fx:id="logoutImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="imageView">
-                                 <image>
-                                    <Image url="@../../../icons/logout_icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
+                  <Button fx:id="logOut" mnemonicParsing="false" onMouseClicked="#setLogOut" prefHeight="20.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" stylesheets="@../../../css/admin/AdminDashboardStyling.css">
+                     <graphic>
+                        <ImageView fx:id="logoutImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="imageView">
+                           <image>
+                              <Image url="@../../../icons/logout_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                      <VBox.margin>
-                        <Insets top="160.0" />
+                        <Insets left="3.0" top="200.0" />
                      </VBox.margin>
-                  </HBox>
+                  </Button>
                </children>
                <BorderPane.margin>
                   <Insets />
