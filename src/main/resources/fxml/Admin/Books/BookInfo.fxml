@@ -57,7 +57,7 @@
                                         <HBox fx:id="lentNav" alignment="CENTER" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="book-info-container" HBox.hgrow="ALWAYS">
                                             <children>
                                                 <Label styleClass="bar-label" text="Lent" />
-                                                <Label text="Label" HBox.hgrow="ALWAYS" />
+                                                <Label HBox.hgrow="ALWAYS" />
                                             </children>
                                             <HBox.margin>
                                                 <Insets right="5.0" />

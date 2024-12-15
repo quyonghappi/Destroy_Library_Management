@@ -123,7 +123,7 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
             ps.setTimestamp(4, null);
             ps.setString(5, borrowingRecord.getStatus());
             ps.executeUpdate();
-            DocumentDao documentDao = new DocumentDao();
+            DocumentDao documentDao = DocumentDao.getInstance();
             documentDao.updateQuantity(borrowingRecord.getISBN(), borrowingRecord.getStatus());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -147,7 +147,7 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
         //if (br.getStatus().equals("returned") || br.getStatus().equals("lost")) {
         //only update for return because when borrow quantity already -1
         if (br.getStatus().equals("returned")) {
-            DocumentDao documentDao = new DocumentDao();
+            DocumentDao documentDao = DocumentDao.getInstance();
             documentDao.updateQuantity(br.getISBN(), br.getStatus());
         }
     }

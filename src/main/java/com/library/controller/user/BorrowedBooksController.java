@@ -52,7 +52,7 @@ public class BorrowedBooksController implements Initializable {
     //khi switch scene thi controller will call setUsername method
     private String username;
     private BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();
-    private DocumentDao documentDao =new DocumentDao();
+    private DocumentDao documentDao =DocumentDao.getInstance();
 
     public void setUsername(String username) {
         this.username = username;

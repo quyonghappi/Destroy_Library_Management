@@ -59,7 +59,7 @@ public class BookInfoCellController extends ListCell<Document> implements Initia
     private Document currentDocument;
 
     private ReservationDao reservationDao=ReservationDao.getInstance();
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
     private Publisher publisher=new Publisher();
     private Author author = new Author();
 

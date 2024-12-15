@@ -1,5 +1,6 @@
 package com.library.controller.admin.books;
 
+import com.library.controller.Observer;
 import com.library.controller.admin.dashboard.AdminDashboardController;
 import com.library.controller.admin.members.MemInfoController;
 import com.library.dao.DocumentDao;
@@ -25,7 +26,7 @@ import static com.library.utils.LoadView.loadView;
 import static com.library.utils.FilterPopup.showPopup;
 import static com.library.utils.SceneSwitcher.*;
 
-public class BookInfoController implements Initializable {
+public class BookInfoController implements Initializable, Observer {
 
     @FXML
     StackPane bookInfoRoot;
@@ -84,14 +85,14 @@ public class BookInfoController implements Initializable {
     @FXML
     private Button logOut;
 
-    private DocumentDao documentDao=new DocumentDao();
+    private DocumentDao documentDao= DocumentDao.getInstance();
     List<Document> documentList=new ArrayList<>();
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        documentDao.addObserver(this);
         documentList = documentDao.getAll();
         countLabel.setText(String.valueOf(documentList.size()));
 
@@ -158,7 +159,7 @@ public class BookInfoController implements Initializable {
         Task<List<Document>> loadTask = new Task<>() {
             @Override
             protected List<Document> call() {
-                return documentList;
+                return documentDao.getAll();
             }
         };
 
@@ -224,6 +225,11 @@ public class BookInfoController implements Initializable {
         logOut.setMouseTransparent(true);
         Stage stage = (Stage) logOut.getScene().getWindow();
         loadView(stage, "/fxml/Start/Role.fxml", "Sign Up", "/css/start/Role.css");
+    }
+
+    @Override
+    public void update() {
+        loadBookList();
     }
 
     @FunctionalInterface

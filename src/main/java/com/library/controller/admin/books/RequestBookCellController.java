@@ -56,7 +56,7 @@ public class RequestBookCellController {
     private Reservation current;
     private RequestBookController parentController;
 
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
     private UserDao userDao = new UserDao();
     private ReservationDao reservationDao = ReservationDao.getInstance();
     private Document doc = new Document();

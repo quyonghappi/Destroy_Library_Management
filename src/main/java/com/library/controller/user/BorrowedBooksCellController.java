@@ -48,7 +48,7 @@ public class BorrowedBooksCellController {
 
     private ListView<BorrowingRecord> listView;
     private BorrowingRecord borrowedBook;
-    private DocumentDao documentDao=new DocumentDao();
+    private DocumentDao documentDao=DocumentDao.getInstance();
     private FineDao fineDao=FineDao.getInstance();
 
     public void setListView(ListView<BorrowingRecord> lv){

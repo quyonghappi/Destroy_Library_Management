@@ -47,7 +47,7 @@ public class ReturnBookCellController {
 
     private ListView<BorrowingRecord> listView;
     private BorrowingRecord currentBr;
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
     private UserDao userDao = new UserDao();
 
     public void setListView(ListView<BorrowingRecord> listView) {

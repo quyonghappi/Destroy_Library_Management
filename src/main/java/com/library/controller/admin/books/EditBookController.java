@@ -24,7 +24,7 @@ public class EditBookController {
     @FXML
     private TextField locationField;
 
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
     private Document document;
 
     public void setDocument(Document document) {

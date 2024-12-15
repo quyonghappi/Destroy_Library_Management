@@ -53,7 +53,7 @@ public class RequestController {
 
     private Reservation current;
 
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
     private UserDao userDao = new UserDao();
     private ReservationDao reservationDao = ReservationDao.getInstance();
     private AdminDashboardController parentController;

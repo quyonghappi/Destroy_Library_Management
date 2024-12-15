@@ -48,7 +48,7 @@ public class OverdueController {
     @FXML
     private Label statusLabel;
 
-    private DocumentDao documentDao = new DocumentDao();
+    private DocumentDao documentDao = DocumentDao.getInstance();
     private UserDao userDao = new UserDao();
     private FineDao fineDao = FineDao.getInstance();
     private BorrowingRecordDao borrowingRecordDao = new BorrowingRecordDao();

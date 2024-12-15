@@ -195,7 +195,7 @@ public class FineDao extends Subject implements DAO<Fine> {
             if (record.getStatus().equals("lost")) {
                 ps.setObject(4, record.getBorrowDate().plusDays(14+30));
             } else {
-                ps.setObject(4,record.getBorrowDate().plusDays(24));
+                ps.setObject(4,record.getBorrowDate().plusDays(28));
             }
             ps.setString(5,"UNPAID");
 
@@ -233,7 +233,7 @@ public class FineDao extends Subject implements DAO<Fine> {
             BorrowingRecordDao brDao = new BorrowingRecordDao();
             BorrowingRecord br=brDao.get(recordId);
             if (br.getStatus().equals("late")) {
-                DocumentDao documentDao = new DocumentDao();
+                DocumentDao documentDao = DocumentDao.getInstance();
                 documentDao.updateQuantity(br.getISBN(), "returned");
             }
             ps.setString(1,"PAID");

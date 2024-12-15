@@ -38,7 +38,7 @@ public class FavouriteBooksCellController implements Initializable {
     private ImageView favImage;
 
     private Favourite current;
-    private DocumentDao documentDao=new DocumentDao();
+    private DocumentDao documentDao=DocumentDao.getInstance();
     private FavouriteDao favouriteDao= FavouriteDao.getInstance();
 
     public void loadUserFavourite(Favourite r) throws SQLException {

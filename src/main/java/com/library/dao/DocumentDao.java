@@ -1,6 +1,7 @@
 package com.library.dao;
 
 import com.library.config.DatabaseConfig;
+import com.library.controller.Subject;
 import com.library.models.Author;
 import com.library.models.Category;
 import com.library.models.Document;
@@ -12,7 +13,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocumentDao implements DAO<Document> {
+public class DocumentDao extends Subject implements DAO<Document> {
+    private static DocumentDao instance = null;
+    private DocumentDao() {
+
+    }
+
+    public static DocumentDao getInstance() {
+        if (instance==null) {
+            instance = new DocumentDao();
+        }
+        return instance;
+    }
 
     //insert document into database
     public <U> void add(U d)  {
@@ -33,6 +45,7 @@ public class DocumentDao implements DAO<Document> {
             doc.setCategoryId(categoryId);
 
             //sql query to insert or update a document
+            //Updates existing documents with the same values on duplicate key entries
             String insertSql = "INSERT INTO Documents (title, author_id, publisher_id, isbn, category_id, publication_year, " +
                     "quantity, pages, description, location, preview_link, book_image, added_date) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
@@ -369,6 +382,7 @@ public class DocumentDao implements DAO<Document> {
             ps.setString(3, isbn);
             //execute the update
             ps.executeUpdate();
+            notifyObservers();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -391,6 +405,7 @@ public class DocumentDao implements DAO<Document> {
             ps.setString(2, isbn);
             //execute the update
             ps.executeUpdate();
+            notifyObservers();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -453,9 +468,19 @@ public class DocumentDao implements DAO<Document> {
                 return resultSet.getInt("category_id");
             }
         }
+
+        /*
+        This code block attempts to insert a new category
+         if no existing category with the provided name was found.
+         */
         try {
             return insertCategory(categoryName);
-        } catch (SQLIntegrityConstraintViolationException e) {
+        }
+        /*
+        It specifically catches SQLIntegrityConstraintViolationException
+         which could indicate a duplicate category name violation.
+         */
+        catch (SQLIntegrityConstraintViolationException e) {
             // Nếu lỗi trùng lặp xảy ra, tìm lại ID
             return getOrCreateCategoryId(categoryName);
         }
