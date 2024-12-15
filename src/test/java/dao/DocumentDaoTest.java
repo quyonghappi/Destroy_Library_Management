@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DocumentDaoTest {
 
     private Connection connection;
+    private DocumentDao dao = DocumentDao.getInstance();
 
     @BeforeAll
     public void setUpDatabase() throws Exception {
@@ -72,8 +73,7 @@ public class DocumentDaoTest {
     // tlinh thay bang so cua tlinh de thuyet trinh cho dung nhe
     @Test
     public void testGetAll() {
-        DocumentDao documentDao = new DocumentDao();
-        List<Document> documents = documentDao.getAll();
+        List<Document> documents = dao.getAll();
         assertNotNull(documents);
         assertEquals(770, documents.size(), "There should be 768 documents in the database");
     }
@@ -97,7 +97,6 @@ public class DocumentDaoTest {
 
     @Test
     public void testGetAvailableList() {
-        DocumentDao dao = new DocumentDao();
         List<Document> documents = dao.getAvailableList();
         assertNotNull(documents);
         assertEquals(737, documents.size(), "There are 737 available documents");
@@ -106,7 +105,6 @@ public class DocumentDaoTest {
 
     @Test
     public void testGetLostList() {
-        DocumentDao dao = new DocumentDao();
         List<Document> documents = dao.getLostList();
         assertNotNull(documents);
         assertEquals(16, documents.size(), "there are 16 books having lost copies.");
@@ -114,7 +112,6 @@ public class DocumentDaoTest {
 
     @Test
     public void testDeleteDocument() {
-        DocumentDao dao = new DocumentDao();
         Document document1 = new Document("1234567890124", "Book 1", 1, 1, 1, 2000, 5,
                 "description 1", "library A", 200,
                 "http://example.com/preview1", "http://example.com/image1", LocalDateTime.now());
@@ -131,7 +128,6 @@ public class DocumentDaoTest {
 
     @Test
     public void testEditBook() {
-        DocumentDao dao = new DocumentDao();
         dao.editBook("9780071315159", "com/library", 3);
         List<Document> documents = dao.searchByIsbn("9780071315159");
         assertEquals(1, documents.size());

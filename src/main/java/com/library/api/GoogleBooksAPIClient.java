@@ -30,7 +30,7 @@ public class GoogleBooksAPIClient {
     public GoogleBooksAPIClient() {
         this.client = new OkHttpClient();
         this.gson = new Gson();
-        this.documentDao = new DocumentDao();
+        this.documentDao = DocumentDao.getInstance();
     }
 
     // Ensure API rate limit is respected

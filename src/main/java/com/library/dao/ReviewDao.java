@@ -55,6 +55,7 @@ public class ReviewDao implements DAO<Review> {
             ps.setInt(1, reviewId);
             ResultSet rs=ps.executeQuery();
             if (rs.next()) {
+                review = new Review();
                 review.setReviewId(rs.getInt("review_id"));
                 review.setIsbn(rs.getString("isbn"));
                 review.setUserId(rs.getInt("user_id"));
