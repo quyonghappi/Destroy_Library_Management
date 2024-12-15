@@ -140,6 +140,11 @@ public class BookInfoCellController extends ListCell<Document> implements Initia
             });
         }
         catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Deletion Error");
+            alert.setHeaderText("Cannot Delete Document");
+            alert.setContentText("This document cannot be deleted because it is currently being borrowed.");
+            alert.showAndWait();
             throw new RuntimeException(e);
         }
     }
