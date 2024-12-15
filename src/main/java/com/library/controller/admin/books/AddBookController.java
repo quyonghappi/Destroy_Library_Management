@@ -17,12 +17,6 @@ public class AddBookController {
     private TextField bookQuantityField;
 
     @FXML
-    private Button cancelButton;
-
-    @FXML
-    private Button confirmButton;
-
-    @FXML
     private TextField isbnField;
 
     @FXML

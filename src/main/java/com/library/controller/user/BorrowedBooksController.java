@@ -76,9 +76,8 @@ public class BorrowedBooksController implements Initializable {
         loadTask.setOnSucceeded(event -> {
             borrowListContainer.setCellFactory(param ->
             {
-                BorrowedBooksCell borrowedBooksCell=new BorrowedBooksCell();
-                borrowedBooksCell.setListView(borrowListContainer);
-                return borrowedBooksCell;
+                return new BorrowedBooksCell();
+
             });
             borrowListContainer.getItems().setAll(loadTask.getValue());
         });

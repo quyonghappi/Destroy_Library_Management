@@ -5,8 +5,6 @@ import java.util.regex.Pattern;
 import static com.library.utils.LoadView.showAlert;
 
 public class Check {
-
-
     static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@(gmail\\.com|[a-zA-Z0-9.-]+\\.edu.vn)$"; // gamil sv hoac gmail thuong
     static final String FULLNAME_REGEX = "^[A-Z][a-zA-Z]*(?: [A-Z][a-zA-Z]*){0,4}$"; // full name gom chu hoa dau va cach
     static final String USERNAME_REGEX = "^[a-zA-Z0-9_-]+$"; // username ko dau ko cach

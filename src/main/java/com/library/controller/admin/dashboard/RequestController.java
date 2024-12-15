@@ -122,7 +122,7 @@ public class RequestController {
             reservationDao.updateStatus(current.getReservationId(), "fulfilled");
             updateButtonVisibility("fulfilled");
             if (parentController != null) {
-                parentController.sortListView1();
+                parentController.sortRequestListView();
             }
         } catch (Exception e) {
             e.printStackTrace(); //debug
@@ -139,7 +139,7 @@ public class RequestController {
             reservationDao.updateStatus(current.getReservationId(), "cancelled");
             updateButtonVisibility("cancelled");
             if (parentController != null) {
-                parentController.sortListView();
+                parentController.sortRequestListView();
             }
         }
         catch (Exception e) {

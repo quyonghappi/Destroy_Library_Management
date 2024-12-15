@@ -24,7 +24,7 @@ Dưới đây là danh sách các package của dự án:
 - **Author**: Đại dện cho tác giả cuốn sách.
 - **Category**: Đại diện cho thể loại của sách.
 - **BorrowingRecord**: Đại diện cho bản ghi mượn sách.
-- **Review**: Nội dung sẽ được phát triển trong tương lai gần.
+- **Review**: Đại diện cho cảm nghĩ của người đọc về cuốn sách.
 
 #### **Database**
  
@@ -34,29 +34,35 @@ Dưới đây là danh sách các package của dự án:
 - Gồm các lớp để tương tác với cơ sở dữ liệu nhằm lấy dữ liệu tương ứng của các đối tượng trong model.
   ![img_1.png](src/main/resources/ui/readme/img_1.png)
 #### **Controller**
-- Gồm các controller quản lý giao diện ứng dụng, có tích hợp đa luồng để cải thiện trải nghiệm người dùng.
+- Gồm các controller quản lý giao diện ứng dụng, thể hiện được workflow của hai loại người dùng: readers và admins.
+- Có tích hợp đa luồng, design pattern để cải thiện trải nghiệm người dùng và hiển thị dữ liệu theo thời gian thực.
 
 #### **API**
-- Thực hiện request get để lấy được các thông tin cần thiết của sách:
+- Thực hiện request get để lấy được các thông tin cần thiết của sách và insert vào database của ứng dụng:
 
 ![img.png](src/main/resources/ui/readme/img.png)
 
 #### **Config**
 - Gồm các lớp thực hiện việc kết nối với database và điểm gọi API.
 #### **Utils**
-- Gồm các lớp tiện ích sử dụng xuyên suốt chương trình.
+- Gồm các lớp tiện ích sử dụng xuyên suốt chương trình
++ Check: đảm bảo tính đúng đắn của định dạng dữ liệu vào khi người dùng đăng nhập và đăng ký tài khoản.
++ DateFormat: chuyển kiểu dữ liệu ngày giờ để insert vào database.
++ FilterPopup: hiển thị tiêu chí tìm kiếm.
++ LoadImage: tích hợp đa luồng để hiển thị ảnh, tránh việc giao diện bị treo.
++ LoadView: hiển thị các cửa sổ giao diện.
++ SceneSwitcher: chuyển đổi giữa các cửa sổ giao diện một cách mượt mà.
+
   ![img_3.png](src/main/resources/ui/readme/img_3.png)
 ---
 ### 2. Bảng đóng góp của thành viên
-| Thành viên         | Công việc chính                                                                                                                                                                                                                                                                                                                     |
-|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Nguyễn Thùy Linh   | - Thiết kế cấu trúc cơ sở dữ liệu<br/>- Tham gia xây dựng tính năng trong giao diện admin<br/>-Thiết kế giao diện login, signup và user<br/>-Tham gia xây dựng các lớp DAO <br/>- Tham gia xây dựng utils<br/>-Xây dựng lớp gọi API<br/>- Tạo tính năng generate QR Code.                                                                                                         |
-| Trần Hoàng Mai Anh | - Xây dựng controller tích hợp đa luồng của giao diện admin và user<br/>-Thiết kế tính năng, giao diện cho admin và user<br/>-Tham gia xây dựng các lớp DAO<br/>- Xây dựng các lớp trong model đại diện cho đối tượng trong ứng dụng <br/>- Tham gia xây dựng utils<br/>- Tham gia xây dựng cơ sở dữ liệu<br/>-Xây dựng lớp gọi API<br/>-Ứng dụng design pattern cho dự án.
-| Lê Huyền Linh      | -Tham gia xây dựng các lớp DAO<br/>- Tham gia thiết kế giao diện user<br/>- Tham gia xây dựng SearchBookScreenController cho giao diện user<br/>- Tham gia xây dựng tính năng preview on screen, tính năng recommend sách dựa trên lượt requests, tính răng review sách<br/>- Thêm thao tác log out ở giao diện admin.                                                 |
+| Thành viên         | Công việc chính                                                                                                                                                                                                                                                                                                                                                             |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Nguyễn Thùy Linh   | - Thiết kế cấu trúc cơ sở dữ liệu<br/>- Tham gia xây dựng tính năng trong giao diện admin<br/>-Thiết kế giao diện login, signup và user<br/>-Tham gia xây dựng các lớp DAO <br/>- Tham gia xây dựng utils<br/>-Xây dựng lớp gọi API<br/>- Tạo tính năng generate QR Code.<br/>- Tham gia viết test cho dự án.                                                               |
+| Trần Hoàng Mai Anh | - Xây dựng controller tích hợp đa luồng của giao diện admin và user<br/>- Thiết kế tính năng, giao diện cho admin và user<br/>- Tham gia xây dựng các lớp DAO<br/>- Xây dựng các lớp trong model đại diện cho đối tượng trong ứng dụng <br/>- Tham gia xây dựng utils<br/>- Tham gia xây dựng cơ sở dữ liệu<br/>- Xây dựng lớp gọi API<br/>- Ứng dụng design pattern cho dự án.<br/>- Tham gia viết test cho dự án.
+| Lê Huyền Linh      | -Tham gia xây dựng các lớp DAO<br/>- Tham gia thiết kế giao diện user<br/>- Tham gia xây dựng SearchBookScreenController cho giao diện user<br/>- Tham gia xây dựng tính năng preview on screen, tính năng recommend sách dựa trên lượt requests, tính răng review sách<br/>- Thêm thao tác log out ở giao diện admin.                                                      |
 
 ---
-
-
 ### 3. Dependencies để chạy dự án
 Dự án sử dụng *Gradle* để quản lý các thư viện.  
 Dưới đây là các dependencies chính:

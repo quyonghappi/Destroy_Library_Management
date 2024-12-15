@@ -24,12 +24,6 @@ public class BorrowedBooksCell extends ListCell<BorrowingRecord> {
         }
     }
 
-    public void setListView(ListView<BorrowingRecord> lv) {
-        if (borrowedBooksBox != null) {
-            borrowedBooksCellController.setListView(lv);
-        }
-    }
-
     @Override
     protected void updateItem(BorrowingRecord item, boolean empty) {
         super.updateItem(item, empty);

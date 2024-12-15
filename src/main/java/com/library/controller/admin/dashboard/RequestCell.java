@@ -20,7 +20,6 @@ public class RequestCell extends ListCell<Reservation> {
         }
     }
 
-
     public void setParentController(AdminDashboardController parentController) {
         if (requestController != null) {
             requestController.setParentController(parentController);

@@ -34,9 +34,6 @@ public class AdminDashboardController implements Initializable {
     StackPane dashboardRoot;
 
     @FXML
-    private HBox aboutContainer;
-
-    @FXML
     private HBox booksContainer;
 
     @FXML
@@ -115,7 +112,7 @@ public class AdminDashboardController implements Initializable {
         };
 
         loadTask.setOnSucceeded(event -> {
-            refreshListView(loadTask.getValue());
+            refreshOverdueListView(loadTask.getValue());
         });
         loadTask.setOnFailed(event -> {
             System.out.println("fail to load fine info" + loadTask.getException());
@@ -131,7 +128,7 @@ public class AdminDashboardController implements Initializable {
             }
         };
         loadTask.setOnSucceeded(event -> {
-            refreshListView1(loadTask.getValue());
+            refreshRequestListView(loadTask.getValue());
         });
         loadTask.setOnFailed(event -> {
             System.out.println("fail to load request info" + loadTask.getException());
@@ -139,17 +136,17 @@ public class AdminDashboardController implements Initializable {
         new Thread(loadTask).start();
     }
 
-    private void refreshListView(List<Fine> fine) {
+    private void refreshOverdueListView(List<Fine> fine) {
         overdueDetailContainer.setCellFactory(param-> {
             OverdueCell overdueCell=new OverdueCell();
             overdueCell.setParentController(this);
             return overdueCell;
         });
         overdueDetailContainer.getItems().addAll(fineList);
-        sortListView();
+        sortOverdueListView();
     }
 
-    private void refreshListView1(List<Reservation> reservations) {
+    private void refreshRequestListView(List<Reservation> reservations) {
         requestDetailContainer.setCellFactory(param ->
         {
             RequestCell requestCell = new RequestCell();
@@ -157,7 +154,7 @@ public class AdminDashboardController implements Initializable {
             return requestCell;
         });
         requestDetailContainer.getItems().addAll(reservations);
-        sortListView1();
+        sortRequestListView();
     }
 
     private List<Reservation> getReservationList() {
@@ -168,7 +165,7 @@ public class AdminDashboardController implements Initializable {
         return fineDao.getAll();
     }
 
-    public void sortListView1() {
+    public void sortRequestListView() {
         requestDetailContainer.getItems().sort((r1, r2) -> {
             if ("active".equals(r1.getStatus()) && !"active".equals(r2.getStatus())) {
                 return -1;
@@ -179,7 +176,7 @@ public class AdminDashboardController implements Initializable {
         });
     }
 
-    public void sortListView() {
+    public void sortOverdueListView() {
         overdueDetailContainer.getItems().sort((r1, r2) -> {
             if ("UNPAID".equals(r1.getStatus()) && !"UNPAID".equals(r2.getStatus())) {
                 return -1;  // r1 comes before r2

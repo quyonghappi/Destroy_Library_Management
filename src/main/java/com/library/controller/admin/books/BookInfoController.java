@@ -32,9 +32,6 @@ public class BookInfoController implements Initializable, Observer {
     StackPane bookInfoRoot;
 
     @FXML
-    private HBox aboutContainer;
-
-    @FXML
     private Label addBookButton;
 
     @FXML
@@ -87,8 +84,6 @@ public class BookInfoController implements Initializable, Observer {
 
     private DocumentDao documentDao= DocumentDao.getInstance();
     List<Document> documentList=new ArrayList<>();
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

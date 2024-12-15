@@ -22,15 +22,8 @@ public class LendBookController {
     private TextField bookDetailsField;
 
     @FXML
-    private Button cancelButton;
-
-    @FXML
-    private Button confirmButton;
-
-    @FXML
     private TextField usernameField;
 
-    private UserDao userDao=new UserDao();
     private BorrowingRecordDao borrowingRecordDao=new BorrowingRecordDao();
 
     @FXML

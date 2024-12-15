@@ -7,10 +7,7 @@ import javafx.scene.control.ListCell;
 import com.library.models.Review;
 import com.library.dao.UserDao;
 
-import static com.library.dao.UserDao.findUserByName;
-
 public class ReviewCell extends ListCell<Review> {
-
     @Override
     protected void updateItem(Review review, boolean empty) {
         super.updateItem(review, empty);
@@ -39,6 +36,5 @@ public class ReviewCell extends ListCell<Review> {
             setGraphic(reviewBox);
         }
     }
-
 
 }

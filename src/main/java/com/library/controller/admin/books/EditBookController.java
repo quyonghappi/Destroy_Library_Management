@@ -16,12 +16,6 @@ public class EditBookController {
     private TextField copiesQuantityField;
 
     @FXML
-    private Button cancelButton;
-
-    @FXML
-    private Button confirmButton;
-
-    @FXML
     private TextField locationField;
 
     private DocumentDao documentDao = DocumentDao.getInstance();

@@ -40,21 +40,10 @@ public class LoginAdminController {
     @FXML
     private ImageView returnBack;
 
-
-
-
-
     private final UserDao userDao = new UserDao();
     private Parent root;
     private Scene scene;
     private Stage stage;
-
-//
-//    public void setReturn() {
-//        returnBack.setOnMouseClicked(mouseEvent -> {
-//
-//        });
-//    }
 
     //good good :3
     //to tach thanh login cua admin -> chuyen sang man hinh admin

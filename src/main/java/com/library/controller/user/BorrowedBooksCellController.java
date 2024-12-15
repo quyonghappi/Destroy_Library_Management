@@ -46,14 +46,9 @@ public class BorrowedBooksCellController {
     @FXML
     private Label isbnLabel;
 
-    private ListView<BorrowingRecord> listView;
     private BorrowingRecord borrowedBook;
     private DocumentDao documentDao=DocumentDao.getInstance();
     private FineDao fineDao=FineDao.getInstance();
-
-    public void setListView(ListView<BorrowingRecord> lv){
-        this.listView=lv;
-    }
 
     public void loadBorrowedBooks(BorrowingRecord br) throws SQLException {
         if (br != null) {

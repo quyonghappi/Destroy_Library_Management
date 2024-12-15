@@ -29,27 +29,6 @@ public class SearchBooksScreenController implements Initializable {
 
     @FXML
     private StackPane searchScreenRoot;
-
-    @FXML
-    private Label bestBookAuthor;
-
-    @FXML
-    private ImageView bestBookImage;
-
-    @FXML
-    private Label bestBookTitle;
-
-    @FXML
-    private Label category;
-
-    @FXML
-    private Label pages;
-
-    @FXML
-    private Label publisher;
-
-
-
     @FXML
     public HBox homeNav;
     @FXML
@@ -74,18 +53,11 @@ public class SearchBooksScreenController implements Initializable {
 //    @FXML
 //    private VBox searchResultsContainer;
 
-
-    @FXML
-    //private VBox searchResultsContainer; // StackPane for displaying search results or messages
-
     private FlowPane searchResultsContainer;
 
     private String username;
     private DocumentDao documentDao = DocumentDao.getInstance();
     private List<Document> filteredDocuments;
-    private List<Document> allDocuments;
-
-    private List<Document> recentlyAdded;
 
     public void setUsername(String username) {
         this.username = username;
@@ -93,7 +65,6 @@ public class SearchBooksScreenController implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         searchField.textProperty().addListener(event -> onSearchBooks());
-//        loadAllBooks();
 
         homeNav.setOnMouseClicked(event -> {
             String userFullName = memNameLabel.getText();

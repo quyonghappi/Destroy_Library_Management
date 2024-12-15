@@ -157,8 +157,7 @@ public class ReturnBookController implements Initializable {
                 event-> {
                     returnDetailContainer.setCellFactory(param ->
                     {
-                        ReturnBookCell returnBookCell=new ReturnBookCell();
-                        return returnBookCell;
+                        return new ReturnBookCell();
                     });
                     returnDetailContainer.getItems().setAll(loadTask.getValue());
                 }

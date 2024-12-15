@@ -48,14 +48,12 @@ public class UserRequestController implements Initializable, Observer {
     @FXML
     private HBox searchNav;
 
-    //private boolean observerAdded = false;
     private String username;
     private ReservationDao reservationDao;
     private DocumentDao documentDao = DocumentDao.getInstance();
 
     public void setUsername(String username) {
         this.username = username;
-        //System.out.println("Username set: " + username);
         loadUserRequestList();
 
     }

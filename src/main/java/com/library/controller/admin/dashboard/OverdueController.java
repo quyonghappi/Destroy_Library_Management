@@ -111,7 +111,7 @@ public class OverdueController {
             updateButtonVisibility("PAID");
             fineDao.changeFineStatus(Integer.parseInt(recordIdLabel.getText()));
             if (parentController != null) {
-                parentController.sortListView();
+                parentController.sortOverdueListView();
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

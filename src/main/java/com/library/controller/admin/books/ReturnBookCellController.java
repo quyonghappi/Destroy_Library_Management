@@ -50,10 +50,6 @@ public class ReturnBookCellController {
     private DocumentDao documentDao = DocumentDao.getInstance();
     private UserDao userDao = new UserDao();
 
-    public void setListView(ListView<BorrowingRecord> listView) {
-        this.listView = listView;
-    }
-
     public void loadReturnedBook(BorrowingRecord br) throws SQLException {
         if (br != null) {
             currentBr = br;

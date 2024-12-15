@@ -37,8 +37,6 @@ public class BorrowingRecordDao implements DAO<BorrowingRecord> {
             while (rs.next()) {
                 int userId = rs.getInt("user_id");
                 String isbn = rs.getString("isbn");
-//                Timestamp borrowDate = rs.getTimestamp("borrow_date");
-//                Timestamp returnDate = rs.getTimestamp("return_date");
                 Timestamp borrowDate=rs.getTimestamp("borrow_date");
                 Timestamp returnDate=rs.getTimestamp("return_date");
                 String status = rs.getString("status");

@@ -32,12 +32,6 @@ public class LoginUserController {
     public PasswordField passwordField;
 
     @FXML
-    private CheckBox rememberMeCheckBox;
-
-    @FXML
-    private Hyperlink forgotPasswordLink;
-
-    @FXML
     private Hyperlink signUpLink;
 
     @FXML

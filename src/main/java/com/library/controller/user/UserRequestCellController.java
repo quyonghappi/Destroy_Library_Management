@@ -44,15 +44,9 @@ public class UserRequestCellController implements Initializable {
     @FXML
     private Label statusLabel;
 
-    //private UserRequestController parent;
-    //private ListView<Reservation> listView;
     private Reservation current;
     private DocumentDao documentDao= DocumentDao.getInstance();
     private ReservationDao reservationDao = ReservationDao.getInstance();
-
-//    public void setListView(ListView<Reservation> lv){
-//        this.listView=lv;
-//    }
 
     public void loadUserRequest(Reservation r) throws SQLException {
         if (r != null) {

@@ -12,15 +12,6 @@ import javafx.scene.layout.StackPane;
 
 public class AddMemController {
     @FXML
-    private StackPane root;
-
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private Button confirmButton;
-
-    @FXML
     private TextField emailField;
 
     @FXML

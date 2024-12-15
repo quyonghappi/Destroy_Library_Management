@@ -22,7 +22,6 @@ public class ReturnBookCell extends ListCell<BorrowingRecord> {
         }
     }
 
-
     @Override
     protected void updateItem(BorrowingRecord item, boolean empty) {
         super.updateItem(item, empty);

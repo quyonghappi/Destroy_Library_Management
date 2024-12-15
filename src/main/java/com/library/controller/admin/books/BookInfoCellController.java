@@ -18,9 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-
 import static com.library.utils.LoadImage.loadImageLazy;
 
 public class BookInfoCellController extends ListCell<Document> implements Initializable {
@@ -99,11 +97,6 @@ public class BookInfoCellController extends ListCell<Document> implements Initia
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Admin/Books/EditBookInfo.fxml"));
             StackPane root = loader.load();
-//            Rectangle darkBackground = new Rectangle();
-//            darkBackground.setFill(Color.color(0, 0, 0, 0.7)); //black with 70% opacity
-//            darkBackground.widthProperty().bind(root.widthProperty());
-//            darkBackground.heightProperty().bind(root.heightProperty());
-
             EditBookController controller = loader.getController();
             controller.setDocument(currentDocument);
             Stage stage = new Stage();

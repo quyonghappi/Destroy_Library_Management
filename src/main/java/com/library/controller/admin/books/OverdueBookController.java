@@ -79,7 +79,6 @@ public class OverdueBookController implements Initializable, Observer {
     @FXML
     private Button logOut;
 
-    private BorrowingRecordDao borrowingRecordDao= new BorrowingRecordDao();
     private FineDao fineDao= FineDao.getInstance();
     List<Fine> fines;
 

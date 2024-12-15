@@ -12,10 +12,6 @@ import java.util.List;
 
 
 public class UserDao implements DAO<User> {
-
-    public UserDao() {
-    }
-
     //get user by id
     public <U> User get(U id) {
         User user = null;
