@@ -36,6 +36,7 @@ Dưới đây là danh sách các package của dự án:
 #### **Controller**
 - Gồm các controller quản lý giao diện ứng dụng, thể hiện được workflow của hai loại người dùng: readers và admins.
 - Có tích hợp đa luồng, design pattern để cải thiện trải nghiệm người dùng và hiển thị dữ liệu theo thời gian thực.
+- Dự đoán ngoại lệ và thông báo bằng việc hiển thị Alert.
 
 #### **API**
 - Thực hiện request get để lấy được các thông tin cần thiết của sách và insert vào database của ứng dụng:
@@ -45,7 +46,7 @@ Dưới đây là danh sách các package của dự án:
 #### **Config**
 - Gồm các lớp thực hiện việc kết nối với database và điểm gọi API.
 #### **Utils**
-- Gồm các lớp tiện ích sử dụng xuyên suốt chương trình
+Gồm các lớp tiện ích sử dụng xuyên suốt chương trình
 + Check: đảm bảo tính đúng đắn của định dạng dữ liệu vào khi người dùng đăng nhập và đăng ký tài khoản.
 + DateFormat: chuyển kiểu dữ liệu ngày giờ để insert vào database.
 + FilterPopup: hiển thị tiêu chí tìm kiếm.
@@ -56,11 +57,11 @@ Dưới đây là danh sách các package của dự án:
   ![img_3.png](src/main/resources/ui/readme/img_3.png)
 ---
 ### 2. Bảng đóng góp của thành viên
-| Thành viên         | Công việc chính                                                                                                                                                                                                                                                                                                                                                             |
-|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Nguyễn Thùy Linh   | - Thiết kế cấu trúc cơ sở dữ liệu<br/>- Tham gia xây dựng tính năng trong giao diện admin<br/>-Thiết kế giao diện login, signup và user<br/>-Tham gia xây dựng các lớp DAO <br/>- Tham gia xây dựng utils<br/>-Xây dựng lớp gọi API<br/>- Tạo tính năng generate QR Code.<br/>- Tham gia viết test cho dự án.                                                               |
-| Trần Hoàng Mai Anh | - Xây dựng controller tích hợp đa luồng của giao diện admin và user<br/>- Thiết kế tính năng, giao diện cho admin và user<br/>- Tham gia xây dựng các lớp DAO<br/>- Xây dựng các lớp trong model đại diện cho đối tượng trong ứng dụng <br/>- Tham gia xây dựng utils<br/>- Tham gia xây dựng cơ sở dữ liệu<br/>- Xây dựng lớp gọi API<br/>- Ứng dụng design pattern cho dự án.<br/>- Tham gia viết test cho dự án.
-| Lê Huyền Linh      | -Tham gia xây dựng các lớp DAO<br/>- Tham gia thiết kế giao diện user<br/>- Tham gia xây dựng SearchBookScreenController cho giao diện user<br/>- Tham gia xây dựng tính năng preview on screen, tính năng recommend sách dựa trên lượt requests, tính răng review sách<br/>- Thêm thao tác log out ở giao diện admin.                                                      |
+| Thành viên         | Công việc chính                                                                                                                                                                                                                                                                                                                                                                                                     |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Nguyễn Thùy Linh   | - Thiết kế cấu trúc cơ sở dữ liệu<br/>- Tham gia xây dựng tính năng trong giao diện admin<br/>- Thiết kế giao diện login, signup và user<br/>- Tham gia xây dựng các lớp DAO <br/>- Tham gia xây dựng utils<br/>- Xây dựng lớp gọi API<br/>- Tạo tính năng generate QR Code.<br/>- Tham gia viết test cho dự án.                                                                                                    |
+| Trần Hoàng Mai Anh | - Xây dựng controller tích hợp đa luồng của giao diện admin và user<br/>- Thiết kế tính năng, giao diện cho admin và user<br/>- Tham gia xây dựng các lớp DAO<br/>- Xây dựng các lớp trong model đại diện cho đối tượng trong ứng dụng <br/>- Tham gia xây dựng utils<br/>- Tham gia xây dựng cơ sở dữ liệu<br/>- Xây dựng lớp gọi API<br/>- Ứng dụng design pattern cho dự án.<br/>- Tham gia viết test cho dự án. 
+| Lê Huyền Linh      | -Tham gia xây dựng các lớp DAO<br/>- Tham gia thiết kế giao diện user<br/>- Tham gia xây dựng SearchBookScreenController cho giao diện user<br/>- Tham gia xây dựng tính năng preview on screen, tính năng recommend sách dựa trên lượt requests, tính răng review sách<br/>- Thêm thao tác log out ở giao diện admin.                                                                                              |
 
 ---
 ### 3. Dependencies để chạy dự án
@@ -113,32 +114,39 @@ Dưới đây là các dependencies chính:
 
 ![home_screen.png](src/main/resources/ui/readme/home_screen.png)
 
-## Favorites + Borrow Books:
+## Favorites + Borrow Books + Request:
 - Lưu sách vào yêu thích & mượn sách
 
 ![borrowed_screen.png](src/main/resources/ui/readme/borrowed_screen.png)
 
 ![favo_screen.png](src/main/resources/ui/readme/favo_screen.png)
 
+![user_request_scene.png](src/main/resources/ui/readme/user_request_scene.png)
+
 
 ## Admin Dashboard
-- Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng
+- Bao gồm chức năng cao nhất là quản lý thông tin: Sách & Người dùng.
 
 ![admin_home.png](src/main/resources/ui/readme/admin_home.png)
 
 ## Book Management
-- Quản lý thông tin sách nhập vào từ API
-
+- Quản lý thông tin sách với các filter hiển thị sách và các thao tác.
+- Thêm sách bằng Add Book.
+- Admin có thể chỉnh sửa thông tin sách, xóa sách(với những sách đang không có ai mượn).
 ![allBook_screen.png](src/main/resources/ui/readme/allBook_screen.png)
-
+- Thao tác của Admin: xác nhận cuốn sách này đã được trả, xác nhận cuốn sách đã bị mất.
 ![lent_screen.png](src/main/resources/ui/readme/lent_screen.png)
-
+- Admin có thể theo dõi ngày mượn, trả của các cuốn sách đã được trả.
 ![return_screen.png](src/main/resources/ui/readme/return_screen.png)
-
+- Thao tác của Admin: xác nhận khoản tiền phạt đã được trả bởi người mượn.
+- Các khoản tiền phạt sẽ bị tăng 5000 đồng mỗi ngày nếu trạng thái khoản phạt này là UNPAID thông qua event trong database.
 ![overDue_screen.png](src/main/resources/ui/readme/overDue_screen.png)
-
+- Admin lựa chọn chấp nhận hoặc từ chối cho mượn.
+- Với những sách không đủ số lượng nhưng admin lựa chọn chấp nhận, Alert sẽ xuất hiện.
 ![request_screen.png](src/main/resources/ui/readme/request_screen.png)
-
-   
-
+## Member Management
+- Quản lý thông tin người dùng, Admin có quyền sửa đổi mật khẩu hoặc khóa tài khoản người dùng(sẽ yêu cầu xác nhận trước khi khóa).
+- Người dùng sau khi bị khóa tài khoản sẽ không thể đăng nhập.
+- Để mở khóa tài khoản, admin nhấn lần nữa vào biểu tượng khóa.
+![mem_manage.png](src/main/resources/ui/readme/mem_manage.png)
 
